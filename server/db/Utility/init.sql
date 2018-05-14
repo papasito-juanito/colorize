@@ -15,6 +15,8 @@ INSERT INTO `categories2` (`categories_id`,`category2Name`) VALUES
 ((SELECT `id` FROM `categories` WHERE `categoryName` = 'Lip'),'립틴트');
 INSERT INTO `categories2` (`categories_id`,`category2Name`) VALUES
 ((SELECT `id` FROM `categories` WHERE `categoryName` = 'Lip'),'립밤');
+INSERT INTO `categories2` (`categories_id`,`category2Name`) VALUES
+((SELECT `id` FROM `categories` WHERE `categoryName` = 'Lip'),'립라커');
 
 INSERT INTO `brands` (`brandName`) VALUES
 ('입생로랑');
@@ -27,40 +29,16 @@ INSERT INTO `brands` (`brandName`) VALUES
 INSERT INTO `brands` (`brandName`) VALUES
 ('맥');
 
-INSERT INTO `colorFamilies` (`familyName`,`familyRGB`) VALUES
-('Nude','rgb(218, 140, 127)');
-INSERT INTO `colorFamilies` (`familyName`,`familyRGB`) VALUES
-('Coral','rgb(255, 104, 104)');
-INSERT INTO `colorFamilies` (`familyName`,`familyRGB`) VALUES
-('Orange','rgb(255, 92, 28)');
-INSERT INTO `colorFamilies` (`familyName`,`familyRGB`) VALUES
-('Red','rgb(229, 18, 32)');
-INSERT INTO `colorFamilies` (`familyName`,`familyRGB`) VALUES
-('Pink','rgb(255, 96, 162)');
-INSERT INTO `colorFamilies` (`familyName`,`familyRGB`) VALUES
-('Berry','rgb(167, 8, 73)');
-INSERT INTO `colorFamilies` (`familyName`,`familyRGB`) VALUES
-('Burgundy','rgb(128, 0, 32)');
-INSERT INTO `colorFamilies` (`familyName`,`familyRGB`) VALUES
-('Purple','rgb(128, 0, 128)');
-
 INSERT INTO `tones` (`toneName`) VALUES
-('Warm');
+('Spring');
 INSERT INTO `tones` (`toneName`) VALUES
-('Cool');
+('Summer');
+INSERT INTO `tones` (`toneName`) VALUES
+('Autumn');
+INSERT INTO `tones` (`toneName`) VALUES
+('Winter');
 INSERT INTO `tones` (`toneName`) VALUES
 ('Unknown');
-
-INSERT INTO `toneDetails` (`tones_id`,`toneDetail`) VALUES
-((SELECT `id` FROM `tones` WHERE `toneName` = 'warm'),'Spring');
-INSERT INTO `toneDetails` (`tones_id`,`toneDetail`) VALUES
-((SELECT `id` FROM `tones` WHERE `toneName` = 'cool'),'Summer');
-INSERT INTO `toneDetails` (`tones_id`,`toneDetail`) VALUES
-((SELECT `id` FROM `tones` WHERE `toneName` = 'warm'),'Autumn');
-INSERT INTO `toneDetails` (`tones_id`,`toneDetail`) VALUES
-((SELECT `id` FROM `tones` WHERE `toneName` = 'cool'),'Winter');
-INSERT INTO `toneDetails` (`tones_id`,`toneDetail`) VALUES
-((SELECT `id` FROM `tones` WHERE `toneName` = 'unknown'),'Unknown');
 
 INSERT INTO `skins` (`skinName`) VALUES
 ('건성');

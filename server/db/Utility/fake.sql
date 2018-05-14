@@ -21,15 +21,15 @@ INSERT INTO `items` (`categories2_id`,`brands_id`,`itemName`,`itemVolume`,`itemP
 INSERT INTO `items` (`categories2_id`,`brands_id`,`itemName`,`itemVolume`,`itemPrice`,`itemDetail`) VALUES
 ('4','5','이슬','18%','4000','참이슬');
 
-INSERT INTO `userDetails` (`toneDetails_id`,`skins_id`) VALUES
+INSERT INTO `userDetails` (`tones_id`,`skins_id`) VALUES
 ('1','4');
-INSERT INTO `userDetails` (`toneDetails_id`,`skins_id`) VALUES
+INSERT INTO `userDetails` (`tones_id`,`skins_id`) VALUES
 ('2','3');
-INSERT INTO `userDetails` (`toneDetails_id`,`skins_id`) VALUES
+INSERT INTO `userDetails` (`tones_id`,`skins_id`) VALUES
 ('3','2');
-INSERT INTO `userDetails` (`toneDetails_id`,`skins_id`) VALUES
+INSERT INTO `userDetails` (`tones_id`,`skins_id`) VALUES
 ('4','1');
-INSERT INTO `userDetails` (`toneDetails_id`,`skins_id`) VALUES
+INSERT INTO `userDetails` (`tones_id`,`skins_id`) VALUES
 ('5','4');
 
 INSERT INTO `users` (`userMail`,`userPassword`,`userName`,`userDetails_id`,`birthDate`,`gender`) VALUES
@@ -43,47 +43,26 @@ INSERT INTO `users` (`userMail`,`userPassword`,`userName`,`userDetails_id`,`birt
 INSERT INTO `users` (`userMail`,`userPassword`,`userName`,`userDetails_id`,`birthDate`,`gender`) VALUES
 ('visitor@code.com','1234','vegita','5','1999-09-09','trans');
 
-INSERT INTO `itemColors` (`items_id`,`itemPhoto`,`itemColor`,`itemRGB`,`itemRelease`) VALUES
+INSERT INTO `itemColors` (`items_id`,`itemPhoto`,`itemColor`,`itemHex`,`itemDate`) VALUES
 ('1','김치','신당동할매','#224466',now());
-INSERT INTO `itemColors` (`items_id`,`itemPhoto`,`itemColor`,`itemRGB`,`itemRelease`) VALUES
+INSERT INTO `itemColors` (`items_id`,`itemPhoto`,`itemColor`,`itemHex`,`itemDate`) VALUES
 ('2','김치','신당동며느리','#25626',now());
-INSERT INTO `itemColors` (`items_id`,`itemPhoto`,`itemColor`,`itemRGB`,`itemRelease`) VALUES
+INSERT INTO `itemColors` (`items_id`,`itemPhoto`,`itemColor`,`itemHex`,`itemDate`) VALUES
 ('3','김치','일산칼국수','#663362',now());
-INSERT INTO `itemColors` (`items_id`,`itemPhoto`,`itemColor`,`itemRGB`,`itemRelease`) VALUES
+INSERT INTO `itemColors` (`items_id`,`itemPhoto`,`itemColor`,`itemHex`,`itemDate`) VALUES
 ('4','김치','일산26남','#663363',now());
-INSERT INTO `itemColors` (`items_id`,`itemPhoto`,`itemColor`,`itemRGB`,`itemRelease`) VALUES
+INSERT INTO `itemColors` (`items_id`,`itemPhoto`,`itemColor`,`itemHex`,`itemDate`) VALUES
 ('5','김치','대전텃밭','#221156',now());
-INSERT INTO `itemColors` (`items_id`,`itemPhoto`,`itemColor`,`itemRGB`,`itemRelease`) VALUES
+INSERT INTO `itemColors` (`items_id`,`itemPhoto`,`itemColor`,`itemHex`,`itemDate`) VALUES
 ('6','김치','대전과수원','#225533',now());
-INSERT INTO `itemColors` (`items_id`,`itemPhoto`,`itemColor`,`itemRGB`,`itemRelease`) VALUES
+INSERT INTO `itemColors` (`items_id`,`itemPhoto`,`itemColor`,`itemHex`,`itemDate`) VALUES
 ('7','김치','울산바위','#115533',now());
-INSERT INTO `itemColors` (`items_id`,`itemPhoto`,`itemColor`,`itemRGB`,`itemRelease`) VALUES
+INSERT INTO `itemColors` (`items_id`,`itemPhoto`,`itemColor`,`itemHex`,`itemDate`) VALUES
 ('8','김치','울산아구찜','#994422',now());
-INSERT INTO `itemColors` (`items_id`,`itemPhoto`,`itemColor`,`itemRGB`,`itemRelease`) VALUES
+INSERT INTO `itemColors` (`items_id`,`itemPhoto`,`itemColor`,`itemHex`,`itemDate`) VALUES
 ('9','김치','어둠제천','#13839',now());
-INSERT INTO `itemColors` (`items_id`,`itemPhoto`,`itemColor`,`itemRGB`,`itemRelease`) VALUES
+INSERT INTO `itemColors` (`items_id`,`itemPhoto`,`itemColor`,`itemHex`,`itemDate`) VALUES
 ('10','김치','분당천당','#587333',now());
-
-INSERT INTO `colorFamilies_itemColors` (`itemColors_id`,`colorFamilies_id`) VALUES
-('1','1');
-INSERT INTO `colorFamilies_itemColors` (`itemColors_id`,`colorFamilies_id`) VALUES
-('2','3');
-INSERT INTO `colorFamilies_itemColors` (`itemColors_id`,`colorFamilies_id`) VALUES
-('3','2');
-INSERT INTO `colorFamilies_itemColors` (`itemColors_id`,`colorFamilies_id`) VALUES
-('4','1');
-INSERT INTO `colorFamilies_itemColors` (`itemColors_id`,`colorFamilies_id`) VALUES
-('5','4');
-INSERT INTO `colorFamilies_itemColors` (`itemColors_id`,`colorFamilies_id`) VALUES
-('6','1');
-INSERT INTO `colorFamilies_itemColors` (`itemColors_id`,`colorFamilies_id`) VALUES
-('7','3');
-INSERT INTO `colorFamilies_itemColors` (`itemColors_id`,`colorFamilies_id`) VALUES
-('8','1');
-INSERT INTO `colorFamilies_itemColors` (`itemColors_id`,`colorFamilies_id`) VALUES
-('9','2');
-INSERT INTO `colorFamilies_itemColors` (`itemColors_id`,`colorFamilies_id`) VALUES
-('10','1');
 
 INSERT INTO `wishLists` (`items_id`,`users_id`) VALUES
 ('1','1');

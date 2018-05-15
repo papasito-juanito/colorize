@@ -2,8 +2,8 @@
 const router = require('express').Router();
 
 // Local import
-const model = require('../../models');
+const model = require('../../models/users');
 
-router.get('/color/*', model.user.get);
+router.post('/register', model.register);
 
 module.exports = router;

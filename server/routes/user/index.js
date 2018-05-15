@@ -2,12 +2,14 @@
 const router = require('express').Router();
 
 // Local import
+const register = require('./register');
 const signup = require('./signup');
 const login = require('./login');
-const logout = require('./logout');
+const delUser = require('./delUser');
 
+router.use('/register', register);
 router.use('/signup', signup);
 router.use('/login', login);
-router.use('/logout', logout);
+router.use('/delUser', delUser);
 
 module.exports = router;

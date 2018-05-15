@@ -2,11 +2,10 @@
 const UserInfo = require('./UserInfo');
 const Write = require('./Write');
 const Modify = require('./Modify');
-const Delete = require('./Delete');
+const DelReview = require('./DelReview');
 const ItemReview = require('./ItemReview');
 const MyReview = require('./MyReview');
-const Delete = require('./Delete');
 
-const Reviews = { UserInfo, Write, Modify, Delete, ItemReview, MyReview, Delete };
+const Reviews = { UserInfo, Write, Modify, DelReview, ItemReview, MyReview };
 
 module.exports = Reviews;

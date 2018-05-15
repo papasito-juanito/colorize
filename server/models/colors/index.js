@@ -1,5 +1,5 @@
 // Local import
-const color = require('./Color');
+const color = require('./color');
 
 const colors = { color };
 

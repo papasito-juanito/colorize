@@ -2,8 +2,8 @@
 const router = require('express').Router();
 
 // Local import
-const model = require('../../models');
+const wishList = require('./wishList');
 
-router.get('/logout', model.user.get);
+router.use('/wishList', wishList);
 
 module.exports = router;

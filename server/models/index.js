@@ -1,8 +1,10 @@
 // Local import
-const user = require('./users');
-const item = require('./items');
-const review = require('./reviews');
+const users = require('./users');
+const colors = require('./colors');
+const items = require('./items');
+const reviews = require('./reviews');
+const wishLists = require('./wishLists');
 
-const model = {user, item, review};
+const model = { users, colors, items, reviews, wishLists };
 
 module.exports = model;

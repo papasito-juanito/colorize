@@ -1,12 +1,12 @@
 // Local import
 const db = require('../../db');
-const queryStr = require('../../db/Users');
+const queryStr = require('../../db/Users/Login');
 
-const Login = function(queryStr, cb) {
-  db.query(queryStr, function(err, row) {
-    console.log();
-    cb(err, row)
+const login = function(queryStr, cb) {
+  db.query(queryStr, function(err, rows) {
+    console.log('[model     ] fetch rows from users table in database...');
+    cb(err, rows)
   })
 }
 
-module.exports = Login;
+module.exports = login;

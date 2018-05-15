@@ -2,8 +2,8 @@
 const Register = require('./Register');
 const Signup = require('./Signup');
 const Login = require('./Login');
-const Delete = require('./Delete');
+const DelUser = require('./DelUser');
 
-const Users = { Register, Signup, Login, Delete };
+const Users = { Register, Signup, Login, DelUser };
 
 module.exports = Users;

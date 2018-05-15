@@ -2,8 +2,8 @@
 const router = require('express').Router();
 
 // Local import
-const model = require('../../models');
+const model = require('../../models/colors');
 
-router.get('/color/*', model.user.get);
+router.get('/color/*', model.color);
 
 module.exports = router;

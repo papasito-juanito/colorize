@@ -6,9 +6,9 @@ const Users = require('./Users');
 const Colors = require('./Colors');
 const Items = require('./Items');
 const Reviews = require('./Reviews');
-const WishLists = require('/WishLists');
+const WishLists = require('./WishLists');
 
-const db = mysql.createConnection({
+let db = mysql.createConnection({
   user: 'root',
   password: '',
   database: 'colorize'

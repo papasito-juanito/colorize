@@ -1,13 +1,25 @@
-import React, { Component } from 'react';
+import React from 'react';
+import styled from 'styled-components';
 
-class HomeColors extends Component{
-    render(){
+const ColorFamilyContainer = styled.div`
+    position:absolute;
+    margin-top:15%
+
+`
+
+const ColorFamily= styled.div`
+    width: 300px;
+    height: 400px;
+    margin: 10px;
+    background-color: yellow;
+`
+
+const HomeColors = (props) => {
         return (
-            <div>
-                asd
-            </div>
+            <ColorFamilyContainer>
+                <ColorFamily />
+            </ColorFamilyContainer>
         );
-    }
 };
 
 export default HomeColors;

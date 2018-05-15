@@ -11,9 +11,8 @@ const ItemListContainer = styled.div`
 //가운데로 필요
 const Ul = styled.ul`
     position: absolute;
-    margin-left:5%
     height: 100%;
-    width: 90%;
+    width: 100%;
     background-color: yellow;
     display:flex;
     flex-direction: row;

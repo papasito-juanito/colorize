@@ -2,8 +2,9 @@ import * as types from './Types';
 
 
 //액션을 생성하는 함수
-export const setItem = () => ({
+export const setItem = (color) => ({
     type: types.SET_ITEM,
+    color
 });
 
 //auth

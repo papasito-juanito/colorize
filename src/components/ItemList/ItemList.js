@@ -3,15 +3,11 @@ import Items from './Items'
 import Sort from './Sort'
 
 
-const ItemList = ({image, color, desc}) => {    
+const ItemList = () => {    
     return (
         <div>
         <Sort />
-        <Items 
-        image={image}
-        color={color}
-        desc={desc}
-        />
+        <Items/>
         </div>
      
     )

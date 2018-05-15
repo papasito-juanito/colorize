@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import lipImage from '../assets/lipImage.png';
+import { Link } from 'react-router-dom';
 
 const NavContatiner = styled.header`
     background-color: pink;
@@ -23,13 +24,52 @@ const NaveRightImage = styled.img`
     width: 10%
     float: inherit;
 `
-const NaveRightTexts= styled.h2`
-    float:inherit;
-`
-const NaveRightMy = styled.button`
-    float:inherit;
+
+const DropDownContent = styled.div`
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+
 `
 
+const DropDown = styled.div`
+    float: inherit;
+    overflow: hidden;
+    &:hover {
+        background-color: red;
+        ${DropDownContent}{
+            display: block
+        }
+    }
+`
+const DropBtn = styled.button`
+    font-size: 16px;    
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+`
+const StyledLink = styled(Link)`
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    &:hover {
+        background-color: #ddd;
+    }
+    &:visited {
+        color: black;
+        text-decoration: none;
+    }  
+`
 
 
 const Nav = () => {
@@ -37,8 +77,14 @@ const Nav = () => {
         <NavContatiner>
             <NavLeft>Colorize</NavLeft>
             <NaveRightContainer>
-                <NaveRightMy>My Libs</NaveRightMy>
-                <NaveRightTexts>로그인, 로그아웃</NaveRightTexts>
+                 <DropDown>
+                     <DropBtn>My Lips</DropBtn>
+                     <DropDownContent>
+                         <StyledLink to="/wishlist" style={{ textDecoration: 'none' }}> 위시리스트 </StyledLink>
+                         <StyledLink to="/review" style={{ textDecoration: 'none' }}> 내리뷰 </StyledLink>
+                         <StyledLink to="/login" style={{ textDecoration: 'none' }}> 로그인 </StyledLink>
+                     </DropDownContent>
+                 </DropDown>    
                 <NaveRightImage src={lipImage}/>
             </NaveRightContainer>
         </NavContatiner>

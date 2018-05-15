@@ -5,6 +5,8 @@ import lipImage from '../../assets/lipImage.png';
 const TitleContainer = styled.div`
    background-color: white;
    text-align:center;
+   position: fixed;
+   width: 100%;
 `
 
 const Title = styled.span`
@@ -20,7 +22,7 @@ const TitleImage = styled.img`
 const HomeTitle = () => {
     return (
         <TitleContainer>
-        <TitleImage src={lipImage}/>
+            <TitleImage src={lipImage}/>
             <Title>Pick Your Color</Title>
         </TitleContainer>
     );

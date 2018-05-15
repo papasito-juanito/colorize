@@ -1,6 +1,6 @@
 // Local import
-const color = require('./color');
+const Color = require('./Color');
 
-const Color = { color };
+const Colors = { Color };
 
-module.exports = Color;
+module.exports = Colors;

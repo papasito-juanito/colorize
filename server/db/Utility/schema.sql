@@ -2,7 +2,7 @@ DROP DATABASE IF EXISTS `colorize`;
 CREATE DATABASE `colorize`;
 USE `colorize`;
 
-DROP TABLE IF EXISTS `users`;	
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `userMail` VARCHAR(20) NOT NULL,
@@ -12,6 +12,7 @@ CREATE TABLE `users` (
   `birthDate` DATE NOT NULL,
   `gender` VARCHAR(10) NOT NULL,
   `userTime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `userToggle` VARCHAR(5) NOT NULL DEFAULT 'true',
   PRIMARY KEY (`id`)
 );
 
@@ -24,6 +25,7 @@ CREATE TABLE `reviews` (
   `users_id` INTEGER NOT NULL,
   `reviewTime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `reviewMessage` MEDIUMTEXT NOT NULL,
+  `reviewToggle` VARCHAR(5) NOT NULL DEFAULT 'true',
   PRIMARY KEY (`id`)
 );
 
@@ -36,6 +38,7 @@ CREATE TABLE `items` (
   `itemVolume` VARCHAR(10) NULL DEFAULT NULL,
   `itemPrice` INTEGER NOT NULL,
   `itemDetail` MEDIUMTEXT NULL DEFAULT NULL,
+  `itemToggle` VARCHAR(5) NOT NULL DEFAULT 'true',
   PRIMARY KEY (`id`)
 );
 
@@ -57,7 +60,7 @@ DROP TABLE IF EXISTS `userDetails`;
 CREATE TABLE `userDetails` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `tones_id` INTEGER NOT NULL,
-  `skins_id` INTEGER NULL,
+  `skins_id` INTEGER NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -83,7 +86,7 @@ CREATE TABLE `wishLists` (
   PRIMARY KEY (`id`)
 );
 
-DROP TABLE IF EXISTS `logs`;	
+DROP TABLE IF EXISTS `logs`;
 CREATE TABLE `logs` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `users_id` INTEGER NOT NULL,
@@ -92,7 +95,7 @@ CREATE TABLE `logs` (
   PRIMARY KEY (`id`)
 );
 
-DROP TABLE IF EXISTS `categories2`;
+DROP TABLE IF EXISTS `categories2`;	
 CREATE TABLE `categories2` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `categories_id` INTEGER NOT NULL,

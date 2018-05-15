@@ -1,9 +1,11 @@
 // Local import
-const write = require('./write');
-const modify = require('./modify');
-const delete = require('./delete');
-const review = require('./review');
+const UserInfo = require('./UserInfo');
+const Write = require('./Write');
+const Modify = require('./Modify');
+const Delete = require('./Delete');
+const Review = require('./Review');
+const Delete = require('./Delete');
 
-const Review = { write, modify, delete, review};
+const Reviews = { UserInfo, Write, Modify, Delete, Review, Delete };
 
-module.exports = Review;
+module.exports = Reviews;

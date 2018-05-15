@@ -1,4 +1,12 @@
-const loginQuery = `
-SELECT userPassword FROM users WHERE userMail = 'userMail';
+const query = `
+SELECT userPassword FROM users WHERE userToggle='true' AND userMail='userMail';
 `
-module.exports = loginQuery;
+module.exports = query;
+
+/* result
++--------------+
+| userPassword |
++--------------+
+| userPassword |
++--------------+
+*/

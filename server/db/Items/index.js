@@ -1,6 +1,8 @@
 // Local import
-const item = require('./item');
+const List = require('./List');
+const Detail = require('./Detail');
+const Delete = require('./Delete');
 
-const Item = { item };
+const Items = { List, Detail, Delete };
 
-module.exports = Item;
+module.exports = Items;

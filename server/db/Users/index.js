@@ -1,9 +1,7 @@
 // Local import
-const Register = require('./Register');
-const Signup = require('./Signup');
-const Login = require('./Login');
-const DelUser = require('./DelUser');
+const delUser = require('./delUser');
+const login = require('./login');
+const register = require('./register');
+const signup = require('./signup');
 
-const Users = { Register, Signup, Login, DelUser };
-
-module.exports = Users;
+module.exports.users = { delUser, login, register, signup };

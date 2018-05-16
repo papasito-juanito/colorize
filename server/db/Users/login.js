@@ -7,6 +7,4 @@ module.exports = query;
 +--------------+
 | userPassword |
 +--------------+
-| userPassword |
-+--------------+
 */

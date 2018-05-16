@@ -1,6 +1,4 @@
 // Local import
-const WishList = require('./WishList');
+const wishList = require('./wishList');
 
-const WishLists = { WishList };
-
-module.exports = WishLists;
+module.exports.wishLists = { wishList };

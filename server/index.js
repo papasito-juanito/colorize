@@ -24,7 +24,7 @@ app.use(session({
 
 app.use('/', express.static(path.join(__dirname, './../public')));
 
-app.use('/', router);
+app.use('/api', router);
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, './../public/index.html'));

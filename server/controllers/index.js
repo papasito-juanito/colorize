@@ -5,4 +5,4 @@ const reviews = require('./reviews');
 const users = require('./users');
 const wishLists = require('./wishLists');
 
-module.exports.model = { colors, items, reviews, users, wishLists };
+module.exports.controller = { colors, items, reviews, users, wishLists };

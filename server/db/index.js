@@ -2,11 +2,11 @@
 const mysql = require('mysql');
 
 // Local import
-const Users = require('./Users');
-const Colors = require('./Colors');
-const Items = require('./Items');
-const Reviews = require('./Reviews');
-const WishLists = require('./WishLists');
+// const colors = require('./colors');
+// const items = require('./items');
+// const reviews = require('./reviews');
+// const users = require('./users');
+// const wishLists = require('./wishLists');
 
 let db = mysql.createConnection({
   user: 'root',
@@ -18,7 +18,5 @@ db.connect(function(err) {
   if (err) { throw err; }
   console.log('[database  ] connected to mysql server...');
 });
-
-db = { Users, Colors, Items, Reviews, WishLists };
 
 module.exports = db;

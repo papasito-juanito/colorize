@@ -1,78 +1,89 @@
 import React,{Component} from 'react';
 import styled from 'styled-components';
-import lip from '../../assets/lip.jpg'
-import like from '../../assets/like.png'
+import lip from '../../assets/lip.jpg';
+import like from '../../assets/Heart.png';
+import hate from '../../assets/emptyHeart.png';
 import StarRatingComponent from 'react-star-rating-component';
+import Modal from 'react-modal';
 
+const customStyles = {
+    content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)'
+    }
+};
+
+Modal.setAppElement('#root');
 
 const Container = styled.div`
-    border: 2px solid #ccc;
+    border: 2px solid gold;
     background-color: #eee;
     border-radius: 5px;
-    display:inline;
-    margin-left: 3%
-    margin-top: 1%
-    margin-right: 2%
+    display:flex;
+    margin: 1%;
     width:80%;
     height: 90%;
-    float:left
 `
 
 const ReviewImage = styled.img`
     border: 2px solid #ccc;
-    margin-top: 10px
-    margin-left: 10px
-    width: 20%
-    height: 80%
-    float:left
+    margin: 1vh 0 1vh 1vw;
+    width: 20%;
+    height: 90%;
+    cursor: pointer;
 `
 
 const Info = styled.div`
     border: 2px solid #ccc;
-    display: inline
-    float:left
-    width: 20%
-    height: 80%
+    margin: 1vh 0 1vh 0;
+    width: 20%;
+    height: 90%;
 `
 
 const ReviewContent = styled.div`
     border: 2px solid #ccc;
-    display: inline
-    float:left
-    width: 50%
-    height: 80%
-    position: relative
+    margin: 1vh 1vw 1vh 0;
+    width: 60%;
+    height: 90%;
+    position: relative;
+  
 `
 
 const Message = styled.textarea`
     border: 2px solid #ccc;
-    height: 80%
-    width: 90%
+    resize: none;
+    width: 95%;
+    height: 18vh;
 `
 
 const LikeCount = styled.div`
-    width: 10%
-    height: 10%
-    border: 2px solid #ccc;
-    bottom: 0px;
-    right:0px;
-    position: absolute
+    width: 20%
+    height: 50%
+    top: 1%;
+    right:2%;
+    position: absolute;
     align-content: center;
 `
 
 const Like = styled.img`
-    width: 20px
-    height: 20px
+    width: 30%;
+    height: 100%;
+    cursor: pointer;
 `
 const BottomContainer = styled.div`
-    diplay:block;
-    height: 10%
+    position: relative;
+    height: 30%;
 `
 
 const Modify = styled.button`
-    font-size: 16px;    
+    font-size: 1rem;    
     color: black;
-    bottom: 0px;
+    top: 2%;
+    left: 2%;
     position: absolute
     border-radius: 50%;
     border: none;
@@ -83,10 +94,10 @@ const Modify = styled.button`
 `
 
 const Delete = styled.button`
-    margin-left: 50px;
-    font-size: 16px;    
+    font-size: 1rem;    
     color: black;
-    bottom: 0px;
+    top: 2%;
+    left: 12%;
     position: absolute
     border-radius: 50%;
     border: none;
@@ -107,7 +118,7 @@ const ModifyText = styled.textarea`
 
 class Content extends Component {
     constructor(props){
-        super()
+        super(props);
         this.state = {
             editing: true,
             message: '글이나오고 글이나오고 글이나오고',
@@ -115,21 +126,54 @@ class Content extends Component {
             id: 'wonbok1213',
             age: 32,
             skin: '지성',
-            rating: 3
+            rating: 3,
+            like : false,
+            popupIsOpen : false,
+            imagepreviewUrl: ''
           }
+
+        this._openPopup = this._openPopup.bind(this);
+        this._afterOpenPopup = this._afterOpenPopup.bind(this);
+        this._closePopup = this._closePopup.bind(this);
+        this._handleModify = this._handleModify.bind(this);
+        this._reviewLike = this._reviewLike.bind(this);
     }
 
-    handleModify = function(){
+    _handleModify = function(){
         this.setState({
             editing: !this.state.editing
         })
     }
 
+    _reviewLike = function() {
+        this.setState({like: !this.state.like})
+        !this.state.like ? this.state.likeCount++ : this.state.likeCount--;
+    }
+
+    _openPopup(e) {
+        console.log(e.target.src)
+        this.setState({
+            popupIsOpen: true,
+            imagepreviewUrl : e.target.src
+        })
+    }
+
+    _afterOpenPopup() {
+        this.subtitle.style.color = '#f00';
+    }
+
+    _closePopup() {
+        this.setState({ popupIsOpen: false });
+    }
+
+
     render(){
-        
+
+        let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
+
         return (     
             <Container>
-                <ReviewImage src={lip}/>
+                <ReviewImage onClick = {this._openPopup} src={lip}/>
                 <Info >
                     <div>{this.state.id}</div>
                     <div>{this.state.age}, {this.state.skin}</div>
@@ -143,32 +187,49 @@ class Content extends Component {
                 </Info >    
                 {this.state.editing ? 
                 <ReviewContent >
-                    <Message readOnly rows="10" cols="50">
-                    {this.state.message}
-                    </Message>
+                    <div style={{ textAlign: 'center' }}>
+                        <Message readOnly>
+                            {this.state.message}
+                        </Message>
+                    </div>
                     <BottomContainer >
-                    <Modify onClick={this.handleModify.bind(this)}>수정</Modify>
-                    <Delete>삭제</Delete>
-                    <LikeCount>
-                    <Like src={like}/>
-                    {this.state.likeCount}
-                    </LikeCount>
+                       <Modify onClick={this._handleModify}>수정</Modify>
+                        <Delete>삭제</Delete>
+                        <LikeCount>
+                                <Like onClick={this._reviewLike} src={this.state.like ? like : hate}/>
+                                {this.state.likeCount}
+                        </LikeCount>
                     </BottomContainer>
-                    </ReviewContent > : 
-                    <ReviewContent >
-                    <Message rows="10" cols="50">
-                    {this.state.message}
-                    </Message>
+                </ReviewContent > :
+
+                <ReviewContent>
+                    <div style={{ textAlign: 'center' }}>
+                        <Message rows="10" cols="50">
+                            {this.state.message}
+                        </Message>
+                    </div>
                     <BottomContainer >
-                    <Modify onClick={this.handleModify.bind(this)}>완료</Modify>
-                    <Delete>삭제</Delete>
-                    <LikeCount>
-                    <Like src={like}/>
-                    {this.state.likeCount}
-                    </LikeCount>
+                        <Modify onClick={this._handleModify}>완료</Modify>
+                        <Delete>삭제</Delete>
+                        <LikeCount>
+                                <Like onClick={this._reviewLike} src={this.state.like ? like : hate}/>
+                                {this.state.likeCount}
+                        </LikeCount>
                     </BottomContainer>
-                    </ReviewContent >
+                </ReviewContent >
                 }
+
+                <Modal
+                    isOpen={this.state.popupIsOpen}
+                    onAfterOpen={this._afterOpenPopup}
+                    onRequestClose={this._closePopup}
+                    style={customStyles}
+                    contentLabel="Image popup"
+                >
+                    <h2 ref={subtitle => this.subtitle = subtitle}>Review Image</h2>
+                    <div style={{ width: '50vh' }}>{popupImage}</div>
+                    <button style={{ cursor: 'pointer' }} onClick={this._closePopup}>close</button>
+                </Modal>
             </Container>
         );
     }

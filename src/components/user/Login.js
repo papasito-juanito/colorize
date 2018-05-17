@@ -72,7 +72,7 @@ const LoginDiv = styled.div`
 `
 const Wrapper = styled.div`
     width: 25vw;
-    margin: 30% auto 30% auto;
+    margin: 20% auto 30% auto;
 `
 const Bar = styled.div`
     margin: 0.8em 0 0.8em 0;

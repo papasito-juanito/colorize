@@ -6,4 +6,5 @@ const model = require('../../models/users');
 
 router.post('/register', model.register);
 
+
 module.exports = router;

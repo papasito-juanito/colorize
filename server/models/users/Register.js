@@ -9,4 +9,5 @@ const register = function(queryStr, cb) {
   })
 }
 
+
 module.exports = register;

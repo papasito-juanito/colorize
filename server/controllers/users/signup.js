@@ -2,7 +2,7 @@
 const model = require('../../models/users/signup');
 
 module.exports = function(req, res) {
-  console.log(`[controller] received request like '${req.body}' from client...`);
+  console.log(`[controller] received request from client...`);
   
   let userMail = req.body.userMail;
   let userPassword = req.body.userPassword;
@@ -16,7 +16,7 @@ module.exports = function(req, res) {
   model(params, function(err, rows) {
     if (err) { throw err }
     else {
-      console.log(`[controller] received response like '${rows}' from models...`);
+      console.log(`[controller] received response from model...`);
       res.send(rows);
     }
   })

@@ -2,6 +2,7 @@
 const model = require('../../models/items/list');
 
 module.exports = function(req, res) {
+  console.log('req.params : ',req.params);
   console.log(`[controller] received request from client...`);
   
   let color_id = req.body.color_id;

@@ -106,7 +106,7 @@ CREATE TABLE `reviewLikes` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `reviews_id` INTEGER NOT NULL,
   `users_id` INTEGER NOT NULL,
-  `reviewToggle` VARCHAR(5) NOT NULL DEFAULT 'true',
+  `likeToggle` VARCHAR(5) NOT NULL DEFAULT 'true',
   PRIMARY KEY (`id`)
 );
 

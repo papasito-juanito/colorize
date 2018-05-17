@@ -4,8 +4,3 @@ FROM brands b, items i, itemColors ic, (SELECT COUNT(reviewRating) count FROM re
 WHERE i.itemToggle='true' AND b.id=i.brands_id AND i.id=ic.items_id AND ic.id=?;
 `
 module.exports = query;
-
-
-SELECT ic.id items_id, ic.itemPhoto photo, ic.itemHex hex, b.brandName brand, i.itemName item, i.itemPrice price, i.itemVolume volume, i.itemDetail description, ra.rating average, rn.reviews reviews
-FROM brands b, items i, itemColors ic, (SELECT itemColors_id, AVG(reviewRating) rating FROM items, reviews GROUP BY itemColors_id) ra, (SELECT itemColors_id, COUNT(reviewRating) AS reviews FROM items, reviews GROUP BY itemColors_id) rn
-WHERE b.id=i.brands_id AND i.id=ic.items_id AND ic.id=ra.itemColors_id AND ic.id=rn.itemColors_id AND ic.id IN (?);

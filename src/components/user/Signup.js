@@ -4,6 +4,7 @@ import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import axios from 'axios';
 import Side from './Side';
+import { SwatchesPicker  } from 'react-color';
 
 const Container = styled.div`
     height: 90vh;
@@ -77,13 +78,15 @@ const colorOptions = [
     {
         type: 'group', name: 'Cool tone', items: [
             { value: 'Summer', label: 'Summer' },
-            { value: 'Winter', label: 'Winter' }
+            { value: 'Winter', label: 'Winter' },
+            { value: '쿨톤', label: '쿨톤' }
         ]
     },
     {
         type: 'group', name: 'Warm tone', items: [
             { value: 'Spring', label: 'Spring' },
-            { value: 'Fall', label: 'Fall' }
+            { value: 'Fall', label: 'Fall' },
+            { value: '웜톤', label: '웜톤' }
         ]
     }
 ]
@@ -102,9 +105,14 @@ class Signup extends Component {
             genderSelected: '',
             email: '',
             password: '',
-            birthdate: ''
+            birthdate: '',
+            background: '#fff'
         }
-
+        this._agreePolicy = this._agreePolicy.bind(this);
+        this._onGenderSelect = this._onGenderSelect.bind(this);
+        this._onColorSelect = this._onColorSelect.bind(this);
+        this._onForm = this._onForm.bind(this);
+        this._handleChangeComplete = this._handleChangeComplete.bind(this);
     }
 
     _agreePolicy() {
@@ -121,22 +129,31 @@ class Signup extends Component {
 
     _onForm() {
         const form = {
-            email: document.getElementById('signupEmail').value,
-            password: document.getElementById('signupPassword').value,
-            birthdate: document.getElementById('birthdate').value, //1988-01-01
+            email: this.email.value,
+            password: this.password.value,
+            nickname: this.nickname.value,
+            birthdate: this.birthdate.value, 
             gender: this.state.genderSelected,
-            color: this.state.colorSelected
+            color: this.state.colorSelected,
+            colorpick : this.state.background
         };
 
-        const api = axios.create({ baseURL: 'http://localhost:8080' })
-        !this.state.agree ? alert('약관에 동의하세요') :
-            api.post('http://127.0.0.1:8080/signup', form)
-                .then(res => console.log(res))
-                .catch(error => console.log(error))
+        console.log(form)
+        // const api = axios.create({ baseURL: 'http://localhost:8080' })
+        // !this.state.agree ? alert('약관에 동의하세요') :
+        //     api.post('http://127.0.0.1:8080/register', form)
+        //         .then(res => console.log(res))
+        //         .catch(error => console.log(error))
+
     }
+
+    _handleChangeComplete = (color) => {
+        this.setState({ background: color.hex });
+    };
 
 
     render() {
+        console.log(1);
         return (
             <Container>
                 <Side />
@@ -148,32 +165,36 @@ class Signup extends Component {
                             </Div>
                             <FlexDiv flexDirection='column' justifyContent='center' >
                                 <Label> E-mail
-                                    <EmailInput id='signupEmail' placeholder='Enter your email'></EmailInput>
+                                    <EmailInput innerRef={ref => { this.email = ref; }} placeholder='Enter your email'></EmailInput>
                                 </Label>
                                 <Label>Password
-                                    <PasswordInput id='signupPassword' placeholder='Enter your password'></PasswordInput>
+                                    <PasswordInput innerRef={ref => { this.password = ref; }} placeholder='Enter your password'></PasswordInput>
+                                </Label>
+                                <Label> Nickname
+                                    <Input innerRef={ref => { this.nickname = ref; }} placeholder='Enter your nickname'></Input>
                                 </Label>
                                 <Label> Birthdate
-                                    <Input id='birthdate' placeholder='Enter your birthdate'></Input>
+                                    <Input innerRef={ref => { this.birthdate = ref; }} placeholder='Enter your birthdate'></Input>
                                 </Label>
                                 <Label> Gender
-                                    <Dropdown options={genderOptions} onChange={this._onGenderSelect.bind(this)} value={this.state.genderSelected} placeholder="Select your gender" />
+                                    <Dropdown options={genderOptions} onChange={this._onGenderSelect} value={this.state.genderSelected} placeholder="Select your gender" />
                                 </Label>
                                 <Label> Your Color
-                                    <Dropdown options={colorOptions} onChange={this._onColorSelect.bind(this)} value={this.state.colorSelected} placeholder="Select your color" />
+                                    <Dropdown options={colorOptions} onChange={this._onColorSelect} value={this.state.colorSelected} placeholder="Select your color" />
                                 </Label>
                                 <Span>
                                     <a href='#'> 약관보기 </a>
                                 </Span>
                                 <Span>
-                                    <input type='checkbox' onClick={this._agreePolicy.bind(this)} />약관에 동의합니다
+                                    <input type='checkbox' onClick={this._agreePolicy} />약관에 동의합니다
                                 </Span>
-                                <LoginDiv backgroundColor='#666' onClick={this._onForm.bind(this)}>
+                                <LoginDiv backgroundColor='#666' onClick={this._onForm}>
                                     Create Your account
                                 </LoginDiv>
                             </FlexDiv>
                         </Wrapper>
                     {/* </Div> */}
+                    <SwatchesPicker innerRef={ref => { this.color = ref; }} onChangeComplete={this._handleChangeComplete}/>
                 </div>
             </Container>
         )

@@ -10,6 +10,7 @@ import WishList from './wishList/WishList'
 import Review from './review/Review'
 import Login from './user/Login'
 import Signup from './user/Signup'
+import Detail from './detail/Detail'
 
 injectGlobal`
   body{
@@ -31,6 +32,7 @@ class App extends Component {
                         <Route path="/review" component={Review}/>
                         <Route path="/login" component={Login}/>
                         <Route path="/signup" component={Signup}/>
+                        <Route path="/detail" component={Detail} />
                         <Route component={NotMatch}/>
                     </Switch>
                 </div>

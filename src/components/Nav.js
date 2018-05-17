@@ -12,8 +12,13 @@ const NavContatiner = styled.header`
     z-index:1;
 `
 
-const NavLeft = styled.h1`
+const NavLink = styled(Link)`
+    font-size: 2rem
     float: left;
+    &:visited {
+        color: black;
+        text-decoration: none;
+    }  
 `
 
 const NaveRightContainer = styled.div`
@@ -52,7 +57,6 @@ const DropBtn = styled.button`
     color: white;
     padding: 14px 16px;
     background-color: inherit;
-    font-family: inherit;
     margin: 0;
 `
 const StyledLink = styled(Link)`
@@ -71,11 +75,10 @@ const StyledLink = styled(Link)`
     }  
 `
 
-
 const Nav = () => {
     return (
         <NavContatiner>
-            <NavLeft>Colorize</NavLeft>
+            <NavLink to="/" style={{ textDecoration: 'none' }}>Colorize</NavLink>
             <NaveRightContainer>
                  <DropDown>
                      <DropBtn>My Lips</DropBtn>

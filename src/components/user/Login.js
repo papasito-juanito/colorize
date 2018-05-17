@@ -51,10 +51,8 @@ const Div = styled.div`
     width: 100%;
     margin: ${props => props.margin};
     text-align: center;
-    border: 5px solid purple
-// `
-// height: ${ props => props.height };
-// width: ${ props => props.width };
+`
+
 const FlexDiv = styled.div`
     display: flex;
     flex-direction: ${props => props.flexDirection};
@@ -73,9 +71,8 @@ const LoginDiv = styled.div`
     line-height:2em;
 `
 const Wrapper = styled.div`
-    width: 100%;
+    width: 25vw;
     margin: 30% auto 30% auto;
-        border: 5px solid purple
 `
 const Bar = styled.div`
     margin: 0.8em 0 0.8em 0;
@@ -86,18 +83,16 @@ const Img = styled.img`
     height: 100%;
 `
 
-
 class Login extends Component {
-
-    clickToLogin = () => {
-        console.log(1);
+    constructor(){
+        super();
+    this._clickToLogin = this._clickToLogin.bind(this);
     }
-
 
     _clickToLogin = () => {
         const form = {
-            email: document.getElementById('loginEmail').value,
-            password: document.getElementById('loginPassword').value
+            email: this.email.value,
+            password: this.password.value
         }
 
         const api = axios.create({ baseURL: 'http://localhost:8080' })
@@ -112,7 +107,7 @@ class Login extends Component {
         return (
             <Container>
                 <Side />
-                <div style={{ backgroundColor: 'white', border: '1px solid purple', width: '40%' }}> 
+                <div style={{width: '40%' }}> 
                     <Div>
                         <Wrapper>
                             <Div heigth='100%' width='100%' margin='2em 0 2em 0'>
@@ -120,14 +115,14 @@ class Login extends Component {
                             </Div>
                             <FlexDiv flexDirection='column' justifyContent='center' >
                                 <Label> E-mail
-                                    <Input id='loginEmail' placeholder='Enter your email'></Input>
+                                    <Input innerRef={ref => { this.email = ref; }} placeholder='Enter your email'></Input>
                                 </Label>
                                 <Label>Password
-                                    <SecondInput id='loginPassword' placeholder='Enter your password'></SecondInput>
+                                    <SecondInput innerRef={ref => { this.password = ref; }} placeholder='Enter your password'></SecondInput>
                                 </Label>
                                 <Span><a href='#'> 아이디/비밀번호 찾기 </a></Span>
                                 <FlexDiv backgroundColor='#666' width='100%' height='2em'>
-                                    <div style={{ fontSize: "1.3em", width: '50%', cursor: 'pointer', color: 'white' }} onClick={this._clickToLogin.bind(this)}>Log in</div>
+                                    <div style={{ fontSize: "1.3em", width: '50%', cursor: 'pointer', color: 'white' }} onClick={this._clickToLogin}>Log in</div>
                                     <StyledLink to='/signup'> Sign up </StyledLink>
                                 </FlexDiv>
                                 <Bar/>

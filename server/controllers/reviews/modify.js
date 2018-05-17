@@ -1,12 +1,21 @@
 // Local import
-const db = require('../../db');
-const queryStr = require('../../db/Reviews/Modify');
+const model = require('../../models/reviews/modify');
 
-const modify = function(queryStr, cb) {
-  db.query(queryStr, function(err, rows) {
-    console.log('[model     ] fetch rows from reviews table in database...');
-    cb(err, rows)
+module.exports = function(req, res) {
+  console.log(`[controller] received request like '${req.body}' from client...`);
+  
+  let reviewPhoto = req.body.reviewPhoto;
+  let reviewRating = req.body.reviewRating;
+  let reviewMessage = req.body.reviewMessage;
+  let review_id = req.body.review_id;
+  
+  let params = [reviewPhoto, reviewRating, reviewMessage, review_id];
+
+  model(params, function(err, rows) {
+    if (err) { throw err }
+    else {
+      console.log(`[controller] received response like '${rows}' from models...`);
+      res.send(rows);
+    }
   })
-}
-
-module.exports = modify;
+};

@@ -1,12 +1,22 @@
 // Local import
-const db = require('../../db');
-const queryStr = require('../../db/Reviews/Write');
+const model = require('../../models/reviews/write');
 
-const write = function(queryStr, cb) {
-  db.query(queryStr, function(err, rows) {
-    console.log('[model     ] fetch rows from reviews table in database...');
-    cb(err, rows)
+module.exports = function(req, res) {
+  console.log(`[controller] received request like '${req.body}' from client...`);
+  
+  let item_id = req.body.item_id;
+  let reviewPhoto = req.body.reviewPhoto;
+  let reviewRating = req.body.reviewRating;
+  let user_id = req.body.user_id;
+  let reviewMessage = req.body.reviewMessage;
+  
+  let params = [item_id, reviewPhoto, reviewRating, user_id, reviewMessage];
+
+  model(params, function(err, rows) {
+    if (err) { throw err }
+    else {
+      console.log(`[controller] received response like '${rows}' from models...`);
+      res.send(rows);
+    }
   })
-}
-
-module.exports = write;
+};

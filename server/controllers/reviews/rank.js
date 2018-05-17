@@ -1,5 +1,5 @@
 // Local import
-const model = require('../../models/items/delItem');
+const model = require('../../models/reviews/rank');
 
 module.exports = function(req, res) {
   console.log(`[controller] received request like '${req.body}' from client...`);

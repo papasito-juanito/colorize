@@ -1,12 +1,18 @@
 // Local import
-const db = require('../../db');
-const queryStr = require('../../db/Reviews/DelReview');
+const model = require('../../models/reviews/delReview');
 
-const delReview = function(queryStr, cb) {
-  db.query(queryStr, function(err, rows) {
-    console.log('[model     ] fetch rows from reviews table in database...');
-    cb(err, rows)
+module.exports = function(req, res) {
+  console.log(`[controller] received request like '${req.body}' from client...`);
+  
+  let reveiw_id = req.body.review_id;
+  
+  let params = [review_id];
+
+  model(params, function(err, rows) {
+    if (err) { throw err }
+    else {
+      console.log(`[controller] received response like '${rows}' from models...`);
+      res.send(rows);
+    }
   })
-}
-
-module.exports = delReview;
+};

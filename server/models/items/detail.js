@@ -1,12 +1,11 @@
 // Local import
 const db = require('../../db');
-const queryStr = require('../../db/Items/Detail');
+const queryStr = require('../../db/items/detail');
 
-const detail = function(queryStr, cb) {
-  db.query(queryStr, function(err, rows) {
-    console.log('[model     ] fetch rows from items table in database...');
+module.exports = function(params, cb) {
+  console.log(`[model     ] received params from controller...`)
+  console.log(`[model     ] send query to database...`);
+  db.query(queryStr, params, function(err, rows) {
     cb(err, rows)
   })
 }
-
-module.exports = detail;

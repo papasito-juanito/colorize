@@ -16,6 +16,7 @@
   },
   "homepage": "https://github.com/uehwan85/colorize#readme",
   "dependencies": {
+    "@material-ui/core": "^1.0.0-rc.0",
     "axios": "^0.18.0",
     "body-parser": "^1.18.2",
     "chart.js": "^2.7.2",
@@ -24,6 +25,7 @@
     "dependencies": "0.0.1",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
+    "history": "^4.7.2",
     "jsonwebtoken": "^8.2.1",
     "morgan": "^1.9.0",
     "mysql": "^2.15.0",
@@ -45,6 +47,9 @@
     "styled-components": "^3.2.6"
   },
   "scripts": {
+    "init": "mysql -u root < server/db/utility/schema.sql", 
+    "fake": "mysql -u root < server/db/utility/fake.sql",   
+    "server": "nodemon server/index.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",

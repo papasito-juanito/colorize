@@ -11,6 +11,7 @@ const router = require('./routes');
 const app = express();
 const port = 8080;
 
+app.use(cors());
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(cors());
@@ -23,7 +24,7 @@ app.use(session({
 
 app.use('/', express.static(path.join(__dirname, './../public')));
 
-app.use('/', router);
+app.use('/api', router);
 
 
 app.get('*', (req, res) => {

@@ -4,6 +4,7 @@ import Items from './Items'
 
 
 const WishList = () => {
+    
     return (
         <div>
             <Items/>

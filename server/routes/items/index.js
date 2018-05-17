@@ -2,12 +2,12 @@
 const router = require('express').Router();
 
 // Local import
-const list = require('./list');
-const detail = require('./detail');
 const delItem = require('./delItem');
+const detail = require('./detail');
+const list = require('./list');
 
-router.use('/item/*', list);
-router.use('/item/*', detail);
-router.use('/item/*', delItem);
+router.use('/delete', delItem);
+router.use('/detail', detail);
+router.use('/list', list);
 
 module.exports = router;

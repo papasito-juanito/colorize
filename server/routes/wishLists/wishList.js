@@ -2,8 +2,8 @@
 const router = require('express').Router();
 
 // Local import
-const model = require('../../models/wishLists');
+const controller = require('../../controllers/wishLists');
 
-router.get('/wishList', model.wishList);
+router.get('/', controller);
 
 module.exports = router;

@@ -2,8 +2,8 @@
 const router = require('express').Router();
 
 // Local import
-const model = require('../../models/reviews');
+const controller = require('../../controllers/reviews/userInfo');
 
-router.get('/review/*', model.userInfo);
+router.get('/', controller);
 
 module.exports = router;

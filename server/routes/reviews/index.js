@@ -2,18 +2,18 @@
 const router = require('express').Router();
 
 // Local import
-const userInfo = require('./userInfo');
-const write = require('./write');
-const modify = require('./modify');
 const delReview = require('./delReview');
 const itemReview = require('./itemReview');
+const userInfo = require('./userInfo');
+const modify = require('./modify');
 const myReview = require('./myReview');
+const write = require('./write');
 
-router.use('/review/*', userInfo);
-router.use('/review/*', write);
-router.use('/review/*', modify);
-router.use('/review/*', delReview);
-router.use('/review/*', itemReview);
-router.use('/review/*', myReview);
+router.use('/delete', delReview);
+router.use('/item', itemReview);
+router.use('/info', userInfo);
+router.use('/modify', modify);
+router.use('/user', myReview);
+router.use('/write', write);
 
 module.exports = router;

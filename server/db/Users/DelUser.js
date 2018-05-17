@@ -1,4 +1,4 @@
 const query = `
-UPDATE users SET userToggle='false' WHERE id=3;
+UPDATE users SET userToggle='false' WHERE id=?;
 `
 module.exports = query;

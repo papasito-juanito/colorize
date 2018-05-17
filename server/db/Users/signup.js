@@ -1,10 +1,5 @@
 const query = `
-SELECT COUNT(userMail) userCheck FROM users WHERE userToggle='true' AND userMail='admin@code.com';
+INSERT INTO users (userMail, userPassword, userName, tones_id, birthDate, gender)
+VALUES (?, ?, ?, (SELECT id FROM userDetails WHERE toneName=?), ?, ?);
 `
 module.exports = query;
-
-/* result
-+-----------+
-| userCheck |
-+-----------+
-*/

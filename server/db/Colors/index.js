@@ -1,4 +1,4 @@
 // Local import
-const color = require('./color');
+const list = require('./list');
 
-module.exports.colors = { color };
+module.exports.colors = { list };

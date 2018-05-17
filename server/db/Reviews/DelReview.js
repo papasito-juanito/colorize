@@ -1,4 +1,4 @@
 const query = `
-UPDATE reviews SET reviewToggle='false' WHERE id=3;
+UPDATE reviews SET reviewToggle='false' WHERE id=?;
 `
 module.exports = query;

@@ -2,8 +2,8 @@
 const router = require('express').Router();
 
 // Local import
-const model = require('../../models/items');
+const controller = require('../../controllers/items/list');
 
-router.get('/item/*', model.list);
+router.get('/', controller);
 
 module.exports = router;

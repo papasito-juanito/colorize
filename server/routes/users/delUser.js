@@ -2,8 +2,8 @@
 const router = require('express').Router();
 
 // Local import
-const model = require('../../models/users');
+const controller = require('../../controllers/users/delUser');
 
-router.post('/delUser', model.delUser);
+router.post('/', controller);
 
 module.exports = router;

@@ -2,8 +2,8 @@
 const router = require('express').Router();
 
 // Local import
-const model = require('../../models/reviews');
+const controller = require('../../controllers/reviews/delReview');
 
-router.post('/review/*', model.delReview);
+router.post('/', controller);
 
 module.exports = router;

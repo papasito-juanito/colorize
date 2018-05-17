@@ -1,4 +1,4 @@
 const query = `
-UPDATE items SET itemToggle='false' WHERE id=3;
+UPDATE items SET itemToggle='false' WHERE id=?;
 `
 module.exports = query;

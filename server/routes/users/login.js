@@ -2,10 +2,8 @@
 const router = require('express').Router();
 
 // Local import
-const model = require('../../models/users');
+const controller = require('../../controllers/users/login');
 
-router.get('/login', function(req, res) {
-  console.log();
-});
+router.get('/', controller);
 
 module.exports = router;

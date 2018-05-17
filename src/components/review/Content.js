@@ -97,7 +97,7 @@ const Delete = styled.button`
     font-size: 1rem;    
     color: black;
     top: 2%;
-    left: 12%;
+    left: 14%;
     position: absolute
     border-radius: 50%;
     border: none;

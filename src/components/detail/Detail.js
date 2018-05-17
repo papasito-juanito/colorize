@@ -30,16 +30,16 @@ var Detail = () => (
         </Div>
         <Div>
             <div style = {{height: '60vh', backgroundColor: 'skyblue'}}>
-                <InfiniteScroll
+                {/* <InfiniteScroll
                     pageStart={0}
                     // loadMore={loadFunc}
                     // hasMore={false}
                     loader={<div className="loader" key={0}>Loading ...</div>}
                     useWindow={false}
                 >
-                    <Reviews />
-                </InfiniteScroll>
-           
+                  
+                </InfiniteScroll> */}
+                <Reviews />
             </div>
         </Div>
     </div>

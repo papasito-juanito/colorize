@@ -1,20 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
+import lip from '../../assets/lip.jpg'
 
 const Wrapper = styled.div`
-    height: 300px;
-    width: 200px;
-    float:left
+    height: 90%;
+    width: 20%;
+    border: 1px solid gold;
+    margin: 1%;
     
 `
 
 const ItemTop = styled.div`
-    height: 200px;
-    position:relative;
+    height: 70%;
 `
+
 const Img = styled.img`
-    width: 200px;
-    height: 200px;
+    width: 100%;
+    height: 100%;
 `
 // const Color = styled.div`
 //     background-color: red;
@@ -27,7 +29,7 @@ const Img = styled.img`
 
 const ItemBottom = styled.div`
     background-color: pink;
-    height: 80px;
+    height: 30%;
 `
 
 
@@ -35,7 +37,7 @@ const Item = () => {
     return (
         <Wrapper>
             <ItemTop >
-                <Img />
+                <Img src={lip} alt={'imgimg'}/>
                 {/* <Color /> */}
             </ItemTop >
             <ItemBottom></ItemBottom>

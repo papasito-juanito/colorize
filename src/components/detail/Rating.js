@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import StarRatingComponent from 'react-star-rating-component';
 import styled from 'styled-components';
 
+
 const logged = true;
 
 const TextArea = styled.textarea`
     resize: none;
-    maxLength: 200;
-    width: 90%;
+    maxLength: 500;
+    width: 95%;
     height: 80%;
     margin: 1% 0 0 0;
 `
@@ -53,7 +54,7 @@ class Rating extends Component {
 
                     <TextArea placeholder = '후기 입력해주세요 ㅎㅎㅎㅎ' innerRef={ref => {this.input=ref;}}/><br/>
                     <div style={{ cursor: 'pointer', textAlign : 'left'}}>
-                        <button style= {{position: 'relative', left: '5%', cursor: 'pointer'}} onClick={this._clickReview} >등록</button>
+                        <button style= {{position: 'relative', left: '2%', cursor: 'pointer'}} onClick={this._clickReview} >등록</button>
                     </div>
                 </div>  
 

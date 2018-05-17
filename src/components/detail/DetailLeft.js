@@ -40,20 +40,33 @@ const ColorDiv = styled.div`
     background-color: blue; 
 `
 
-const DetailLeft = ({data}) => {
+class DetailLeft extends Component {
+    constructor(){
+        super();
+        this.state = {
+            wish:false
+        }
 
+        this._clickToWish = this._clickToWish.bind(this);
+    }
+    
+    _clickToWish() {
+        this.setState({wish : !this.state.wish})
+    }
+
+    render(){
         return (
             <Div>
                 <ImageDiv >
-                    <Image src={data[0] ? data[0].photo : null} alt={'lip'} />
+                    <Image src={logo} alt={'lip'} />
                 </ImageDiv>
                     <ColorDiv />
                 <Wishlist>
-                    <Image onClick={this._clickToWish}/>  
+                    <Image onClick={this._clickToWish} src={!this.state.wish ?noWish : Wish} alt={'wishlist'} />  
                 </Wishlist>
             </Div>
         )
     }
-
+}
 
 export default DetailLeft;

@@ -4,7 +4,6 @@ import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import axios from 'axios';
 import Side from './Side';
-import { SwatchesPicker  } from 'react-color';
 
 const Container = styled.div`
     height: 90vh;
@@ -70,7 +69,7 @@ const LoginDiv = styled.div`
 
 const Wrapper = styled.div`
     width: 25vw;
-    margin: 30% auto;
+    margin: 20% auto;
 `
 
 const colorOptions = [
@@ -105,8 +104,7 @@ class Signup extends Component {
             genderSelected: '',
             email: '',
             password: '',
-            birthdate: '',
-            background: '#fff'
+            birthdate: ''
         }
         this._agreePolicy = this._agreePolicy.bind(this);
         this._onGenderSelect = this._onGenderSelect.bind(this);
@@ -134,16 +132,15 @@ class Signup extends Component {
             nickname: this.nickname.value,
             birthdate: this.birthdate.value, 
             gender: this.state.genderSelected,
-            color: this.state.colorSelected,
-            colorpick : this.state.background
+            color: this.state.colorSelected
         };
 
-        console.log(form)
-        // const api = axios.create({ baseURL: 'http://localhost:8080' })
-        // !this.state.agree ? alert('약관에 동의하세요') :
-        //     api.post('http://127.0.0.1:8080/register', form)
-        //         .then(res => console.log(res))
-        //         .catch(error => console.log(error))
+        // console.log(form)
+        const api = axios.create({ baseURL: 'http://localhost:8080' })
+        !this.state.agree ? alert('약관에 동의하세요') :
+            api.post('http://127.0.0.1:8080/register', form)
+                .then(res => console.log(res))
+                .catch(error => console.log(error))
 
     }
 
@@ -153,7 +150,6 @@ class Signup extends Component {
 
 
     render() {
-        console.log(1);
         return (
             <Container>
                 <Side />
@@ -193,8 +189,6 @@ class Signup extends Component {
                                 </LoginDiv>
                             </FlexDiv>
                         </Wrapper>
-                    {/* </Div> */}
-                    <SwatchesPicker innerRef={ref => { this.color = ref; }} onChangeComplete={this._handleChangeComplete}/>
                 </div>
             </Container>
         )

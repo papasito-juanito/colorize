@@ -3,7 +3,8 @@ import DetailLeft from './DetailLeft'
 import DetailRight from './DetailRight'
 import styled from 'styled-components';
 import Comment from './Comment';
-
+import Reviews from './Reviews';
+import InfiniteScroll from 'react-infinite-scroller';
 const Wrapper = styled.div`
     margin : 10% 10% 0 10%;
     border: 1px solid black;  
@@ -25,10 +26,21 @@ var Detail = () => (
             <DetailRight/>
         </Wrapper>
         <Div>
-            
+            <Comment/>
         </Div>
         <Div>
-            <Comment/>
+            <div style = {{height: '60vh', backgroundColor: 'skyblue'}}>
+                {/* <InfiniteScroll
+                    pageStart={0}
+                    // loadMore={loadFunc}
+                    // hasMore={false}
+                    loader={<div className="loader" key={0}>Loading ...</div>}
+                    useWindow={false}
+                >
+                  
+                </InfiniteScroll> */}
+                <Reviews />
+            </div>
         </Div>
     </div>
 );

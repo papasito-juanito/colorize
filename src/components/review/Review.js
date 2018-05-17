@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Item from './Item';
-import Content from './content/Content'
+import Content from './/Content'
 
 
 const Container = styled.div`

@@ -5,6 +5,7 @@ const Wrapper = styled.div`
     height: 300px;
     width: 200px;
     float:left
+    
 `
 
 const ItemTop = styled.div`
@@ -15,14 +16,14 @@ const Img = styled.img`
     width: 200px;
     height: 200px;
 `
-const Color = styled.div`
-    background-color: ${props=>props.color};
-    position: absolute; 
-    width: 100px;
-    height: 150px;
-    top:0px; 
-    left:200px;
-`
+// const Color = styled.div`
+//     background-color: red;
+//     position: absolute; 
+//     width: 100px;
+//     height: 150px;
+//     top:0px; 
+//     left:200px;
+// `
 
 const ItemBottom = styled.div`
     background-color: pink;
@@ -30,12 +31,12 @@ const ItemBottom = styled.div`
 `
 
 
-const Item = ({image, color, desc}) => {
+const Item = () => {
     return (
         <Wrapper>
             <ItemTop >
                 <Img />
-                <Color />
+                {/* <Color /> */}
             </ItemTop >
             <ItemBottom></ItemBottom>
         </Wrapper>

@@ -2,7 +2,7 @@
 const router = require('express').Router();
 
 // Local import
-const controller = require('../../controllers/colors/color');
+const controller = require('../../controllers/wishLists/list');
 
 router.get('/', controller);
 

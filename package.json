@@ -39,6 +39,7 @@
     "styled-components": "^3.2.6"
   },
   "scripts": {
+    "server": "nodemon server/index.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",

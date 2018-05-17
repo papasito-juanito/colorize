@@ -2,8 +2,8 @@
 const router = require('express').Router();
 
 // Local import
-const color = require('./color');
+const list = require('./list');
 
-router.use('/collection', color);
+router.use('/list', list);
 
 module.exports = router;

@@ -1,19 +1,19 @@
 // Local import
-const model = require('../../models/wishLists/delWish');
+const model = require('../../models/colors/delColor');
 
 module.exports = function(req, res) {
   console.log('[req.body  ]',req.body);
   console.log(`[controller] received request from client...`);
   
-  let wish_id = req.body.wish_id;
+  let color_id = req.body.color_id;
   
-  let params = [wish_id];
+  let params = [color_id];
 
   model(params, function(err, rows) {
     if (err) { throw err }
     else {
       console.log(`[controller] received response from model...`);
-      res.end('selected wishlist is deleted');
+      res.end('selected color is deleted');
     }
   })
 };

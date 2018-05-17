@@ -2,6 +2,7 @@
 const model = require('../../models/reviews/modify');
 
 module.exports = function(req, res) {
+  console.log('[req.body  ]',req.body);
   console.log(`[controller] received request from client...`);
   
   let reviewPhoto = req.body.reviewPhoto;
@@ -15,7 +16,7 @@ module.exports = function(req, res) {
     if (err) { throw err }
     else {
       console.log(`[controller] received response from model...`);
-      res.send(rows);
+      res.end('selected review is updated');
     }
   })
 };

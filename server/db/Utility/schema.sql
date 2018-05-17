@@ -97,6 +97,7 @@ CREATE TABLE `itemColors` (
   `itemColor` VARCHAR(20) NOT NULL,
   `itemHex` VARCHAR(20) NOT NULL,
   `itemDate` DATE NOT NULL,
+  `colorToggle` VARCHAR(5) NOT NULL DEFAULT 'true',
   PRIMARY KEY (`id`)
 );
 

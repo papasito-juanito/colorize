@@ -60,3 +60,22 @@ error:
 ***
 help by: 까를로스 형님
 shovel time: 1시간
+
+***
+#2018-05-17
+***
+error:
+    포스트맨을 통해 api를 검사하면서 delItem api가 애매한 것을 발견.
+    처음에 의도한 것처럼 구현하기 위해서 delColor api가 필요 -> schema 수정..
+
+***
+aws setting:
+    $ curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash - # ver 6.x 대 설치
+    $ sudo apt-get install -y nodejs # 설치
+    $ sudo apt-get install -y build-essential # npm 네이티브 에드온 컴파일용 빌드 도구
+    $ node -v # node.js 설치 체크
+
+    $ sudo su - 관리자 권한 획득
+    $ apt-get update - apt-get 의 패키지 업데이
+    $ apt-cache search mysql-server - mysql 패키지가 존재하는지 확인
+    $ apt-get install mysql-server-5.6 - mysql 설치 -> 비밀번호 설정하는 페이지로 이동

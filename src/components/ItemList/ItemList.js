@@ -1,109 +1,30 @@
 import React, { Component } from 'react';
 import Items from './Items'
 import Sort from './Sort'
+import axios from 'axios';
 
 
 class ItemList extends Component {
     constructor(props){
         super()
-        this.state = [
-        {
-            photo: '',
-            hex: 'red',
-            brand: 'NARS',
-            item: 'Sex Appeal',
-            price: '3,000',
-            volume: '10g',
-            average: 3,
-            review: '10'
-            },
-        {
-            photo: '',
-            hex: 'red',
-            brand: 'NARS',
-            item: 'Sex Appeal',
-            price: '3,000',
-            volume: '10g',
-            average: 3,
-            review: '10'
-            },
-        {
-            photo: '',
-            hex: 'red',
-            brand: 'NARS',
-            item: 'Sex Appeal',
-            price: '3,000',
-            volume: '10g',
-            average: 3,
-            review: '10'
-            },
-            {
-                photo: '',
-                hex: 'red',
-                brand: 'NARS',
-                item: 'Sex Appeal',
-                price: '3,000',
-                volume: '10g',
-                average: 3,
-                review: '10'
-                },
-            {
-                photo: '',
-                hex: 'red',
-                brand: 'NARS',
-                item: 'Sex Appeal',
-                price: '3,000',
-                volume: '10g',
-                average: 3,
-                review: '10'
-                },
-            {
-                photo: '',
-                hex: 'red',
-                brand: 'NARS',
-                item: 'Sex Appeal',
-                price: '3,000',
-                volume: '10g',
-                average: 3,
-                review: '10'
-                },
-            {
-                photo: '',
-                hex: 'red',
-                brand: 'NARS',
-                item: 'Sex Appeal',
-                price: '3,000',
-                volume: '10g',
-                average: 3,
-                review: '10'
-                },
-            {
-                photo: '',
-                hex: 'red',
-                brand: 'NARS',
-                item: 'Sex Appeal',
-                price: '3,000',
-                volume: '10g',
-                average: 3,
-                review: '10'
-                },
-            {
-                photo: '',
-                hex: 'red',
-                brand: 'NARS',
-                item: 'Sex Appeal',
-                price: '3,000',
-                volume: '10g',
-                average: 3,
-                review: '10'
-                }
-        ]
+        this.state = {
+            item: []
+        }
     }
+    
+    componentDidMount(){
+        axios.get('http://127.0.0.1:8080/api/item/list')
+        .then((response) => {
+            console.log(response);
+            this.setState({item: response.data})
+          })
+    }    
+
     render(){
         return (
             <div>
             <Sort />
-            <Items item={this.state}/>
+            <Items item={this.state.item}/>
             </div>
         )
     }    

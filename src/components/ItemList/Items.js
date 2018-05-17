@@ -43,7 +43,7 @@ const Img = styled.img`
     height: 300px;
 `
 const Color = styled.div`
-    background-color: ${props=>props.color};
+    background-color: #${props=>props.color};
     position: absolute; 
     width: 100px;
     height: 150px;
@@ -94,7 +94,7 @@ const Items = ({item}) => {
                                 <Img src={item.photo}/>
                                 <Color color={item.hex}/>
                             </ItemTop >
-                            <ItemLink to="/wishlist" style={{ textDecoration: 'none' }}>
+                            <ItemLink to={`/detail/${item.color_id}`} style={{ textDecoration: 'none' }}>
                                 <Brand>{item.brand}</Brand>
                                 <ItemName>{item.item}, {item.volume}</ItemName>
                                 <Price>{item.price}</Price>

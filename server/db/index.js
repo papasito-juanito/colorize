@@ -1,14 +1,7 @@
 // Global import
 const mysql = require('mysql');
 
-// Local import
-// const colors = require('./colors');
-// const items = require('./items');
-// const reviews = require('./reviews');
-// const users = require('./users');
-// const wishLists = require('./wishLists');
-
-let db = mysql.createConnection({
+const db = mysql.createConnection({
   user: 'root',
   password: '',
   database: 'colorize'

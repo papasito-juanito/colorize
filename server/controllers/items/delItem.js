@@ -2,6 +2,7 @@
 const model = require('../../models/items/delItem');
 
 module.exports = function(req, res) {
+  console.log('[req.body  ]',req.body);
   console.log(`[controller] received request from client...`);
   
   let item_id = req.body.item_id;
@@ -12,7 +13,7 @@ module.exports = function(req, res) {
     if (err) { throw err }
     else {
       console.log(`[controller] received response from model...`);
-      res.send(rows);
+      res.end('selected item is deleted');
     }
   })
 };

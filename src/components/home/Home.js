@@ -1,5 +1,5 @@
 import React from 'react';
-import HomeColors from './HomeColors';
+import HomeColor from './HomeColor';
 import HomeTitle from './HomeTitle';
 import styled from 'styled-components';
 
@@ -9,14 +9,13 @@ const HomeContainer = styled.div`
     height:100%;
     width:100%;
     position: absolute;
-
-    `
+`
 
 const Home = () => {
     return (
         <HomeContainer>  
             <HomeTitle/>
-            <HomeColors/>
+            <HomeColor/>
         </HomeContainer>     
     );
 };

@@ -79,3 +79,13 @@ aws setting:
     $ apt-get update - apt-get 의 패키지 업데이
     $ apt-cache search mysql-server - mysql 패키지가 존재하는지 확인
     $ apt-get install mysql-server-5.6 - mysql 설치 -> 비밀번호 설정하는 페이지로 이동
+
+***
+git folder:
+    대소문자 변경은 push에 적용되지 않음. 수정하는 명령어가 있으나 그걸 쓰느니 폴더명을 바꾸는걸 추천
+
+***
+mysql root password change:
+    mysql 접속후
+    use mysql;
+    update user set authentication_string=password('1234') where user='root';

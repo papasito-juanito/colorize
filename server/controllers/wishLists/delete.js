@@ -2,7 +2,7 @@
 const model = require('../../models/wishLists/delete');
 
 module.exports = function(req, res) {
-  console.log('[req.body  ]',req.body);
+  console.log('[wish_id   ]',req.body.wish_id);
   console.log(`[controller] received request from client...`);
   
   let wish_id = req.body.wish_id;

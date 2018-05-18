@@ -2,6 +2,7 @@
 const model = require('../../models/reviews/userInfo');
 
 module.exports = function(req, res) {
+  console.log('[user_id   ]',req.query.user_id);
   console.log(`[controller] received request from client...`);
   
   let user_id = req.body.user_id;

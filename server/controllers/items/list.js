@@ -2,7 +2,7 @@
 const model = require('../../models/items/list');
 
 module.exports = function(req, res) {
-  console.log('[req.query ]',req.query);
+  console.log('[color_id  ]',req.query.color_id);
   console.log(`[controller] received request from client...`);
   
   let color_id = JSON.parse(req.query.color_id);

@@ -2,7 +2,7 @@
 const router = require('express').Router();
 
 // Local import
-const controller = require('../../controllers/reviews/write');
+const controller = require('../../controllers/reviews/post');
 
 router.post('/', controller);
 

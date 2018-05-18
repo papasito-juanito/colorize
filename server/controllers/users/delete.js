@@ -2,7 +2,7 @@
 const model = require('../../models/users/delete');
 
 module.exports = function(req, res) {
-  console.log('[req.body  ]',req.body);
+  console.log('[userMail  ]',req.body.userMail);
   console.log(`[controller] received request from client...`);
   
   let userMail = req.body.userMail;

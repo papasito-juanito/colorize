@@ -127,18 +127,18 @@ class Signup extends Component {
 
     _onForm() {
         const form = {
-            email: this.email.value,
-            password: this.password.value,
-            nickname: this.nickname.value,
-            birthdate: this.birthdate.value, 
+            userMail: this.email.value,
+            userPassword: this.password.value,
+            userName: this.nickname.value,
+            birthDate: this.birthdate.value, 
             gender: this.state.genderSelected,
-            color: this.state.colorSelected
+            toneName: this.state.colorSelected
         };
 
         // console.log(form)
         const api = axios.create({ baseURL: 'http://localhost:8080' })
         !this.state.agree ? alert('약관에 동의하세요') :
-            api.post('http://127.0.0.1:8080/register', form)
+            api.post('/api/user/signup', form)
                 .then(res => console.log(res))
                 .catch(error => console.log(error))
 

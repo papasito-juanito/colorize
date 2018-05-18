@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import StarRatingComponent from 'react-star-rating-component';
 import styled from 'styled-components';
-
+import axios from 'axios';
 
 const logged = true;
 
@@ -27,14 +27,26 @@ class Rating extends Component {
     }
 
     _clickReview() {
-        var review = {
-            rating : this.state.rating,
-            comment : this.input.value
+        const form = {
+            color_id: this.props.id,
+            reviewPhoto: 1,
+            reviewRating: this.state.rating,
+            user_id: 1,
+            reviewMessage: this.input.value
         }
+        // console.log(form)
         !logged ? alert('로그인 먼저해') :
-        console.log(review);
-        this.input.value='';
+            axios.post(`http://127.0.0.1:8080/api/review/post`, form)
+            .then((response) => {
+            console.log(response.data);
+            })
+        // .then(response => this.setState({ data: response.data }))
+        .catch(err => console.log(err))
+          this.input.value='';
     }
+
+
+
 
     render() {
         const { rating } = this.state;

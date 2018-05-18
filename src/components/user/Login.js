@@ -91,12 +91,12 @@ class Login extends Component {
 
     _clickToLogin = () => {
         const form = {
-            email: this.email.value,
-            password: this.password.value
+            userMail: this.email.value,
+            userPassword: this.password.value
         }
 
         const api = axios.create({ baseURL: 'http://localhost:8080' })
-        api.post('http://127.0.0.1:8080/login', form)
+        api.post('/api/user/login', form)
             .then(res => console.log(res))
             .catch(error => console.log(error))
     }

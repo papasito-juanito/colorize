@@ -3,6 +3,7 @@ import Chart from './Chart';
 import styled from 'styled-components';
 import LinesEllipsis from 'react-lines-ellipsis'
 import responsiveHOC from 'react-lines-ellipsis/lib/responsiveHOC'
+import axios from 'axios';
 
 const DetailDiv = styled.div`
     width: 40%;
@@ -36,25 +37,39 @@ class DetailRight extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            like : false
+            like : false,
+            data : ''
         }   
     }
 
+    componentDidMount() {
+        // axios.get(`http://127.0.0.1:8080/api/item/rate?color_id=${this.props.match.params.id}`)
+        axios.get(`http://127.0.0.1:8080/api/item/rate?color_id=${this.props.id}`)
+            // .then((response) => {
+            //     console.log(response.data);
+            //   })
+            .then(response => this.setState({ data: response.data }))
+            .catch(err => console.log(err))
+    }    
+    
+
 
     render() {
-
+        console.log(this.props)
+        
+        // console.log(this.props.data[0])
         return (
             <Wrapper>
                 <DetailDiv>
-                    <div> name : {this.props.data ? this.props.data[0].item : null} </div>
+                    <div> name : {this.props.data ? this.props.data[0].name  : null} </div>
                     <div> price : {this.props.data ? this.props.data[0].price : null} </div>
-                    {/* <div> detail : {this.props.data ? this.props.data[0].description : null} </div> */}
-                    <flexDiv> detail : {this.props.data ? this.props.data[0].description : null}</flexDiv>   
+                    <div> detail : {this.props.data ? this.props.data[0].description : null} </div>
+                    {/* <flexDiv> detail : {this.props.data ? this.props.data[0].description : null}</flexDiv>    */}
                 
                 </DetailDiv>
                 
                 <ChartDiv>
-                    <Chart/>
+                    <Chart data={this.state.data}/>
                 </ChartDiv>
             </Wrapper>
         )

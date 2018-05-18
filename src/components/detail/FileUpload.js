@@ -61,7 +61,7 @@ class FileUpload extends Component {
 
 
     render(){
-       console.log(this.state.popupIsOpen)
+    
 
         let { imagepreviewUrl } = this.state;
         let $imagePreview = null;

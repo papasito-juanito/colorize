@@ -147,7 +147,7 @@ class Content extends Component {
 
     _reviewLike = function() {
         this.setState({like: !this.state.like})
-        !this.state.like ? this.state.likeCount++ : this.state.likeCount--;
+        !this.state.like ? this.setState({likecount:this.state.likeCount++}) : this.setState({likecount : this.state.likeCount--})
     }
 
     _openPopup(e) {

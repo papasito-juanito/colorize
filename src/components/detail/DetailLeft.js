@@ -63,7 +63,7 @@ class DetailLeft extends Component {
                 </ImageDiv>
                     <ColorDiv />
                 <Wishlist>
-                    <Image onClick={this._clickToWish} src={!this.state.wish ?noWish : Wish} alt={'wishlist'} />  
+                    <Image onClick={this._clickToWish} src={!this.state.wish ? noWish : Wish} alt={'wishlist'} />  
                 </Wishlist>
             </Div>
         )

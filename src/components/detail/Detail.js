@@ -40,13 +40,12 @@ class Detail extends Component {
 
 
     render(){
-        console.log(this.state.data);
-        
+        console.log(this.props)
         return (
             <div>
             <Wrapper>
                 <DetailLeft data={this.state.data}/>
-                    <DetailRight data={this.state.data}/>
+                    <DetailRight data={this.state.data} id = {this.props.match.params.id}/>
             </Wrapper>
             <Div>
                 <Comment/>

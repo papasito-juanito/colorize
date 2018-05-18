@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import StarRatingComponent from 'react-star-rating-component';
 import { Link } from 'react-router-dom';
+// const queryString = require('query-string');
 
 const ItemListContainer = styled.div`
     top:10%;
@@ -94,7 +95,7 @@ const Items = ({item}) => {
                                 <Img src={item.photo}/>
                                 <Color color={item.hex}/>
                             </ItemTop >
-                            <ItemLink to={`/detail/${item.color_id}`} style={{ textDecoration: 'none' }}>
+                            <ItemLink to={`/items/detail/${item.color_id}`} style={{ textDecoration: 'none' }}>
                                 <Brand>{item.brand}</Brand>
                                 <ItemName>{item.item}, {item.volume}</ItemName>
                                 <Price>{item.price}</Price>

@@ -27,12 +27,12 @@ class App extends Component {
                 <Nav/>   
                     <Switch> 
                         <Route exact path="/" component={Home}/>
-                        <Route path="/items" component={ItemList}/>
                         <Route path="/wishList" component={WishList}/>
                         <Route path="/review" component={Review}/>
                         <Route path="/login" component={Login}/>
                         <Route path="/signup" component={Signup}/>
-                        <Route path="/detail" component={Detail} />
+                        <Route exact path="/items" component={ItemList}/>
+                        <Route path="/items/detail/:id" component={Detail} />
                         <Route component={NotMatch}/>
                     </Switch>
                 </div>

@@ -44,62 +44,31 @@ const options= {
 
 
 class Chart extends Component {
-
     constructor(props){
         super(props);
         this.state = {
-            data : [
-                    // this.props.data[4], 
-                    // this.props.data[3],
-                    // this.props.data[2],
-                    // this.props.data[1],
-                    // this.props.data[0]  
-            ]
         }
         
     }
-    
-    // componentWillReceiveProps(newProps){
-    //     console.log(newProps.data[0]);
-    // }
-    
-
-    // componentDidMount() {
-    //     axios.get(`http://127.0.0.1:8080/api/item/detail?color_id=${this.props.match.params.id}`)
-    //         .then((response) => {
-    //             console.log(response.data);
-    //           })
-    //         // .then(response => this.setState({ data: response.data }))
-    //         .catch(err => console.log(err))
-    // }    
 
     render(){
-    
-        var data = {
+        const data =  {
             labels: ["5", "4", "3", "2", "1"],
             datasets: [
-                {
-                    label: "평점수",
-                    backgroundColor: ["#4CAF50", "#2196F3", "#00bcd4", "#ff9800", "#f44336"],
-                    data: [ 1, 2, 3, 4, 5
-                        // this.props.data[4],
-                        // this.props.data[3],
-                        // this.props.data[2],
-                        // this.props.data[1],
-                        // this.props.data[0]
-                        // this.props.data ? this.props.data[4] : null,
-                        // this.props.data ? this.props.data[3] : null, 
-                        // this.props.data ? this.props.data[2] : null, 
-                        // this.props.data ? this.props.data[1] : null, 
-                        // this.props.data ? this.props.data[0] : null
-                    ]
-                }
+                    {
+                        label: "평점수",
+                        backgroundColor: ["#4CAF50", "#2196F3", "#00bcd4", "#ff9800", "#f44336"],
+                        data: [
+                            this.props.data ? this.props.data[0].sssss : null,
+                            this.props.data ? this.props.data[0].ssss : null,
+                            this.props.data ? this.props.data[0].sss : null,
+                            this.props.data ? this.props.data[0].ss : null,
+                            this.props.data ? this.props.data[0].s : null,
+                        ]
+                     }
             ]
         }
         
-        console.log(this.props.data ? this.props.data[0].total : null)
-
-
         return (
             <Div>
                 <HorizontalBar data = {data} options={options}/>

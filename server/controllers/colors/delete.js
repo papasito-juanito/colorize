@@ -1,5 +1,5 @@
 // Local import
-const model = require('../../models/colors/delColor');
+const model = require('../../models/colors/delete');
 
 module.exports = function(req, res) {
   console.log('[req.body  ]',req.body);

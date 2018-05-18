@@ -2,10 +2,10 @@
 const router = require('express').Router();
 
 // Local import
-const delColor = require('./delColor');
+const _delete = require('./delete');
 const list = require('./list');
 
-router.use('/delete', delColor);
+router.use('/delete', _delete);
 router.use('/list', list);
 
 module.exports = router;

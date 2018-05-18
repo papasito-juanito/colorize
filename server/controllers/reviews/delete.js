@@ -1,19 +1,19 @@
 // Local import
-const model = require('../../models/users/delUser');
+const model = require('../../models/reviews/delete');
 
 module.exports = function(req, res) {
   console.log('[req.body  ]',req.body);
   console.log(`[controller] received request from client...`);
   
-  let userMail = req.body.userMail;
+  let review_id = req.body.review_id;
   
-  let params = [userMail];
+  let params = [review_id];
 
   model(params, function(err, rows) {
     if (err) { throw err }
     else {
       console.log(`[controller] received response from model...`);
-      res.end('selected user is deleted');
+      res.end('selected review is deleted');
     }
   })
 };

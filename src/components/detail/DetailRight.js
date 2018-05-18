@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Chart from './Chart';
 import styled from 'styled-components';
+import LinesEllipsis from 'react-lines-ellipsis'
+import responsiveHOC from 'react-lines-ellipsis/lib/responsiveHOC'
 
 const DetailDiv = styled.div`
     width: 40%;
@@ -18,31 +20,39 @@ const ChartDiv = styled.div`
     width: 60%;
 `
 
+const flexDiv = styled.div`
+    display: -webkit-box;
+    white-space: normal;
+    line-height: 20px;
+    height: 40px;
+    word-wrap: break-word;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+
+`
+const ResponsiveEllipsis = responsiveHOC()(LinesEllipsis);
+
 class DetailRight extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
-            like : false,
-            rating :[5,3,4,5,2,2,1,3,4,2,3,5],
-            product:
-                {
-                    name: 'hi',
-                    price: 30000,
-                    detail: '존나비쌈',
-                    rating: 3
-                }
+            like : false
         }   
     }
 
+
     render() {
+
         return (
             <Wrapper>
                 <DetailDiv>
-                    <div> name : {this.state.product.name} </div>
-                    <div> price : {this.state.product.price} </div>
-                    <div> detail : {this.state.product.detail} </div>
-                    <div> rating : {this.state.product.rating} </div>    
+                    <div> name : {this.props.data ? this.props.data[0].item : null} </div>
+                    <div> price : {this.props.data ? this.props.data[0].price : null} </div>
+                    {/* <div> detail : {this.props.data ? this.props.data[0].description : null} </div> */}
+                    <flexDiv> detail : {this.props.data ? this.props.data[0].description : null}</flexDiv>   
+                
                 </DetailDiv>
+                
                 <ChartDiv>
                     <Chart/>
                 </ChartDiv>

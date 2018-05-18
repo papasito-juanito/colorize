@@ -41,8 +41,8 @@ const ColorDiv = styled.div`
 `
 
 class DetailLeft extends Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             wish:false
         }
@@ -55,10 +55,11 @@ class DetailLeft extends Component {
     }
 
     render(){
+        
         return (
             <Div>
                 <ImageDiv >
-                    <Image src={logo} alt={'lip'} />
+                    <Image src={this.props.data ? this.props.data[0].photo : null} alt={'lip'} />
                 </ImageDiv>
                     <ColorDiv />
                 <Wishlist>

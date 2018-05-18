@@ -22,22 +22,31 @@ const Div = styled.div`
 `
 
 class Detail extends Component {
+    constructor(){
+        super()
+        this.state = {
+            data: ''
+        }
+    }
+
     componentDidMount(){
         axios.get(`http://127.0.0.1:8080/api/item/detail?color_id=${this.props.match.params.id}`)
-        .then((response) => {
-            console.log(response.data);
-          })
+        // .then((response) => {
+        //     console.log(response.data);
+        //   })
+          .then(response => this.setState({data : response.data}))
+          .catch(err => console.log(err))
     }    
 
 
     render(){
-        console.log(this.props);
+        console.log(this.state.data);
         
         return (
             <div>
             <Wrapper>
-                <DetailLeft/>
-                <DetailRight/>
+                <DetailLeft data={this.state.data}/>
+                    <DetailRight data={this.state.data}/>
             </Wrapper>
             <Div>
                 <Comment/>

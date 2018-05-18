@@ -48,7 +48,7 @@ class Detail extends Component {
                     <DetailRight data={this.state.data} id = {this.props.match.params.id}/>
             </Wrapper>
             <Div>
-                <Comment/>
+                    <Comment id={this.props.match.params.id}/>
             </Div>
             <Div>
                 <div style = {{height: '60vh', backgroundColor: 'skyblue'}}>

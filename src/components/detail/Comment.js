@@ -12,11 +12,11 @@ class Comment extends Component {
   
 
     render(){
-    
+    console.log(this.props.id)
         return (
             <Div>
                 <FileUpload/>
-                <Rating/>
+                <Rating id = {this.props.id}/>
             </Div>
 
         )

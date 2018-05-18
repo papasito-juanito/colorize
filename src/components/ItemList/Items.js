@@ -45,11 +45,12 @@ const Img = styled.img`
 `
 const Color = styled.div`
     background-color: #${props=>props.color};
+    border-radius: 50%;
     position: absolute; 
-    width: 100px;
-    height: 150px;
-    top:0px; 
-    left:200px;
+    width: 70px;
+    height: 70px;
+    top:5px; 
+    right:5px
 `
 
 const ItemLink = styled(Link)`

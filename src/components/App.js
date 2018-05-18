@@ -31,7 +31,7 @@ class App extends Component {
                         <Route path="/review" component={Review}/>
                         <Route path="/login" component={Login}/>
                         <Route path="/signup" component={Signup}/>
-                        <Route exact path="/items" component={ItemList}/>
+                        <Route exact path="/items/:id" component={ItemList}/>
                         <Route path="/items/detail/:id" component={Detail} />
                         <Route component={NotMatch}/>
                     </Switch>

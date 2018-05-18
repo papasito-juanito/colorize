@@ -2,7 +2,7 @@
 const model = require('../../models/items/delete');
 
 module.exports = function(req, res) {
-  console.log('[req.body  ]',req.body);
+  console.log('[item_id   ]',req.body.item_id);
   console.log(`[controller] received request from client...`);
   
   let item_id = req.body.item_id;

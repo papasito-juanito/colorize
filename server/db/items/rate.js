@@ -1,8 +1,8 @@
 const query = `
 SELECT * FROM
   (SELECT ic.id color_id, IFNULL(AVG(rt.reviewRating),0) avg, 
-    COUNT(r1.id) 1st, COUNT(r2.id) 2st, COUNT(r3.id) 3st, COUNT(r4.id) 4st, 
-    COUNT(r5.id) 5st, COUNT(rt.id) total
+    COUNT(r1.id) s, COUNT(r2.id) ss, COUNT(r3.id) sss, COUNT(r4.id) ssss, 
+    COUNT(r5.id) sssss, COUNT(rt.id) total
   FROM itemColors ic
   LEFT JOIN reviews r1
   ON ic.id=r1.itemColors_id AND r1.reviewRating='1'

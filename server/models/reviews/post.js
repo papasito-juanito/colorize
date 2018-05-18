@@ -1,6 +1,6 @@
 // Local import
 const db = require('../../db');
-const queryStr = require('../../db/reviews/write');
+const queryStr = require('../../db/reviews/post');
 
 module.exports = function(params, cb) {
   console.log(`[model     ] received params from controller...`)

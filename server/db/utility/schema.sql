@@ -1,5 +1,12 @@
+-- SET character_set_client = utf8;
+-- SET character_set_results = utf8;
+-- SET character_set_connection = utf8;
+
 DROP DATABASE IF EXISTS `colorize`;
 CREATE DATABASE `colorize`;
+
+-- ALTER DATABASE 'colorize' DEFAULT CHARACTER SET utf8;
+
 USE `colorize`;
 
 DROP TABLE IF EXISTS `users`;

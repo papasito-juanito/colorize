@@ -2,7 +2,7 @@
 const model = require('../../models/colors/delete');
 
 module.exports = function(req, res) {
-  console.log('[req.body  ]',req.body);
+  console.log('[color_id  ]',req.body.color_id);
   console.log(`[controller] received request from client...`);
   
   let color_id = req.body.color_id;

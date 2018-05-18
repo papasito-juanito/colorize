@@ -13,7 +13,7 @@ class ItemList extends Component {
     }
     
     componentDidMount(){
-        axios.get(`http://127.0.0.1:8080/api/item/list?color_id=[1,2,3]`)
+        axios.get(`http://127.0.0.1:8080/api/item/list?color_id=[${this.props.match.params.id.split('&')}]`)
         .then((response) => {
             console.log(response);
             console.log('파람', this.props.match.params.id.split('&'));
@@ -22,17 +22,7 @@ class ItemList extends Component {
           })
     }    
   
-    // getParamsId(){
-        
-    //     const params = this.props.match.params.id.split('&')
-    //     console.log('parmas', params);
-        
-    // }
-
     render(){
-        console.log(this.props);
-        const params = this.props.match.params.id.split('&')
-        console.log('parmas', params);
         return (
             <div>
             <Sort />

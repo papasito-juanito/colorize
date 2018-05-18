@@ -1,5 +1,5 @@
 // Local import
-const model = require('../../models/wishLists/delWish');
+const model = require('../../models/wishLists/list');
 
 module.exports = function(req, res) {
   console.log(`[controller] received request from client...`);

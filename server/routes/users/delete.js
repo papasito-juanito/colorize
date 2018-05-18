@@ -2,7 +2,7 @@
 const router = require('express').Router();
 
 // Local import
-const controller = require('../../controllers/colors/delColor');
+const controller = require('../../controllers/users/delete');
 
 router.post('/', controller);
 

@@ -1,14 +1,13 @@
 // Local import
-const model = require('../../models/items/list');
+const model = require('../../models/wishLists/update');
 
 module.exports = function(req, res) {
-  console.log('[req.query ]',req.query);
-  console.log('[req.query ]',JSON.parse(req.query.color_id));
   console.log(`[controller] received request from client...`);
   
-  let color_id = JSON.parse(req.query.color_id);
+  let user_id = req.body.user_id;
+  let item_id = req.body.item_id;
   
-  let params = [color_id];
+  let params = [user_id, item_id];
 
   model(params, function(err, rows) {
     if (err) { throw err }

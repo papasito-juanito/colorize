@@ -4,7 +4,7 @@ import {injectGlobal} from 'styled-components'
 import Nav from '../components/Nav'
 
 import Home from './home/Home'
-import ItemList from './ItemList/ItemList'
+import ItemList from './itemList/ItemList'
 import NotMatch from './NotMatch'
 import WishList from './wishList/WishList'
 import Review from './review/Review'
@@ -27,12 +27,12 @@ class App extends Component {
                 <Nav/>   
                     <Switch> 
                         <Route exact path="/" component={Home}/>
-                        <Route path="/items" component={ItemList}/>
                         <Route path="/wishList" component={WishList}/>
                         <Route path="/review" component={Review}/>
                         <Route path="/login" component={Login}/>
                         <Route path="/signup" component={Signup}/>
-                        <Route path="/detail" component={Detail} />
+                        <Route exact path="/items" component={ItemList}/>
+                        <Route path="/items/detail/:id" component={Detail} />
                         <Route component={NotMatch}/>
                     </Switch>
                 </div>

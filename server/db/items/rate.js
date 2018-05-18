@@ -1,18 +1,22 @@
 const query = `
-SELECT *
-FROM itemColors ic, reviews r, reviewLikes rl
-WHERE ic.colorToggle='true' AND r.reviewToggle='true' AND rl.likeToggle='true' AND
-  ic.id=r.itemColors_id AND r.id=rl.reviews_id AND
-  ic.id=?;
+SELECT * FROM
+  (SELECT ic.id color_id, IFNULL(AVG(rt.reviewRating),0) avg, 
+    COUNT(r1.id) s, COUNT(r2.id) ss, COUNT(r3.id) sss, COUNT(r4.id) ssss, 
+    COUNT(r5.id) sssss, COUNT(rt.id) total
+  FROM itemColors ic
+  LEFT JOIN reviews r1
+  ON ic.id=r1.itemColors_id AND r1.reviewRating='1'
+  LEFT JOIN reviews r2
+  ON ic.id=r2.itemColors_id AND r2.reviewRating='2'
+  LEFT JOIN reviews r3
+  ON ic.id=r3.itemColors_id AND r3.reviewRating='3'
+  LEFT JOIN reviews r4
+  ON ic.id=r4.itemColors_id AND r4.reviewRating='4'
+  LEFT JOIN reviews r5
+  ON ic.id=r5.itemColors_id AND r5.reviewRating='5'
+  LEFT JOIN reviews rt
+  ON ic.id=rt.itemColors_id
+  GROUP BY ic.id) rate
+WHERE rate.color_id=?;
 `
 module.exports = query;
-`
-reviews,avr,1st,2st,3st,4st,5st,total
-
-SELECT ic.id, rn.reviews
-FROM itemColors ic, reviews r,
-  (SELECT itemColors_id,COUNT(id) reviews FROM reviews GROUP BY itemColors_id) rn
-WHERE ic.colorToggle='true' AND r.reviewToggle='true' AND
-  ic.id=r.itemColors_id AND ic.id=rn.itemColors_id AND r.id=rn.id AND
-  ic.id=?;
-`

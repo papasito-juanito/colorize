@@ -2,12 +2,14 @@
 const model = require('../../models/wishLists/update');
 
 module.exports = function(req, res) {
+  console.log('[user_id   ]',req.body.user_id);
+  console.log('[color_id  ]',req.body.color_id);
   console.log(`[controller] received request from client...`);
   
   let user_id = req.body.user_id;
-  let item_id = req.body.item_id;
+  let color_id = req.body.color_id;
   
-  let params = [user_id, item_id];
+  let params = [user_id, color_id];
 
   model(params, function(err, rows) {
     if (err) { throw err }

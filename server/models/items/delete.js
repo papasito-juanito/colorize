@@ -1,6 +1,6 @@
 // Local import
 const db = require('../../db');
-const queryStr = require('../../db/users/delUser');
+const queryStr = require('../../db/items/delete');
 
 module.exports = function(params, cb) {
   console.log(`[model     ] received params from controller...`)

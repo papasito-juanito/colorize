@@ -104,8 +104,8 @@ const Items = ({item}) => {
                                     <StarRatingComponent 
                                         name="itemList" 
                                         editing={false}
-                                        value={item.average}
-                                    />, <Review>({item.review})</Review>
+                                        value={item.avg}
+                                    />, <Review>({item.reviews})</Review>
                                 </Rating>
                             </ItemLink>
                         </Wrapper>

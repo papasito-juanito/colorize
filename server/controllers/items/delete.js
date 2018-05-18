@@ -1,19 +1,19 @@
 // Local import
-const model = require('../../models/items/list');
+const model = require('../../models/items/delete');
 
 module.exports = function(req, res) {
-  console.log('[color_id  ]',req.query.color_id);
+  console.log('[item_id   ]',req.body.item_id);
   console.log(`[controller] received request from client...`);
   
-  let color_id = JSON.parse(req.query.color_id);
+  let item_id = req.body.item_id;
   
-  let params = [color_id];
+  let params = [item_id];
 
   model(params, function(err, rows) {
     if (err) { throw err }
     else {
       console.log(`[controller] received response from model...`);
-      res.send(rows);
+      res.end('selected item is deleted');
     }
   })
 };

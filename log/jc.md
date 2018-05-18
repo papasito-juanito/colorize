@@ -89,3 +89,14 @@ mysql root password change:
     mysql 접속후
     use mysql;
     update user set authentication_string=password('') where user='root';
+
+***
+#2018-05-18
+***
+req.query:
+    ?color_id=[1,2,3]으로 클라이언트에서 요청시 json.stringfy되어 "[1,2,3]"으로 받음
+    풀기 위해 당연히 JSON.parse(req.query.color_id)를 해야한다
+
+***
+fix:
+    API를 RESTful하게 수정함. 다음엔 처음부터 이렇게 해야지..

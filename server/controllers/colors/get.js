@@ -1,5 +1,5 @@
 // Local import
-const model = require('../../models/colors/list');
+const model = require('../../models/colors/get');
 
 module.exports = function(req, res) {
   console.log(`[controller] received request from client...`);

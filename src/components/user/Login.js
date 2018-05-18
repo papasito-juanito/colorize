@@ -6,7 +6,6 @@ import gglogo from '../../assets/gg_icon.svg';
 import axios from 'axios';
 import Side from './Side';
 
-
 const Container = styled.div`
     height: 90vh;
     width : 90vw;

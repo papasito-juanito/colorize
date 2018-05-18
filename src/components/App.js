@@ -4,7 +4,7 @@ import {injectGlobal} from 'styled-components'
 import Nav from '../components/Nav'
 
 import Home from './home/Home'
-import ItemList from './itemList/ItemList'
+import ItemList from './ItemList/ItemList'
 import NotMatch from './NotMatch'
 import WishList from './wishList/WishList'
 import Review from './review/Review'

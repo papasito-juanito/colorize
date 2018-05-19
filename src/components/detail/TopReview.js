@@ -21,6 +21,7 @@ class TopReview extends Component {
     }
     
     render(){
+        console.log(this.state.topReview)
         return (
             <div>
                 <Review data = {this.state.topReview} />

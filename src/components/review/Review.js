@@ -24,6 +24,7 @@ const Div = styled.div`
 `
 
 const Review = ({data}) => {
+    console.log(data)
     return (
         <Div>
              <Content data={data}/>

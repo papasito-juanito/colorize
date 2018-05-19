@@ -27,7 +27,7 @@ DROP TABLE IF EXISTS `reviews`;
 CREATE TABLE `reviews` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `itemColors_id` INTEGER NOT NULL,
-  `reviewPhoto` VARCHAR(50) NOT NULL,
+  `reviewPhoto` BLOB NOT NULL,
   `reviewRating` INTEGER NOT NULL,
   `users_id` INTEGER NOT NULL,
   `reviewTime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -100,7 +100,7 @@ DROP TABLE IF EXISTS `itemColors`;
 CREATE TABLE `itemColors` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `items_id` INTEGER NOT NULL,
-  `itemPhoto` VARCHAR(255) NOT NULL,
+  `itemPhoto` BLOB NOT NULL,
   `itemColor` VARCHAR(20) NOT NULL,
   `itemHex` VARCHAR(20) NOT NULL,
   `itemDate` DATE NOT NULL,

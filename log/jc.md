@@ -98,5 +98,11 @@ req.query:
     풀기 위해 당연히 JSON.parse(req.query.color_id)를 해야한다
 
 ***
-fix:
+fix:ㅋ
     API를 RESTful하게 수정함. 다음엔 처음부터 이렇게 해야지..
+
+***
+sql:
+    여러 테이블을 합칠때 WHERE를 통해 foreign key를 연결하면 값이 없는 경우 안나옴.
+    예를 들어 아이템과 리뷰 테이블을 합칠때 리뷰가 없는 경우 아이템이 안뜸.
+    그래서 LEFT JOIN을 써서 해결함 

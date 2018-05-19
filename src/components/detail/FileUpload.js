@@ -74,8 +74,7 @@ class FileUpload extends Component {
     }
 
     render(){
-        console.log('selectedFile: ', this.state.selectedFile);
-        console.log('file: ', this.state.file)
+        
 
         let { imagepreviewUrl } = this.state;
         let $imagePreview = null;

@@ -41,7 +41,6 @@ class Detail extends Component {
 
 
     render(){
-        console.log(this.props)
         return (
             <div>
             <Wrapper>
@@ -52,7 +51,7 @@ class Detail extends Component {
                     <Comment id={this.props.match.params.id}/>
             </Div>
             <Div>
-                <div style = {{height: '60vh', backgroundColor: 'skyblue'}}>
+                <div style = {{height: '66vh', backgroundColor: 'skyblue'}}>
                     {/* <InfiniteScroll
                         pageStart={0}
                         // loadMore={loadFunc}
@@ -62,7 +61,7 @@ class Detail extends Component {
                     >
                       
                     </InfiniteScroll> */}
-                        <TopReview />
+                    <TopReview id={this.props.match.params.id} />
                 </div>
                     <AllReview id={this.props.match.params.id}/>
             </Div>

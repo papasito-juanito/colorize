@@ -20,14 +20,13 @@ const Div = styled.div`
     width: 80vw;
     height: 20vh;
     display: flex;
-    border: 1px solid;
+    border: 1px solid blue;
 `
 
-const Review = () => {
+const Review = ({data}) => {
     return (
         <Div>
-             {/* <Item /> */}
-             <Content/>
+             <Content data={data}/>
         </Div>
     );
 };

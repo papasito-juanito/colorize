@@ -100,7 +100,7 @@ DROP TABLE IF EXISTS `itemColors`;
 CREATE TABLE `itemColors` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `items_id` INTEGER NOT NULL,
-  `itemPhoto` BLOB NOT NULL,
+  `itemPhoto` VARCHAR(255) NOT NULL,
   `itemColor` VARCHAR(20) NOT NULL,
   `itemHex` VARCHAR(20) NOT NULL,
   `itemDate` DATE NOT NULL,

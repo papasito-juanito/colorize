@@ -105,4 +105,12 @@ fix:ㅋ
 sql:
     여러 테이블을 합칠때 WHERE를 통해 foreign key를 연결하면 값이 없는 경우 안나옴.
     예를 들어 아이템과 리뷰 테이블을 합칠때 리뷰가 없는 경우 아이템이 안뜸.
-    그래서 LEFT JOIN을 써서 해결함 
+    그래서 LEFT JOIN을 써서 해결함
+
+***
+#2018-05-19
+***
+sql:
+    이미지를 저장하기 위해서 BLOB형태로 schema 변경이 필요.
+    그래서 url로 되어있던 itemPhoto도 수정했는데 이건 아닌듯. 재수정 필요
+    결론: itemPhoto 는 VARCHAR, reviewPhoto 는 BLOB

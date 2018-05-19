@@ -12,14 +12,24 @@ const Div = styled.div`
 const review = false;
 
 class Comment extends Component {
-  
+  constructor(){
+      super()
+          this.state = {
+     
+          }
+      
+      
+  }
+
 
     render(){
+        console.log(this.state.file)
+        console.log(this.state)
         return (
             <div>
                 {!review ? 
             <Div>
-                <FileUpload/>
+                <FileUpload me={this._handleImageChange} data = {this.state} />
                 <Rating id = {this.props.id}/>
             </Div>
                     : 

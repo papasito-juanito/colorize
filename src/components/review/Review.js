@@ -23,8 +23,9 @@ const Div = styled.div`
     border: 1px solid blue;
 `
 
-const Review = ({data}) => {
-    console.log(data)
+const Review = ({data, review}) => {
+    console.log('data : ', data)
+    console.log('review :' , review)
     return (
         <Div>
              <Content data={data}/>

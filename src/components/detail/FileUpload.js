@@ -16,8 +16,8 @@ const customStyles = {
 Modal.setAppElement('#root');
 
 class FileUpload extends Component {    
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             file: '',
             imagepreviewUrl: '',
@@ -28,7 +28,7 @@ class FileUpload extends Component {
         this._afterOpenPopup = this._afterOpenPopup.bind(this);
         this._closePopup = this._closePopup.bind(this);
         this._handleSubmit = this._handleSubmit.bind(this);
-        this._handleImageChange = this._handleImageChange.bind(this);
+        this._handleImageChange = this._handleImageChange.bind(this);    
         this._fileUploadHandler = this._fileUploadHandler.bind(this);
     }
 
@@ -67,14 +67,18 @@ class FileUpload extends Component {
     _fileUploadHandler = () => {
         const formData = new FormData();
         formData.append('image', this.state.file, this.state.file.name)
-        // axios.post('http://localhost:8080/api/......', formData)
+        // axios.post('http://localhost:8080/api/......', formData, {            
+        //     onUploadProgress :  ProgressEvent => {
+        //         console.log('Upload Progress :', Math.round(ProgressEvent.loaded / ProgressEvent.total * 100) + '%')
+        //     }
+        // })
         // .then(res => console.log(res))
         // .catch(err => console.log(err))
 
     }
 
     render(){
-        
+        console.log(this.state)
 
         let { imagepreviewUrl } = this.state;
         let $imagePreview = null;
@@ -90,6 +94,7 @@ class FileUpload extends Component {
                     <input style = {{width:'100%'}}
                            type='file'
                         onChange={(e) => { this._handleImageChange(e); this._fileUploadHandler(e)}} />
+                        
                     {/* <button className="submitButton"
                             type = "submit"
                             onClick={(e) => this._handleSubmit(e)}> 

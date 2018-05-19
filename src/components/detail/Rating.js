@@ -32,8 +32,10 @@ class Rating extends Component {
             reviewPhoto: 1,
             reviewRating: this.state.rating,
             user_id: 1,
-            reviewMessage: this.input.value
-        }
+            reviewMessage: this.input.value,
+ 
+    }
+        
         // console.log(form)
         !logged ? alert('로그인 먼저해') :
             axios.post(`http://127.0.0.1:8080/api/review/post`, form)
@@ -44,6 +46,7 @@ class Rating extends Component {
         .catch(err => console.log(err))
           this.input.value='';
     }
+
 
 
 

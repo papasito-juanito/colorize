@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import DetailLeft from './DetailLeft'
-import DetailRight from './DetailRight'
+import DetailLeft from './DetailLeft';
+import DetailRight from './DetailRight';
+import AllReview from './AllReview';
 import styled, { ThemeProvider } from 'styled-components';
 import Comment from './Comment';
-import Reviews from './Reviews';
+import TopReview from './TopReview';
 import InfiniteScroll from 'react-infinite-scroller';
 import axios from 'axios';
 
@@ -32,7 +33,7 @@ class Detail extends Component {
     componentDidMount(){
         axios.get(`http://127.0.0.1:8080/api/item/detail?color_id=${this.props.match.params.id}`)
         // .then((response) => {
-        //     console.log(response.data);
+        //     console.log(response);
         //   })
           .then(response => this.setState({data : response.data}))
           .catch(err => console.log(err))
@@ -45,7 +46,7 @@ class Detail extends Component {
             <div>
             <Wrapper>
                 <DetailLeft data={this.state.data}/>
-                    <DetailRight data={this.state.data} id = {this.props.match.params.id}/>
+                <DetailRight data={this.state.data} id = {this.props.match.params.id}/>
             </Wrapper>
             <Div>
                     <Comment id={this.props.match.params.id}/>
@@ -61,8 +62,9 @@ class Detail extends Component {
                     >
                       
                     </InfiniteScroll> */}
-                    <Reviews />
+                        <TopReview />
                 </div>
+                    <AllReview id={this.props.match.params.id}/>
             </Div>
         </div>
         )

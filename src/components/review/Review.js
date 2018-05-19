@@ -18,7 +18,7 @@ import Content from './/Content'
 
 const Div = styled.div`
     width: 80vw;
-    height: 30vh;
+    height: 20vh;
     display: flex;
     border: 1px solid;
 `
@@ -26,7 +26,7 @@ const Div = styled.div`
 const Review = () => {
     return (
         <Div>
-             <Item />
+             {/* <Item /> */}
              <Content/>
         </Div>
     );

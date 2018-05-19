@@ -25,7 +25,7 @@ const Container = styled.div`
     border-radius: 5px;
     display:flex;
     margin: 1%;
-    width:80%;
+    width:100%;
     height: 90%;
 `
 
@@ -45,10 +45,9 @@ const Info = styled.div`
 `
 
 const ReviewContent = styled.div`
-    border: 2px solid #ccc;
     margin: 1vh 1vw 1vh 0;
     width: 60%;
-    height: 90%;
+    height: 70%;
     position: relative;
   
 `
@@ -57,12 +56,12 @@ const Message = styled.textarea`
     border: 2px solid #ccc;
     resize: none;
     width: 95%;
-    height: 18vh;
+    height: 12vh;
 `
 
 const LikeCount = styled.div`
     width: 20%
-    height: 50%
+    height: 70%
     top: 1%;
     right:2%;
     position: absolute;
@@ -97,7 +96,7 @@ const Delete = styled.button`
     font-size: 1rem;    
     color: black;
     top: 2%;
-    left: 14%;
+    left: 12%;
     position: absolute
     border-radius: 50%;
     border: none;
@@ -199,9 +198,9 @@ class Content extends Component {
                                 <Like onClick={this._reviewLike} src={this.state.like ? like : hate}/>
                                 {this.state.likeCount}
                         </LikeCount>
-                    </BottomContainer>
+                    </BottomContainer> :
                 </ReviewContent > :
-
+                        
                 <ReviewContent>
                     <div style={{ textAlign: 'center' }}>
                         <Message rows="10" cols="50">

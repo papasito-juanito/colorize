@@ -20,13 +20,13 @@ const customStyles = {
 Modal.setAppElement('#root');
 
 const Container = styled.div`
-    border: 2px solid gold;
+    border: 1px solid gold;
     background-color: #eee;
     border-radius: 5px;
     display:flex;
+    width:98%;
+    height: 96%;
     margin: 1%;
-    width:80%;
-    height: 90%;
 `
 
 const ReviewImage = styled.img`
@@ -45,10 +45,9 @@ const Info = styled.div`
 `
 
 const ReviewContent = styled.div`
-    border: 2px solid #ccc;
     margin: 1vh 1vw 1vh 0;
     width: 60%;
-    height: 90%;
+    height: 70%;
     position: relative;
   
 `
@@ -57,12 +56,12 @@ const Message = styled.textarea`
     border: 2px solid #ccc;
     resize: none;
     width: 95%;
-    height: 18vh;
+    height: 12vh;
 `
 
 const LikeCount = styled.div`
     width: 20%
-    height: 50%
+    height: 70%
     top: 1%;
     right:2%;
     position: absolute;
@@ -97,7 +96,7 @@ const Delete = styled.button`
     font-size: 1rem;    
     color: black;
     top: 2%;
-    left: 14%;
+    left: 12%;
     position: absolute
     border-radius: 50%;
     border: none;
@@ -118,7 +117,7 @@ const ModifyText = styled.textarea`
 
 class Content extends Component {
     constructor(props){
-        super(props);
+        super();
         this.state = {
             editing: true,
             message: '글이나오고 글이나오고 글이나오고',
@@ -151,7 +150,7 @@ class Content extends Component {
     }
 
     _openPopup(e) {
-        console.log(e.target.src)
+
         this.setState({
             popupIsOpen: true,
             imagepreviewUrl : e.target.src
@@ -171,53 +170,43 @@ class Content extends Component {
 
         let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
 
-        return (     
-            <Container>
-                <ReviewImage onClick = {this._openPopup} src={lip}/>
-                <Info >
-                    <div>{this.state.id}</div>
-                    <div>{this.state.age}, {this.state.skin}</div>
-                    <div>
-                        <StarRatingComponent 
-                            name="rate2" 
-                            editing={false}
-                            value={this.state.rating}
-                        />
-                    </div>
-                </Info >    
-                {this.state.editing ? 
-                <ReviewContent >
-                    <div style={{ textAlign: 'center' }}>
-                        <Message readOnly>
-                            {this.state.message}
-                        </Message>
-                    </div>
-                    <BottomContainer >
-                       <Modify onClick={this._handleModify}>수정</Modify>
-                        <Delete>삭제</Delete>
-                        <LikeCount>
-                                <Like onClick={this._reviewLike} src={this.state.like ? like : hate}/>
-                                {this.state.likeCount}
-                        </LikeCount>
-                    </BottomContainer>
-                </ReviewContent > :
+        return (    
+            <div style = {{border: '1px solid green', width: '100%'}}>
+            
+            {this.props.data ? this.props.data.map((item,i) => {
+                return (
+                    <Container>
+                        {/* <ReviewImage onClick={this._openPopup} src={lip} /> */}
+                        <ReviewImage onClick={this._openPopup}  />
+                        <Info >
+                            <div>{item.user}</div>
+                            <div>{item.age}, {item.tone}</div>
+                            <div>
+                                <StarRatingComponent
+                                    name="rate2"
+                                    editing={false}
+                                    value={item.rating}
+                                />
+                            </div>
+                        </Info >
+                        <ReviewContent >
+                            <div style={{ textAlign: 'center' }}>
+                                {this.state.editing ? <Message readOnly>{item.message}</Message> : <Message>{item.message}</Message>}
+                            </div>
+                            <BottomContainer >
+                                {/* {this.state.editing ? <Modify onClick={this._handleModify}>수정</Modify> : <Modify onClick={this._handleModify}>완료</Modify>}
+                                <Delete>삭제</Delete> */}
+                                <LikeCount>
+                                    <Like onClick={this._reviewLike} src={this.state.like ? like : hate} />
+                                    {this.state.likeCount}
+                                </LikeCount>
+                            </BottomContainer>
+                        </ReviewContent >
+                    </Container>
 
-                <ReviewContent>
-                    <div style={{ textAlign: 'center' }}>
-                        <Message rows="10" cols="50">
-                            {this.state.message}
-                        </Message>
-                    </div>
-                    <BottomContainer >
-                        <Modify onClick={this._handleModify}>완료</Modify>
-                        <Delete>삭제</Delete>
-                        <LikeCount>
-                                <Like onClick={this._reviewLike} src={this.state.like ? like : hate}/>
-                                {this.state.likeCount}
-                        </LikeCount>
-                    </BottomContainer>
-                </ReviewContent >
-                }
+
+                )}) : null}
+        
 
                 <Modal
                     isOpen={this.state.popupIsOpen}
@@ -230,9 +219,75 @@ class Content extends Component {
                     <div style={{ width: '50vh' }}>{popupImage}</div>
                     <button style={{ cursor: 'pointer' }} onClick={this._closePopup}>close</button>
                 </Modal>
-            </Container>
+            </div>
         );
     }
 };
 
 export default Content;
+
+
+
+// return (
+//     <div style={{ border: '1px solid green', width: '100%' }}>
+
+//         <Container>
+//             <ReviewImage onClick={this._openPopup} src={lip} />
+//             <Info >
+//                 <div>{this.state.id}</div>
+//                 <div>{this.state.age}, {this.state.skin}</div>
+//                 <div>
+//                     <StarRatingComponent
+//                         name="rate2"
+//                         editing={false}
+//                         value={this.state.rating}
+//                     />
+//                 </div>
+//             </Info >
+//             {this.state.editing ?
+//                 <ReviewContent >
+//                     <div style={{ textAlign: 'center' }}>
+//                         <Message readOnly>
+//                             {this.state.message}
+//                         </Message>
+//                     </div>
+//                     <BottomContainer >
+//                         <Modify onClick={this._handleModify}>수정</Modify>
+//                         <Delete>삭제</Delete>
+//                         <LikeCount>
+//                             <Like onClick={this._reviewLike} src={this.state.like ? like : hate} />
+//                             {this.state.likeCount}
+//                         </LikeCount>
+//                     </BottomContainer>
+//                 </ReviewContent > :
+
+//                 <ReviewContent>
+//                     <div style={{ textAlign: 'center' }}>
+//                         <Message rows="10" cols="50">
+//                             {this.state.message}
+//                         </Message>
+//                     </div>
+//                     <BottomContainer >
+//                         <Modify onClick={this._handleModify}>완료</Modify>
+//                         <Delete>삭제</Delete>
+//                         <LikeCount>
+//                             <Like onClick={this._reviewLike} src={this.state.like ? like : hate} />
+//                             {this.state.likeCount}
+//                         </LikeCount>
+//                     </BottomContainer>
+//                 </ReviewContent >
+//             }
+
+//             <Modal
+//                 isOpen={this.state.popupIsOpen}
+//                 onAfterOpen={this._afterOpenPopup}
+//                 onRequestClose={this._closePopup}
+//                 style={customStyles}
+//                 contentLabel="Image popup"
+//             >
+//                 <h2 ref={subtitle => this.subtitle = subtitle}>Review Image</h2>
+//                 <div style={{ width: '50vh' }}>{popupImage}</div>
+//                 <button style={{ cursor: 'pointer' }} onClick={this._closePopup}>close</button>
+//             </Modal>
+//         </Container>
+//     </div>

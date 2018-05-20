@@ -7,7 +7,7 @@ import Comment from './Comment';
 import TopReview from './TopReview';
 import InfiniteScroll from 'react-infinite-scroller';
 import axios from 'axios';
-
+import { url } from '../../config';
 
 const Wrapper = styled.div`
     margin : 10% 10% 0 10%;
@@ -31,7 +31,7 @@ class Detail extends Component {
     }
 
     componentDidMount(){
-        axios.get(`http://127.0.0.1:8080/api/item/detail?color_id=${this.props.match.params.id}`)
+        axios.get(`${url}/api/item/detail?color_id=${this.props.match.params.id}`)
         // .then((response) => {
         //     console.log(response);
         //   })

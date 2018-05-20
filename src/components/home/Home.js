@@ -3,7 +3,7 @@ import HomeColor from './HomeColor';
 import HomeTitle from './HomeTitle';
 import styled from 'styled-components';
 import tinycolor from "tinycolor2";
-
+import { url } from '../../config';
 const HomeContainer = styled.div`
     background-color: green;
     top:10%;
@@ -22,7 +22,7 @@ class Home extends React.Component {
     }
 
     componentDidMount(){
-        fetch(`http://127.0.0.1:8080/api/color/get`)
+        fetch(`${url}/api/color/get`)
         .then(response => response.json())
         .then(data => this.setState({data: data}))
         .then(() => this.sortColorGroup(this.state.data))

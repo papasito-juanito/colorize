@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Chart from './Chart';
 import styled from 'styled-components';
 import axios from 'axios';
-
+import { url } from '../../config';
 const DetailDiv = styled.div`
     width: 40%;
     position: relative;
@@ -40,8 +40,8 @@ class DetailRight extends Component {
     }
 
     componentDidMount() {
-        // axios.get(`http://127.0.0.1:8080/api/item/rate?color_id=${this.props.match.params.id}`)
-        axios.get(`http://127.0.0.1:8080/api/item/rate?color_id=${this.props.id}`)
+        // axios.get(`${url}/api/item/rate?color_id=${this.props.match.params.id}`)
+        axios.get(`${url}/api/item/rate?color_id=${this.props.id}`)
             // .then((response) => {
             //     console.log(response.data);
             //   })

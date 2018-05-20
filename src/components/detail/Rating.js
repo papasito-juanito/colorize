@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import StarRatingComponent from 'react-star-rating-component';
 import styled from 'styled-components';
 import axios from 'axios';
-
+import { url } from '../../config';
 const logged = true;
 
 const TextArea = styled.textarea`
@@ -37,7 +37,7 @@ class Rating extends Component {
         
         // console.log(form)
         !logged ? alert('로그인 먼저해') :
-            axios.post(`http://127.0.0.1:8080/api/review/post`, form)
+            axios.post(`${url}/api/review/post`, form)
             // .then((response) => {
             // console.log(response.data);
             // })

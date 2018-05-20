@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Review from '../review/Review';
 import axios from 'axios';
-
+import { url } from '../../config';
 
 class TopReview extends Component {
     constructor(){
@@ -11,8 +11,8 @@ class TopReview extends Component {
         }
     }
     componentDidMount() {
-        // axios.get(`http://127.0.0.1:8080/api/item/rate?color_id=${this.props.match.params.id}`)
-        axios.get(`http://127.0.0.1:8080/api/review/get/rank?color_id=${this.props.id}`)
+        // axios.get(`${url}/api/item/rate?color_id=${this.props.match.params.id}`)
+        axios.get(`${url}/api/review/get/rank?color_id=${this.props.id}`)
             // .then((response) => {
             //     console.log(response.data);
             // })

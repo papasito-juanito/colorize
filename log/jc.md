@@ -52,8 +52,11 @@ help by: 구일모 멘토님
 shovel time: 12시간
 
 ***
-error:
-    reviews와 wishLists 테이블의 참조값을 items에서 itemColors로 변경함
+    error:
+        결 국deploy 를위 한세팅 이필요 한시기 가.옴. 개발모드 와프로덕션 모드 를세팅하려 고할때
+ 왜이 걸하냐 .. 이 틀넘 게삽질했던 게도움 이될 지모르겠.음
+
+reviews와 wishLists 테이블의 참조값을 items에서 itemColors로 변경함
     fake값을 넣는 도중 확인했는데 이게 맞음. 왜 몰랐지?
     자꾸 바꾸다보니 foreign key 수정 정도는 뚞딲뚞딲 된다
 
@@ -114,3 +117,14 @@ sql:
     이미지를 저장하기 위해서 BLOB형태로 schema 변경이 필요.
     그래서 url로 되어있던 itemPhoto도 수정했는데 이건 아닌듯. 재수정 필요
     결론: itemPhoto 는 VARCHAR, reviewPhoto 는 BLOB
+***
+#2018-05-20
+***
+eslint:
+    핫하다는 airbnb eslint를 설치하려고 기웃기웃
+    결론은 eslint --init에서 populor setting에서 airbnb 선택하면 됨.
+
+config:
+    결국 deploy를 위한 세팅이 필요한 시기가 옴.. 개발모드와 프로덕션 모드를 세팅하려고 할때
+    왜 이걸 하냐고.. 이틀 넘게 삽질했던게 도움이 될지 모르겠음.
+

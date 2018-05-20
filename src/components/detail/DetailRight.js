@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import Chart from './Chart';
 import styled from 'styled-components';
-import LinesEllipsis from 'react-lines-ellipsis'
-import responsiveHOC from 'react-lines-ellipsis/lib/responsiveHOC'
 import axios from 'axios';
 
 const DetailDiv = styled.div`
@@ -31,7 +29,6 @@ const flexDiv = styled.div`
     -webkit-box-orient: vertical;
 
 `
-const ResponsiveEllipsis = responsiveHOC()(LinesEllipsis);
 
 class DetailRight extends Component {
     constructor(props) {

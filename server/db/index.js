@@ -1,13 +1,11 @@
 // Global import
 const mysql = require('mysql');
 
-const db = mysql.createConnection({
-  user: 'root',
-  password: '',
-  database: 'colorize'
-});
+// Local import
+const { user, password, database } = require('../../config');
 
-db.connect(function(err) {
+const db = mysql.createConnection({ user, password, database });
+db.connect((err) => {
   if (err) { throw err; }
   console.log('[database  ] connected to mysql server...');
 });

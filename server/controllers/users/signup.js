@@ -1,29 +1,24 @@
 // Local import
 const model = require('../../models/users/signup');
+const middleware = require('../../middlewares/hashPassword');
+const db = require('../../db');
 
 module.exports = function(req, res) {
-  console.log('[userMail  ]',req.body.userMail);
-  console.log('[password  ]',req.body.userPassword);
-  console.log('[userName  ]',req.body.userName);
-  console.log('[toneName  ]',req.body.toneName);
-  console.log('[birthDate ]',req.body.birthDate);
-  console.log('[gender    ]',req.body.gender);
-  console.log(`[controller] received request from client...`);
-  
-  let userMail = req.body.userMail;
-  let userPassword = req.body.userPassword;
-  let userName = req.body.userName;
-  let toneName = req.body.toneName;
-  let birthDate = req.body.birthDate;
-  let gender = req.body.gender;
-  
-  let params = [userMail, userPassword, userName, toneName, birthDate, gender];
 
-  model(params, function(err, rows) {
-    if (err) { throw err }
-    else {
-      console.log(`[controller] received response from model...`);
-      res.end('signup success');
-    }
+  middleware(req.body.userPassword).then(function(hash) {
+    
+    const userPassword=hash;
+    const { userMail, userName, toneName, birthDate, gender } = req.body;
+    const params = [ userMail, userPassword, userName, toneName, birthDate, gender ];
+
+    db.query(`SELECT id FROM users WHERE userMail="${userMail}";`, function(err, rows) {
+      if (rows.length !== 0) { res.status(404).end('[server    ] userMail exists...') }
+      else {
+        model(params, function(err, rows) {
+          if (err) { throw err }
+          else { res.status(200).end('[server    ] signup success...') }
+        })
+      }
+    }) 
   })
 };

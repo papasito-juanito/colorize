@@ -13,7 +13,7 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `userMail` VARCHAR(20) NOT NULL,
-  `userPassword` VARCHAR(50) NOT NULL,
+  `userPassword` VARCHAR(60) NOT NULL,
   `userName` VARCHAR(20) NOT NULL,
   `tones_id` INTEGER NOT NULL,
   `birthDate` DATE NOT NULL,

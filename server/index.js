@@ -7,19 +7,20 @@ const session = require('express-session');
 const cors = require('cors');
 
 // Local import
-const config = require('../config');
+const { port, secret } = require('../config');
 const router = require('./routes');
 
 const app = express();
-const port = config.port;
 
 app.use(cors());
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(cors());
 
+app.set('jwt-secret', secret);
+
 app.use(session({
-  secret: config.secret,
+  secret: secret,
   resave: false,
   saveUninitialized: true,
 }));
@@ -38,7 +39,7 @@ app.use((err, req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`[server    ] opening on port ${port}...`);
+  console.log(`[server    ] opening express server on port ${port}...`);
 });
 
 module.exports = app;

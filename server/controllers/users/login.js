@@ -1,21 +1,22 @@
 // Local import
 const model = require('../../models/users/login');
+const middleware = require('../../middlewares/isValidPassword');
+const db = require('../../db');
 
 module.exports = function(req, res) {
-  console.log('[userMail  ]',req.body.userMail);
-  console.log('[password  ]',req.body.userPassword);
-  console.log(`[controller] received request from client...`);
   
-  let userMail = req.body.userMail;
-  let userPassword = req.body.userPassword;
-  
-  let params = [userMail, userPassword];
+  const secret = req.app.get('jwt-secret');
+  const { userMail, userPassword } = req.body;
+  const params = [ userMail, userPassword ];
 
-  model(params, function(err, rows) {
-    if (err) { throw err }
+  db.query(`SELECT userPassword FROM users WHERE userMail="${userMail}";`, function(err, rows) {
+    if (err) { throw err } 
+    else if (!rows.length) { res.status(404).end('[server    ] invalid usermail...') }
     else {
-      console.log(`[controller] received response from model...`);
-      res.end('login success');
+      middleware(userPassword, rows[0].userPassword).then(function(boolean) {
+        if (boolean) { res.status(200).end('[server    ] login success...') }
+        else { res.status(401).end('[server    ] invalid password...') }
+      })
     }
   })
 };

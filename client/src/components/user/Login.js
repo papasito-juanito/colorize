@@ -1,147 +1,265 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, {Component} from 'react';
 import styled from 'styled-components';
-import fblogo from '../../assets/fb_icon.svg';
-import gglogo from '../../assets/gg_icon.svg';
+import { Link } from 'react-router-dom';
+import Modal from 'react-modal';
+import lipImage from '../../assets/lipImage.png';
+import avatar from '../../assets/avatar.png';
+import lock from '../../assets/lock.png';
 import axios from 'axios';
-import Side from './Side';
 
-const Container = styled.div`
-    height: 90vh;
-    width : 90vw;
+const LoginContainer = styled.div`
+    margin-top:10%
     display: flex;
-    align-item: stretch;
-    margin: auto;
+    flex-direction: column
 `
 
-const StyledLink = styled(Link) `
-    font-size: 1.3em;
-    width:50%;
-    text-align: center;
+const customStyles = {
+    content: {
+        width: '38vw',
+        height: '70vh',
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)'
+    }
+};
+
+const CloseButton = styled.div`
+    content: '✖';
+    color: #777;
+    font: 14px/100% arial, sans-serif;
+    position: absolute;
+    right: 5px;
     text-decoration: none;
-    color: white;
+    text-shadow: 0 1px 0 #fff;
+    top: 5px;
+    cursor: pointer;
+
+`
+const LoginTop = styled.div`
+    display:flex;
+    flex-direction: row
+`
+const Text = styled.div`
+    font-size: 2rem;
+    margin-left: 25%;
 `
 
-const Input = styled.input.attrs({
-    type: 'email'
-}) `
+const Img = styled.img`
+    width: 20%
+    height: 20%;
+`
+
+const LoginBottom= styled.div`
+    border: 2px solid #ddd;
+    height: 80%;
+    width: 70%
+    margin:auto;
+`
+
+const IdWrapper = styled.div`
+    border: 2px solid #ddd;
+    display: flex;
+    flex-direction: row
+    height: 10%;
+`
+
+const IdImageDiv = styled.div`
+    border: 2px solid #ddd;
+    width: 10%
+    height: 50%;
+`
+
+const IdImage = styled.img`
+    width: auto; 
+    height: auto;
+    max-width: 100%;
+`
+
+const IdInput = styled.input`
     letter-spacing: 2px;
     font-size: 100%; 
-    height: 2em; 
-    width: 100%;
+    width: 80%;
+    height: 100%
 `
-const SecondInput = Input.extend.attrs({
+
+const FindPassword = styled.div`
+    text-align: right
+`
+
+const PasswordWrapper = styled.div`
+    border: 2px solid #ddd;
+    display: flex;
+    flex-direction: row
+    height: 10%;
+`
+const PasswordImageDiv = styled.div`
+    border: 2px solid #ddd;
+    width: 10%
+    height: 50%;
+`
+const PasswordImage = styled.img`
+    width: auto; 
+    height: auto;
+    max-width: 100%;
+`
+
+const PasswordInput = styled.input.attrs({
     type: 'password'
-}) `
+})`
+    letter-spacing: 2px;
+    font-size: 100%; 
+    width: 80%;
+    height: 100%
 `
-const Label = styled.label`
-    text-align: left;
-    font-size: 1em; 
-    margin: ${props => props.margin};
- 
-`
-const Span = styled.span`
-    margin-top: 1.5em;
-    margin-bottom: 1.5em;
-    text-align: right;
-`
-const Div = styled.div`
-    height: 100%;
-    width: 100%;
-    margin: ${props => props.margin};
+
+const LoginSignupButtonWrapper = styled.div`
+    border: 2px solid #ddd;
+    display: flex;
+    flex-direction: column
     text-align: center;
 `
 
-const FlexDiv = styled.div`
-    display: flex;
-    flex-direction: ${props => props.flexDirection};
-    justify-content:  ${props => props.justifyContent};
-    width:  ${props => props.width};
-    height:  ${props => props.height};
-    background-color:  ${props => props.backgroundColor};
-`
-const LoginDiv = styled.div`
-    width: 50%;
-    background-color: ${props => props.backgroundColor};
+const Loginbtn = styled.button`
+    width: 100%;
+    height: 40%
+    border: none;
+    background-color: black;
+    color: white;
+    padding: 14px 28px;
+    font-size: 1rem;
     cursor: pointer;
     text-align: center;
+`
+const Signupbtn = styled.a`
+    height: 40%
+    border: none;
+    background-color: black;
     color: white;
-    height: 2em;
-    line-height:2em;
+    margin-top: 5px
+    padding: 14px 28px;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    &:visited {
+        text-decoration: none;
+    }  
 `
-const Wrapper = styled.div`
-    width: 25vw;
-    margin: 20% auto 30% auto;
-`
-const Bar = styled.div`
-    margin: 0.8em 0 0.8em 0;
-    border: 2px solid #ddd;
-`
-const Img = styled.img`
+
+const Facebook = styled.button`
     width: 100%;
-    height: 100%;
+    height: 40%
+    border: none;
+    background-color: #3B5998;;
+    color: white;
+    margin-top: 5px
+    padding: 14px 28px;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
 `
+
+const Google = styled.button`
+    width: 100%;
+    height: 40%
+    border: none;
+    background-color: #dd4b39;;
+    color: white;
+    margin-top: 5px
+    padding: 14px 28px;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+`
+
+Modal.setAppElement(document.getElementById('root'));
 
 class Login extends Component {
-    constructor(){
+    constructor() {
         super();
-    this._clickToLogin = this._clickToLogin.bind(this);
-    }
-
-    _clickToLogin = () => {
-        const form = {
-            userMail: this.email.value,
-            userPassword: this.password.value
+        this.state = {
+            modalIsOpen: true
+          };
+       
+          this.openModal = this.openModal.bind(this);
+        //   this.afterOpenModal = this.afterOpenModal.bind(this);
+          this.closeModal = this.closeModal.bind(this);
         }
-
-        const api = axios.create({ baseURL: 'http://localhost:8080' })
-        api.post('/api/user/login', form)
-            .then(res => console.log(res))
-            .catch(error => console.log(error))
+       
+    openModal() {
+        this.setState({modalIsOpen: true});
+    }
+    
+    // afterOpenModal() {
+    //     // references are now sync'd and can be accessed.
+    //     this.subtitle.style.color = '#f00';
+    // }
+    
+    closeModal() {
+        this.setState({modalIsOpen: false});
     }
 
+    clickToLogin = () => {
+    const form = {
+        userMail: this.email.value,
+        userPassword: this.password.value
+    }
 
+    console.log('form', form);
+    
 
-    render() {
+    const api = axios.create({ baseURL: 'http://localhost:8080' })
+    api.post('/api/user/login', form)
+        .then(res => console.log(res))
+        .catch(error => console.log(error))
+    }
+
+    render(){
+
+        const {renderLogin} = this.props
         return (
-            <Container>
-                <Side />
-                <div style={{width: '40%' }}> 
-                    <Div>
-                        <Wrapper>
-                            <Div heigth='100%' width='100%' margin='2em 0 2em 0'>
-                                <span style={{ fontSize: '1.5rem' }} ><strong>My Lips</strong></span>
-                            </Div>
-                            <FlexDiv flexDirection='column' justifyContent='center' >
-                                <Label> E-mail
-                                    <Input innerRef={ref => { this.email = ref; }} placeholder='Enter your email'></Input>
-                                </Label>
-                                <Label>Password
-                                    <SecondInput innerRef={ref => { this.password = ref; }} placeholder='Enter your password'></SecondInput>
-                                </Label>
-                                <Span><a href='#'> 아이디/비밀번호 찾기 </a></Span>
-                                <FlexDiv backgroundColor='#666' width='100%' height='2em'>
-                                    <div style={{ fontSize: "1.3em", width: '50%', cursor: 'pointer', color: 'white' }} onClick={this._clickToLogin}>Log in</div>
-                                    <StyledLink to='/signup'> Sign up </StyledLink>
-                                </FlexDiv>
-                                <Bar/>
-                                <FlexDiv backgroundColor='#666' width='100%' height='2em'>
-                                    <LoginDiv onClick={this.clickToLogin} backgroundColor='#3B5998'>
-                                        <Img src={fblogo} />
-                                    </LoginDiv>
-                                    <LoginDiv onClick={this.clickToLogin} backgroundColor='#dd4b39'>
-                                        <Img src={gglogo} />
-                                    </LoginDiv>
-                                </FlexDiv>
-                            </FlexDiv>
-                        </Wrapper>
-                     </Div>
-                </div>
-            </Container>  
-        )
+            <LoginContainer>
+                    <Modal
+                    isOpen={this.state.modalIsOpen}
+                    onAfterOpen={this.afterOpenModal}
+                    onRequestClose={this.closeModal}
+                    style={customStyles}
+                    contentLabel="Login Modal"
+                    shouldCloseOnOverlayClick={false}
+                    >
+                    <LoginTop>
+                    <Img src={lipImage}/>
+                    <Text>Colorize</Text>
+                    </LoginTop>
+                    <LoginBottom> 
+                        <IdWrapper> 
+                            <IdImageDiv> 
+                            <IdImage src={avatar}/> 
+                            </IdImageDiv>
+                            <IdInput innerRef={ref => { this.email = ref; }} placeholder="email"/> 
+                        </IdWrapper>
+                        <PasswordWrapper> 
+                            <PasswordImageDiv> 
+                            <PasswordImage src={lock}/> 
+                            </PasswordImageDiv>
+                            <PasswordInput innerRef={ref => { this.password = ref; }} placeholder="Enter your password"/> 
+                        </PasswordWrapper>
+                        <FindPassword> forgot password ? </FindPassword>
+                        <LoginSignupButtonWrapper> 
+                            <Loginbtn onClick={this.clickToLogin.bind(this)}> Login </Loginbtn>
+                            <Signupbtn href="/signup" style={{textDecoration: 'none'}}> SignUp </Signupbtn>
+                            OR
+                            <Facebook> Facebook </Facebook>
+                            <Google> Google </Google> 
+                        </LoginSignupButtonWrapper>
+                    </LoginBottom>    
+                    <CloseButton onClick={()=>{this.closeModal(); renderLogin();}}>X</CloseButton>
+                    </Modal>
+            </LoginContainer>
+        );
     }
-}
-
-
+};
 
 export default Login;

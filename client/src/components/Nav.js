@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {Component} from 'react';
 import styled from 'styled-components';
 import lipImage from '../assets/lipImage.png';
 import { Link } from 'react-router-dom';
+import Login from './user/Login'
 
 const NavContatiner = styled.header`
     background-color: pink;
@@ -59,7 +60,7 @@ const DropBtn = styled.button`
     background-color: inherit;
     margin: 0;
 `
-const StyledLink = styled(Link)`
+const StyledLink = styled.a`
     float: none;
     color: black;
     padding: 12px 16px;
@@ -75,23 +76,50 @@ const StyledLink = styled(Link)`
     }  
 `
 
-const Nav = () => {
-    return (
-        <NavContatiner>
+class Nav extends Component {
+    constructor(props){
+        super()
+        this.state = {
+            loginClicked: false
+        }
+    }
+
+    renderLogin = () => {
+        this.setState({
+            loginClicked: !this.state.loginClicked
+        })
+    }
+
+    render(){
+        console.log('nav', this.state.loginClicked);
+        return (
+            <NavContatiner>
             <NavLink to="/" style={{ textDecoration: 'none' }}>Colorize</NavLink>
             <NaveRightContainer>
                  <DropDown>
                      <DropBtn>My Lips</DropBtn>
-                     <DropDownContent>
-                         <StyledLink to="/wishlist" style={{ textDecoration: 'none' }}> 위시리스트 </StyledLink>
-                         <StyledLink to="/review" style={{ textDecoration: 'none' }}> 내리뷰 </StyledLink>
-                         <StyledLink to="/login" style={{ textDecoration: 'none' }}> 로그인 </StyledLink>
-                     </DropDownContent>
+                        {/* 로그인안한사람 */}
+                        <DropDownContent>
+                            <StyledLink href="/wishlist" style={{ textDecoration: 'none' }}> 위시리스트 </StyledLink>
+                            <StyledLink href="/review" style={{ textDecoration: 'none' }}> 
+                            리뷰
+                            </StyledLink>
+                            <StyledLink onClick={this.renderLogin.bind(this)}>login</StyledLink>
+                        </DropDownContent>
+                        {/* 로그인한사람 */}
+                        {/* <DropDownContent>
+                            <StyledLink to="/wishlist" style={{ textDecoration: 'none' }}> 위시리스트 </StyledLink>
+                            <StyledLink to="/review" style={{ textDecoration: 'none' }}> 
+                            </StyledLink>
+                            <StyledLink to="/login" style={{ textDecoration: 'none' }}> 로그인 </StyledLink>
+                        </DropDownContent> */}
                  </DropDown>    
                 <NaveRightImage src={lipImage}/>
+                {this.state.loginClicked ? <Login renderLogin={this.renderLogin}/> : null}
             </NaveRightContainer>
         </NavContatiner>
-    );
+      );   
+    }
 };
 
 export default Nav;

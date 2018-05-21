@@ -4,197 +4,334 @@ import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import axios from 'axios';
 import Side from './Side';
+import validator from 'validator';
+import mail from '../../assets/mail.png'
+import lock from '../../assets/lock.png';
+import nickname from '../../assets/nickname.png';
+import birthdate from '../../assets/birthdate.png';
+import gender from '../../assets/gender.png';
+import skin from '../../assets/skin.png';
 
 const Container = styled.div`
     height: 90vh;
     width : 90vw;
     display: flex;
+    flex-direction: row
     align-item: stretch;
-    margin: auto;
+    margin-top:10%;
+    margin-left: 5%
 `
 
-const Input = styled.input.attrs({
-    type: 'text'
-}) `
-    letter-spacing: 2px;
-    font-size: 100%; 
-    height: 2em; 
-    width: 100%;
-`
-const PasswordInput = Input.extend.attrs({
-    type: 'password'
-}) `
+const SignupContainer = styled.div`
+    height: 80vh;
+    width : 40vw;
+    border: 2px solid #ddd;
 `
 
-const EmailInput = Input.extend.attrs({
-    type: 'email'
-}) `
-`
-
-const Label = styled.label`
-    text-align: left;
-    font-size: 1em; 
-    margin: ${props => props.margin};
+const IdWrapper = styled.div`
+    border: 2px solid #ddd;
+    display: flex;
+    flex-direction: row
+    height: 10%;
     
 `
-const Span = styled.span`
-    margin-top: 0.3em;
-    margin-bottom: 0.3em;
-    text-align: right;
-`
-const Div = styled.div`
-    height: ${props => props.height};
-    width: ${props => props.width};
-    margin: ${props => props.margin};
-    text-align: center;
-`
-const FlexDiv = styled.div`
-    display: flex;
-    flex-direction: ${props => props.flexDirection};
-    justify-content:  ${props => props.justifyContent};
-    width:  ${props => props.width};
-    height:  ${props => props.height};
-    background-color:  ${props => props.backgroundColor};
+
+const IdImageDiv = styled.div`
+    border: 2px solid #ddd;
+    width: 10%
+    height: 50%;
 `
 
-const LoginDiv = styled.div`
-    width: 100%;
-    background-color: ${props => props.backgroundColor};
+const IdImage = styled.img`
+    width: auto; 
+    height: auto;
+    max-width: 100%;
+`
+
+const IdInput = styled.input`
+    letter-spacing: 2px;
+    font-size: 1rem%; 
+    width: 80%;
+    height: 90%
+`
+const InvalidId = styled.div`
+    color:red
+`
+
+const PasswordWrapper = styled.div`
+    border: 2px solid #ddd;
+    display: flex;
+    flex-direction: row
+    height: 10%;
+    
+`
+
+const PasswordImageDiv = styled.div`
+    border: 2px solid #ddd;
+    width: 10%
+    height: 50%;
+`
+
+const PasswordImage = styled.img`
+    width: auto; 
+    height: auto;
+    max-width: 100%;
+`
+
+const PasswordInput = styled.input`
+    letter-spacing: 2px;
+    font-size: 1rem%; 
+    width: 80%;
+    height: 90%
+`
+const InvalidPassword = styled.div`
+    color:red
+`
+const NicknameWrapper = styled.div`
+    border: 2px solid #ddd;
+    display: flex;
+    flex-direction: row
+    height: 10%;
+    
+`
+
+const NicknameImageDiv = styled.div`
+    border: 2px solid #ddd;
+    width: 10%
+    height: 50%;
+`
+
+const NicknameImage = styled.img`
+    width: auto; 
+    height: auto;
+    max-width: 100%;
+`
+
+const NicknameInput = styled.input`
+    letter-spacing: 2px;
+    font-size: 1rem%; 
+    width: 80%;
+    height: 90%
+`
+const InvalidNickname = styled.div`
+    color:red
+`
+const BirthdateWrapper = styled.div`
+    border: 2px solid #ddd;
+    display: flex;
+    flex-direction: row
+    height: 10%;
+    
+`
+const BirthdateImageDiv = styled.div`
+    border: 2px solid #ddd;
+    width: 10%
+    height: 50%;
+`
+
+const BirthdateImage = styled.img`
+    width: auto; 
+    height: auto;
+    max-width: 100%;
+`
+
+const BirthdateInput = styled.input`
+    letter-spacing: 2px;
+    font-size: 1rem%; 
+    width: 80%;
+    height: 90%
+`
+const InvalidBirthdate = styled.div`
+    color:red
+`
+
+const GenderWrapper = styled.div`
+    border: 2px solid #ddd;
+    display: flex;
+    flex-direction: row
+    height: 10%;
+`
+
+const GenderImageDiv = styled.div`
+    border: 2px solid #ddd;
+    width: 10%
+    height: 50%;
+`
+
+const GenderImage = styled.img`
+    width: auto; 
+    height: auto;
+    max-width: 100%;
+`
+
+const MaleInput = styled.input`
+
+`
+const FemaleInput = styled.input`
+
+`
+const SkinWrapper = styled.div`
+    border: 2px solid #ddd;
+    display: flex;
+    flex-direction: row
+    height: 10%;
+    
+`
+const SkinImageDiv = styled.div`
+    border: 2px solid #ddd;
+    width: 10%
+    height: 50%;
+`
+
+const SkinImage = styled.img`
+    width: auto; 
+    height: auto;
+    max-width: 100%;
+`
+const SignupButtonWrapper = styled.div`
+    border: 2px solid #ddd;
+    display: flex;
+    flex-direction: column
+    text-align: center;
+`
+const Signupbtn = styled.div`
+    height: 40%
+    border: none;
+    background-color: black;
+    color: white;
+    margin-top: 5px
+    padding: 14px 28px;
+    font-size: 1rem;
     cursor: pointer;
     text-align: center;
-    color: white;
-    height: 2em;
-    line-height:2em;
+    &:visited {
+        text-decoration: none;
+    }  
 `
-
-const Wrapper = styled.div`
-    width: 25vw;
-    margin: 20% auto;
-`
-
-const colorOptions = [
-    { value: '모르겠어요', label: '모르겠어요' },
-    {
-        type: 'group', name: 'Cool tone', items: [
-            { value: 'Summer', label: 'Summer' },
-            { value: 'Winter', label: 'Winter' },
-            { value: '쿨톤', label: '쿨톤' }
-        ]
-    },
-    {
-        type: 'group', name: 'Warm tone', items: [
-            { value: 'Spring', label: 'Spring' },
-            { value: 'Fall', label: 'Fall' },
-            { value: '웜톤', label: '웜톤' }
-        ]
-    }
-]
-
-const genderOptions = [
-    { value: '남자', label: '남자' },
-    { value: '여자', label: '여자' }
-]
 
 class Signup extends Component {
-    constructor() {
+    constructor(){
         super()
         this.state = {
-            agree: false,
+            isValidEmail: true,
+            isValidPassword: true,
+            isValidNickname: true,
             colorSelected: '',
-            genderSelected: '',
-            email: '',
-            password: '',
-            birthdate: ''
+            genderSelcted: ''
         }
-        this._agreePolicy = this._agreePolicy.bind(this);
-        this._onGenderSelect = this._onGenderSelect.bind(this);
-        this._onColorSelect = this._onColorSelect.bind(this);
-        this._onForm = this._onForm.bind(this);
-        this._handleChangeComplete = this._handleChangeComplete.bind(this);
     }
 
-    _agreePolicy() {
-        this.setState({ agree: !this.state.agree })
+    onChangeEmial = () => {
+        const email = this.email.value
+        this.setState({
+            isValidEmail: validator.isEmail(email)
+        })
     }
 
-    _onGenderSelect(option) {
-        this.setState({ genderSelected: option.value })
+    onChangePassword = () => {
+        const password = this.password.value
+        this.setState({
+            isValidPassword: validator.isLength(password, {min: 5, max: 10})
+        })        
     }
 
-    _onColorSelect(option) {
+    onChangeNickname = () => {
+        const nickname = this.nickname.value
+        this.setState({
+            isValidNickname: validator.isLength(nickname, {min: 5, max: 10})
+        })        
+    }
+
+    onBirthdate = () => {
+        const date = this.date.value
+        console.log(date);   
+    }
+
+    onColorSelect(option) {
+        console.log(option.value);
         this.setState({ colorSelected: option.value })
     }
 
-    _onForm() {
-        const form = {
-            userMail: this.email.value,
-            userPassword: this.password.value,
-            userName: this.nickname.value,
-            birthDate: this.birthdate.value, 
-            gender: this.state.genderSelected,
-            toneName: this.state.colorSelected
-        };
-
-        // console.log(form)
-        const api = axios.create({ baseURL: 'http://localhost:8080' })
-        !this.state.agree ? alert('약관에 동의하세요') :
-            api.post('/api/user/signup', form)
-                .then(res => console.log(res))
-                .catch(error => console.log(error))
-
+    onSelectedGender = (e) => {
+        const gender = e.target.value
+        console.log(gender);
     }
 
-    _handleChangeComplete = (color) => {
-        this.setState({ background: color.hex });
-    };
-
+     colorOptions = [
+        { value: '모르겠어요', label: '모르겠어요' },
+        {
+            type: 'group', name: 'Cool tone', items: [
+                { value: 'Summer', label: 'Summer' },
+                { value: 'Winter', label: 'Winter' },
+                { value: '쿨톤', label: '쿨톤' }
+            ]
+        },
+        {
+            type: 'group', name: 'Warm tone', items: [
+                { value: 'Spring', label: 'Spring' },
+                { value: 'Fall', label: 'Fall' },
+                { value: '웜톤', label: '웜톤' }
+            ]
+        }
+    ]
 
     render() {
         return (
             <Container>
                 <Side />
-                <div style={{ backgroundColor: 'white', border: '1px solid purple', width: '40%' }}> 
-                    {/* <Div heigth='50%' width='80%' margin='auto'> */}
-                        <Wrapper>
-                            <Div heigth='100%' width='100%' margin='2em 0 2em 0'>
-                                <span style={{ fontSize: '1.5em' }} ><strong>My Lips</strong></span>
-                            </Div>
-                            <FlexDiv flexDirection='column' justifyContent='center' >
-                                <Label> E-mail
-                                    <EmailInput innerRef={ref => { this.email = ref; }} placeholder='Enter your email'></EmailInput>
-                                </Label>
-                                <Label>Password
-                                    <PasswordInput innerRef={ref => { this.password = ref; }} placeholder='Enter your password'></PasswordInput>
-                                </Label>
-                                <Label> Nickname
-                                    <Input innerRef={ref => { this.nickname = ref; }} placeholder='Enter your nickname'></Input>
-                                </Label>
-                                <Label> Birthdate
-                                    <Input innerRef={ref => { this.birthdate = ref; }} placeholder='Enter your birthdate'></Input>
-                                </Label>
-                                <Label> Gender
-                                    <Dropdown options={genderOptions} onChange={this._onGenderSelect} value={this.state.genderSelected} placeholder="Select your gender" />
-                                </Label>
-                                <Label> Your Color
-                                    <Dropdown options={colorOptions} onChange={this._onColorSelect} value={this.state.colorSelected} placeholder="Select your color" />
-                                </Label>
-                                <Span>
-                                    <a href='#'> 약관보기 </a>
-                                </Span>
-                                <Span>
-                                    <input type='checkbox' onClick={this._agreePolicy} />약관에 동의합니다
-                                </Span>
-                                <LoginDiv backgroundColor='#666' onClick={this._onForm}>
-                                    Create Your account
-                                </LoginDiv>
-                            </FlexDiv>
-                        </Wrapper>
-                </div>
+                <SignupContainer> 
+                <IdWrapper> 
+                    <IdImageDiv> 
+                    <IdImage src={mail}/> 
+                    </IdImageDiv>
+                    <IdInput 
+                    onChange={this.onChangeEmial.bind(this)} innerRef={ref => { this.email = ref; }} placeholder="abc@email.com"/> 
+                    </IdWrapper>
+                    {this.state.isValidEmail ? null : <InvalidId>Invalid Type</InvalidId>}
+                    <PasswordWrapper> 
+                    <PasswordImageDiv> 
+                    <PasswordImage src={lock}/> 
+                    </PasswordImageDiv>
+                    <PasswordInput 
+                    onChange={this.onChangePassword.bind(this)} innerRef={ref => { this.password = ref; }} placeholder="Enter Your Password"/> 
+                    </PasswordWrapper>
+                    {this.state.isValidPassword ? null : <InvalidPassword>5~10 letters</InvalidPassword>}  
+                    <NicknameWrapper> 
+                    <NicknameImageDiv> 
+                    <NicknameImage src={nickname}/> 
+                    </NicknameImageDiv>
+                    <NicknameInput
+                    onChange={this.onChangeNickname.bind(this)} innerRef={ref => { this.nickname = ref; }} placeholder="Enter Your Nickname"/> 
+                    </NicknameWrapper>
+                    {this.state.isValidNickname ? null : <InvalidNickname>5~10 letters</InvalidNickname>}
+                    <BirthdateWrapper> 
+                    <BirthdateImageDiv> 
+                    <BirthdateImage src={birthdate}/> 
+                    </BirthdateImageDiv>
+                    <BirthdateInput
+                    onBlur = {this.onBirthdate.bind(this)}
+                    required type='date'innerRef={ref => { this.date = ref; }}/> 
+                    </BirthdateWrapper>
+                    <GenderWrapper>
+                    <GenderImageDiv> 
+                    <GenderImage src={gender}/> 
+                    </GenderImageDiv>
+                    <MaleInput name="gender" onChange={this.onSelectedGender.bind(this)} type="radio" value="male"/> Male 
+                    <FemaleInput name="gender" onChange={this.onSelectedGender.bind(this)} type="radio" value="female"/> Female 
+                    </GenderWrapper>
+                    <SkinWrapper>
+                    <SkinImageDiv> 
+                    <SkinImage src={skin}/> 
+                    </SkinImageDiv>
+                    <Dropdown options={this.colorOptions} onChange={this.onColorSelect.bind(this)} placeholder="Select your color" />
+                    </SkinWrapper>
+                    <SignupButtonWrapper>
+                        <Signupbtn>Go to pick lips</Signupbtn>
+                    </SignupButtonWrapper>        
+                </SignupContainer>
             </Container>
         )
     }
 }
-
-
 
 export default Signup;

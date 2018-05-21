@@ -1,5 +1,5 @@
 const query = `
-  SELECT avg.id id,avg.avg avg,avg.total total,star.s s,star.ss ss,star.sss sss,
+SELECT avg.id id,avg.avg avg,avg.total total,star.s s,star.ss ss,star.sss sss,
   star.ssss ssss,star.sssss sssss
 FROM 
   (SELECT ic.id id, IFNULL(AVG(r.reviewRating),0) avg,COUNT(r.reviewRating) total
@@ -25,6 +25,6 @@ FROM
   LEFT JOIN reviews r5
   ON ic.id=r5.itemColors_id AND r5.reviewRating='5'
   GROUP BY ic.id) star
-WHERE avg.id=star.id
+WHERE avg.id=star.id AND avg.id=?;
 `
 module.exports = query;

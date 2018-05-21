@@ -17,19 +17,15 @@ import Content from './/Content'
 // `
 
 const Div = styled.div`
-    width: 80vw;
-    height: 20vh;
+    width: 95%;
+    height: 50%;
     display: flex;
-    border: 1px solid blue;
+    backgroundColor : blue;
 `
 
-const Review = ({data, review}) => {
-    console.log('data : ', data)
-    console.log('review :' , review)
+const Review = ({data}) => {
     return (
-        <Div>
              <Content data={data}/>
-        </Div>
     );
 };
 

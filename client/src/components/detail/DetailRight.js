@@ -1,42 +1,36 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Chart from './Chart';
 import styled from 'styled-components';
 import axios from 'axios';
-import { url } from '../../config';
-const DetailDiv = styled.div`
-    width: 40%;
-    position: relative;
-`
+import {url} from '../../config';
+import NumberFormat from 'react-number-format';
 
-const Wrapper = styled.div`
+
+
+
+const DetailDiv = styled.div `
+    width: 40%;
+`;
+
+const Wrapper = styled.div `
     height: 100%;
     width: 70%;
     border: 1px solid blue;
     display: flex;
-`
+`;
 
-const ChartDiv = styled.div`
+const ChartDiv = styled.div `
     width: 60%;
-`
+`;
 
-const flexDiv = styled.div`
-    display: -webkit-box;
-    white-space: normal;
-    line-height: 20px;
-    height: 40px;
-    word-wrap: break-word;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-
-`
 
 class DetailRight extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
-            like : false,
-            data : ''
-        }   
+            like: false,
+            data: '',
+        };
     }
 
     componentDidMount() {
@@ -45,30 +39,28 @@ class DetailRight extends Component {
             // .then((response) => {
             //     console.log(response.data);
             //   })
-            .then(response => this.setState({ data: response.data }))
-            .catch(err => console.log(err))
-    }    
-    
+            .then(response => this.setState({
+                data: response.data
+            }))
+            .catch(err => console.log(err));
+    }
 
 
     render() {
 
-        console.log(this.state.data)
-        return (
+        return ( 
             <Wrapper>
                 <DetailDiv>
-                    <div> name : {this.props.data ? this.props.data[0].name  : null} </div>
-                    <div> price : {this.props.data ? this.props.data[0].price : null} </div>
-                    <div> detail : {this.props.data ? this.props.data[0].description : null} </div>
-                    {/* <flexDiv> detail : {this.props.data ? this.props.data[0].description : null}</flexDiv>    */}
-                
+                    <div> name: {this.props.data ? this.props.data[0].name : null} </div> 
+                    <div> price: < NumberFormat value = {this.props.data ? this.props.data[0].price : 0} displayType = "text"thousandSeparator suffix = "원" /> < br/></div> 
+                    <div > detail: {this.props.data ? this.props.data[0].description : null} </div>
+                { /* <flexDiv> detail : {this.props.data ? this.props.data[0].description : null}</flexDiv>  */ }
                 </DetailDiv>
-                
                 <ChartDiv>
-                    <Chart data={this.state.data}/>
-                </ChartDiv>
+                    <Chart data = {this.state.data}/> 
+                </ChartDiv> 
             </Wrapper>
-        )
+        );
     }
 }
 

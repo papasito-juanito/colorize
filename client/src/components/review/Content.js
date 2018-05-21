@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import lip from '../../assets/lip.jpg';
 import like from '../../assets/Heart.png';
@@ -70,7 +70,7 @@ const LikeCount = styled.div`
 
 const Like = styled.img`
     width: 30%;
-    height: 100%;
+    height: 120%;
     cursor: pointer;
 `
 const BottomContainer = styled.div`
@@ -116,7 +116,7 @@ const ModifyText = styled.textarea`
 
 
 class Content extends Component {
-    constructor(props){
+    constructor(props) {
         super();
         this.state = {
             editing: true,
@@ -126,10 +126,10 @@ class Content extends Component {
             age: 32,
             skin: '지성',
             rating: 3,
-            like : false,
-            popupIsOpen : false,
+            like: false,
+            popupIsOpen: false,
             imagepreviewUrl: ''
-          }
+        }
 
         this._openPopup = this._openPopup.bind(this);
         this._afterOpenPopup = this._afterOpenPopup.bind(this);
@@ -138,22 +138,22 @@ class Content extends Component {
         this._reviewLike = this._reviewLike.bind(this);
     }
 
-    _handleModify = function(){
+    _handleModify = function () {
         this.setState({
             editing: !this.state.editing
         })
     }
 
-    _reviewLike = function() {
-        this.setState({like: !this.state.like})
-        !this.state.like ? this.setState({likecount:this.state.likeCount++}) : this.setState({likecount : this.state.likeCount--})
+    _reviewLike = function () {
+        this.setState({ like: !this.state.like })
+        !this.state.like ? this.setState({ likecount: this.state.likeCount++ }) : this.setState({ likecount: this.state.likeCount-- })
+        //누르면 개별 likes 올라가고 토글 개별로 되게 
     }
 
     _openPopup(e) {
-
         this.setState({
             popupIsOpen: true,
-            imagepreviewUrl : e.target.src
+            imagepreviewUrl: e.target.src
         })
     }
 
@@ -166,47 +166,48 @@ class Content extends Component {
     }
 
 
-    render(){
+    render() {
 
         let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
 
-        return (    
-            <div style = {{border: '1px solid green', width: '100%'}}>
-            
-            {this.props.data ? this.props.data.map((item,i) => {
-                return (
-                    <Container>
-                        {/* <ReviewImage onClick={this._openPopup} src={lip} /> */}
-                        <ReviewImage onClick={this._openPopup}  />
-                        <Info >
-                            <div>{item.user}</div>
-                            <div>{item.age}, {item.tone}</div>
-                            <div>
-                                <StarRatingComponent
-                                    name="rate2"
-                                    editing={false}
-                                    value={item.rating}
-                                />
-                            </div>
-                        </Info >
-                        <ReviewContent >
-                            <div style={{ textAlign: 'center' }}>
-                                {this.state.editing ? <Message readOnly>{item.message}</Message> : <Message>{item.message}</Message>}
-                            </div>
-                            <BottomContainer >
-                                {/* {this.state.editing ? <Modify onClick={this._handleModify}>수정</Modify> : <Modify onClick={this._handleModify}>완료</Modify>}
+        return (
+            <div style={{ border: '1px solid green', width: '100%' }}>
+
+                {this.props.data ? this.props.data.map((item, i) => {
+                    return (
+                        <Container>
+                            {/* <ReviewImage onClick={this._openPopup} src={lip} /> */}
+                            <ReviewImage onClick={this._openPopup} />
+                            <Info >
+                                <div>{item.user}</div>
+                                <div>{item.age}, {item.tone}</div>
+                                <div>
+                                    <StarRatingComponent
+                                        name="rate2"
+                                        editing={false}
+                                        value={item.rating}
+                                    />
+                                </div>
+                            </Info >
+                            <ReviewContent >
+                                <div style={{ textAlign: 'center' }}>
+                                    {this.state.editing ? <Message readOnly>{item.message}</Message> : <Message>{item.message}</Message>}
+                                </div>
+                                <BottomContainer >
+                                    {/* {this.state.editing ? <Modify onClick={this._handleModify}>수정</Modify> : <Modify onClick={this._handleModify}>완료</Modify>}
                                 <Delete>삭제</Delete> */}
-                                <LikeCount>
-                                    <Like onClick={this._reviewLike} src={this.state.like ? like : hate} />
-                                    {this.state.likeCount}
-                                </LikeCount>
-                            </BottomContainer>
-                        </ReviewContent >
-                    </Container>
+                                    <LikeCount>
+                                        <Like onClick={this._reviewLike} src={this.state.like ? like : hate} />
+                                        {item.likes}
+                                    </LikeCount>
+                                </BottomContainer>
+                            </ReviewContent >
+                        </Container>
 
 
-                )}) : null}
-        
+                    )
+                }) : null}
+
 
                 <Modal
                     isOpen={this.state.popupIsOpen}

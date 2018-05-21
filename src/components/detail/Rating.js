@@ -20,6 +20,7 @@ class Rating extends Component {
         }
         this._onStarClick = this._onStarClick.bind(this);
         this._clickReview = this._clickReview.bind(this);
+        this._alertReview = this._alertReview.bind(this);
     }
 
     _onStarClick(nextValue, prevValue, name) {
@@ -46,6 +47,9 @@ class Rating extends Component {
           this.input.value='';
     }
 
+    _alertReview() {
+        alert('후기가 등록되었습니다');
+    }
 
 
 
@@ -68,7 +72,7 @@ class Rating extends Component {
 
                     <TextArea placeholder = '후기 입력해주세요 ㅎㅎㅎㅎ' innerRef={ref => {this.input=ref;}}/><br/>
                     <div style={{ cursor: 'pointer', textAlign : 'left'}}>
-                        <button style= {{position: 'relative', left: '2%', cursor: 'pointer'}} onClick={this._clickReview} >등록</button>
+                        <button style={{ position: 'relative', left: '2%', cursor: 'pointer' }} onClick={() => {this._alertReview(); this._clickReview()}} >등록</button>
                     </div>
                 </div>  
 

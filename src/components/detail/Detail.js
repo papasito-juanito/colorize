@@ -43,28 +43,29 @@ class Detail extends Component {
     render(){
         return (
             <div>
-            <Wrapper>
-                <DetailLeft data={this.state.data}/>
-                <DetailRight data={this.state.data} id = {this.props.match.params.id}/>
-            </Wrapper>
-            <Div>
-                    <Comment id={this.props.match.params.id}/>
-            </Div>
-            <Div>
-                <div style = {{height: '66vh', backgroundColor: 'skyblue'}}>
-                    {/* <InfiniteScroll
-                        pageStart={0}
-                        // loadMore={loadFunc}
-                        // hasMore={false}
-                        loader={<div className="loader" key={0}>Loading ...</div>}
-                        useWindow={false}
-                    >
-                      
-                    </InfiniteScroll> */}
-                    <TopReview id={this.props.match.params.id} />
+                <Wrapper>
+                    <DetailLeft data={this.state.data}/>
+                    <DetailRight data={this.state.data} id = {this.props.match.params.id}/>
+                </Wrapper>
+                <Div>
+                        <Comment id={this.props.match.params.id}/>
+                </Div>
+                <div style={{ margin: '0 10% 0 10%', heigth: '100%', width: '80vw', backgroundColor:'red'}}>
+                    {/* <div style = {{height: '100%', backgroundColor: 'skyblue'}}> */}
+                        {/* <InfiniteScroll
+                            pageStart={0}
+                            // loadMore={loadFunc}
+                            // hasMore={false}
+                            loader={<div className="loader" key={0}>Loading ...</div>}
+                            useWindow={false}
+                        >
+                        
+                        </InfiniteScroll> */}
+                        <TopReview id={this.props.match.params.id} />
                 </div>
-                    <AllReview id={this.props.match.params.id}/>
-            </Div>
+                <div style={{ margin: '0 10% 0 10%', heigth: '100%', width: '80vw', backgroundColor: 'yellow' }}>
+                        <AllReview id={this.props.match.params.id}/>
+                </div>
         </div>
         )
     }

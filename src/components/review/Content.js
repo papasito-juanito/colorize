@@ -24,9 +24,10 @@ const Container = styled.div`
     background-color: #eee;
     border-radius: 5px;
     display:flex;
-    width:98%;
-    height: 96%;
-    margin: 1%;
+    width:95%;
+    height: 20vh;
+    margin: 1% auto;
+
 `
 
 const ReviewImage = styled.img`
@@ -49,7 +50,6 @@ const ReviewContent = styled.div`
     width: 60%;
     height: 70%;
     position: relative;
-  
 `
 
 const Message = styled.textarea`

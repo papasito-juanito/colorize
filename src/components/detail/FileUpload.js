@@ -47,6 +47,7 @@ class FileUpload extends Component {
                 imagepreviewUrl: reader.result
             })
         }
+        
         reader.readAsDataURL(file)
     }
 
@@ -64,21 +65,23 @@ class FileUpload extends Component {
 
  
 
-    _fileUploadHandler = () => {
+    _fileUploadHandler = (e) => {
         const formData = new FormData();
-        formData.append('image', this.state.file, this.state.file.name)
-        // axios.post('http://localhost:8080/api/......', formData, {            
+        formData.append('image', e.target.files[0])
+        console.log('e.target.files[0] of blob instance :', e.target.files[0] instanceof Blob)
+        console.log('this.state.file of blob instance :', this.state.file instanceof Blob)
+        console.log('formData :', formData instanceof Blob)
+        // axios.post('http://localhost:8080/api/......', this.state.imagepreviewUrl, {            
         //     onUploadProgress :  ProgressEvent => {
         //         console.log('Upload Progress :', Math.round(ProgressEvent.loaded / ProgressEvent.total * 100) + '%')
         //     }
         // })
         // .then(res => console.log(res))
         // .catch(err => console.log(err))
-
     }
 
     render(){
-        console.log(this.state)
+        console.log(typeof this.state.file)
 
         let { imagepreviewUrl } = this.state;
         let $imagePreview = null;

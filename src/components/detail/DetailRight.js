@@ -56,7 +56,7 @@ class DetailRight extends Component {
 
     render() {
 
-        // console.log(this.props.data[0])
+        console.log(this.state.data)
         return (
             <Wrapper>
                 <DetailDiv>

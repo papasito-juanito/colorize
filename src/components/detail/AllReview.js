@@ -23,22 +23,10 @@ class Allreview extends Component{
 
 
     render(){
+        console.log(this.state.data)
         return(
-            <div style = {{border: '1px solid black'}}>
-            <Review review={this.state.data} />
-                <h2> 리뷰 다나오는창 </h2>
-                <div> <h3>review</h3> </div>
-                <div> <h3>review</h3> </div>
-                <div> <h3>review</h3> </div>
-                <div> <h3>review</h3> </div>
-                <div> <h3>review</h3> </div>
-                <div> <h3>review</h3> </div>
-                <div> <h3>review</h3> </div>
-                <div> <h3>review</h3> </div>
-                <div> <h3>review</h3> </div>
-                <div> <h3>review</h3> </div>
-                <div> <h3>review</h3> </div>
-                
+            <div style = {{border: '1px solid black', backgroundColor:'blue'}}>
+                {this.state.data.length !== 0 ? <Review data={this.state.data}/> : <div style={{ border: '1px solid black' }}> <h2>등록된 리뷰가 없어요</h2></div>}
             </div>
         )
     }

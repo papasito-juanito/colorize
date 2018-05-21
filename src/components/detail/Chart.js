@@ -52,6 +52,7 @@ class Chart extends Component {
     }
 
     render(){
+     
         const data =  {
             labels: ["5", "4", "3", "2", "1"],
             datasets: [
@@ -68,8 +69,9 @@ class Chart extends Component {
                      }
             ]
         }
-        
+        console.log(data)
         return (
+         
             <Div>
                 <HorizontalBar data = {data} options={options}/>
             </Div>

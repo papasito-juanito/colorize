@@ -14,6 +14,7 @@ CREATE TABLE `users` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `userMail` VARCHAR(20) NOT NULL,
   `userPassword` VARCHAR(60) NOT NULL,
+  `userPhoto` VARCHAR(255) NULL,
   `userName` VARCHAR(20) NOT NULL,
   `tones_id` INTEGER NOT NULL,
   `birthDate` DATE NOT NULL,
@@ -27,7 +28,7 @@ DROP TABLE IF EXISTS `reviews`;
 CREATE TABLE `reviews` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `itemColors_id` INTEGER NOT NULL,
-  `reviewPhoto` BLOB NOT NULL,
+  `reviewPhoto` VARCHAR(255) NOT NULL,
   `reviewRating` INTEGER NOT NULL,
   `users_id` INTEGER NOT NULL,
   `reviewTime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,

@@ -4,7 +4,7 @@ const middleware = require('../../middlewares/isValidPassword');
 const db = require('../../db');
 
 module.exports = function(req, res) {
-  
+ 
   const secret = req.app.get('jwt-secret');
   const { userMail, userPassword } = req.body;
   const params = [ userMail, userPassword ];
@@ -14,7 +14,10 @@ module.exports = function(req, res) {
     else if (!rows.length) { res.status(404).end('[server    ] invalid usermail...') }
     else {
       middleware(userPassword, rows[0].userPassword).then(function(boolean) {
-        if (boolean) { res.status(200).end('[server    ] login success...') }
+        if (boolean) { 
+          req.session.userMail = userMail;
+          res.status(200).end(`[server    ] ${req.session.userMail} login success...`) 
+        }
         else { res.status(401).end('[server    ] invalid password...') }
       })
     }

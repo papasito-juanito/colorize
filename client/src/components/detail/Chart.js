@@ -4,12 +4,12 @@ import styled from 'styled-components';
 import axios from 'axios';
 import StarRatingComponent from 'react-star-rating-component';
 import NumberFormat from 'react-number-format';
+import '../../../node_modules/chartjs-plugin-datalabels/dist/chartjs-plugin-datalabels.js';
 
 const Div = styled.div`
     width: 100%;
     height: 100%;
     diplay: flex;
-    background-color: yellow;
 `;
 
 const options = {
@@ -25,6 +25,9 @@ const options = {
             gridLines: { display: false },
             ticks: {
                 beginAtZero: true,
+                min: 0,
+                max: 20,
+                stepSize: 2
             },
             display: false,
         }],
@@ -35,13 +38,13 @@ const options = {
     },
     plugins: {
         datalabels: {
-            color: 'white',
             display: true,
-            font: {
-                weight: 'bold',
-            },
-            align: 'right',
+            color: 'black',
+            anchor: 'end',
+            align: 'right'
         },
+        
+    
     },
 };
 
@@ -74,7 +77,6 @@ class Chart extends Component {
         };
         console.log(this.props.data);
         return (
-
             <Div>
                 <div style={{ width: '100%', height: '100%', display: 'flex' }}>
                     <div style={{ width: '20%', height: '100%', backgroundColor: 'green', textAlign: 'center', padding: '13% 0 0 0' }}>
@@ -85,21 +87,9 @@ class Chart extends Component {
                             value={this.props.data ? this.props.data[0].avg : 0}
                         />
                     </div>
-                    <div style={{ width: '80%', height: '100%', backgroundColor: 'blue' }}>
+                    <div style={{ width: '75%', height: '100%', }}>
                         <HorizontalBar data={data} options={options} />
                     </div>
-                    {/* <div style={{ width: '30%', height: '100%', margin:'10% 10% 10% 10%' }}>
-            <div>총 {this.props.data ? this.props.data[0].total : 0}명</div>
-            <div>
-              <StarRatingComponent
-                name="평점"
-                value={this.props.data ? this.props.data[0].avg : 0}
-                    />
-            </div>
-          </div>
-          <div style={{ width: '70%', height: '100%' }}>
-            <HorizontalBar data={data} options={options} />
-          </div> */}
                 </div>
             </Div>
         );

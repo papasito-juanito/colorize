@@ -284,6 +284,8 @@ class Signup extends Component {
     }
 
     onColorSelect(option) {
+        console.log(option.value);
+        
         this.setState({ colorSelected: option.value })
     }
 
@@ -331,7 +333,7 @@ class Signup extends Component {
                     <PasswordImageDiv> 
                     <PasswordImage src={lock}/> 
                     </PasswordImageDiv>
-                    <PasswordInput 
+                    <PasswordInput type="password"
                     onChange={this.onChangePassword.bind(this)} innerRef={ref => { this.password = ref; }} placeholder="Enter Your Password"/> 
                     </PasswordWrapper>
                     {this.state.isValidPassword ? null : <InvalidPassword>5~10 letters</InvalidPassword>}  
@@ -362,7 +364,8 @@ class Signup extends Component {
                     <SkinImageDiv> 
                     <SkinImage src={skin}/> 
                     </SkinImageDiv>
-                    <Dropdown options={this.colorOptions} onChange={this.onColorSelect.bind(this)} placeholder="Select your color" />
+                    <Dropdown options={this.colorOptions} onChange={this.onColorSelect.bind(this)} placeholder="Select your color"
+                    value={this.state.colorSelected} />
                     </SkinWrapper>
                     <SignupButtonWrapper>
                         <Signupbtn onClick={this.onSubmit.bind(this)}>Go to pick lips</Signupbtn>

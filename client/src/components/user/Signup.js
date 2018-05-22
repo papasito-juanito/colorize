@@ -323,7 +323,7 @@ class Signup extends Component {
                     <SkinImageDiv> 
                     <SkinImage src={skin}/> 
                     </SkinImageDiv>
-                    <Dropdown options={this.colorOptions} onChange={this.onColorSelect.bind(this)} placeholder="Select your color" />
+                        <Dropdown options={this.colorOptions} onChange={this.onColorSelect.bind(this)} value={this.state.colorSelected} placeholder="Select your color" />
                     </SkinWrapper>
                     <SignupButtonWrapper>
                         <Signupbtn>Go to pick lips</Signupbtn>

@@ -4,7 +4,8 @@ const middleware = require('../../middlewares/isValidPassword');
 const db = require('../../db');
 
 module.exports = function(req, res) {
-  
+ 
+  const _session = req.session;
   const secret = req.app.get('jwt-secret');
   const { userMail, userPassword } = req.body;
   const params = [ userMail, userPassword ];

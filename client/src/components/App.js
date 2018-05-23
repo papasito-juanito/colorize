@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import {injectGlobal} from 'styled-components'
 import Nav from '../components/Nav'
@@ -27,6 +28,7 @@ class App extends Component {
             
         }
     }
+
     render() {
         return (
             <Router>

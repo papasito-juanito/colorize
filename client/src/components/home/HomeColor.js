@@ -3,6 +3,30 @@ import './HomeColor.css';
 import tinycolor from "tinycolor2";
 import TableDragSelect from "react-table-drag-select";
 import {Link} from "react-router-dom";
+import styled from 'styled-components';
+
+const Button = styled.button`
+  padding: 1% 2%;
+  font-size: 1em;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: #121212;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+  margin: 1%;
+  &:hover {
+    background-color: #484848;
+  }  
+  &:active {
+    background-color: #121212;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }  
+
+`
 
 class HomeColor extends Component {
   constructor(props) {
@@ -67,8 +91,9 @@ class HomeColor extends Component {
     this.colorGroup = this.props.colorGroup;
     console.log(this.state.cells);
     return (
-      <div className="HomeColor">
-        <TableDragSelect value={this.state.cells} onChange={this.handleChange}>
+      <div className="HomeColor" style={{ backgroundColor:'white', margin:'5% 2% 2% 2%', width:'100%', heigth:'100%'}}>
+        <div style={{ margin:'5% 5% 3% 5%'}}>
+        <TableDragSelect style={{marginLeft:'auto', marginRight:'auto'}} value={this.state.cells} onChange={this.handleChange}>
           <tr>
               {this.colorGroup.A.map((element, i) => 
                 <td
@@ -143,8 +168,11 @@ class HomeColor extends Component {
           </tr>
 
         </TableDragSelect>
-        <button onClick={this.handleClick}>Reset</button>
-        <button onClick={this.getID}>Search for these colors!</button>
+        </div>
+        <div style={{textAlign:'center'}}>
+          <Button onClick={this.handleClick}>Reset</Button>
+          <Button onClick={this.getID}>Search for these colors!</Button>
+        </div>
       </div>
     );
   }

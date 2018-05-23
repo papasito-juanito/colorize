@@ -23,14 +23,17 @@ const RatingDiv = styled.div`
 const ChartDiv = styled.div`
     width: 65%; 
     height: 100%;
-    padding: 18% 0 0 0;
+    padding: 9% 0 0 0;
     box-sizing: border-box; 
 `
 
 const options = {
     legend: { display: false },
     title: {
-        display: false,
+        display: true,
+        text: '사용자 평점',
+        fontSize: 15,
+        fontFamily: 'sans-serif'
     },
     responsive: true,
     maintainAspectRatio: true,
@@ -74,7 +77,7 @@ class Chart extends Component {
     render() {
 
         const data = {
-            labels: ['5', '4', '3', '2', '1'],
+            labels: ['5점', '4점', '3점', '2점', '1점'],
             datasets: [
                 {
                     label: '평점수',
@@ -102,7 +105,7 @@ class Chart extends Component {
                         />
                     </RatingDiv>
                     <ChartDiv>
-                        <HorizontalBar data={data} options={options} />
+                        <HorizontalBar height={250} data={data} options={options} />
                     </ChartDiv>
                 </Wrapper>
 

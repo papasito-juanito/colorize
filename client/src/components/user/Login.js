@@ -181,12 +181,12 @@ class Login extends Component {
         super();
         this.state = {
             modalIsOpen: true
+
           };
        
           this.openModal = this.openModal.bind(this);
         //   this.afterOpenModal = this.afterOpenModal.bind(this);
           this.closeModal = this.closeModal.bind(this);
-
         }
        
     openModal() {
@@ -212,11 +212,11 @@ class Login extends Component {
     const api = axios.create({ baseURL: 'http://localhost:8080' })
     api.post('/api/user/login', form)
         .then(res => {
+            console.log(res); 
+            this.props.handleLoginUser()   
             if(res.status===200){
                 this.closeModal()
-                this.setState({
-                    isLogin: true
-                })          
+                         
                 history.push(history.location.pathname)
         }})
         .catch(error => console.log(error))

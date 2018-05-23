@@ -22,18 +22,25 @@ const customStyles = {
 
 const DetailDiv = styled.div `
     width: 40%;
+    height: 100%;
+    margin: 0 3% 0 0;
+    border : 1px solid #d9dee8;
+    background-color:white;
+    padding: 1%;
+    box-sizing:border-box;
 `;
 
 const Wrapper = styled.div `
     height: 100%;
     width: 70%;
-    border: 1px solid blue;
     display: flex;
-`;
+    background-color:#F4F5F9;
+`
 
 const ChartDiv = styled.div `
     width: 60%;
-`;
+    height: 100%;
+`
 
 
 class DetailRight extends Component {
@@ -80,11 +87,11 @@ class DetailRight extends Component {
         return ( 
             <Wrapper>
                 <DetailDiv>
-                    <div> name: {this.props.data ? this.props.data[0].name : null} </div> 
-                    <div> price: < NumberFormat value = {this.props.data ? this.props.data[0].price : 0} displayType = "text" thousandSeparator={true} suffix = "원" /> < br/></div>
+                    <div> 상품명: {this.props.data ? this.props.data[0].name : null} </div> 
+                    <div> 가격: < NumberFormat value = {this.props.data ? this.props.data[0].price : 0} displayType = "text" thousandSeparator={true} suffix = "원" /> < br/></div>
                     <LinesEllipsis
-                        text= {`detail : ${this.props.data ? this.props.data[0].description : null}`} 
-                        maxLine='5'
+                        text= {`제품 정보: ${this.props.data ? this.props.data[0].description : null}`} 
+                        maxLine='18'
                         ellipsis={<span style={{cursor: 'pointer'}}onClick={this._openPopup}>{ ' ...전체보기...'}</span>}
                         trimRight
                         basedOn='words'

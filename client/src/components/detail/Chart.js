@@ -6,16 +6,34 @@ import StarRatingComponent from 'react-star-rating-component';
 import NumberFormat from 'react-number-format';
 import '../../../node_modules/chartjs-plugin-datalabels/dist/chartjs-plugin-datalabels.js';
 
-const Div = styled.div`
-    width: 100%;
+const Wrapper = styled.div`
+     width: 100%;
+     height: 100% 
+     display: flex;
+     border : 1px solid #d9dee8;
+     background-color:white;
+`
+const RatingDiv = styled.div`
+    width: 25%;
     height: 100%;
-    diplay: flex;
+    text-align: center;
+    padding: 22% 0 0 0 ;
+    box-sizing: border-box; 
+`
+const ChartDiv = styled.div`
+    width: 65%; 
+    height: 100%;
+    padding: 9% 0 0 0;
+    box-sizing: border-box; 
 `
 
 const options = {
     legend: { display: false },
     title: {
-        display: false,
+        display: true,
+        text: '사용자 평점',
+        fontSize: 15,
+        fontFamily: 'sans-serif'
     },
     responsive: true,
     maintainAspectRatio: true,
@@ -25,7 +43,7 @@ const options = {
             ticks: {
                 beginAtZero: true,
                 min: 0,
-                max: 20,
+                max: 50,
                 stepSize: 2
             },
             display: false,
@@ -59,7 +77,7 @@ class Chart extends Component {
     render() {
 
         const data = {
-            labels: ['5', '4', '3', '2', '1'],
+            labels: ['5점', '4점', '3점', '2점', '1점'],
             datasets: [
                 {
                     label: '평점수',
@@ -74,22 +92,23 @@ class Chart extends Component {
                 },
             ],
         };
+
         return (
-            <Div>
-                <div style={{ width: '100%', height: '100%', display: 'flex' }}>
-                    <div style={{ width: '20%', height: '100%', backgroundColor: 'green', textAlign: 'center', padding: '13% 0 0 0' }}>
+
+                <Wrapper>
+                    <RatingDiv>
                         <NumberFormat value={this.props.data ? this.props.data[0].total : 0} displayType={'text'} thousandSeparator={true} prefix={'총 '} suffix={'명'} /><br />
                         <h2> {this.props.data ? (this.props.data[0].avg).toFixed(2) : 0} </h2>
                         <StarRatingComponent
                             name="평점"
                             value={this.props.data ? this.props.data[0].avg : 0}
                         />
-                    </div>
-                    <div style={{ width: '75%', height: '100%', }}>
-                        <HorizontalBar data={data} options={options} />
-                    </div>
-                </div>
-            </Div>
+                    </RatingDiv>
+                    <ChartDiv>
+                        <HorizontalBar height={250} data={data} options={options} />
+                    </ChartDiv>
+                </Wrapper>
+
         );
     }
 

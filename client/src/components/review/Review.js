@@ -24,7 +24,6 @@ import Content from './Content'
 const Review = ({data}) => {
     return (
              <Content data={data} />
-
     );
 };
 

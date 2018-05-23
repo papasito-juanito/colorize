@@ -13,16 +13,21 @@ const TextArea = styled.textarea`
     width: 95%;
     height: 80%;
     margin: 1% 0 0 0;
+    background-color: #F6F6F6;
+    border-radius: 5px;
 `
 const Wrapper = styled.div`
-    border: 1px solid black;
+    border: 1px solid #d9dee8;
     width: 75%;
     display: flex;
+    background-color:white;
 `
 
 const RatingDiv = styled.div`
     width: 20%;
     text-align: center;
+    padding: 4% 0 0 0;
+    box-sizing: border-box; 
 `
 
 const ReviewDiv = styled.div`

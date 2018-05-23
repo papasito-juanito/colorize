@@ -1,11 +1,5 @@
 // Local import
 const db = require('../../db');
-const queryStr = require('../../db/users/delete');
+const _query = require('../../db/users/delete');
 
-module.exports = function(params, cb) {
-  console.log(`[model     ] received params from controller...`)
-  console.log(`[model     ] send query to database...`);
-  db.query(queryStr, params, function(err, rows) {
-    cb(err, rows)
-  })
-}
+module.exports = (params, cb) => { db.query(_query, params, (err, rows) => { cb(err, rows) }) }

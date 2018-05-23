@@ -153,36 +153,6 @@ class Nav extends Component {
     }
 
     render(){
-<<<<<<< HEAD
-        console.log('state', this.state);
-        return (
-            <NavContatiner>
-                <Overlay ref='overlay'/>
-                <Colorize>
-                    <NavLink to="/" style={{ textDecoration: 'none' }}>
-                        <span>Colorize</span>
-                    </NavLink>
-                </Colorize>
-                <NaveRightContainer>
-                    <MenuWrapper>
-                        <Menu onClick={this.openNav} >
-                            &#9776;
-                        </Menu>     
-                        <SideNav ref="mySidenav" >
-                            <SideClose href="javascript:void(0)" onClick={this.closeNav}>&times;</SideClose>
-                            <SideAnchor href="/wishlist">Wish List</SideAnchor>
-                            <SideAnchor href="/review">My Review</SideAnchor>
-                            <SideAnchor>My Page</SideAnchor>
-                            <SideAnchor onClick={()=>{this.renderLogin(); this.closeNav()}}>{this.state.isLogined ? 'Logout' : 'Login'}</SideAnchor>
-                        </SideNav>
-                    </MenuWrapper>    
-                        {this.state.loginClicked ? 
-                            <Login renderLogin={this.renderLogin} 
-                                handleLoginUser={this.handleLoginUser}
-                            /> : null}
-                </NaveRightContainer>
-            </NavContatiner>
-=======
         return (        
             <NavContatiner id="navbar">
             <Overlay ref='overlay' onClick={this.closeNav}/>
@@ -209,7 +179,6 @@ class Nav extends Component {
                 /> : null}
             </NaveRightContainer>
         </NavContatiner>
->>>>>>> 7b26eae55359118a650618760a2a9c5323047daa
       );   
     }
 };

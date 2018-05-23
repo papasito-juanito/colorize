@@ -86,7 +86,7 @@ const UserDiv = styled.div`
 
 class Content extends Component {
     constructor(props) {
-        super();
+        super(props);
         this.state = {
             editing: true,
             message: '글이나오고 글이나오고 글이나오고',
@@ -123,7 +123,7 @@ class Content extends Component {
         this.setState({ like: !this.state.like })
         !this.state.like ? this.setState({ likecount: this.state.likeCount++ }) : this.setState({ likecount: this.state.likeCount-- })
         //누르면 개별 likes 올라가고 토글 개별로 되게 
-    
+    }
     _openPopup(e) {
         this.setState({
             popupIsOpen: true,

@@ -81,24 +81,41 @@ const SideClose = styled.a`
     top: 5px;
     cursor: pointer;
 `
-
+ 
+const Overlay = styled.div`
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    transition: 0.5s;
+`
 
 class Nav extends Component {
     constructor(props){
         super()
         this.state = {
             loginClicked: false,
-            isLogined: false
+            isLogined: false,
+            closeAll: false
         }
     }
 
     openNav = () => {
-        ReactDOM.findDOMNode(this.refs.mySidenav).style.width = '250px' 
-        // document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+        ReactDOM.findDOMNode(this.refs.mySidenav).style.width = '20%' 
+        ReactDOM.findDOMNode(this.refs.overlay).style.display = 'block'
     }
 
     closeNav = () => {
         ReactDOM.findDOMNode(this.refs.mySidenav).style.width = '0px'
+        ReactDOM.findDOMNode(this.refs.overlay).style.display = 'none'
+        // this.setState({
+        //     closeAll: true
+        // })
     }
 
     renderLogin = () => {
@@ -115,9 +132,10 @@ class Nav extends Component {
     }
 
     render(){
-        console.log('nav', this.state.loginClicked);
+        console.log('state', this.state);
         return (
             <NavContatiner>
+            <Overlay ref='overlay'/>
             <Colorize>
             <NavLink to="/" style={{ textDecoration: 'none' }}>
             <span>Colorize</span></NavLink>
@@ -132,10 +150,13 @@ class Nav extends Component {
                         <SideAnchor href="/wishlist">Wish List</SideAnchor>
                         <SideAnchor href="/review">My Review</SideAnchor>
                         <SideAnchor>My Page</SideAnchor>
-                        <SideAnchor onClick={this.renderLogin.bind(this)}>{this.state.isLogined ? 'Logout' : 'Login'}</SideAnchor>
+                        <SideAnchor onClick={()=>{this.renderLogin(); this.closeNav()}}>{this.state.isLogined ? 'Logout' : 'Login'}</SideAnchor>
                     </SideNav>
                  </MenuWrapper>    
-                {this.state.loginClicked ? <Login renderLogin={this.renderLogin} handleLoginUser={this.handleLoginUser}/> : null}
+                {this.state.loginClicked ? 
+                <Login renderLogin={this.renderLogin} 
+                    handleLoginUser={this.handleLoginUser}
+                /> : null}
             </NaveRightContainer>
         </NavContatiner>
       );   

@@ -1,11 +1,8 @@
-import React from 'react';
+import createHistory from 'history/createBrowserHistory'
 
-const index = () => {
-    return (
-        <div>
-            
-        </div>
-    );
-};
+const history = createHistory();
+history.listen(location => {
+  console.log(location);
+});
 
-export default index;
+export default history;

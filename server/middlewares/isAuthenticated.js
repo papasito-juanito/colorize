@@ -1,8 +1,3 @@
-// Local import
-const db = require('../db');
-
-module.exports = async (userMail) =>{
-  console.log('userMail');
-  var result = await db.query(`SELECT id FROM users WHERE userMail="${userMail}";`);
-  return result;
+module.exports = (req, res, next) => {
+  res.status(200).send(req.session.user_id);
 }

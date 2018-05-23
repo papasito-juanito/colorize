@@ -1,1 +1,1 @@
-module.exports = `UPDATE users SET userToggle='false' WHERE userMail=?;`;
+module.exports = `UPDATE users SET userToggle='false' WHERE id=?;`;

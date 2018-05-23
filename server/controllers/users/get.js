@@ -5,16 +5,13 @@ const db = require('../../db');
 
 module.exports = {
   login: (req, res) => {
-    
-    const {userMail, userPassword} = req.query;
-    const params = [userMail, userPassword];
-  
-    db.query(`SELECT id,userPassword FROM users WHERE userMail="${userMail}";`, (err, rows) => {
+    db.query(`SELECT id,userPassword FROM users WHERE userMail="
+      ${req.query.userMail}";`, (err, rows) => {
       if (err) throw err;
       else if (!rows.length) res.status(401).send(
         {'result': false, 'message': 'invalid usermail'})
       else {
-        middleware(userPassword, rows[0].userPassword)
+        middleware(req.query.userPassword, rows[0].userPassword)
         .then(boolean => {
           if (boolean) { 
             req.session.user_id = rows[0].id;

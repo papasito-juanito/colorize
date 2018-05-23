@@ -9,18 +9,19 @@ const ItemListContainer = styled.div`
     position: absolute;
     height: 100%;
     width: 100%
+    margin-left:5%
     display: flex
+    flex-direction: column;
 `
 //가운데로 필요
 const Ul = styled.ul`
     position: absolute;
-    margin-left:5%
     height: 100%;
     width: 90%;
-    background-color: yellow;
     display:flex;
     flex-direction: row;
     flex-wrap: wrap;
+    margin-top:5%
 `
 const Li = styled.li`
     background-color: #f1f1f1;
@@ -75,18 +76,44 @@ const Price = styled.div`
 `
 
 const Rating = styled.div`
-font-size: 19px;
-text-align: center
+    font-size: 19px;
+    text-align: center
 `
 const Review = styled.span`
-font-size: 13px;
+    font-size: 13px;
+`
+const SortContainer = styled.div`
+    margin-top: 2%;
+    margin-left: 3%;
+    overflow: hidden;
+`
 
+const Btn = styled.button`
+    border: none;
+    outline: none;
+    padding: 12px 16px;
+    background-color: #f1f1f1;
+    cursor: pointer;
+    &:hover {
+        background-color: #ddd;
+    }
+    $:active {
+        background-color: #666;
+        color: white;
+    }
 `
 
 const Items = ({item}) => {
 
     return (
         <ItemListContainer >
+        <SortContainer>
+            <Btn>기본순</Btn>
+            <Btn>높은가격순</Btn>
+            <Btn>낮은가격순</Btn>
+            <Btn>별점순</Btn>
+            <Btn>최신순</Btn>
+        </SortContainer>    
             <Ul>
                 {item.map((item, i)=>{
                     return (

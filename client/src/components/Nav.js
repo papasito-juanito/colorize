@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import Login from './user/Login'
 
 const NavContatiner = styled.header`
-    background-color: pink;
+    background-color: black;
     height: 10%;
     width:100%
     top:0;
@@ -16,10 +16,16 @@ const NavContatiner = styled.header`
     flex-direction: row;
 `
 
+const Colorize = styled.div`
+    margin: auto
+    text-align: center;
+
+`
+
 const NavLink = styled(Link)`
-    font-size: 2rem
+    font-size: 5rem
     &:visited {
-        color: black;
+        color: white;
         text-decoration: none;
     }  
 `
@@ -27,19 +33,17 @@ const NavLink = styled(Link)`
 const NaveRightContainer = styled.div`
     position: absolute;
     right: 5%
-    margin-top: 2.5%
-    height:auto
 `
 
 const MenuWrapper = styled.div`
     overflow: hidden;
-    &:hover {
-        background-color: red;
-    }
+    font-size: 3.5rem;
+    cursor: pointer
+
 `
 
 const Menu = styled.div`
-    font-size: 2rem;
+    color: white
 `
 
 const SideNav = styled.div`
@@ -83,12 +87,14 @@ class Nav extends Component {
     constructor(props){
         super()
         this.state = {
-            loginClicked: false
+            loginClicked: false,
+            isLogined: false
         }
     }
 
     openNav = () => {
-        ReactDOM.findDOMNode(this.refs.mySidenav).style.width = '250px'     
+        ReactDOM.findDOMNode(this.refs.mySidenav).style.width = '250px' 
+        // document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
     }
 
     closeNav = () => {
@@ -97,7 +103,14 @@ class Nav extends Component {
 
     renderLogin = () => {
         this.setState({
-            loginClicked: !this.state.loginClicked
+            loginClicked: !this.state.loginClicked,
+            // isLogined: this.state.isLogined ? false : this.state.isLogined
+        })
+    }
+
+    handleLoginUser = () => {
+        this.setState({
+            isLogined: true
         })
     }
 
@@ -105,9 +118,10 @@ class Nav extends Component {
         console.log('nav', this.state.loginClicked);
         return (
             <NavContatiner>
-            <div>
-            <NavLink to="/" style={{ textDecoration: 'none' }}>Colorize</NavLink>
-            </div>
+            <Colorize>
+            <NavLink to="/" style={{ textDecoration: 'none' }}>
+            <span>Colorize</span></NavLink>
+            </Colorize>
             <NaveRightContainer>
                  <MenuWrapper>
                  <Menu onClick={this.openNav} >
@@ -118,10 +132,10 @@ class Nav extends Component {
                         <SideAnchor href="/wishlist">Wish List</SideAnchor>
                         <SideAnchor href="/review">My Review</SideAnchor>
                         <SideAnchor>My Page</SideAnchor>
-                        <SideAnchor onClick={this.renderLogin.bind(this)}>Login</SideAnchor>
+                        <SideAnchor onClick={this.renderLogin.bind(this)}>{this.state.isLogined ? 'Logout' : 'Login'}</SideAnchor>
                     </SideNav>
                  </MenuWrapper>    
-                {this.state.loginClicked ? <Login renderLogin={this.renderLogin}/> : null}
+                {this.state.loginClicked ? <Login renderLogin={this.renderLogin} handleLoginUser={this.handleLoginUser}/> : null}
             </NaveRightContainer>
         </NavContatiner>
       );   

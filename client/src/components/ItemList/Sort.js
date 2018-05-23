@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const SortingContainer = styled.div`
     position: fixed;
-    width:5%
+    width:8%
     margin-top:5%
     height: 100%;
     background-color: green;

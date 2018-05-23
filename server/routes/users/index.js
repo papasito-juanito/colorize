@@ -2,25 +2,14 @@
 const router = require('express').Router();
 
 // Local import
-const _delete = require('./delete');
-const login = require('./login');
-const logout = require('./logout');
-const signup = require('./signup');
+const DELETE = require('./delete');
+const GET = require('./get');
+const POST = require('./post');
+const UPDATE = require('./update');
 
-router.use('/delete', _delete);
-router.use('/login', login);
-router.use('/logout', logout);
-router.use('/signup', signup);
-
-
-// const _delete = require('./delete');
-// const _get = require('./get');
-// const _post = require('./post');
-// const _update = require('./update');
-
-// router.use('/delete', _delete);
-// router.use('/get', _get);
-// router.use('/post', _post);
-// router.use('/update', _update);
+router.use('/delete', DELETE);
+router.use('/get', GET);
+router.use('/post', POST);
+router.use('/update', UPDATE);
 
 module.exports = router;

@@ -1,5 +1,5 @@
 // Local import
-const model = require('../../models/users/signup');
+const model = require('../../models/users/update');
 const middleware = require('../../middlewares/hashPassword');
 const db = require('../../db');
 

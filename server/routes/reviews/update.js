@@ -2,8 +2,8 @@
 const router = require('express').Router();
 
 // Local import
-const controller = require('../../controllers/reviews/myReview');
+const controller = require('../../controllers/reviews/update');
 
-router.get('/', controller);
+router.post('/', controller);
 
 module.exports = router;

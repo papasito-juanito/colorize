@@ -2,7 +2,7 @@
 const router = require('express').Router();
 
 // Local import
-const controller = require('../../controllers/wishLists/addWish');
+const controller = require('../../controllers/users/update');
 
 router.post('/', controller);
 

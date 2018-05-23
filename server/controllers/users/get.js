@@ -1,5 +1,5 @@
 // Local import
-const model = require('../../models/users/login');
+const model = require('../../models/users/get');
 const middleware = require('../../middlewares/isValidPassword');
 const db = require('../../db');
 

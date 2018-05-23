@@ -1,4 +1,9 @@
 module.exports = {
+  info: `
+    SELECT u.userName user, YEAR(NOW())-YEAR(u.birthDate) age, t.toneName tone
+    FROM users u, userDetails ud, tones t
+    WHERE t.id=ud.tones_id AND ud.id=u.userDetails_id AND u.id=?;
+  `,
   list: `
     SELECT r.id review_id,r.reviewPhoto photo,u.userName user,YEAR(NOW())-YEAR(u.birthDate) age,
       t.toneName tone,r.reviewRating rating,r.reviewMessage message,r.reviewTime writeAt, rl.likes likes
@@ -32,10 +37,5 @@ module.exports = {
       (SELECT COUNT(reviews_id) likes FROM reviewLikes, reviews, items WHERE items.id = reviews.itemColors_id AND reviews.id = reviewLikes.reviews_id) rl
     WHERE u.userToggle='true' AND i.itemToggle='true' AND r.reviewToggle='true' AND 
       i.id=ic.items_id AND b.id=i.brands_id AND u.id=r.users_id AND i.id=r.itemColors_id AND u.id=?;
-  `,
-  info: `
-    SELECT u.userName user, YEAR(NOW())-YEAR(u.birthDate) age, t.toneName tone
-    FROM users u, userDetails ud, tones t
-    WHERE t.id=ud.tones_id AND ud.id=u.userDetails_id AND u.id=?;
   `
 };

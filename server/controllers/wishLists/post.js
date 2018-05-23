@@ -1,8 +1,8 @@
 // Local import
-const model = require('../../models/wishLists/update');
+const model = require('../../models/wishLists/post');
 
 module.exports = (req, res) => {
-  const {user_id, color_id} = req.body;
+  const {user_id, color_id} = req.body;  
   const params = [user_id, color_id];
 
   model(params, (err, rows) => {

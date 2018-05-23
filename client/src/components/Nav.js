@@ -10,10 +10,10 @@ const NavContatiner = styled.header`
     height: 10%;
     width: 100vw;
     top:0;
-    position: fixed;
     z-index:1;
     display: flex;
     flex-direction: row;
+    transition: top 0.3s;
 `
 
 const Colorize = styled.div`
@@ -101,7 +101,8 @@ class Nav extends Component {
         this.state = {
             loginClicked: false,
             isLogined: false,
-            closeAll: false
+            closeAll: false,
+            isHide: false
         }
     }
 
@@ -131,7 +132,28 @@ class Nav extends Component {
         })
     }
 
+    hideNav = () => {
+        var prevScrollpos = window.pageYOffset;
+        return function() {
+            var currentScrollPos = window.pageYOffset;
+            console.log('current', currentScrollPos);
+            if (prevScrollpos >= currentScrollPos) {
+                console.log('IFIFIFIFIFIFIFIcurrent', currentScrollPos);
+                document.getElementById("navbar").style.top = "0";
+            } else {
+                console.log('prev', prevScrollpos);
+                document.getElementById("navbar").style.top = "-10%";
+            }
+            prevScrollpos = currentScrollPos;
+        }
+    }
+
+    componentDidMount(){
+        window.addEventListener('scroll',this.hideNav());
+    }
+
     render(){
+<<<<<<< HEAD
         console.log('state', this.state);
         return (
             <NavContatiner>
@@ -160,6 +182,34 @@ class Nav extends Component {
                             /> : null}
                 </NaveRightContainer>
             </NavContatiner>
+=======
+        return (        
+            <NavContatiner id="navbar">
+            <Overlay ref='overlay' onClick={this.closeNav}/>
+            <Colorize>
+            <NavLink to="/" style={{ textDecoration: 'none' }}>
+            <span>Colorize</span></NavLink>
+            </Colorize>
+            <NaveRightContainer>
+                 <MenuWrapper>
+                 <Menu onClick={this.openNav} >
+                    &#9776;
+                 </Menu>     
+                    <SideNav ref="mySidenav" >
+                        <SideClose href="javascript:void(0)" onClick={this.closeNav}>&times;</SideClose>
+                        <SideAnchor href="/wishlist">Wish List</SideAnchor>
+                        <SideAnchor href="/review">My Review</SideAnchor>
+                        <SideAnchor>My Page</SideAnchor>
+                        <SideAnchor onClick={()=>{this.renderLogin(); this.closeNav()}}>{this.state.isLogined ? 'Logout' : 'Login'}</SideAnchor>
+                    </SideNav>
+                 </MenuWrapper>    
+                {this.state.loginClicked ? 
+                <Login renderLogin={this.renderLogin} 
+                    handleLoginUser={this.handleLoginUser}
+                /> : null}
+            </NaveRightContainer>
+        </NavContatiner>
+>>>>>>> 7b26eae55359118a650618760a2a9c5323047daa
       );   
     }
 };

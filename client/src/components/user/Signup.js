@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import axios from 'axios';
-import Side from './Side';
 import validator from 'validator';
 import mail from '../../assets/mail.png'
 import lock from '../../assets/lock.png';
@@ -11,21 +10,25 @@ import nickname from '../../assets/nickname.png';
 import birthdate from '../../assets/birthdate.png';
 import gender from '../../assets/gender.png';
 import skin from '../../assets/skin.png';
+import bottom from '../../assets/bottom.png';
 
 const Container = styled.div`
     height: 90vh;
     width : 90vw;
     display: flex;
-    flex-direction: row
+    flex-direction: column
     align-item: stretch;
     margin-top:10%;
     margin-left: 5%
+    
 `
 
 const SignupContainer = styled.div`
     height: 80vh;
     width : 40vw;
-    border: 2px solid #ddd;
+    margin-top: 20%
+    margin: 0 auto;
+	position: relative
 `
 
 const IdWrapper = styled.div`
@@ -209,6 +212,18 @@ const Signupbtn = styled.div`
     }  
 `
 
+const Bottom = styled.div`
+    bottom: 0px
+    width:50%
+    height: auto
+`
+
+const BttomImg = styled.img`
+    width: auto; 
+    height: auto;
+    max-width: 100%;
+`
+
 class Signup extends Component {
     constructor(){
         super()
@@ -216,9 +231,28 @@ class Signup extends Component {
             isValidEmail: true,
             isValidPassword: true,
             isValidNickname: true,
-            colorSelected: '',
-            genderSelcted: ''
+            birthdateSelected: '',
+            genderSelcted: '',
+            colorSelected: ''
         }
+    }
+
+    onSubmit = () => {
+        const form = {
+            userMail: this.email.value,
+            userPassword: this.password.value,
+            userName: this.nickname.value,
+            birthDate: this.state.birthdateSelected, 
+            gender: this.state.genderSelcted,
+            toneName: this.state.colorSelected
+        };
+
+        console.log(form)
+        const api = axios.create({ baseURL: 'http://localhost:8080' })
+            api.post('/api/user/signup', form)
+                .then(res => console.log(res))
+                .catch(error => console.log(error))
+
     }
 
     onChangeEmial = () => {
@@ -244,17 +278,22 @@ class Signup extends Component {
 
     onBirthdate = () => {
         const date = this.date.value
-        console.log(date);   
+        this.setState({
+            birthdateSelected: date
+        })
     }
 
     onColorSelect(option) {
         console.log(option.value);
+        
         this.setState({ colorSelected: option.value })
     }
 
     onSelectedGender = (e) => {
-        const gender = e.target.value
-        console.log(gender);
+        const gender = e.target.value        
+        this.setState({
+            genderSelcted: gender
+        })
     }
 
      colorOptions = [
@@ -276,9 +315,11 @@ class Signup extends Component {
     ]
 
     render() {
+        console.log(this.state.genderSelcted);
+        
         return (
             <Container>
-                <Side />
+                
                 <SignupContainer> 
                 <IdWrapper> 
                     <IdImageDiv> 
@@ -292,7 +333,7 @@ class Signup extends Component {
                     <PasswordImageDiv> 
                     <PasswordImage src={lock}/> 
                     </PasswordImageDiv>
-                    <PasswordInput 
+                    <PasswordInput type="password"
                     onChange={this.onChangePassword.bind(this)} innerRef={ref => { this.password = ref; }} placeholder="Enter Your Password"/> 
                     </PasswordWrapper>
                     {this.state.isValidPassword ? null : <InvalidPassword>5~10 letters</InvalidPassword>}  
@@ -323,12 +364,16 @@ class Signup extends Component {
                     <SkinImageDiv> 
                     <SkinImage src={skin}/> 
                     </SkinImageDiv>
-                        <Dropdown options={this.colorOptions} onChange={this.onColorSelect.bind(this)} value={this.state.colorSelected} placeholder="Select your color" />
+                    <Dropdown options={this.colorOptions} onChange={this.onColorSelect.bind(this)} placeholder="Select your color"
+                    value={this.state.colorSelected} />
                     </SkinWrapper>
                     <SignupButtonWrapper>
-                        <Signupbtn>Go to pick lips</Signupbtn>
-                    </SignupButtonWrapper>        
+                        <Signupbtn onClick={this.onSubmit.bind(this)}>Go to pick lips</Signupbtn>
+                    </SignupButtonWrapper>     
                 </SignupContainer>
+                <Bottom>
+                    <BttomImg src={bottom}/>
+                </Bottom>   
             </Container>
         )
     }

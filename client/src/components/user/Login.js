@@ -209,7 +209,6 @@ class Login extends Component {
 
     console.log('form', form);
     
-
     const api = axios.create({ baseURL: 'http://localhost:8080' })
     api.post('/api/user/login', form)
         .then(res => console.log(res))
@@ -255,7 +254,7 @@ class Login extends Component {
                             <Google> Google </Google> 
                         </LoginSignupButtonWrapper>
                     </LoginBottom>    
-                    <CloseButton onClick={()=>{this.closeModal(); renderLogin();}}>X</CloseButton>
+                    <CloseButton onClick={()=>{this.closeModal(); renderLogin(); this.clickToLogin()}}>X</CloseButton>
                     </Modal>
             </LoginContainer>
         );

@@ -10,13 +10,12 @@ const Div = styled.div`
     width: 100%;
     height: 100%;
     diplay: flex;
-`;
+`
 
 const options = {
     legend: { display: false },
     title: {
-        display: true,
-        text: '평점~~!~!~!!',
+        display: false,
     },
     responsive: true,
     maintainAspectRatio: true,
@@ -75,7 +74,6 @@ class Chart extends Component {
                 },
             ],
         };
-        console.log(this.props.data);
         return (
             <Div>
                 <div style={{ width: '100%', height: '100%', display: 'flex' }}>

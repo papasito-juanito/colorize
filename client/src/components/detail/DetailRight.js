@@ -67,6 +67,8 @@ class DetailRight extends Component {
 
     _afterOpenPopup() {
         this.subtitle.style.color = '#f00';
+        this.title.style.color = '#f00';
+    
     }
 
     _closePopup() {
@@ -75,7 +77,6 @@ class DetailRight extends Component {
 
 
     render() {
-
         return ( 
             <Wrapper>
                 <DetailDiv>
@@ -88,7 +89,6 @@ class DetailRight extends Component {
                         trimRight
                         basedOn='words'
                     /> 
-                    {/* <div > detail: {this.props.data ? this.props.data[0].description : null} </div> */}
                 </DetailDiv>
                 <ChartDiv>
                     <Chart data = {this.state.data}/> 
@@ -101,6 +101,8 @@ class DetailRight extends Component {
                     style={customStyles}
                     contentLabel="Description popup"
                 >
+                    <h2 ref={title => this.title = title}>Product Image</h2>
+                    <img src={this.props.data ? this.props.data[0].photo : null} style={{ width: '20vw', height: '30vh' }} alt='product'/>
                     <h2 ref={subtitle => this.subtitle = subtitle}>Description</h2>
                     <div style={{ width: '50vh' }}>{this.props.data ? this.props.data[0].description : null}</div>
                     <button style={{ cursor: 'pointer' }} onClick={this._closePopup}>close</button>

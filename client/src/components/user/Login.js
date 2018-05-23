@@ -12,6 +12,7 @@ const LoginContainer = styled.div`
     margin-top:10%
     display: flex;
     flex-direction: column
+    z-index: 2
 `
 
 const customStyles = {
@@ -215,8 +216,7 @@ class Login extends Component {
             console.log(res); 
             this.props.handleLoginUser()   
             if(res.status===200){
-                this.closeModal()
-                         
+                this.closeModal()        
                 history.push(history.location.pathname)
         }})
         .catch(error => console.log(error))
@@ -224,7 +224,7 @@ class Login extends Component {
 
     render(){
         console.log('renderHistory', history);
-        const {renderLogin} = this.props
+        const {renderLogin} = this.props        
         return (
             <LoginContainer>
                     <Modal
@@ -261,7 +261,9 @@ class Login extends Component {
                             <Google> Google </Google> 
                         </LoginSignupButtonWrapper>
                     </LoginBottom>    
-                    <CloseButton onClick={()=>{this.closeModal(); renderLogin(); this.clickToLogin()}}>X</CloseButton>
+                    <CloseButton 
+                        onClick={()=>{this.closeModal(); renderLogin(); this.clickToLogin();}}>
+                        X</CloseButton>
                     </Modal>
             </LoginContainer>
         );

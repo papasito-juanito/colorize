@@ -13,6 +13,7 @@ const ItemListContainer = styled.div`
     display: flex
     flex-direction: column;
 `
+
 //가운데로 필요
 const Ul = styled.ul`
     position: absolute;
@@ -108,8 +109,8 @@ const Items = ({item}) => {
     return (
         <ItemListContainer >
         <SortContainer>
-            <Btn>기본순</Btn>
-            <Btn>높은가격순</Btn>
+            <Btn>기본순asdasd</Btn>
+            <Btn>높은가격순asdasdasd</Btn>
             <Btn>낮은가격순</Btn>
             <Btn>별점순</Btn>
             <Btn>최신순</Btn>

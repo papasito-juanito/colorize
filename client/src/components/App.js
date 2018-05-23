@@ -12,7 +12,6 @@ import Review from './review/Review'
 // import Login from './user/Login'
 import Signup from './user/Signup'
 import Detail from './detail/Detail'
-import styled from 'styled-components';
 
 injectGlobal`
   body{
@@ -42,7 +41,7 @@ class App extends Component {
                         <Route exact path="/items/:id" component={ItemList}/>
                         <Route path="/items/detail/:id" component={Detail} />
                         <Route component={NotMatch}/>
-                    </Switch>
+                    </Switch>    
                 </div>
             </Router>
         );

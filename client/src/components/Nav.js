@@ -105,6 +105,7 @@ class Nav extends Component {
                             리뷰
                             </StyledLink>
                             <StyledLink onClick={this.renderLogin.bind(this)}>login</StyledLink>
+                            <StyledLink href="/myinfo" style={{ textDecoration: 'none' }}> 내 정보 </StyledLink>
                         </DropDownContent>
                         {/* 로그인한사람 */}
                         {/* <DropDownContent>

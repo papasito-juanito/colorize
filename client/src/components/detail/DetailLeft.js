@@ -5,9 +5,12 @@ import styled from 'styled-components';
 
 const Div = styled.div`
     height : 100%;
-    border: 1px solid red;
+    border: 1px solid #d9dee8;
     width: 30%;
     position: relative;
+    margin: 0 2% 0 0;
+    box-sizing: border-box; 
+    background-color:white;
 `
 
 const ImageDiv = styled.div`
@@ -21,22 +24,22 @@ const Image = styled.img`
 `
 
 const Wishlist = styled.div`
-    width: 20%;
-    height: 30%;
-    position: relative;
-    left: 0;
-    top:-45vh;
+    width: 4.5vw;
+    height: 4.5vw;
+    position: absolute;
+    left: 1%;
+    top:1%;
     cursor : pointer;
 `
 
 const ColorDiv = styled.div`
-    border: 1px solid blue;
-    width: 20%;
-    height: 50%;
-    position: relative;
-    left: 19vw;
-    top:-30vh;
-    background-color: blue; 
+    width: 4.5vw;
+    height: 4.5vw;
+    position: absolute;
+    border-radius: 50%;
+    right: 1%;
+    top: 1%;
+    background-color: #${props => props.color};
 `
 
 class DetailLeft extends Component {
@@ -53,12 +56,13 @@ class DetailLeft extends Component {
     }
 
     render(){
+        console.log(this.props.data)
         return (
             <Div>
                 <ImageDiv >
                     <Image src={this.props.data ? this.props.data[0].photo : null} alt={'lip'} />
                 </ImageDiv>
-                    <ColorDiv />
+                    <ColorDiv color={this.props.data ? this.props.data[0].hex : null} />
                 <Wishlist>
                     <Image onClick={this._clickToWish} src={!this.state.wish ? noWish : Wish} alt={'wishlist'} />  
                 </Wishlist>

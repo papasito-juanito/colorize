@@ -6,9 +6,10 @@ import styled from 'styled-components';
 
 
 const Div = styled.div`
-    border: 1px solid black;
-    background-color: blue;
-    `
+     width: 100%;
+     height: 100%;
+     border: 1px solid #d9dee8; 
+`
 
 class Allreview extends Component{
     constructor(){
@@ -28,7 +29,12 @@ class Allreview extends Component{
     render(){
         return(
             <Div>
-                {this.state.data.length !== 0 ? <Review data={this.state.data}/> : <div> <h2>등록된 리뷰가 없어요</h2></div>}
+                <div>
+                    전체리뷰
+                </div>
+                <div>
+                    {this.state.data.length !== 0 ? <Review data={this.state.data}/> : <div> <h2>등록된 리뷰가 없어요</h2></div>}
+                </div>
             </Div>
         )
     }

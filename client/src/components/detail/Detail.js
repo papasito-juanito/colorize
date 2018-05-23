@@ -12,20 +12,20 @@ import { url } from '../../config';
 
 
 const Wrapper = styled.div`
-    margin : 10% 10% 0 10%;
-    border: 1px solid black;  
+    margin : 6% auto 2% auto;
     width: 80vw;
-    height: 30vh;
+    height: 50vh;
     display: flex;
+    background-color: #F4F5F9;
 `
 const Div = styled.div`
-    margin: 0 10% 0 10%;
+    margin: auto auto 2% auto ;
     width: 80vw;
     height: 30vh;
 `
 
 const ReviewDiv = styled.div`
-     margin: 0 10% 0 10%;
+     margin: auto auto 2% auto ;
      heigth: 100%;
      width: 80vw;
 `
@@ -45,8 +45,9 @@ class Detail extends Component {
     }    
 
     render(){
+        console.log(this.state.data)
         return (
-            <div style={{ backgroundColor:'#F4F5F9'}}>
+            <div style={{ backgroundColor:'#F4F5F9', padding:'1% 0 0 0'}}>
                 <Wrapper>
                     <DetailLeft data={this.state.data}/>
                     <DetailRight data={this.state.data} id = {this.props.match.params.id}/>

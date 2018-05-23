@@ -17,12 +17,16 @@ const customStyles = {
 
 const Div = styled.div`
     width: 25%;
-    border: 1px solid;
+    border: 1px solid #d9dee8;
     display: flex;
     flex-direction: column;
+    background-color: white;
+    margin: 0 2% 0 0;
+    box-sizing: border-box; 
 `
 const ImgDiv = styled.div`
     height: 80%;
+    width: 100%;
     cursor: pointer;
 `
 
@@ -113,7 +117,7 @@ class FileUpload extends Component {
         let popupImage = (<img src={imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
 
         this.state.imagepreviewUrl ? $imagePreview = (<img onClick={this._openPopup} src={imagepreviewUrl} style={{ height: '100%', width: '80%' }} alt='Yours' />) :
-            $imagePreview = (<div> Please select an Image for Preview</div>);
+            $imagePreview = (<div> Please upload your Review Image </div>);
 
         return (
             <Div>
@@ -121,8 +125,6 @@ class FileUpload extends Component {
                     type='file'
                     ref={(ref) => { this.uploadInput = ref; }}
                     onChange={(e) => { this._handleImageChange(e) }} />
-
-       
                 <ImgDiv>
                     {$imagePreview}
                 </ImgDiv>

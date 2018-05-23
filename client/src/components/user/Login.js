@@ -186,7 +186,7 @@ class Login extends Component {
           this.openModal = this.openModal.bind(this);
         //   this.afterOpenModal = this.afterOpenModal.bind(this);
           this.closeModal = this.closeModal.bind(this);
-          this._handleLogin = this._handleLogin.bind(this)
+
         }
        
     openModal() {

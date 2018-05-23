@@ -20,8 +20,8 @@ const customStyles = {
 Modal.setAppElement('#root');
 
 const Container = styled.div`
-    border: 1px solid gold;
-    background-color: #eee;
+    border: 1px solid #d9dee8;
+    background-color: white;
     border-radius: 5px;
     display:flex;
     width:100%;
@@ -29,7 +29,6 @@ const Container = styled.div`
 `
 
 const ReviewImage = styled.img`
-    border: 2px solid black;
     margin: 1vh 1vw 1vh 1vw;
     width: 20%;
     height: 90%;
@@ -37,15 +36,14 @@ const ReviewImage = styled.img`
 `
 
 const Info = styled.div`
-    border: 2px solid red;
     margin: 1vh 0 1vh 0;
     width: 20%;
     height: 90%;
+    background-color:white;
 `
 
 const ReviewContent = styled.div`
     margin: 1vh 1vw 1vh 0;
-    border: 2px solid blue;
     width: 60%;
     height: 90%;
     position: relative;
@@ -56,14 +54,14 @@ const Message = styled.textarea`
     border: 2px solid #ccc;
     resize: none;
     width: 95%;
-    height: 12vh;
+    height: 20vh;
 `
 
 const LikeCount = styled.div`
     width: 20%
-    height: 70%
+    height: 60%
     top: 1%;
-    right:2%;
+    left:85%;
     position: absolute;
     align-content: center;
 `
@@ -79,7 +77,9 @@ const BottomContainer = styled.div`
 `
 
 const Modify = styled.button`
-    font-size: 1rem;    
+    font-size: 0.8rem;    
+    width: 7%;
+    height: 50%;
     color: black;
     top: 2%;
     left: 2%;
@@ -93,10 +93,12 @@ const Modify = styled.button`
 `
 
 const Delete = styled.button`
-    font-size: 1rem;    
+    font-size: 0.8em;    
+    width: 7%;
+    height: 50%;
     color: black;
     top: 2%;
-    left: 12%;
+    left: 10%;
     position: absolute
     border-radius: 50%;
     border: none;
@@ -104,6 +106,13 @@ const Delete = styled.button`
     &:hover {
         background-color: red;
     }
+`
+
+const UserDiv = styled.div`
+    border: 1px solid black;
+    width: 25%;
+    height: 30%;
+    border-radius:50%;
 `
 
 // const ModifyForm = styled.form`
@@ -167,14 +176,15 @@ class MyContent extends Component {
 
 
     render() {
-        console.log(this.props.data)
         let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
             return (
-                <div style={{ border: '1px solid green', width: '100%' }}>
+                <div style={{width: '100%' }}>
 
                     <Container>
                         <ReviewImage onClick={this._openPopup} src={lip} />
                         <Info >
+                            <UserDiv > <img alt='user' /></UserDiv>
+                            <div style={{boxSizing:'border-box', margin:'10% 0 0 0'}}>
                             <div>{this.state.id}</div>
                             <div>{this.state.age}, {this.state.skin}</div>
                             <div>
@@ -183,6 +193,7 @@ class MyContent extends Component {
                                     editing={false}
                                     value={this.state.rating}
                                 />
+                            </div>
                             </div>
                         </Info >
                         {this.state.editing ?

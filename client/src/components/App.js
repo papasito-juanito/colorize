@@ -8,7 +8,7 @@ import ItemList from './ItemList/ItemList'
 import NotMatch from './NotMatch'
 import WishList from './wishList/WishList'
 import Review from './review/Review'
-import Login from './user/Login'
+// import Login from './user/Login'
 import Signup from './user/Signup'
 import Detail from './detail/Detail'
 import MyInfo from './MyInfo'
@@ -21,6 +21,12 @@ injectGlobal`
 `
 
 class App extends Component {
+    constructor(){
+        super()
+        this.state = {
+            
+        }
+    }
     render() {
         return (
             <Router>

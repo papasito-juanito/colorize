@@ -106,13 +106,13 @@ const Delete = styled.button`
     }
 `
 
-const ModifyForm = styled.form`
+// const ModifyForm = styled.form`
     
-`
-const ModifyText = styled.textarea`
-    border: 2px solid #ccc;
-    height: 80%
-`
+// `
+// const ModifyText = styled.textarea`
+//     border: 2px solid #ccc;
+//     height: 80%
+// `
 
 
 class MyContent extends Component {
@@ -146,7 +146,7 @@ class MyContent extends Component {
 
     _reviewLike = function () {
         this.setState({ like: !this.state.like })
-        !this.state.like ? this.setState({ likecount: this.state.likeCount++ }) : this.setState({ likecount: this.state.likeCount-- })
+        // !this.state.like ? this.setState({ likecount: this.state.likeCount++ }) : this.setState({ likecount: this.state.likeCount-- })
     }
 
     _openPopup(e) {

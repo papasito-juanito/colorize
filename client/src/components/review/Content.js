@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import lip from '../../assets/lip.jpg';
 import like from '../../assets/Heart.png';
 import hate from '../../assets/emptyHeart.png';
 import StarRatingComponent from 'react-star-rating-component';
@@ -69,8 +68,8 @@ const LikeCount = styled.div`
 `
 
 const Like = styled.img`
-    width: 30%;
-    height: 120%;
+    width: 1.5rem;
+    height: 1.5rem;
     cursor: pointer;
 `
 const BottomContainer = styled.div`
@@ -175,10 +174,12 @@ class Content extends Component {
 
                 {this.props.data ? this.props.data.map((item, i) => {
                     return (
-                        <Container>
-                            {/* <ReviewImage onClick={this._openPopup} src={lip} /> */}
+                        <Container key={i}>
                             <ReviewImage onClick={this._openPopup} />
+                            {/* <ReviewImage onClick={this._openPopup} src={require(`../public/user/${this.props.파람스매치랑 유저아이디이용}.jpg`)} /> */}
                             <Info >
+                                <div style={{border:'1px solid black', width:'20%', height:'30%',borderRadius:'50%'}}><img/></div>
+                                {/* 유저 이미지 여기서 받아와서 삽입 */}
                                 <div>{item.user}</div>
                                 <div>{item.age}, {item.tone}</div>
                                 <div>
@@ -203,8 +204,6 @@ class Content extends Component {
                                 </BottomContainer>
                             </ReviewContent >
                         </Container>
-
-
                     )
                 }) : null}
 

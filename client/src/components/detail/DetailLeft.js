@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from '../../assets/lip.jpg';
 import noWish from '../../assets/emptyHeart.png'
 import Wish from '../../assets/Heart.png'
 import styled from 'styled-components';
@@ -17,7 +16,7 @@ const ImageDiv = styled.div`
 `
 
 const Image = styled.img`
-    width: 100%;
+    width: 90%;
     height: 100%;
 `
 
@@ -46,7 +45,6 @@ class DetailLeft extends Component {
         this.state = {
             wish:false
         }
-
         this._clickToWish = this._clickToWish.bind(this);
     }
     
@@ -55,7 +53,6 @@ class DetailLeft extends Component {
     }
 
     render(){
-            console.log(this.props.data)
         return (
             <Div>
                 <ImageDiv >

@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import Modal from 'react-modal';
 import lipImage from '../../assets/lipImage.png';
 import avatar from '../../assets/avatar.png';
 import lock from '../../assets/lock.png';
 import axios from 'axios';
+import history from '../../utils/history'
 
 const LoginContainer = styled.div`
     margin-top:10%
@@ -36,7 +37,6 @@ const CloseButton = styled.div`
     text-shadow: 0 1px 0 #fff;
     top: 5px;
     cursor: pointer;
-
 `
 const LoginTop = styled.div`
     display:flex;
@@ -177,10 +177,11 @@ const Google = styled.button`
 Modal.setAppElement(document.getElementById('root'));
 
 class Login extends Component {
-    constructor() {
+    constructor(props) {
         super();
         this.state = {
             modalIsOpen: true
+
           };
        
           this.openModal = this.openModal.bind(this);
@@ -208,16 +209,21 @@ class Login extends Component {
     }
 
     console.log('form', form);
-    
-
     const api = axios.create({ baseURL: 'http://localhost:8080' })
     api.post('/api/user/login', form)
-        .then(res => console.log(res))
+        .then(res => {
+            console.log(res); 
+            this.props.handleLoginUser()   
+            if(res.status===200){
+                this.closeModal()
+                         
+                history.push(history.location.pathname)
+        }})
         .catch(error => console.log(error))
     }
 
     render(){
-
+        console.log('renderHistory', history);
         const {renderLogin} = this.props
         return (
             <LoginContainer>
@@ -255,7 +261,7 @@ class Login extends Component {
                             <Google> Google </Google> 
                         </LoginSignupButtonWrapper>
                     </LoginBottom>    
-                    <CloseButton onClick={()=>{this.closeModal(); renderLogin();}}>X</CloseButton>
+                    <CloseButton onClick={()=>{this.closeModal(); renderLogin(); this.clickToLogin()}}>X</CloseButton>
                     </Modal>
             </LoginContainer>
         );

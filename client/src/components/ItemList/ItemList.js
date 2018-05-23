@@ -25,7 +25,6 @@ class ItemList extends Component {
     render(){
         return (
             <div>
-            <Sort />
             <Items item={this.state.item}/>
             </div>
         )

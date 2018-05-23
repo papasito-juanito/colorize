@@ -3,6 +3,8 @@ import StarRatingComponent from 'react-star-rating-component';
 import styled from 'styled-components';
 import axios from 'axios';
 import { url } from '../../config';
+
+
 const logged = true;
 
 const TextArea = styled.textarea`
@@ -12,6 +14,32 @@ const TextArea = styled.textarea`
     height: 80%;
     margin: 1% 0 0 0;
 `
+const Wrapper = styled.div`
+    border: 1px solid black;
+    width: 75%;
+    display: flex;
+`
+
+const RatingDiv = styled.div`
+    width: 20%;
+    text-align: center;
+`
+
+const ReviewDiv = styled.div`
+    backgroundColor: pink;
+    width: 80%;
+    text-align: center;
+`
+const SendDiv = styled.div`
+    cursor: pointer;
+    text-align: left; 
+`
+const Button = styled.button`
+    position: relative;
+    left: 2%;
+    cursor: pointer;
+`
+
 class Rating extends Component {
     constructor(props) {
         super(props);
@@ -28,10 +56,11 @@ class Rating extends Component {
     }
 
     _clickReview() {
-
+        
         const form = {
             color_id: this.props.id,
-            reviewPhoto: this.props.data,
+            reviewPhoto:1,
+            // reviewPhoto: `${__dirname}/public/${this.props.data}.jpg`, this.props로 받을게 아니고 이 사이트의 url 매치랑 들어온 유저정보 
             reviewRating: this.state.rating,
             user_id: 1,
             reviewMessage: this.input.value,
@@ -52,18 +81,11 @@ class Rating extends Component {
         alert('후기가 등록되었습니다');
     }
 
-
-
-
     render() {
         const { rating } = this.state;
-        console.log(this.state.data)
-        console.log('props.data type: ', typeof this.props.data)
-        console.log('props.data : ', this.props.data)
-        console.log('blob type : ', this.props.data instanceof Blob)
         return (
-            <div style={{ border: '1px solid', width: '75%', display: 'flex' }}>
-                <div style={{ backgroundColor: 'blue', width: '20%' }}>
+            <Wrapper>
+                <RatingDiv>
                     <h4>내 평점: {rating}</h4>
                     <h6>평점 입력해주세요</h6>
                     <StarRatingComponent
@@ -71,16 +93,15 @@ class Rating extends Component {
                         value={rating}
                         onStarClick={this._onStarClick}
                     />
-                </div>
-                <div style={{ backgroundColor: 'pink', width: '80%', textAlign: 'center' }}>
-
+                </RatingDiv>
+                <ReviewDiv>
                     <TextArea placeholder='후기 입력해주세요 ㅎㅎㅎㅎ' innerRef={ref => { this.input = ref; }} /><br />
-                    <div style={{ cursor: 'pointer', textAlign: 'left' }}>
-                        <button style={{ position: 'relative', left: '2%', cursor: 'pointer' }} onClick={() => { this._alertReview(); this._clickReview() }} >등록</button>
-                    </div>
-                </div>
+                    <SendDiv>
+                        <Button onClick={() => { this._alertReview(); this._clickReview() }} >등록</Button>
+                    </SendDiv>
+                </ReviewDiv>
 
-            </div>
+            </Wrapper>
 
         )
     }

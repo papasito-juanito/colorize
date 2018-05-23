@@ -5,21 +5,24 @@ const db = require('../../db');
 
 module.exports = {
   login: (req, res) => {
-  
-    const { userMail, userPassword } = req.query;
-    const params = [ userMail, userPassword ];
+    
+    const {userMail, userPassword} = req.query;
+    const params = [userMail, userPassword];
   
     db.query(`SELECT id,userPassword FROM users WHERE userMail="${userMail}";`, (err, rows) => {
-      if (err) { throw err } 
-      else if (!rows.length) { res.status(404).end('[server    ] invalid usermail...') }
+      if (err) throw err;
+      else if (!rows.length) res.status(401).send(
+        {'result': false, 'message': 'invalid usermail'})
       else {
         middleware(userPassword, rows[0].userPassword)
         .then(boolean => {
           if (boolean) { 
             req.session.user_id = rows[0].id;
-            res.status(200).end('login') 
+            res.status(200).send(
+              {'result': true, 'user_id': req.session.user_id});
           }
-          else { res.status(401).end('no pasw') }
+          else res.status(401).send(
+            {'result': false, 'message': 'invalid password'})
         })
       }
     })
@@ -27,11 +30,13 @@ module.exports = {
 
   logout: (req, res) => {
     if (req.session.user_id) {
-      req.session.destroy(function (err) {
-        if (err) { throw err }
-        else { res.end(`[server    ] logout success...`) }
+      req.session.destroy(err => {
+        if (err) throw err;
+        else res.status(200).send(
+          {'result': true, 'message': 'session destroyed'})
       });
     }
-    else { res.end('[server    ] need login...') }
+    else res.status(401).send(
+      {'result': false, 'message': 'invalid session'})
   }
 };

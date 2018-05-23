@@ -17,10 +17,10 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(session({ secret: secret, resave: false, saveUninitialized: true }));
 app.use('/api', router);
-app.use('/', express.static(path.join(__dirname, './../build')));
+app.use('/', express.static(path.join(__dirname, './../client/build')));
 
 app.get('/', (req, res) => { sess = req.session });
-app.get('*', (req, res) => { res.sendFile(path.resolve(__dirname, './../build/index.html')) });
+app.get('*', (req, res) => { res.sendFile(path.resolve(__dirname, './../client/build/index.html')) });
 
 app.listen(port, () => { console.log(`[server    ] opening express server on port ${port}...`) });
 

@@ -6,10 +6,10 @@ const db = require('../../db');
 module.exports = {
   login: (req, res) => {
   
-    const { userMail, userPassword } = req.body;
+    const { userMail, userPassword } = req.query;
     const params = [ userMail, userPassword ];
   
-    db.query(`SELECT id,userPassword FROM users WHERE userMail="${userMail}";`, async (err, rows) => {
+    db.query(`SELECT id,userPassword FROM users WHERE userMail="${userMail}";`, (err, rows) => {
       if (err) { throw err } 
       else if (!rows.length) { res.status(404).end('[server    ] invalid usermail...') }
       else {

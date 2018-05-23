@@ -3,6 +3,7 @@ const router = require('express').Router();
 
 // Local import
 const middleware = require('../middlewares/isAuthenticated');
+
 const color = require('./colors');
 const item = require('./items');
 const review = require('./reviews');

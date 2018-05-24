@@ -50,5 +50,16 @@ FROM
   ON ic.id=r5.itemColors_id AND r5.reviewRating='5'
   GROUP BY ic.id) star
 WHERE avg.id=star.id AND avg.id=?;
+
+
+
+SELECT AVG(reviewRating) avg, COUNT(id) total, 
+  COUNT(IF(reviewRating="1",0,1)) s,
+  COUNT(IF(reviewRating="2",0,1)) ss,
+  COUNT(IF(reviewRating="3",0,1)) sss,
+  COUNT(IF(reviewRating="4",0,1)) ssss,
+  COUNT(IF(reviewRating="5",0,1)) sssss
+FROM reviews
+WHERE itemColors_id=2;
   `
 };

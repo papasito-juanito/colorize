@@ -8,6 +8,10 @@ module.exports = (req, res) => {
 
   model(params, (err, rows) => {
     if (err) throw err;
-    else res.status(200).end('selected color is posted');
+    else res.send({
+      login: req.session.userMail ? true : false,
+      color_id: req.body.color_id,
+      post: true
+    });
   })
 };

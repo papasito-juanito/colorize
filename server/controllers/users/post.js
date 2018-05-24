@@ -12,12 +12,13 @@ module.exports = (req, res) => {
     const params = [userMail, userPassword, userName, toneName, birthDate, gender];
 
     db.query(`SELECT id FROM users WHERE userMail="${userMail}";`, (err, rows) => {
-      if (rows.length !== 0) res.status(401).send('exists');
-        // {'result': false, 'message': `${userMail} exists`});
+      if (rows.length !== 0) res.send(
+        {'result': false, 'message': `${userMail} exists`});
+        
       else {
         model(params, (err, rows) => {
           if (err) throw err;
-          else res.status(200).send(
+          else res.send(
             {'result': true, 'message': `${userMail} posted`});
         })
       }

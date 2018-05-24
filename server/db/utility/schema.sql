@@ -12,7 +12,7 @@ USE `colorize`;
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
-  `userMail` VARCHAR(20) NOT NULL,
+  `userMail` VARCHAR(30) NOT NULL,
   `userPassword` VARCHAR(60) NOT NULL,
   `userPhoto` VARCHAR(255) NULL,
   `userName` VARCHAR(20) NOT NULL,

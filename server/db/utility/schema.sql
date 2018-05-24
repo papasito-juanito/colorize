@@ -11,7 +11,7 @@ SET collation_server = 'utf8_general_ci';
 DROP DATABASE IF EXISTS `colorize`;
 CREATE DATABASE `colorize`;
 
-ALTER DATABASE 'colorize' DEFAULT CHARACTER SET utf8;
+ALTER DATABASE `colorize` DEFAULT CHARACTER SET utf8;
 SET collation_database = 'utf8_general_ci';
 
 USE `colorize`;

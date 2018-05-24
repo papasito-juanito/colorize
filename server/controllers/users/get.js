@@ -4,6 +4,21 @@ const middleware = require('../../middlewares/isValidPassword');
 const db = require('../../db');
 
 module.exports = {
+
+  check: (req, res) => {
+    res.send({login: req.session.userMail ? true : false})
+  },
+
+  info: (req, res) => {
+    model.info((req.session.userMail || 'invalid access'), (err, rows) => {
+      if (err) throw err;
+      else res.send({
+        login: req.session.userMail ? true : false, 
+        result: rows
+      });
+    })
+  },
+
   login: (req, res) => {
     db.query(`SELECT id,userPassword FROM users WHERE userMail=
     "${req.query.userMail}";`, (err, rows) => {
@@ -35,9 +50,5 @@ module.exports = {
     }
     else res.send(
       {'result': false, 'message': 'invalid session'})
-  },
-
-  check: (req, res) => {
-    res.send({login: req.session.userMail ? true : false})
   }
 };

@@ -72,7 +72,7 @@ class MyInfo extends Component {
 
     componentDidMount(){
       axios.get(`${url}/api/user/get/info`)
-        .then(response => this.setState({data : response.data}))
+        .then(response => this.setState({data : response.data.result}))
         .catch(err => console.log(err))
   }    
 

@@ -27,6 +27,7 @@ class Allreview extends Component{
     }
 
     render(){
+        console.log(this.iScroll)
         return(
             <Div>
                 <div>

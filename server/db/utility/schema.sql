@@ -18,7 +18,7 @@ USE `colorize`;
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
-  `id` INTEGER NULL AUTO_INCREMENT,
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
   `userMail` VARCHAR(30) NULL,
   `userPassword` VARCHAR(60) NULL,
   `userPhoto` VARCHAR(255) NULL,
@@ -33,7 +33,7 @@ CREATE TABLE `users` (
 
 DROP TABLE IF EXISTS `reviews`;
 CREATE TABLE `reviews` (
-  `id` INTEGER NULL AUTO_INCREMENT,
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
   `itemColors_id` INTEGER NULL,
   `reviewPhoto` VARCHAR(255) NULL,
   `reviewRating` INTEGER NULL,
@@ -46,7 +46,7 @@ CREATE TABLE `reviews` (
 
 DROP TABLE IF EXISTS `items`;
 CREATE TABLE `items` (
-  `id` INTEGER NULL AUTO_INCREMENT,
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
   `categories2_id` INTEGER NULL,
   `brands_id` INTEGER NULL,
   `itemName` VARCHAR(50) NULL,
@@ -59,28 +59,28 @@ CREATE TABLE `items` (
 
 DROP TABLE IF EXISTS `tones`;
 CREATE TABLE `tones` (
-  `id` INTEGER NULL AUTO_INCREMENT,
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
   `toneName` VARCHAR(10) NULL,
   PRIMARY KEY (`id`)
 );
 
 DROP TABLE IF EXISTS `brands`;
 CREATE TABLE `brands` (
-  `id` INTEGER NULL AUTO_INCREMENT,
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
   `brandName` VARCHAR(10) NULL,
   PRIMARY KEY (`id`)
 );
 
 DROP TABLE IF EXISTS `categories`;
 CREATE TABLE `categories` (
-  `id` INTEGER NULL AUTO_INCREMENT,
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
   `categoryName` VARCHAR(10) NULL,
   PRIMARY KEY (`id`)
 );
 
 DROP TABLE IF EXISTS `wishLists`;
 CREATE TABLE `wishLists` (
-  `id` INTEGER NULL AUTO_INCREMENT,
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
   `itemColors_id` INTEGER NULL,
   `users_id` INTEGER NULL,
   `wishToggle` VARCHAR(5) NULL DEFAULT 'true',
@@ -89,7 +89,7 @@ CREATE TABLE `wishLists` (
 
 DROP TABLE IF EXISTS `logs`;
 CREATE TABLE `logs` (
-  `id` INTEGER NULL AUTO_INCREMENT,
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
   `users_id` INTEGER NULL,
   `url` VARCHAR(10) NULL,
   `logTime` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
@@ -98,7 +98,7 @@ CREATE TABLE `logs` (
 
 DROP TABLE IF EXISTS `categories2`;
 CREATE TABLE `categories2` (
-  `id` INTEGER NULL AUTO_INCREMENT,
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
   `categories_id` INTEGER NULL,
   `category2Name` VARCHAR(10) NULL,
   PRIMARY KEY (`id`)
@@ -106,7 +106,7 @@ CREATE TABLE `categories2` (
 
 DROP TABLE IF EXISTS `itemColors`;
 CREATE TABLE `itemColors` (
-  `id` INTEGER NULL AUTO_INCREMENT,
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
   `items_id` INTEGER NULL,
   `itemPhoto` VARCHAR(255) NULL,
   `itemColor` VARCHAR(20) NULL,
@@ -118,7 +118,7 @@ CREATE TABLE `itemColors` (
 
 DROP TABLE IF EXISTS `reviewLikes`;
 CREATE TABLE `reviewLikes` (
-  `id` INTEGER NULL AUTO_INCREMENT,
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
   `reviews_id` INTEGER NULL,
   `users_id` INTEGER NULL,
   `likeToggle` VARCHAR(5) NULL DEFAULT 'true',

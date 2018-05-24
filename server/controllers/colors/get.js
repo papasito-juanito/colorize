@@ -1,14 +1,9 @@
 // Local import
 const model = require('../../models/colors/get');
 
-module.exports = function(req, res) {
-  console.log(`[controller] received request from client...`);
-
-  model(function(err, rows) {
-    if (err) { throw err }
-    else {
-      console.log(`[controller] received response from model...`);
-      res.send(rows);
-    }
+module.exports = (req, res) => {
+  model((err, rows) => {
+    if (err) throw err;
+    else res.send({login: req.session.userMail ? true : false, result: rows});
   })
 };

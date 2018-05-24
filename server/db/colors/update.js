@@ -1,4 +1,1 @@
-const query = `
-UPDATE itemColors SET itemPhoto=?,itemColor=?,itemHex=?,itemDate=? WHERE id=?;
-`
-module.exports = query;
+module.exports = `UPDATE itemColors SET itemPhoto=?,itemColor=?,itemHex=?,itemDate=? WHERE id=?;`;

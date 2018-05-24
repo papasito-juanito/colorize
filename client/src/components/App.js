@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import {injectGlobal} from 'styled-components'
 import Nav from '../components/Nav'
@@ -8,7 +9,7 @@ import ItemList from './ItemList/ItemList'
 import NotMatch from './NotMatch'
 import WishList from './wishList/WishList'
 import Review from './review/Review'
-import Login from './user/Login'
+// import Login from './user/Login'
 import Signup from './user/Signup'
 import Detail from './detail/Detail'
 
@@ -20,6 +21,13 @@ injectGlobal`
 `
 
 class App extends Component {
+    constructor(){
+        super()
+        this.state = {
+            
+        }
+    }
+
     render() {
         return (
             <Router>
@@ -33,7 +41,7 @@ class App extends Component {
                         <Route exact path="/items/:id" component={ItemList}/>
                         <Route path="/items/detail/:id" component={Detail} />
                         <Route component={NotMatch}/>
-                    </Switch>
+                    </Switch>    
                 </div>
             </Router>
         );

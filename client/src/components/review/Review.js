@@ -1,7 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
-import Item from './Item';
-import Content from './/Content'
+import Content from './Content'
 
 
 // const Container = styled.div`
@@ -16,16 +14,16 @@ import Content from './/Content'
 //     border-radius: 5px;
 // `
 
-const Div = styled.div`
-    width: 95%;
-    height: 50%;
-    display: flex;
-    backgroundColor : blue;
-`
+// const Div = styled.div`
+//     width: 95%;
+//     height: 50%;
+//     display: flex;
+//     backgroundColor : blue;
+// `
 
 const Review = ({data}) => {
     return (
-             <Content data={data}/>
+             <Content data={data} />
     );
 };
 

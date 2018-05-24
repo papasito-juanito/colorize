@@ -8,6 +8,7 @@ const Div = styled.div`
     width: 80vw;
     height: 30vh;
     display: flex;
+    background-color: #F4F5F9;
 `;
 const review = false;
 
@@ -15,23 +16,22 @@ class Comment extends Component {
     constructor() {
         super();
         this.state = {
-            data: 'd'
+            data: ''
         };
     }
 
-    formChild1(params) {
+    _callback(params) {
         this.setState({
             data: params
         })
     }
-
 
     render() {
         return (
             <div>
                 {!review ?
                     <Div>
-                        <FileUpload callback={this.formChild1.bind(this)} me={this._handleImageChange} data={this.state} />
+                        <FileUpload callback={this._callback.bind(this)} id={this.state.id} />
                         <Rating id={this.props.id} data={this.state.data} />
                     </Div>
                     :

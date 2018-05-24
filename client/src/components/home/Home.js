@@ -20,7 +20,7 @@ class Home extends React.Component {
             isLoaded: false
         }
     }
-
+    
     componentDidMount(){
         fetch(`${url}/api/color/get`)
         .then(response => response.json())

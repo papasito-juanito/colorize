@@ -2,6 +2,15 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Review from '../review/Review';
 import { url } from '../../config';
+import styled from 'styled-components';
+
+
+const Div = styled.div`
+     width: 100%;
+     height: 100%;
+     border: 1px solid #d9dee8; 
+`
+
 class Allreview extends Component{
     constructor(){
         super()
@@ -10,24 +19,23 @@ class Allreview extends Component{
         }
     }
 
+
     componentDidMount() {
-        // axios.get(`${url}/api/item/rate?color_id=${this.props.match.params.id}`)
         axios.get(`${url}/api/review/get/list?color_id=${this.props.id}`)
-            // .then((response) => {
-            //     console.log(response.data);
-            //   })
             .then(response => this.setState({ data: response.data }))
             .catch(err => console.log(err))
     }
 
-
-
     render(){
-        console.log(this.state.data)
         return(
-            <div style = {{border: '1px solid black', backgroundColor:'blue'}}>
-                {this.state.data.length !== 0 ? <Review data={this.state.data}/> : <div style={{ border: '1px solid black' }}> <h2>등록된 리뷰가 없어요</h2></div>}
-            </div>
+            <Div>
+                <div>
+                    전체리뷰
+                </div>
+                <div>
+                    {this.state.data.length !== 0 ? <Review data={this.state.data}/> : <div> <h2>등록된 리뷰가 없어요</h2></div>}
+                </div>
+            </Div>
         )
     }
 

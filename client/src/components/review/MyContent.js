@@ -20,8 +20,8 @@ const customStyles = {
 Modal.setAppElement('#root');
 
 const Container = styled.div`
-    border: 1px solid gold;
-    background-color: #eee;
+    border: 1px solid #d9dee8;
+    background-color: white;
     border-radius: 5px;
     display:flex;
     width:100%;
@@ -29,7 +29,6 @@ const Container = styled.div`
 `
 
 const ReviewImage = styled.img`
-    border: 2px solid black;
     margin: 1vh 1vw 1vh 1vw;
     width: 20%;
     height: 90%;
@@ -37,15 +36,14 @@ const ReviewImage = styled.img`
 `
 
 const Info = styled.div`
-    border: 2px solid red;
     margin: 1vh 0 1vh 0;
     width: 20%;
     height: 90%;
+    background-color:white;
 `
 
 const ReviewContent = styled.div`
     margin: 1vh 1vw 1vh 0;
-    border: 2px solid blue;
     width: 60%;
     height: 90%;
     position: relative;
@@ -56,14 +54,14 @@ const Message = styled.textarea`
     border: 2px solid #ccc;
     resize: none;
     width: 95%;
-    height: 12vh;
+    height: 20vh;
 `
 
 const LikeCount = styled.div`
     width: 20%
-    height: 70%
+    height: 60%
     top: 1%;
-    right:2%;
+    left:85%;
     position: absolute;
     align-content: center;
 `
@@ -79,7 +77,9 @@ const BottomContainer = styled.div`
 `
 
 const Modify = styled.button`
-    font-size: 1rem;    
+    font-size: 0.8rem;    
+    width: 7%;
+    height: 50%;
     color: black;
     top: 2%;
     left: 2%;
@@ -93,10 +93,12 @@ const Modify = styled.button`
 `
 
 const Delete = styled.button`
-    font-size: 1rem;    
+    font-size: 0.8em;    
+    width: 7%;
+    height: 50%;
     color: black;
     top: 2%;
-    left: 12%;
+    left: 10%;
     position: absolute
     border-radius: 50%;
     border: none;
@@ -106,20 +108,43 @@ const Delete = styled.button`
     }
 `
 
-const ModifyForm = styled.form`
+const Cancel = styled.button`
+    font-size: 0.8em;    
+    width: 7%;
+    height: 50%;
+    color: black;
+    top: 2%;
+    left: 10%;
+    position: absolute
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    &:hover {
+        background-color: red;
+    }
+`
+
+const UserDiv = styled.div`
+    border: 1px solid black;
+    width: 25%;
+    height: 30%;
+    border-radius:50%;
+`
+
+// const ModifyForm = styled.form`
     
-`
-const ModifyText = styled.textarea`
-    border: 2px solid #ccc;
-    height: 80%
-`
+// `
+// const ModifyText = styled.textarea`
+//     border: 2px solid #ccc;
+//     height: 80%
+// `
 
 
 class MyContent extends Component {
     constructor(props) {
         super();
         this.state = {
-            editing: true,
+            editing: false,
             message: '글이나오고 글이나오고 글이나오고',
             likeCount: 100,
             id: 'wonbok1213',
@@ -136,6 +161,7 @@ class MyContent extends Component {
         this._closePopup = this._closePopup.bind(this);
         this._handleModify = this._handleModify.bind(this);
         this._reviewLike = this._reviewLike.bind(this);
+        this._reviewCancel = this._reviewCancel.bind(this);
     }
 
     _handleModify = function () {
@@ -146,7 +172,15 @@ class MyContent extends Component {
 
     _reviewLike = function () {
         this.setState({ like: !this.state.like })
-        !this.state.like ? this.setState({ likecount: this.state.likeCount++ }) : this.setState({ likecount: this.state.likeCount-- })
+        // !this.state.like ? this.setState({ likecount: this.state.likeCount++ }) : this.setState({ likecount: this.state.likeCount-- })
+    }
+
+    _reviewCancel(){
+        let reviewMessage = this.state.message
+        this.modifyReview.value = reviewMessage
+        this.setState({
+            editing: !this.state.editing
+        })
     }
 
     _openPopup(e) {
@@ -167,14 +201,16 @@ class MyContent extends Component {
 
 
     render() {
-        console.log(this.props.data)
+        console.log(this.review)
         let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
             return (
-                <div style={{ border: '1px solid green', width: '100%' }}>
+                <div style={{width: '100%' }}>
 
                     <Container>
                         <ReviewImage onClick={this._openPopup} src={lip} />
                         <Info >
+                            <UserDiv > <img alt='user' /></UserDiv>
+                            <div style={{boxSizing:'border-box', margin:'10% 0 0 0'}}>
                             <div>{this.state.id}</div>
                             <div>{this.state.age}, {this.state.skin}</div>
                             <div>
@@ -184,40 +220,23 @@ class MyContent extends Component {
                                     value={this.state.rating}
                                 />
                             </div>
+                            </div>
                         </Info >
-                        {this.state.editing ?
                             <ReviewContent >
                                 <div style={{ textAlign: 'center' }}>
-                                    <Message readOnly>
-                                        {this.state.message}
-                                    </Message>
+                                {!this.state.editing ? <Message readOnly innerRef={ref => { this.review = ref; }}>{this.state.message}</Message> : <Message innerRef={ref => { this.modifyReview = ref; }}>{this.state.message}</Message>}
                                 </div>
                                 <BottomContainer >
-                                    <Modify onClick={this._handleModify}>수정</Modify>
-                                    <Delete>삭제</Delete>
+                                    {!this.state.editing ? <Modify onClick={this._handleModify}>수정</Modify> : <Modify onClick={this._handleModify}>완료</Modify>}
+                                    {!this.state.editing ? <Delete >삭제</Delete> : <Cancel onClick={this._reviewCancel}>취소</Cancel>}
+                                {/* <Delete>삭제</Delete> */}
                                     <LikeCount>
                                         <Like onClick={this._reviewLike} src={this.state.like ? like : hate} />
-                                        {this.state.likeCount}
-                                    </LikeCount>
-                                </BottomContainer>
-                            </ReviewContent > :
-
-                            <ReviewContent>
-                                <div style={{ textAlign: 'center' }}>
-                                    <Message rows="10" cols="50">
-                                        {this.state.message}
-                                    </Message>
-                                </div>
-                                <BottomContainer >
-                                    <Modify onClick={this._handleModify}>완료</Modify>
-                                    <Delete>삭제</Delete>
-                                    <LikeCount>
-                                        <Like onClick={this._reviewLike} src={this.state.like ? like : hate} />
-                                        {this.state.likeCount}
+                                    {this.state.likeCount}
                                     </LikeCount>
                                 </BottomContainer>
                             </ReviewContent >
-                        }
+                        
 
                         <Modal
                             isOpen={this.state.popupIsOpen}

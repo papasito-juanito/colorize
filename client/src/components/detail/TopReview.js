@@ -2,10 +2,18 @@ import React, { Component } from 'react';
 import Review from '../review/Review';
 import axios from 'axios';
 import { url } from '../../config';
+import styled from 'styled-components';
+
+const Div = styled.div`
+     width: 100%;
+     height: 100%;
+     border: 1px solid #d9dee8; 
+`
+
 
 class TopReview extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             topReview: '',
         };
@@ -21,12 +29,15 @@ class TopReview extends Component {
     }
 
     render() {
-
-        console.log(this.state.topReview ? this.state.topReview : null)
         return (
-            <div style={{ width: '100%', height: '100%', backgroundColor: 'green' }}>
-                {this.state.topReview.length !== 0 ? <Review data={this.state.topReview} /> : <div style={{ border: '1px solid black' }}> <h2>등록된 리뷰가 없어요</h2></div>}
-            </div>
+            <Div>
+                <div> 
+                    베스트리뷰
+                </div>
+                <div>
+                    {this.state.topReview.length !== 0 ? <Review data={this.state.topReview} /> : <div style={{ border: '1px solid black' }}> <h2>등록된 리뷰가 없어요</h2></div>}
+                </div>
+            </Div>
         );
     }
 }

@@ -5,21 +5,29 @@ import AllReview from './AllReview';
 import styled, { ThemeProvider } from 'styled-components';
 import Comment from './Comment';
 import TopReview from './TopReview';
-import InfiniteScroll from 'react-infinite-scroller';
+// import InfiniteScroll from 'react-infinite-scroller';
 import axios from 'axios';
 import { url } from '../../config';
 
+
+
 const Wrapper = styled.div`
-    margin : 10% 10% 0 10%;
-    border: 1px solid black;  
+    margin : 6% auto 2% auto;
     width: 80vw;
-    height: 30vh;
+    height: 50vh;
     display: flex;
+    background-color: #F4F5F9;
 `
 const Div = styled.div`
-    margin: 0 10% 0 10%;
+    margin: auto auto 2% auto ;
     width: 80vw;
     height: 30vh;
+`
+
+const ReviewDiv = styled.div`
+     margin: auto auto 2% auto ;
+     heigth: 100%;
+     width: 80vw;
 `
 
 class Detail extends Component {
@@ -32,40 +40,27 @@ class Detail extends Component {
 
     componentDidMount(){
         axios.get(`${url}/api/item/detail?color_id=${this.props.match.params.id}`)
-        // .then((response) => {
-        //     console.log(response);
-        //   })
           .then(response => this.setState({data : response.data}))
           .catch(err => console.log(err))
     }    
 
-
     render(){
+        console.log(this.state.data)
         return (
-            <div>
+            <div style={{ backgroundColor:'#F4F5F9', padding:'1% 0 0 0'}}>
                 <Wrapper>
                     <DetailLeft data={this.state.data}/>
                     <DetailRight data={this.state.data} id = {this.props.match.params.id}/>
                 </Wrapper>
                 <Div>
-                        <Comment id={this.props.match.params.id}/>
+                    <Comment id={this.props.match.params.id}/>
                 </Div>
-                <div style={{ margin: '0 10% 0 10%', heigth: '100%', width: '80vw', backgroundColor:'red'}}>
-                    {/* <div style = {{height: '100%', backgroundColor: 'skyblue'}}> */}
-                        {/* <InfiniteScroll
-                            pageStart={0}
-                            // loadMore={loadFunc}
-                            // hasMore={false}
-                            loader={<div className="loader" key={0}>Loading ...</div>}
-                            useWindow={false}
-                        >
-                        
-                        </InfiniteScroll> */}
-                        <TopReview id={this.props.match.params.id} />
-                </div>
-                <div style={{ margin: '0 10% 0 10%', heigth: '100%', width: '80vw', backgroundColor: 'yellow' }}>
-                        <AllReview id={this.props.match.params.id}/>
-                </div>
+                <ReviewDiv>
+                    <TopReview id={this.props.match.params.id} data ={this.state.reviewData}/>
+                </ReviewDiv>
+                <ReviewDiv>
+                    <AllReview id={this.props.match.params.id} data={this.state.reviewData}/>
+                </ReviewDiv>
         </div>
         )
     }

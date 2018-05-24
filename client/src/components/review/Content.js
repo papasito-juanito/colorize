@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import lip from '../../assets/lip.jpg';
 import like from '../../assets/Heart.png';
 import hate from '../../assets/emptyHeart.png';
 import StarRatingComponent from 'react-star-rating-component';
@@ -20,8 +19,8 @@ const customStyles = {
 Modal.setAppElement('#root');
 
 const Container = styled.div`
-    border: 1px solid gold;
-    background-color: #eee;
+    border: 1px solid #d9dee8;
+    background-color: white;
     border-radius: 5px;
     display:flex;
     width:95%;
@@ -31,7 +30,6 @@ const Container = styled.div`
 `
 
 const ReviewImage = styled.img`
-    border: 2px solid #ccc;
     margin: 1vh 0 1vh 1vw;
     width: 20%;
     height: 90%;
@@ -39,7 +37,6 @@ const ReviewImage = styled.img`
 `
 
 const Info = styled.div`
-    border: 2px solid #ccc;
     margin: 1vh 0 1vh 0;
     width: 20%;
     height: 90%;
@@ -62,15 +59,14 @@ const Message = styled.textarea`
 const LikeCount = styled.div`
     width: 20%
     height: 70%
-    top: 1%;
-    right:2%;
+    top: 20%;
+    left: 90%;
     position: absolute;
-    align-content: center;
 `
 
 const Like = styled.img`
-    width: 30%;
-    height: 120%;
+    width: 1.5rem;
+    height: 1.5rem;
     cursor: pointer;
 `
 const BottomContainer = styled.div`
@@ -78,40 +74,11 @@ const BottomContainer = styled.div`
     height: 30%;
 `
 
-const Modify = styled.button`
-    font-size: 1rem;    
-    color: black;
-    top: 2%;
-    left: 2%;
-    position: absolute
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
-    &:hover {
-        background-color: RoyalBlue;
-    }
-`
-
-const Delete = styled.button`
-    font-size: 1rem;    
-    color: black;
-    top: 2%;
-    left: 12%;
-    position: absolute
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
-    &:hover {
-        background-color: red;
-    }
-`
-
-const ModifyForm = styled.form`
-    
-`
-const ModifyText = styled.textarea`
-    border: 2px solid #ccc;
-    height: 80%
+const UserDiv = styled.div`
+    border: 1px solid black;
+    width: 20%;
+    height: 30%;
+    border-radius:50%;
 `
 
 
@@ -171,14 +138,16 @@ class Content extends Component {
         let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
 
         return (
-            <div style={{ border: '1px solid green', width: '100%' }}>
+            <div style={{ width: '100%' }}>
 
                 {this.props.data ? this.props.data.map((item, i) => {
                     return (
-                        <Container>
-                            {/* <ReviewImage onClick={this._openPopup} src={lip} /> */}
+                        <Container key={i}>
                             <ReviewImage onClick={this._openPopup} />
+                            {/* <ReviewImage onClick={this._openPopup} src={require(`../public/user/${this.props.파람스매치랑 유저아이디이용}.jpg`)} /> */}
                             <Info >
+                                <UserDiv > <img alt='user'/></UserDiv>
+                                {/* 유저 이미지 여기서 받아와서 삽입 */}
                                 <div>{item.user}</div>
                                 <div>{item.age}, {item.tone}</div>
                                 <div>
@@ -190,7 +159,7 @@ class Content extends Component {
                                 </div>
                             </Info >
                             <ReviewContent >
-                                <div style={{ textAlign: 'center' }}>
+                                <div style={{textAlign:'center'}}>
                                     {this.state.editing ? <Message readOnly>{item.message}</Message> : <Message>{item.message}</Message>}
                                 </div>
                                 <BottomContainer >
@@ -203,8 +172,6 @@ class Content extends Component {
                                 </BottomContainer>
                             </ReviewContent >
                         </Container>
-
-
                     )
                 }) : null}
 

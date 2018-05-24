@@ -316,7 +316,7 @@ class Signup extends Component {
 
     render() {
         console.log(this.state.genderSelcted);
-        
+        console.log('signupprops', this.props);
         return (
             <Container>
                 

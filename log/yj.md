@@ -40,3 +40,11 @@ chart JS 값 나오게 수정 => dataset.plugin npm package에 바로 적용된�
 infinite scroll => end 조건 주지 못해 미완성
 라이브러리 많지만 쌩으로 구현 
 scroll top , client height, scroll height
+
+# 2018.05.24
+***
+infinite scroll => 원래 의도는 데이터 처리시 많은 데이터를 끊어오는거지만
+한번에 받고 중간중간 끊어주는걸로 비쥬얼적으로만 구현
+3개씩 끊어서 했을때 데이터 수보다 넘어가면 계속 에러발생
+componentWillUpdate life cycle 사용하여 데이터 수 넘어갈때 마지막 데이터 까지만 받는걸로 수정해서 진행
+문제점 : settimeout 함수가 뜨기전부터 실행되서 일정시간으로 fetch 해오지못함, 끝난후에도 렌더가 계속됨 

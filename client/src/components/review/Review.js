@@ -1,5 +1,6 @@
 import React from 'react';
 import Content from './Content'
+import TopContent from './TopContent'
 
 
 // const Container = styled.div`
@@ -24,7 +25,10 @@ import Content from './Content'
 const Review = (props) => {
     console.log(props)
     return (
+        <div>
         <Content data={props.data} />
+        {/* <TopContent data={props.data} /> */}
+        </div>
     );
 };
 

@@ -1,27 +1,17 @@
 // Local import
 const model = require('../../models/colors/update');
 
-module.exports = function(req, res) {
-  console.log('[color_id  ]',req.body.color_id);
-  console.log('[itemPhoto ]',req.body.itemPhoto);
-  console.log('[itemColor ]',req.body.itemColor);
-  console.log('[itemHex   ]',req.body.itemHex);
-  console.log('[itemDate  ]',req.body.itemDate);
-  console.log(`[controller] received request from client...`);
+module.exports = (req, res) => {
 
-  let color_id = req.body.color_id;
-  let itemPhoto = req.body.itemPhoto;
-  let itemColor = req.body.itemColor;
-  let itemHex = req.body.itemHex;
-  let itemDate = req.body.itemDate;
+  const {color_id, itemPhoto, itemColor, itemHex, itemDate} = req.body;
+  const params = [itemPhoto, itemColor, itemHex, itemDate, color_id];
 
-  let params = [itemPhoto, itemColor, itemHex, itemDate, color_id];
-
-  model(params, function(err, rows) {
-    if (err) { throw err }
-    else {
-      console.log(`[controller] received response from model...`);
-      res.end('selected color is deleted');
-    }
+  model(params, (err, rows) => {
+    if (err) throw err;
+    else res.send({
+      login: req.session.userMail ? true : false,
+      color_id: req.body.color_id,
+      update: true
+    });
   })
 };

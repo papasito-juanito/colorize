@@ -1,7 +1,6 @@
-.HomeColor {
+/* .HomeColor {
   text-align: center;
-  position: fixed;
-}
+} */
 
 /* Cells that can be interacted with */
 .table-drag-select td.cell-enabled {
@@ -12,6 +11,7 @@
 
 .heart{
   opacity: 0.3;
+  text-align:center;
 }
 
 /* Cells that cannot be interacted with */

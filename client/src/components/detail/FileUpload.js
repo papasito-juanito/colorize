@@ -123,7 +123,7 @@ class FileUpload extends Component {
             <Div>
                 <input style={{ width: '100%' }}
                     type='file'
-                    ref={(ref) => { this.uploadInput = ref; }}
+                    ref={ref => { this.uploadInput = ref; }}
                     onChange={(e) => { this._handleImageChange(e) }} />
                 <ImgDiv>
                     {$imagePreview}

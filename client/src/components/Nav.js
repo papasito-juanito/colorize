@@ -8,12 +8,12 @@ import Login from './user/Login'
 const NavContatiner = styled.header`
     background-color: black;
     height: 10%;
-    width:100%
+    width: 100vw;
     top:0;
-    position: fixed;
     z-index:1;
-    display: felx;
+    display: flex;
     flex-direction: row;
+    transition: top 0.3s;
 `
 
 const Colorize = styled.div`
@@ -23,7 +23,7 @@ const Colorize = styled.div`
 `
 
 const NavLink = styled(Link)`
-    font-size: 5rem
+    font-size: 3rem
     &:visited {
         color: white;
         text-decoration: none;
@@ -101,7 +101,8 @@ class Nav extends Component {
         this.state = {
             loginClicked: false,
             isLogined: false,
-            closeAll: false
+            closeAll: false,
+            isHide: false
         }
     }
 
@@ -131,11 +132,30 @@ class Nav extends Component {
         })
     }
 
+    hideNav = () => {
+        var prevScrollpos = window.pageYOffset;
+        return function() {
+            var currentScrollPos = window.pageYOffset;
+            console.log('current', currentScrollPos);
+            if (prevScrollpos >= currentScrollPos) {
+                console.log('IFIFIFIFIFIFIFIcurrent', currentScrollPos);
+                document.getElementById("navbar").style.top = "0";
+            } else {
+                console.log('prev', prevScrollpos);
+                document.getElementById("navbar").style.top = "-10%";
+            }
+            prevScrollpos = currentScrollPos;
+        }
+    }
+
+    componentDidMount(){
+        window.addEventListener('scroll',this.hideNav());
+    }
+
     render(){
-        console.log('state', this.state);
-        return (
-            <NavContatiner>
-            <Overlay ref='overlay'/>
+        return (        
+            <NavContatiner id="navbar">
+            <Overlay ref='overlay' onClick={this.closeNav}/>
             <Colorize>
             <NavLink to="/" style={{ textDecoration: 'none' }}>
             <span>Colorize</span></NavLink>

@@ -1,15 +1,14 @@
 import React from 'react';
 import HomeColor from './HomeColor';
-import HomeTitle from './HomeTitle';
+// import HomeTitle from './HomeTitle';
 import styled from 'styled-components';
 import tinycolor from "tinycolor2";
 import { url } from '../../config';
 const HomeContainer = styled.div`
-    background-color: green;
-    top:10%;
-    height:100%;
-    width:100%;
-    position: absolute;
+    background-color: black;
+    height:100vh;
+    width:100vw;
+    display: flex;
 `
 
 class Home extends React.Component {
@@ -24,7 +23,7 @@ class Home extends React.Component {
     componentDidMount(){
         fetch(`${url}/api/color/get`)
         .then(response => response.json())
-        .then(data => this.setState({data: data}))
+        .then(data => this.setState({data: data.result}))
         .then(() => this.sortColorGroup(this.state.data))
         .then(() => this.setState({isLoaded: true}))
     }
@@ -99,7 +98,7 @@ class Home extends React.Component {
     render() {
         return (
             <HomeContainer>
-                <HomeTitle/>
+                {/* <HomeTitle/> */}
                 {this.state.isLoaded ? 
                 <HomeColor colorGroup={this.colorGroup}/>
                 :'Loading...'}

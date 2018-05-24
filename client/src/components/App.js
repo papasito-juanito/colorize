@@ -43,7 +43,7 @@ class App extends Component {
                         <Route path="/items/detail/:id" component={Detail} />
                         <Route path="/myinfo" component={MyInfo}/>
                         <Route component={NotMatch}/>
-                    </Switch>
+                    </Switch>    
                 </div>
             </Router>
         );

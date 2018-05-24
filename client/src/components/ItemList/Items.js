@@ -2,7 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import StarRatingComponent from 'react-star-rating-component';
 import { Link } from 'react-router-dom';
+import lipstick from '../../assets/lipstick.svg';
 // const queryString = require('query-string');
+
 
 const ItemListContainer = styled.div`
     top:10%;
@@ -24,44 +26,54 @@ const Ul = styled.ul`
     flex-wrap: wrap;
     margin-top:5%
 `
+
+const Wrapper = styled(Link)`
+    position: relative
+    margin: 20px
+    width: 330px;
+    height: 430px;
+    &:visited {
+        color: black;
+        text-decoration: none 
+    }  
+`
+
 const Li = styled.li`
     background-color: #f1f1f1;
     width: 300px;
     height: 400px;
-    margin: 10px;
+    margin-top: 15px
     font-size: 30px;
     list-style: none;
-`
-const Wrapper = styled.div`
-    height: 400px;
-    width: 300px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    &:hover {
+        box-shadow: 16px 16px 16px rgba(0,0,0,0.2);
+    }
 `
 
 const ItemTop = styled.div`
+    marin:auto
     height: 300px;
     position:relative;
 `
 const Img = styled.img`
     width: 300px;
     height: 300px;
+    background-color: "white"
 `
 const Color = styled.div`
-    background-color: #${props=>props.color};
-    border-radius: 50%;
     position: absolute; 
-    width: 70px;
-    height: 70px;
-    top:5px; 
-    right:5px
+    top:10px
+    right: 20px
+    border-style: solid;
+    border-width: 0 70px 70px 0;
+    border-color: transparent #${props=>props.color} transparent transparent;
 `
 
-const ItemLink = styled(Link)`
-    background-color: pink;
+const ItemBottom = styled.div`
+    marin:auto
     height: 100px;
-    &:visited {
-        color: black;
-        text-decoration: none;
-    }  
 `
 const Brand = styled.div`
     font-size:8px;
@@ -105,12 +117,13 @@ const Btn = styled.button`
 `
 
 const Items = ({item}) => {
-
+    
     return (
+        
         <ItemListContainer >
         <SortContainer>
-            <Btn>기본순asdasd</Btn>
-            <Btn>높은가격순asdasdasd</Btn>
+            <Btn>기본순</Btn>
+            <Btn>높은가격순</Btn>
             <Btn>낮은가격순</Btn>
             <Btn>별점순</Btn>
             <Btn>최신순</Btn>
@@ -118,13 +131,13 @@ const Items = ({item}) => {
             <Ul>
                 {item.map((item, i)=>{
                     return (
+                        <Wrapper to={`/items/detail/${item.color_id}`} style={{ textDecoration: 'none' }} >
                         <Li key={i}>
-                        <Wrapper>
                             <ItemTop >
                                 <Img src={item.photo}/>
-                                <Color color={item.hex}/>
+                                {/* <Color color={item.hex}/> */}
                             </ItemTop >
-                            <ItemLink to={`/items/detail/${item.color_id}`} style={{ textDecoration: 'none' }}>
+                            <ItemBottom>
                                 <Brand>{item.brand}</Brand>
                                 <ItemName>{item.item}, {item.volume}</ItemName>
                                 <Price>{item.price}</Price>
@@ -135,9 +148,10 @@ const Items = ({item}) => {
                                         value={item.avg}
                                     />, <Review>({item.reviews})</Review>
                                 </Rating>
-                            </ItemLink>
+                            </ItemBottom>
+                            </Li>
+                            <Color color={item.hex}/>
                         </Wrapper>
-                    </Li>
                     )
                 })}
             </Ul>    

@@ -1,6 +1,6 @@
 // Local import
 const model = require('../../models/users/get');
-const middleware = require('../../middlewares');
+const middleware = require('../../middlewares/isValidPassword');
 const db = require('../../db');
 
 module.exports = {
@@ -11,12 +11,12 @@ module.exports = {
       else if (!rows.length) res.status(401).send(
         {'result': false, 'message': 'invalid usermail'})
       else {
-        middleware.isValidPassword(req.query.userPassword, rows[0].userPassword)
+        middleware(req.query.userPassword, rows[0].userPassword)
         .then(boolean => {
           if (boolean) { 
-            const token = middleware.signToken(req.query.userMail);
+            req.session.userMail = req.query.userMail;
             res.status(200).send(
-              {'result': true, 'user_id': rows[0].id, 'user_token': token});
+              {'result': true, 'userMail': req.session.userMail});
           }
           else res.status(401).send(
             {'result': false, 'message': 'invalid password'})
@@ -25,8 +25,8 @@ module.exports = {
     })
   },
 
-  logout: (req, res) => {
-    if (req.session.user_id) {
+  logout: (req, res) => {  
+    if (req.session.userMail) {
       req.session.destroy(err => {
         if (err) throw err;
         else res.status(200).send(

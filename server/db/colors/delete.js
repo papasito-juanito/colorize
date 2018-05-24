@@ -1,1 +1,3 @@
-module.exports = `UPDATE itemColors SET colorToggle='false' WHERE id=?;`;
+module.exports = `
+UPDATE itemColors SET colorToggle='false' WHERE id=?;
+`;

@@ -1,1 +1,3 @@
-module.exports = `UPDATE wishLists SET wishToggle='false' WHERE id=?;`;
+module.exports = `
+UPDATE wishLists SET wishToggle='false' WHERE id=?;
+`;

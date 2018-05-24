@@ -1,19 +1,32 @@
 // Local import
-const model = require('../../models/reviews/itemReview');
+const model = require('../../models/reviews/get');
 
-module.exports = function(req, res) {
-  console.log('[color_id  ]',req.query.color_id);
-  console.log(`[controller] received request from client...`);
+module.exports = {
+  info: (req, res) => {  
+    model.info(req.query.user_id, (err, rows) => {
+      if (err) throw err;
+      else res.status(200).send(rows);
+    })
+  },
   
-  let color_id = req.query.color_id;
-  
-  let params = [color_id];
+  list: (req, res) => {
+    model.list(req.query.color_id, (err, rows) => {
+      if (err) throw err;
+      else res.status(200).send(rows);
+    })
+  },
 
-  model(params, function(err, rows) {
-    if (err) { throw err }
-    else {
-      console.log(`[controller] received response from model...`);
-      res.send(rows);
-    }
-  })
+  rank: (req, res) => {
+    model.rate(req.query.color_id, (err, rows) => {
+      if (err) throw err;
+      else res.status(200).send(rows);
+    })
+  },
+
+  user: (req, res) => {
+    model.rate(req.query.user_id, (err, rows) => {
+      if (err) throw err;
+      else res.status(200).send(rows);
+    })
+  }
 };

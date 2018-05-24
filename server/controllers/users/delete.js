@@ -1,19 +1,21 @@
 // Local import
 const model = require('../../models/users/delete');
+const db = require('../../db');
 
-module.exports = function(req, res) {
-  console.log('[userMail  ]',req.body.userMail);
-  console.log(`[controller] received request from client...`);
-  
-  let userMail = req.body.userMail;
-  
-  let params = [userMail];
-
-  model(params, function(err, rows) {
-    if (err) { throw err }
+module.exports = (req, res) => {
+  db.query(`SELECT userToggle FROM users WHERE id=
+  ${req.body.user_id};`, (err, rows) => {
+    if (err) throw err;
+    else if (!rows.length) res.status(401).send(
+      {'result': false, 'message': 'invalid user_id'})
+    else if (rows[0].userToggle === 'false') res.status(401).send(
+      {'result': false, 'message': 'userToggle false already'})
     else {
-      console.log(`[controller] received response from model...`);
-      res.end('selected user is deleted');
+      model(req.body.user_id, (err, rows) => {
+        if (err) throw err;
+        else res.status(200).send(
+          {'result': true, 'message': 'userToggle set false'});
+      })
     }
   })
 };

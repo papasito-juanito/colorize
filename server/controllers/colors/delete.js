@@ -1,19 +1,9 @@
 // Local import
 const model = require('../../models/colors/delete');
 
-module.exports = function(req, res) {
-  console.log('[color_id  ]',req.body.color_id);
-  console.log(`[controller] received request from client...`);
-  
-  let color_id = req.body.color_id;
-  
-  let params = [color_id];
-
-  model(params, function(err, rows) {
-    if (err) { throw err }
-    else {
-      console.log(`[controller] received response from model...`);
-      res.end('selected color is deleted');
-    }
+module.exports = (req, res) => {
+  model(req.body.color_id, (err, rows) => {
+    if (err) throw err;
+    else res.status(200).send({'user_id': req.session.user_id, 'color_id': color_id, 'delete': true});
   })
 };

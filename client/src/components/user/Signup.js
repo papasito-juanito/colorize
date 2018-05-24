@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
@@ -11,6 +12,7 @@ import birthdate from '../../assets/birthdate.png';
 import gender from '../../assets/gender.png';
 import skin from '../../assets/skin.png';
 import bottom from '../../assets/bottom.png';
+import history from '../../utils/history'
 
 const Container = styled.div`
     height: 90vh;
@@ -26,7 +28,6 @@ const Container = styled.div`
 const SignupContainer = styled.div`
     height: 80vh;
     width : 40vw;
-    margin-top: 20%
     margin: 0 auto;
 	position: relative
 `
@@ -214,14 +215,54 @@ const Signupbtn = styled.div`
 
 const Bottom = styled.div`
     bottom: 0px
-    width:50%
     height: auto
+    margin-bottom: 10%
 `
 
 const BttomImg = styled.img`
     width: auto; 
     height: auto;
     max-width: 100%;
+`
+
+const Alert = styled.div`
+    padding: 20px;
+    background-color: green;
+    color: white;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    bottom: 10%;
+    right: 0;
+    background-color: #4CAF50;
+    transition: width 2s;
+`
+
+const Confirm = styled.span`
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+    &:hover {
+        color: black;
+    }
+`
+
+const Failalert = styled.div`
+    display: block
+    background-color: green;
+    color: white;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    bottom: 10%;
+    right: 0;
+    background-color: #f44336;
+    transition: 1s;
 `
 
 class Signup extends Component {
@@ -233,7 +274,9 @@ class Signup extends Component {
             isValidNickname: true,
             birthdateSelected: '',
             genderSelcted: '',
-            colorSelected: ''
+            colorSelected: '',
+            signupSuccess: false,
+            isExist: ''
         }
     }
 
@@ -246,11 +289,23 @@ class Signup extends Component {
             gender: this.state.genderSelcted,
             toneName: this.state.colorSelected
         };
-
         console.log(form)
         const api = axios.create({ baseURL: 'http://localhost:8080' })
-            api.post('/api/user/signup', form)
-                .then(res => console.log(res))
+            api.post('/api/user/post', form)
+                .then(res => {
+                    console.log(res);
+                    if(res.data.result===true){
+                        this.setState({
+                            signupSuccess: true
+                        })
+                        this.showSucces()
+                    }else if(res.data==='exists'){
+                        this.setState({
+                            isExist: res.data
+                        })
+                        this.showFailure();
+                    }
+                })
                 .catch(error => console.log(error))
 
     }
@@ -296,6 +351,25 @@ class Signup extends Component {
         })
     }
 
+    clickToLogin = () => {
+        history.goBack()
+    }
+
+    showSucces = () => {
+        ReactDOM.findDOMNode(this.refs.success).style.right = '5%'
+        ReactDOM.findDOMNode(this.refs.success).style.width = '40%'
+    }
+
+    showFailure = () => {
+        document.getElementById('fail').style.display='block'
+        ReactDOM.findDOMNode(this.refs.fail).style.padding = '20px'
+        ReactDOM.findDOMNode(this.refs.fail).style.right = '5%'
+        ReactDOM.findDOMNode(this.refs.fail).style.width = '40%'
+        window.setTimeout(function() {
+           document.getElementById('fail').style.display='none'
+        }, 5000);
+    }
+
      colorOptions = [
         { value: '모르겠어요', label: '모르겠어요' },
         {
@@ -315,64 +389,66 @@ class Signup extends Component {
     ]
 
     render() {
-        console.log(this.state.genderSelcted);
-        console.log('signupprops', this.props);
         return (
             <Container>
-                
                 <SignupContainer> 
-                <IdWrapper> 
-                    <IdImageDiv> 
-                    <IdImage src={mail}/> 
-                    </IdImageDiv>
-                    <IdInput 
-                    onChange={this.onChangeEmial.bind(this)} innerRef={ref => { this.email = ref; }} placeholder="abc@email.com"/> 
+                    <IdWrapper> 
+                        <IdImageDiv> 
+                        <IdImage src={mail}/> 
+                        </IdImageDiv>
+                        <IdInput 
+                        onChange={this.onChangeEmial.bind(this)} innerRef={ref => { this.email = ref; }} placeholder="abc@email.com"/> 
                     </IdWrapper>
-                    {this.state.isValidEmail ? null : <InvalidId>Invalid Type</InvalidId>}
+                        {this.state.isValidEmail ? null : <InvalidId>Invalid Type</InvalidId>}
                     <PasswordWrapper> 
-                    <PasswordImageDiv> 
-                    <PasswordImage src={lock}/> 
-                    </PasswordImageDiv>
-                    <PasswordInput type="password"
-                    onChange={this.onChangePassword.bind(this)} innerRef={ref => { this.password = ref; }} placeholder="Enter Your Password"/> 
+                        <PasswordImageDiv> 
+                        <PasswordImage src={lock}/> 
+                        </PasswordImageDiv>
+                        <PasswordInput type="password"
+                        onChange={this.onChangePassword.bind(this)} innerRef={ref => { this.password = ref; }} placeholder="Enter Your Password"/> 
                     </PasswordWrapper>
-                    {this.state.isValidPassword ? null : <InvalidPassword>5~10 letters</InvalidPassword>}  
+                        {this.state.isValidPassword ? null : <InvalidPassword>5~10 letters</InvalidPassword>}  
                     <NicknameWrapper> 
-                    <NicknameImageDiv> 
-                    <NicknameImage src={nickname}/> 
-                    </NicknameImageDiv>
-                    <NicknameInput
-                    onChange={this.onChangeNickname.bind(this)} innerRef={ref => { this.nickname = ref; }} placeholder="Enter Your Nickname"/> 
+                        <NicknameImageDiv> 
+                        <NicknameImage src={nickname}/> 
+                        </NicknameImageDiv>
+                        <NicknameInput
+                        onChange={this.onChangeNickname.bind(this)} innerRef={ref => { this.nickname = ref; }} placeholder="Enter Your Nickname"/> 
                     </NicknameWrapper>
-                    {this.state.isValidNickname ? null : <InvalidNickname>5~10 letters</InvalidNickname>}
+                        {this.state.isValidNickname ? null : <InvalidNickname>5~10 letters</InvalidNickname>}
                     <BirthdateWrapper> 
-                    <BirthdateImageDiv> 
-                    <BirthdateImage src={birthdate}/> 
-                    </BirthdateImageDiv>
-                    <BirthdateInput
-                    onBlur = {this.onBirthdate.bind(this)}
-                    required type='date'innerRef={ref => { this.date = ref; }}/> 
+                        <BirthdateImageDiv> 
+                        <BirthdateImage src={birthdate}/> 
+                        </BirthdateImageDiv>
+                        <BirthdateInput
+                        onBlur = {this.onBirthdate.bind(this)}
+                        required type='date'innerRef={ref => { this.date = ref; }}/> 
                     </BirthdateWrapper>
                     <GenderWrapper>
-                    <GenderImageDiv> 
-                    <GenderImage src={gender}/> 
-                    </GenderImageDiv>
-                    <MaleInput name="gender" onChange={this.onSelectedGender.bind(this)} type="radio" value="male"/> Male 
-                    <FemaleInput name="gender" onChange={this.onSelectedGender.bind(this)} type="radio" value="female"/> Female 
+                        <GenderImageDiv> 
+                        <GenderImage src={gender}/> 
+                        </GenderImageDiv>
+                        <MaleInput name="gender" onChange={this.onSelectedGender.bind(this)} type="radio" value="male"/> Male 
+                        <FemaleInput name="gender" onChange={this.onSelectedGender.bind(this)} type="radio" value="female"/> Female 
                     </GenderWrapper>
                     <SkinWrapper>
-                    <SkinImageDiv> 
-                    <SkinImage src={skin}/> 
-                    </SkinImageDiv>
-                    <Dropdown options={this.colorOptions} onChange={this.onColorSelect.bind(this)} placeholder="Select your color"
-                    value={this.state.colorSelected} />
+                        <SkinImageDiv> 
+                        <SkinImage src={skin}/> 
+                        </SkinImageDiv>
+                        <Dropdown options={this.colorOptions} onChange={this.onColorSelect.bind(this)} placeholder="Select your color"
+                        value={this.state.colorSelected} />
                     </SkinWrapper>
-                    <SignupButtonWrapper>
-                        <Signupbtn onClick={this.onSubmit.bind(this)}>Go to pick lips</Signupbtn>
+                        <SignupButtonWrapper>
+                            <Signupbtn onClick={this.onSubmit}>Go to pick lips</Signupbtn>
                     </SignupButtonWrapper>     
                 </SignupContainer>
                 <Bottom>
-                    <BttomImg src={bottom}/>
+                    {this.state.signupSuccess ?
+                    <Alert ref="success">
+                    Signup Success
+                    <Confirm onClick={this.clickToLogin}>Click here to Login</Confirm>
+                    </Alert> : <Failalert ref='fail' id="fail"> Fail To SignUp {this.state.isExist}</Failalert>
+                    }
                 </Bottom>   
             </Container>
         )

@@ -56,7 +56,8 @@ shovel time: 12시간
         결 국deploy 를위 한세팅 이필요 한시기 가.옴. 개발모드 와프로덕션 모드 를세팅하려 고할때
  왜이 걸하냐 .. 이 틀넘 게삽질했던 게도움 이될 지모르겠.음
 
-reviews와 wishLists 테이블의 참조값을 items에서 itemColors로 변경함
+    reviews와 wishLists 테이블의  의dev server port 3000에서 는적용되 지않아서
+이제부 터계 속빌드 를돌려 야된/... 우!왕참조값을 items에서 itemColors로 변경함
     fake값을 넣는 도중 확인했는데 이게 맞음. 왜 몰랐지?
     자꾸 바꾸다보니 foreign key 수정 정도는 뚞딲뚞딲 된다
 
@@ -133,3 +134,11 @@ config:
 server:
     불필요한 라인정리 및 파일 합치기. GraphQL을 써볼까하다가 RESTful하게 쓰는걸로..
     GraphQL은 클라이언트에서 쿼리에 대한 이해가 필요한 것 같음
+#2018-05-24
+***
+axios:
+    express-session에서 페이지 새로고침이나 다음 페이지로 넘어갈 때마다 세션 종료됨.
+    문제는 axios에서 get 요청시마다 set cookie이 실행되어 sessionID가 바뀜.(cookie: connect sid <= token)
+    해결방법은 axios.get(~~~, withcredentials: true)을 붙이면 됨.
+    그리고 쿠키에 대한 내용은 C-R-A의 dev server port 3000에서는 적용되지 않아서
+    이제부터 계속 빌드를 돌려야 된다... 우왕!

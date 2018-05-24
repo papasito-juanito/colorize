@@ -4,6 +4,7 @@ import HomeColor from './HomeColor';
 import styled from 'styled-components';
 import tinycolor from "tinycolor2";
 import { url } from '../../config';
+
 const HomeContainer = styled.div`
     background-color: black;
     height:100vh;

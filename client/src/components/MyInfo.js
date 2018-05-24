@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import axios from 'axios';
+import { url } from '../config';
 
 const Container = styled.div`
   position: relative;
@@ -64,9 +65,16 @@ class MyInfo extends Component {
     constructor(){
         super()
         this.state = {
-          hasPhoto: true
+          hasPhoto: true,
+          data: []
         }
     }
+
+    componentDidMount(){
+      axios.get(`${url}/api/user/get/info`)
+        .then(response => this.setState({data : response.data}))
+        .catch(err => console.log(err))
+  }    
 
     colorOptions = [
       { value: '모르겠어요', label: '모르겠어요' },
@@ -87,6 +95,7 @@ class MyInfo extends Component {
   ]
 
     render() {
+    console.log(this.state.data);
         return (
           <Container>
             <Header>내 정보 수정</Header>

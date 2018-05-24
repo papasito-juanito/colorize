@@ -4,14 +4,14 @@ const sQuery = require('../../db/items/get');
 
 module.exports = {
   detail: (params, cb) => {
-    db.detail.query(sQuery, params, (err, rows) => { cb(err, rows); })
+    db.query(sQuery.detail, params, (err, rows) => { cb(err, rows); })
   },
 
   list: (params, cb) => {
-    db.list.query(sQuery, params, (err, rows) => { cb(err, rows); })
+    db.query(sQuery.list, params, (err, rows) => { cb(err, rows); })
   },
 
   rate: (params, cb) => {
-    db.rate.query(sQuery, params, (err, rows) => { cb(err, rows); })
+    db.query(sQuery.rate, params, (err, rows) => { cb(err, rows); })
   }
 };

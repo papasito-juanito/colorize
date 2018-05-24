@@ -1,25 +1,26 @@
 module.exports = {
   detail: `
-SELECT ic.id color_id,ic.itemHex hex,ic.itemPhoto photo,c.category2Name category,
-  b.brandName brand,i.itemName name,i.itemPrice price,i.itemVolume volume,
-  ic.itemDate date,i.itemDetail description
-FROM categories2 c, brands b, items i, itemColors ic
+SELECT ic.id color_id, ic.itemHex hex, ic.itemPhoto photo, c.category2Name category,
+  ic.itemColor color, b.brandName brand, i.itemName name, i.itemPrice price,
+  i.itemVolume volume, ic.itemDate date, i.itemDetail description
+FROM itemColors ic, categories2 c, brands b, items i 
 WHERE i.itemToggle='true' AND ic.colorToggle='true' AND
   c.id=i.categories2_id AND b.id=i.brands_id AND i.id=ic.items_id AND
   ic.id=?;
   `,
   list: `
-SELECT ic.id color_id,ic.itemPhoto photo,ic.itemHex hex,b.brandName brand,
-  i.itemName item,i.itemPrice price,i.itemVolume volume,rate.total reviews,rate.avg avg 
-FROM itemColors ic,items i,brands b,
-  (SELECT ic.id color_id,IFNULL(AVG(rt.reviewRating),0) avg,COUNT(rt.id) total
-  FROM itemColors ic
+SELECT ic.id color_id, ic.itemHex hex, ic.itemPhoto photo, c.category2Name category,
+  ic.itemColor color, b.brandName brand, i.itemName name, i.itemPrice price,
+  i.itemVolume volume, ic.itemDate date, rate.total reviews, rate.avg avg 
+FROM itemColors ic, categories2 c, brands b, items i,
+  (SELECT ici.id color_id, IFNULL(AVG(rt.reviewRating),0) avg, COUNT(rt.id) total
+  FROM itemColors ici
   LEFT JOIN reviews rt
-  ON ic.id=rt.itemColors_id
-  GROUP BY ic.id) rate
-WHERE ic.colorToggle='true' AND i.itemToggle='true' AND 
-  b.id=i.brands_id AND i.id=ic.items_id AND ic.id=rate.color_id AND
-  ic.id IN (?);
+  ON ici.id=rt.itemColors_id AND rt.reviewToggle='true'
+  GROUP BY ici.id) rate
+WHERE i.itemToggle='true' AND ic.colorToggle='true' AND
+  c.id=i.categories2_id AND b.id=i.brands_id AND i.id=ic.items_id AND
+  ic.id=rate.color_id AND ic.id IN (?);
   `,
   rate: `
 SELECT avg.id id,avg.avg avg,avg.total total,star.s s,star.ss ss,star.sss sss,
@@ -51,4 +52,3 @@ FROM
 WHERE avg.id=star.id AND avg.id=?;
   `
 };
-

@@ -22,12 +22,15 @@ class Allreview extends Component{
 
     componentDidMount() {
         axios.get(`${url}/api/review/get/list?color_id=${this.props.id}`)
-            .then(response => this.setState({ data: response.data.result }))
+            .then(response => 
+                // this.setState({ data: response.data.result })
+                console.log(response)
+            )
             .catch(err => console.log(err))
     }
 
     render(){
-        console.log(this.iScroll)
+        console.log(this.state.data)
         return(
             <Div>
                 <div>

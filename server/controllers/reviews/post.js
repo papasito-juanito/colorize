@@ -6,6 +6,10 @@ module.exports = (req, res) => {
   const params = [color_id, reviewPhoto, reviewRating, user_id, reviewMessage];
   model(params, (err, rows) => {
     if (err) throw err;
-    else res.status(200).end('review posted');
+    else res.send({
+      login: req.session.userMail ? true : false,
+      review_id: req.body.review_id,
+      post: true
+    });
   })
 };

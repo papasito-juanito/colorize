@@ -32,3 +32,11 @@ reader.result 값으로 base64파일이 들어오고 이건 img src로 브라우
 ***
 chart JS 값 나오게 수정 => dataset.plugin npm package에 바로 적용된다고 했는데 안나와서 고생함 => 여기저기 찾다가 github Q&A node module에서 직접 import 하라는 답변보고 해결
 
+
+# 2018.05.23
+***
+메인페이지 수정
+디테일 페이지 레이아웃 및 디자인 변경
+infinite scroll => end 조건 주지 못해 미완성
+라이브러리 많지만 쌩으로 구현 
+scroll top , client height, scroll height

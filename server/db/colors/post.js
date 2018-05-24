@@ -1,1 +1,4 @@
-module.exports = `INSERT INTO colors (itemName,itemPhoto,itemColor,itemHex,itemDate) VALUES (?,?,?,?,?);`;
+module.exports = `
+INSERT INTO itemColors (items_id, itemPhoto, itemColor, itemHex, itemDate) 
+VALUES ((SELECT id FROM items WHERE itemName=?),?,?,?,?);
+`;

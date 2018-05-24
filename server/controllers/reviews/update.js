@@ -7,6 +7,10 @@ module.exports = (req, res) => {
 
   model(params, (err, rows) => {
     if (err) throw err;
-    else res.status(200).end('selected review is updated');
+    else res.send({
+      login: req.session.userMail ? true : false,
+      review_id: req.body.review_id,
+      update: true
+    });
   })
 };

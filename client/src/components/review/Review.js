@@ -21,9 +21,10 @@ import Content from './Content'
 //     backgroundColor : blue;
 // `
 
-const Review = ({data}) => {
+const Review = (props) => {
+    console.log(props)
     return (
-             <Content data={data} />
+        <Content data={props.data} />
     );
 };
 

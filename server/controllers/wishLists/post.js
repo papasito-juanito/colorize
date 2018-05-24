@@ -7,6 +7,10 @@ module.exports = (req, res) => {
 
   model(params, (err, rows) => {
     if (err) throw err;
-    else res.status(200).send(rows);
+    else res.send({
+      login: req.session.userMail ? true : false,
+      wish_id: req.body.wish_id,
+      post: true
+    });
   })
 };

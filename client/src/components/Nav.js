@@ -8,11 +8,10 @@ import Login from './user/Login'
 const NavContatiner = styled.header`
     background-color: black;
     height: 10%;
-    width:100%
+    width: 100vw;
     top:0;
     z-index:1;
-    position:fixed
-    display: felx;
+    display: flex;
     flex-direction: row;
     transition: top 0.3s;
 `
@@ -24,7 +23,7 @@ const Colorize = styled.div`
 `
 
 const NavLink = styled(Link)`
-    font-size: 5rem
+    font-size: 3rem
     &:visited {
         color: white;
         text-decoration: none;

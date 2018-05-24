@@ -35,7 +35,7 @@ class TopReview extends Component {
                     베스트리뷰
                 </div>
                 <div>
-                    {this.state.topReview.length !== 0 ? <Review data={this.state.topReview} /> : <div style={{ border: '1px solid black' }}> <h2>등록된 리뷰가 없어요</h2></div>}
+                    {/* {this.state.topReview.length !== 0 ? <Review data={this.state.topReview} /> : <div style={{ border: '1px solid black' }}> <h2>등록된 리뷰가 없어요</h2></div>} */}
                 </div>
             </Div>
         );

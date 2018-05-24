@@ -58,12 +58,12 @@ class DetailRight extends Component {
 
     componentDidMount() {
         // axios.get(`${url}/api/item/rate?color_id=${this.props.match.params.id}`)
-        axios.get(`${url}/api/item/rate?color_id=${this.props.id}`)
+        axios.get(`${url}/api/item/get/rate?color_id=${this.props.id}`)
             // .then((response) => {
             //     console.log(response.data);
             //   })
             .then(response => this.setState({
-                data: response.data
+                data: response.data.result
             }))
             .catch(err => console.log(err));
     }
@@ -91,7 +91,7 @@ class DetailRight extends Component {
                     <div> 가격: < NumberFormat value = {this.props.data ? this.props.data[0].price : 0} displayType = "text" thousandSeparator={true} suffix = "원" /> < br/></div>
                     <LinesEllipsis
                         text= {`제품 정보: ${this.props.data ? this.props.data[0].description : null}`} 
-                        maxLine='18'
+                        maxLine='15'
                         ellipsis={<span style={{cursor: 'pointer'}}onClick={this._openPopup}>{ ' ...전체보기...'}</span>}
                         trimRight
                         basedOn='words'

@@ -2,7 +2,7 @@
 const router = require('express').Router();
 
 // Local import
-const middleware = require('../middlewares/isAuthenticated');
+// const middleware = require('../middlewares/isAuthenticated');
 
 const color = require('./colors');
 const item = require('./items');
@@ -12,7 +12,7 @@ const wishList = require('./wishLists');
 
 router.use('/color', color);
 router.use('/item', item);
-router.use('/review', middleware, review);
+router.use('/review', review);
 router.use('/user', user);
 router.use('/wishlist', wishList);
 

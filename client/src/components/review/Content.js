@@ -30,7 +30,6 @@ const Container = styled.div`
     margin: 1% auto;
 
 `
-
 const ReviewImage = styled.img`
     margin: 1vh 0 1vh 1vw;
     width: 20%;
@@ -122,7 +121,6 @@ class Content extends Component {
     _reviewLike = function () {
         this.setState({ like: !this.state.like })
         !this.state.like ? this.setState({ likecount: this.state.likeCount++ }) : this.setState({ likecount: this.state.likeCount-- })
-        //누르면 개별 likes 올라가고 토글 개별로 되게 
     }
     _openPopup(e) {
         this.setState({

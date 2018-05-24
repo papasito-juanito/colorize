@@ -15,8 +15,8 @@ class ItemList extends Component {
     componentDidMount(){
         axios.get(`${url}/api/item/get/list?color_id=[${this.props.match.params.id.split('&')}]`)
         .then((response) => {
-            // this.setState({item: response.data.result})
-            console.log(response)
+            this.setState({item: response.data.result})
+            // console.log(response)
           })
     }    
   

@@ -39,8 +39,8 @@ class Detail extends Component {
     }
 
     componentDidMount(){
-        axios.get(`${url}/api/item/detail?color_id=${this.props.match.params.id}`)
-          .then(response => this.setState({data : response.data}))
+        axios.get(`${url}/api/item/get/detail?color_id=${this.props.match.params.id}`)
+          .then(response => this.setState({data : response.data.result}))
           .catch(err => console.log(err))
     }    
 

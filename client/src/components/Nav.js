@@ -167,10 +167,10 @@ class Nav extends Component {
                  </Menu>     
                     <SideNav ref="mySidenav" >
                         <SideClose href="javascript:void(0)" onClick={this.closeNav}>&times;</SideClose>
+                        <SideAnchor href="/myinfo">My Info</SideAnchor>
                         <SideAnchor href="/wishlist">Wish List</SideAnchor>
                         <SideAnchor href="/review">My Review</SideAnchor>
-                        <SideAnchor>My Page</SideAnchor>
-                        <SideAnchor onClick={()=>{this.renderLogin(); this.closeNav()}}>{this.state.isLogined ? 'Logout' : 'Login'}</SideAnchor>
+                        <SideAnchor onClick={this.renderLogin.bind(this)}>{this.state.isLogined ? 'Logout' : 'Login'}</SideAnchor>
                     </SideNav>
                  </MenuWrapper>    
                 {this.state.loginClicked ? 

@@ -12,6 +12,7 @@ import Review from './review/Review'
 // import Login from './user/Login'
 import Signup from './user/Signup'
 import Detail from './detail/Detail'
+import MyInfo from './MyInfo'
 
 injectGlobal`
   body{
@@ -40,6 +41,7 @@ class App extends Component {
                         <Route path="/signup" component={Signup}/>
                         <Route exact path="/items/:id" component={ItemList}/>
                         <Route path="/items/detail/:id" component={Detail} />
+                        <Route path="/myinfo" component={MyInfo}/>
                         <Route component={NotMatch}/>
                     </Switch>    
                 </div>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
@@ -11,6 +12,7 @@ import birthdate from '../../assets/birthdate.png';
 import gender from '../../assets/gender.png';
 import skin from '../../assets/skin.png';
 import bottom from '../../assets/bottom.png';
+import history from '../../utils/history'
 
 const Container = styled.div`
     height: 90vh;
@@ -26,7 +28,6 @@ const Container = styled.div`
 const SignupContainer = styled.div`
     height: 80vh;
     width : 40vw;
-    margin-top: 20%
     margin: 0 auto;
 	position: relative
 `
@@ -214,14 +215,53 @@ const Signupbtn = styled.div`
 
 const Bottom = styled.div`
     bottom: 0px
-    width:50%
     height: auto
+    margin-bottom: 10%
 `
 
 const BttomImg = styled.img`
     width: auto; 
     height: auto;
     max-width: 100%;
+`
+
+const Alert = styled.div`
+    padding: 20px;
+    background-color: green;
+    color: white;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    bottom: 10%;
+    right: 0;
+    background-color: #4CAF50;
+    transition: width 2s;
+`
+
+const Confirm = styled.span`
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+    &:hover {
+        color: black;
+    }
+`
+
+const Failalert = styled.div`
+    background-color: green;
+    color: white;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    bottom: 10%;
+    right: 0;
+    background-color: #4CAF50;
+    transition: width 2s;
 `
 
 class Signup extends Component {
@@ -233,7 +273,8 @@ class Signup extends Component {
             isValidNickname: true,
             birthdateSelected: '',
             genderSelcted: '',
-            colorSelected: ''
+            colorSelected: '',
+            signupSuccess: false
         }
     }
 
@@ -250,7 +291,21 @@ class Signup extends Component {
         console.log(form)
         const api = axios.create({ baseURL: 'http://localhost:8080' })
             api.post('/api/user/signup', form)
-                .then(res => console.log(res))
+                .then(res => {
+                    console.log(res);
+                    if(res.status===200){
+                        this.setState({
+                            signupSuccess: true
+                        })
+                    }else if(res.status===404){
+                        this.showFailure();
+                    }
+                    if(this.state.signupSuccess===true){
+                        console.log(this.refs);
+                        ReactDOM.findDOMNode(this.refs.success).style.right = '5%'
+                        ReactDOM.findDOMNode(this.refs.success).style.width = '40%'
+                    }
+                })
                 .catch(error => console.log(error))
 
     }
@@ -296,6 +351,19 @@ class Signup extends Component {
         })
     }
 
+    clickToLogin = () => {
+        history.goBack()
+    }
+
+    showFailure = () => {
+        document.getElementById('fail').style.right = '5%'
+        document.getElementById('fail').style.width = '40%'
+        document.getElementById('fail').style.padding = '20px'
+        window.setTimeout(function() {
+            document.getElementById('fail').remove()
+        }, 4000);
+    }
+
      colorOptions = [
         { value: '모르겠어요', label: '모르겠어요' },
         {
@@ -319,7 +387,6 @@ class Signup extends Component {
         console.log('signupprops', this.props);
         return (
             <Container>
-                
                 <SignupContainer> 
                 <IdWrapper> 
                     <IdImageDiv> 
@@ -368,11 +435,16 @@ class Signup extends Component {
                     value={this.state.colorSelected} />
                     </SkinWrapper>
                     <SignupButtonWrapper>
-                        <Signupbtn onClick={this.onSubmit.bind(this)}>Go to pick lips</Signupbtn>
+                        <Signupbtn onClick={()=>{this.onSubmit();}}>Go to pick lips</Signupbtn>
                     </SignupButtonWrapper>     
                 </SignupContainer>
                 <Bottom>
-                    <BttomImg src={bottom}/>
+                    {this.state.signupSuccess ?
+                    <Alert ref="success">
+                    Signup Success
+                    <Confirm onClick={this.clickToLogin}>Click here to Login</Confirm>
+                    </Alert> : <Failalert id='fail'> Fail To SignUp </Failalert>
+                    }
                 </Bottom>   
             </Container>
         )

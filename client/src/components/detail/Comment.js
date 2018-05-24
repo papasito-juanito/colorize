@@ -10,7 +10,8 @@ const Div = styled.div`
     display: flex;
     background-color: #F4F5F9;
 `;
-const review = true;
+
+const review = false;
 
 class Comment extends Component {
     constructor() {

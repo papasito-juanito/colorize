@@ -64,7 +64,7 @@ class MyInfo extends Component {
     constructor(){
         super()
         this.state = {
-
+          hasPhoto: true
         }
     }
 
@@ -92,13 +92,23 @@ class MyInfo extends Component {
             <Header>내 정보 수정</Header>
             <Table>
               <Row>
-                <Column>이메일</Column>
-                <Data>sudaseul@gmail.com</Data>
+                <Column>사진</Column>
+                <Data>{this.state.hasPhoto ? 'showmyphoto' : ''}<div><input type="file"/></div></Data>
               </Row>
               <Row>
                 <Column>이메일</Column>
                 <Data>sudaseul@gmail.com</Data>
               </Row>
+              <Row>
+                <Column>닉네임</Column>
+                <Data>립콜렉터9696
+                  <button type='button' style={{'margin-left': '15px'}}>닉네임 변경</button>
+                </Data>
+              </Row>
+              <Row>
+                <Column>피부타입</Column>
+                <Data><Dropdown options={this.colorOptions} placeholder="USER'S PERSONAL COLOR" /></Data>
+              </Row>              
               <Row>
                 <Column>비밀번호</Column>
                 <Data><Intable>
@@ -121,21 +131,16 @@ class MyInfo extends Component {
                 </Intable></Data>
               </Row>
               <Row>
-                <Column>닉네임</Column>
-                <Data>립콜렉터9696</Data>
+                <Column>성별</Column>
+                <Data>여자</Data>
               </Row>
               <Row>
-                <Column>피부타입</Column>
-                <Data><Dropdown options={this.colorOptions} placeholder="USER'S PERSONAL COLOR" /></Data>
+                <Column>생년월일</Column>
+                <Data>1990년 0월 00일</Data>
               </Row>
-              <Row>
-                <Column>이메일</Column>
-                <Data>sudaseul@gmail.com</Data>
-              </Row>
-              <Row>
-                <Column>이메일</Column>
-                <Data>sudaseul@gmail.com</Data>
-              </Row>
+
+
+
             </Table>
           </Container>
         )

@@ -1,3 +1,6 @@
+// Global import
+const jwt = require('jsonwebtoken');
+
 // Local import
 const model = require('../../models/users/post');
 const middleware = require('../../middlewares/hashPassword');

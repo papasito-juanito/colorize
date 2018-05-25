@@ -20,12 +20,12 @@ module.exports = {
   upload: (req, res) => {
     const imageFile = req.files.file;
   
-    imageFile.mv(`${__dirname}/public/reviews/${req.body.filename}.jpg`, (err) => {
+    imageFile.mv(`../client/src/assets/reviews/${req.body.filename}.jpg`, (err) => {
       if (err) {
         return res.status(500).send(err);
       }
   
-      res.json({file: `public/reviews/${req.body.filename}.jpg`});
+      res.json({file: `../client/src/assets/reviews/${req.body.filename}.jpg`});
     }); 
   }
 };

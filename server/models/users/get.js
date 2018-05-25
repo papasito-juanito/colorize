@@ -5,9 +5,5 @@ const sQuery = require('../../db/users/get');
 module.exports = {
   info: (params, cb) => {
     db.query(sQuery.info, params, (err, rows) => { cb(err, rows); })
-  },
-
-  login: (params, cb) => {
-    db.query(sQuery.login, params, (err, rows) => { cb(err, rows); })
   }
 };

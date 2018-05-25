@@ -4,6 +4,7 @@ const router = require('express').Router();
 // Local import
 const controller = require('../../controllers/users/post');
 
-router.post('/', controller);
+router.post('/signup', controller.signup);
+router.post('/login', controller.login);
 
 module.exports = router;

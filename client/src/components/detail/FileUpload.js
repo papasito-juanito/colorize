@@ -84,13 +84,14 @@ class FileUpload extends Component {
     }
 
     _fileUploadHandler(e) {
-        const token = localStorage.getItem('token')
+        // const token = localStorage.getItem('token')
         const formData = new FormData();
         formData.append('file', this.uploadInput.files[0]);
-        formData.append('filename', `${this.state.userID+':'+this.props.id}`);
+        formData.append('filename', `${this.props.id}_token`);
         // this.props.callback(`${this.state.userID + ':' + this.props.id}`)
 
-        axios.post(`${url}/api/review/post/upload`, formData, { headers: { 'token': token } })
+        axios.post(`${url}/api/review/post/upload`, formData)
+        // axios.post(`${url}/api/review/post/upload`, formData, { headers: { 'token': token } })
             .then((response) => {
             console.log(response);
             })

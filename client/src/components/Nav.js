@@ -23,10 +23,10 @@ const NavContatiner = styled.header`
 const Colorize = styled.div`
     margin: auto
     text-align: center;
-
 `
 
 const NavLink = styled(Link)`
+   
     font-size: 3rem
     &:visited {
         color: white;
@@ -157,7 +157,8 @@ class Nav extends Component {
         window.addEventListener('scroll',this.hideNav());
         axios.get(`${url}/api/user/get/check`)
         .then(res => {
-            if(res.data.result===true){
+            console.log('nav', res);
+            if(res.data.success){
                 this.setState({
                     isLogined: true
                 })

@@ -4,6 +4,8 @@ import Items from './Items'
 
 
 const WishList = () => {
+    const token = localStorage.getItem('token')
+    console.log(token);
     
     return (
         <div>

@@ -23,10 +23,10 @@ const NavContatiner = styled.header`
 const Colorize = styled.div`
     margin: auto
     text-align: center;
-
 `
 
 const NavLink = styled(Link)`
+   
     font-size: 3rem
     &:visited {
         color: white;

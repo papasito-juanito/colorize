@@ -28,7 +28,7 @@
   "scripts": {
     "init": "mysql -u root < server/db/utility/schema.sql",
     "fake": "mysql -u root < server/db/utility/fake.sql",
-    "server": "nodemon server/index.js"
+    "server": "nodemon server/index.js --ignore './client/'"
   },
   "devDependencies": {
     "eslint": "^4.19.1",

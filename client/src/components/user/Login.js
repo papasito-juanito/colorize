@@ -215,7 +215,7 @@ class Login extends Component {
 
     console.log('form', form);
     const api = axios.create({ baseURL: 'http://localhost:8080' })
-    api.post('/api/user/login', form)
+    api.post('/api/user/get/login', form)
         .then(res => {
             console.log(res); 
             this.props.handleLoginUser()   
@@ -258,7 +258,7 @@ class Login extends Component {
                         </PasswordWrapper>
                         <FindPassword> forgot password ? </FindPassword>
                         <LoginSignupButtonWrapper> 
-                            <Loginbtn onClick={this.clickToLogin.bind(this)}> Login </Loginbtn>
+                            <Loginbtn onClick={()=>{this.clickToLogin.bind(this);}}> Login </Loginbtn>
                             <Signupbtn href="/signup" style={{textDecoration: 'none'}}> SignUp </Signupbtn>
                             OR
                             <Facebook> Facebook </Facebook>

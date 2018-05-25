@@ -5,12 +5,16 @@ import lipImage from '../assets/lipImage.png';
 import { Link } from 'react-router-dom';
 import Login from './user/Login'
 
+import axios from 'axios';
+import { url } from '../config';
+
 const NavContatiner = styled.header`
     background-color: black;
     height: 10%;
     width: 100vw;
     top:0;
     z-index:1;
+    position: fixed
     display: flex;
     flex-direction: row;
     transition: top 0.3s;
@@ -91,6 +95,7 @@ const Overlay = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
+    z-index:1
     background-color: rgba(0,0,0,0.5);
     transition: 0.5s;
 `
@@ -148,8 +153,16 @@ class Nav extends Component {
         }
     }
 
-    componentDidMount(){
+    componentDidMount(){ 
         window.addEventListener('scroll',this.hideNav());
+        axios.get(`${url}/api/user/get/check`,{withCredentials: true})
+        .then(res => {
+            if(res.data.result===true){
+                this.setState({
+                    isLogined: true
+                })
+            }
+        })
     }
 
     render(){
@@ -170,7 +183,7 @@ class Nav extends Component {
                         <SideAnchor href="/myinfo">My Info</SideAnchor>
                         <SideAnchor href="/wishlist">Wish List</SideAnchor>
                         <SideAnchor href="/review">My Review</SideAnchor>
-                        <SideAnchor onClick={this.renderLogin.bind(this)}>{this.state.isLogined ? 'Logout' : 'Login'}</SideAnchor>
+                        <SideAnchor onClick={()=>{this.renderLogin(); this.closeNav()}}>{this.state.isLogined ? 'Logout' : 'Login'}</SideAnchor>
                     </SideNav>
                  </MenuWrapper>    
                 {this.state.loginClicked ? 

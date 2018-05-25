@@ -121,6 +121,7 @@ top: 21px;
 `
 
 class Content extends Component {
+    
     constructor(props) {
         super(props);
         this.state = {
@@ -128,7 +129,7 @@ class Content extends Component {
             like: false,
             popupIsOpen: false,
             imagepreviewUrl: '',
-            items: 3,
+            items: 1,
             loadingState: false
         }
 
@@ -168,6 +169,7 @@ class Content extends Component {
     }
 
     _displayItems() {
+        console.log('content',this.props);
         const data = this.props ? this.props.data : [];
         const items = [];
         for (var i = 0; i < this.state.items; i++) {
@@ -750,5 +752,3 @@ export default Content;
 // };
 
 // export default Content;
-
-

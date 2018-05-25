@@ -61,7 +61,7 @@ class Rating extends Component {
     }
 
     _clickReview() {
-        
+        const token = localStorage.getItem('token')
         const form = {
             color_id: this.props.id,
             reviewPhoto:1,
@@ -73,7 +73,7 @@ class Rating extends Component {
 
         // console.log(form)
         !logged ? alert('로그인 먼저해') :
-            axios.post(`${url}/api/review/post`, form)
+            axios.post(`${url}/api/review/post/message`, form, { headers: { 'token': token } })
                 // .then((response) => {
                 // console.log(response);
                 // })

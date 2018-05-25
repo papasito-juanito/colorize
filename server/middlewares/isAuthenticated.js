@@ -2,8 +2,8 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
-  var token = req.headers['x-access-token'] || req.query.token;
-	token = token.replace(/(\s*)/g, ""); // 공백제거;
+  var token = req.headers['x-access-token'] || req.headers.token;
+	// token = token.replace(/(\s*)/g, ""); // 공백제거;
 	if ( !token ) {
 		return res.status(403).json({
 			success : false,

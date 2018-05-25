@@ -20,11 +20,7 @@ module.exports = {
     const params = [color_id, reviewPhoto, reviewRating, user_id, reviewMessage];
     model(params, (err, rows) => {
       if (err) throw err;
-      else res.send({
-        login: req.session.userMail ? true : false,
-        review_id: req.body.review_id,
-        post: true
-      });
+      else res.send('posted');
     })
   },
 

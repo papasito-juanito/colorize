@@ -6,6 +6,7 @@ import lipImage from '../../assets/lipImage.png';
 import avatar from '../../assets/avatar.png';
 import lock from '../../assets/lock.png';
 import axios from 'axios';
+import { url } from '../../config';
 import history from '../../utils/history'
 
 const LoginContainer = styled.div`
@@ -212,14 +213,12 @@ class Login extends Component {
         userMail: this.email.value,
         userPassword: this.password.value
     }
-
     console.log('form', form);
-    const api = axios.create({ baseURL: 'http://localhost:8080' })
-    api.post('/api/user/get/login', form)
+    axios.post(`${url}/api/user/get/login`, form)
         .then(res => {
-            console.log(res); 
-            // this.props.handleLoginUser()   
-            if(res.status===200){
+            console.log(res);  
+            if(res.data.result===true){
+                this.props.handleLoginUser()  
                 this.closeModal()        
                 history.push(history.location.pathname)
         }})

@@ -30,6 +30,7 @@ const Container = styled.div`
     margin: 1% auto;
 
 `
+
 const ReviewImage = styled.img`
     margin: 1vh 0 1vh 1vw;
     width: 20%;
@@ -51,7 +52,8 @@ const ReviewContent = styled.div`
 `
 
 const Message = styled.textarea`
-    border: 2px solid #ccc;
+    border: none;
+    margin:1%;
     resize: none;
     width: 95%;
     height: 12vh;
@@ -81,7 +83,42 @@ const UserDiv = styled.div`
     height: 30%;
     border-radius:50%;
 `
+const Bubble = styled.div`
+position: relative;
+width: 98%;
+height: 14vh;
+padding: 0px;
+background: #FFFFFF;
+-webkit-border-radius: 17px;
+-moz-border-radius: 17px;
+border-radius: 17px;
+border: #7F7F7F solid 3px;
 
+    &::before {
+content: '';
+position: absolute;
+border-style: solid;
+border-width: 17px 17px 17px 0;
+border-color: transparent #7F7F7F;
+display: block;
+width: 0;
+z-index: 0;
+left: -20px;
+top: 19px;
+    }
+    &::after {
+content: '';
+position: absolute;
+border-style: solid;
+border-width: 15px 15px 15px 0;
+border-color: transparent #FFFFFF;
+display: block;
+width: 0;
+z-index: 1;
+left: -15px;
+top: 21px;
+    }
+`
 
 class Content extends Component {
     constructor(props) {
@@ -113,6 +150,7 @@ class Content extends Component {
     _reviewLike = function () {
         this.setState({ like: !this.state.like })
         !this.state.like ? this.setState({ likecount: this.state.likeCount++ }) : this.setState({ likecount: this.state.likeCount-- })
+        //누르면 개별 likes 올라가고 토글 개별로 되게 
     }
     _openPopup(e) {
         this.setState({
@@ -140,7 +178,7 @@ class Content extends Component {
                     <Info >
                         <UserDiv > <img alt='user' /></UserDiv>
                         {/* 유저 이미지 여기서 받아와서 삽입 */}
-                        <div>{data[i].user}</div>
+                        <div>{data[i].name}</div>
                         <div>{data[i].age}, {data[i].tone}</div>
                         <div>
                             <StarRatingComponent
@@ -152,7 +190,9 @@ class Content extends Component {
                     </Info >
                     <ReviewContent >
                         <div style={{ textAlign: 'center' }}>
-                            {this.state.editing ? <Message readOnly>{data[i].message}</Message> : <Message>{data[i].message}</Message>}
+                            <Bubble><Message readOnly>{data[i].message}</Message> </Bubble>
+                            {/* {this.state.editing ? <Message readOnly>{data[i].message}</Message> : <Message>{data[i].message}</Message>} */}
+                            {/* 윗코드는 내 리뷰 할때만 필요 */}
                         </div>
                         <BottomContainer >
                             <LikeCount>
@@ -189,10 +229,6 @@ class Content extends Component {
     }
 
     render() {
-        console.log('rerender!!!@!@!@')
-        console.log('this.props.data.length :', this.props.data.length)
-        console.log('this.state.items :', this.state.items)
-
         let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
 
         return (

@@ -38,47 +38,12 @@ module.exports = {
         middleware(req.body.userPassword, rows[0].userPassword)
         .then(boolean => {
           if (boolean) { 
-
-            const promise = new Promise( (resolve, reject) => {
-              jwt.sign( 
-                {
-                  // _id      : user.id,
-                  userMail : req.body.userMail
-                  // admin    : user.admin
-                },
-                secret,
-                {
-                  expiresIn : '1d',
-                  issuer    : 'colorize.io',
-                  subject   : 'userInfo'
-                },
-                (err, token) => {
-                  if (err) reject(err);
-                  resolve(token);
-                }
-              );
-            });
-            return promise;
-            const respond = (token) => {
-              res.render(
-                'login_ok',
-                {
-                  'token' : token,
-                  'token_arr' : token.split('.')
-                }
-              );
-            };
-          
-            const onError = (error) => {
-              res.status(403).json({
-                message : error.message
-              });
-            };
-          
-            Users.findOneByUsername(username)
-            .then(check)
-            .then(respond)
-            .catch(onError);
+            const token = jwt.sign({
+              userMail: req.body.userMail
+          }, 'jwt-secret', {
+              expiresIn: 24 * 60 * 60
+          });
+          res.send({'token': token});
           }
           else res.send(
             {'result': false, 'message': 'invalid password'})

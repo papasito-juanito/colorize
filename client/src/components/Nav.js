@@ -155,7 +155,7 @@ class Nav extends Component {
 
     componentDidMount(){ 
         window.addEventListener('scroll',this.hideNav());
-        axios.get(`${url}/api/user/get/check`, {withCredentials: true})
+        axios.get(`${url}/api/user/get/check`)
         .then(res => {
             if(res.data.result===true){
                 this.setState({
@@ -166,7 +166,7 @@ class Nav extends Component {
     }
 
     render(){
-        console.log('loginclicked', this.state.loginClicked);
+        console.log('logined', this.state.isLogined);
         return (        
             <NavContatiner id="navbar">
             <Overlay ref='overlay' onClick={this.closeNav}/>
@@ -188,7 +188,7 @@ class Nav extends Component {
                         <SideAnchor onClick={()=>{this.renderLogin(); this.closeNav()}}>Logout</SideAnchor>
                     </SideNav> :
                     <SideNav ref="mySidenav" >
-                        <SideClose onClick={()=>{this.renderLogin(); this.closeNav()}}>&times;</SideClose>
+                        <SideClose onClick={()=>{this.closeNav()}}>&times;</SideClose>
                         <SideAnchor onClick={()=>{this.renderLogin(); this.closeNav()}}>My Info</SideAnchor>
                         <SideAnchor onClick={()=>{this.renderLogin(); this.closeNav()}}>Wish List</SideAnchor>
                         <SideAnchor onClick={()=>{this.renderLogin(); this.closeNav()}}>My Review</SideAnchor>

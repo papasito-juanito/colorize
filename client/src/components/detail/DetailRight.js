@@ -64,7 +64,7 @@ class DetailRight extends Component {
             //     console.log(response.data);
             //   })
             .then(response => this.setState({
-                data: response.data.result
+                data: response.data
             }))
             .catch(err => console.log(err));
     }

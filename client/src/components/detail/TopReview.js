@@ -24,7 +24,7 @@ class TopReview extends Component {
             // .then((response) => {
             //     console.log(response);
             // })
-            .then(response => this.setState({ topReview: response.data.result }))
+            .then(response => this.setState({ topReview: response.data }))
             .catch(err => console.log(err));
     }
 

@@ -218,7 +218,7 @@ class Login extends Component {
     api.post('/api/user/get/login', form)
         .then(res => {
             console.log(res); 
-            this.props.handleLoginUser()   
+            // this.props.handleLoginUser()   
             if(res.status===200){
                 this.closeModal()        
                 history.push(history.location.pathname)
@@ -258,7 +258,7 @@ class Login extends Component {
                         </PasswordWrapper>
                         <FindPassword> forgot password ? </FindPassword>
                         <LoginSignupButtonWrapper> 
-                            <Loginbtn onClick={()=>{this.clickToLogin.bind(this);}}> Login </Loginbtn>
+                            <Loginbtn onClick={this.clickToLogin.bind(this)}> Login </Loginbtn>
                             <Signupbtn href="/signup" style={{textDecoration: 'none'}}> SignUp </Signupbtn>
                             OR
                             <Facebook> Facebook </Facebook>

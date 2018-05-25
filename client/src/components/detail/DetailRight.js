@@ -58,12 +58,13 @@ class DetailRight extends Component {
 
     componentDidMount() {
         // axios.get(`${url}/api/item/rate?color_id=${this.props.match.params.id}`)
+        console.log(this.detail.offsetHeight)
         axios.get(`${url}/api/item/get/rate?color_id=${this.props.id}`)
             // .then((response) => {
             //     console.log(response.data);
             //   })
             .then(response => this.setState({
-                data: response.data.result
+                data: response.data
             }))
             .catch(err => console.log(err));
     }
@@ -84,14 +85,19 @@ class DetailRight extends Component {
 
 
     render() {
+        console.log(this.refs.detail)
+        console.log(this.props.data)
+ 
+
         return ( 
             <Wrapper>
-                <DetailDiv>
-                    <div> 상품명: {this.props.data ? this.props.data[0].name : null} </div> 
+                <DetailDiv innerRef={ref => { this.detail = ref; }}>
+                    <div ref='hihi'> 상품명: {this.props.data ? this.props.data[0].name : null} </div> 
+                    <div> 색깔: {this.props.data ? this.props.data[0].color : null} </div> 
                     <div> 가격: < NumberFormat value = {this.props.data ? this.props.data[0].price : 0} displayType = "text" thousandSeparator={true} suffix = "원" /> < br/></div>
                     <LinesEllipsis
                         text= {`제품 정보: ${this.props.data ? this.props.data[0].description : null}`} 
-                        maxLine='15'
+                        maxLine= "15"
                         ellipsis={<span style={{cursor: 'pointer'}}onClick={this._openPopup}>{ ' ...전체보기...'}</span>}
                         trimRight
                         basedOn='words'

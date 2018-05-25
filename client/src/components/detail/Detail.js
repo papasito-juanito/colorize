@@ -32,16 +32,61 @@ const ReviewDiv = styled.div`
 
 const HomeButton = styled.button`
     position: fixed;
+    background-color:black;
+    color: white;
+    border: none;
     right:1%;
     bottom:1%;
+    opacity: 1;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    &:hover {
+    opacity: 0.3;
+    border: none;
+  }
 `
+
+const Arrow = styled.i`
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 6%;
+`
+
+
+
+const scrollStepInPx = 50;
+
+const delayInMs = 10;
+
 
 class Detail extends Component {
     constructor(){
         super()
         this.state = {
-            data: ''
+            data: '',
+            intervalId : 0
         }
+
+        this.scrollStep = this.scrollStep.bind(this);
+        this.scrollToTop = this.scrollToTop.bind(this);
+    }
+
+    scrollStep() {
+        if (window.pageYOffset === 0) {
+            clearInterval(this.state.intervalId);
+        }
+        window.scroll(0, window.pageYOffset - scrollStepInPx);
+    }
+
+    scrollToTop() {
+        let intervalId = setInterval(this.scrollStep, delayInMs);
+        this.setState({ intervalId: intervalId });
     }
 
     componentDidMount(){
@@ -68,7 +113,7 @@ class Detail extends Component {
                 <ReviewDiv>
                     <AllReview id={this.props.match.params.id} data={this.state.reviewData}/>
                 </ReviewDiv>
-                <HomeButton> TOP </HomeButton>
+                <HomeButton onClick={this.scrollToTop}><Arrow/><br/> Top </HomeButton>
         </div>
         )
     }

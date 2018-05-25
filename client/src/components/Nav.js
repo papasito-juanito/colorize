@@ -155,7 +155,7 @@ class Nav extends Component {
 
     componentDidMount(){ 
         window.addEventListener('scroll',this.hideNav());
-        axios.get(`${url}/api/user/get/check`,{withCredentials: true})
+        axios.get(`${url}/api/user/get/check`, {withCredentials: true})
         .then(res => {
             if(res.data.result===true){
                 this.setState({
@@ -177,14 +177,23 @@ class Nav extends Component {
                  <MenuWrapper>
                  <Menu onClick={this.openNav} >
                     &#9776;
-                 </Menu>     
+                 </Menu>
+                    {this.state.isLogined ? 
                     <SideNav ref="mySidenav" >
                         <SideClose href="javascript:void(0)" onClick={this.closeNav}>&times;</SideClose>
                         <SideAnchor href="/myinfo">My Info</SideAnchor>
                         <SideAnchor href="/wishlist">Wish List</SideAnchor>
                         <SideAnchor href="/review">My Review</SideAnchor>
-                        <SideAnchor onClick={()=>{this.renderLogin(); this.closeNav()}}>{this.state.isLogined ? 'Logout' : 'Login'}</SideAnchor>
+                        <SideAnchor onClick={()=>{this.renderLogin(); this.closeNav()}}>Logout</SideAnchor>
+                    </SideNav> :
+                    <SideNav ref="mySidenav" >
+                        <SideClose onClick={()=>{this.renderLogin(); this.closeNav()}}>&times;</SideClose>
+                        <SideAnchor onClick={()=>{this.renderLogin(); this.closeNav()}}>My Info</SideAnchor>
+                        <SideAnchor onClick={()=>{this.renderLogin(); this.closeNav()}}>Wish List</SideAnchor>
+                        <SideAnchor onClick={()=>{this.renderLogin(); this.closeNav()}}>My Review</SideAnchor>
+                        <SideAnchor onClick={()=>{this.renderLogin(); this.closeNav()}}>Login</SideAnchor>
                     </SideNav>
+                    }     
                  </MenuWrapper>    
                 {this.state.loginClicked ? 
                 <Login renderLogin={this.renderLogin} 

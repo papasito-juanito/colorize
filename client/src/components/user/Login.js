@@ -258,7 +258,7 @@ class Login extends Component {
                         </PasswordWrapper>
                         <FindPassword> forgot password ? </FindPassword>
                         <LoginSignupButtonWrapper> 
-                            <Loginbtn onClick={()=>{this.clickToLogin.bind(this);}}> Login </Loginbtn>
+                            <Loginbtn onClick={this.clickToLogin.bind(this)}> Login </Loginbtn>
                             <Signupbtn href="/signup" style={{textDecoration: 'none'}}> SignUp </Signupbtn>
                             OR
                             <Facebook> Facebook </Facebook>

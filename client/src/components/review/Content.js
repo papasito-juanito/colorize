@@ -128,7 +128,7 @@ class Content extends Component {
             like: false,
             popupIsOpen: false,
             imagepreviewUrl: '',
-            items: 3,
+            items: this.props.data.length < 3 ? this.props.data.length : 3,
             loadingState: false
         }
 
@@ -168,15 +168,8 @@ class Content extends Component {
     }
 
     _displayItems() {
-
-
         const data = this.props ? this.props.data : [];
         const items = [];
-        console.log(data.length)
-        console.log(this.state.items)
-          
-        // data.length < this.state.items ? this.setState({items : data.length}) : null;
-        
         for (var i = 0; i < this.state.items; i++) {
            items.push(
                 <Container key={i}>
@@ -221,19 +214,6 @@ class Content extends Component {
             }, 3000)
     }
 
-    // componentDidUpdate(prevProps, prevState){
-    //     console.log('will update!!!!!!!!!!!!!!!!!!!!!!!')
-    //     console.log(prevProps); 
-    //     console.log(prevState)
-
-
-
-    //     if (prevProps.data.length < prevState.items) {
-    //         console.log('@@#@#@#@#@#@')
-    //         this.setState({ items: prevProps.data.length})
-    //     }
-    //     console.log(this.state.items)
-    // }
      
     componentDidMount() {
         this.state.items !== this.props.data.length ? window.addEventListener("scroll", () => {  

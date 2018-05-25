@@ -214,7 +214,7 @@ class Login extends Component {
         userPassword: this.password.value
     }
     console.log('form', form);
-    axios.post(`${url}/api/user/get/login`, form)
+    axios.post(`${url}/api/user/post/login`, form)
         .then(res => {
             console.log('login', res);  
             if(res.data.token){

@@ -168,10 +168,17 @@ class Content extends Component {
     }
 
     _displayItems() {
+
+
         const data = this.props ? this.props.data : [];
         const items = [];
+        console.log(data.length)
+        console.log(this.state.items)
+          
+        // data.length < this.state.items ? this.setState({items : data.length}) : null;
+        
         for (var i = 0; i < this.state.items; i++) {
-            data.length ? items.push(
+           items.push(
                 <Container key={i}>
                     <ReviewImage onClick={this._openPopup} />
                     {/* <ReviewImage onClick={this._openPopup} src={require(`../public/user/${this.props.파람스매치랑 유저아이디이용}.jpg`)} /> */}
@@ -202,7 +209,7 @@ class Content extends Component {
                         </BottomContainer>
                     </ReviewContent >
                 </Container>
-            ) : null
+            )
         }
         return items;
     }
@@ -213,13 +220,29 @@ class Content extends Component {
                 this.setState({items: this.state.items + 2, loadingState: false });
             }, 3000)
     }
+
+    // componentDidUpdate(prevProps, prevState){
+    //     console.log('will update!!!!!!!!!!!!!!!!!!!!!!!')
+    //     console.log(prevProps); 
+    //     console.log(prevState)
+
+
+
+    //     if (prevProps.data.length < prevState.items) {
+    //         console.log('@@#@#@#@#@#@')
+    //         this.setState({ items: prevProps.data.length})
+    //     }
+    //     console.log(this.state.items)
+    // }
      
     componentDidMount() {
         this.state.items !== this.props.data.length ? window.addEventListener("scroll", () => {  
             if (document.body.scrollTop + document.body.clientHeight >= document.body.scrollHeight ){
              this._loadMoreItems() 
             }
-        }) : window.removeEventListener("scroll", this._loadMoreItems() )  ;
+        }) : window.removeEventListener("scroll", this._loadMoreItems());
+
+       
     }
 
     componentWillUpdate(nextProps, nextState){

@@ -42,9 +42,9 @@ module.exports = {
             const promise = new Promise( (resolve, reject) => {
               jwt.sign( 
                 {
-                  _id      : user.id,
-                  username : username,
-                  admin    : user.admin
+                  // _id      : user.id,
+                  userMail : req.body.userMail
+                  // admin    : user.admin
                 },
                 secret,
                 {

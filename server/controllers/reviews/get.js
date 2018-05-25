@@ -3,7 +3,7 @@ const model = require('../../models/reviews/get');
 
 module.exports = {
   info: (req, res) => {  
-    model.info(req.query.user_id, (err, rows) => {
+    model.info((req.session.userMail || 'invalid access'), (err, rows) => {
       if (err) throw err;
       else res.send({
         login: req.session.userMail ? true : false, 
@@ -23,7 +23,7 @@ module.exports = {
   },
 
   rank: (req, res) => {
-    model.rate(req.query.color_id, (err, rows) => {
+    model.rank((req.query.color_id || 'invalid access'), (err, rows) => {
       if (err) throw err;
       else res.send({
         login: req.session.userMail ? true : false, 
@@ -33,7 +33,7 @@ module.exports = {
   },
 
   user: (req, res) => {
-    model.rate(req.query.user_id, (err, rows) => {
+    model.user((req.session.userMail || 'invalid access'), (err, rows) => {
       if (err) throw err;
       else res.send({
         login: req.session.userMail ? true : false, 

@@ -91,7 +91,7 @@ class HomeColor extends Component {
     this.colorGroup = this.props.colorGroup;
     console.log(this.state.cells);
     return (
-      <div className="HomeColor" style={{ backgroundColor:'white', margin:'5% 2% 2% 2%', width:'100%', heigth:'100%'}}>
+      <div className="HomeColor" style={{ backgroundColor:'white', margin:'2% 2% 2% 2%', width:'100%', heigth:'100%'}}>
         <div style={{ margin:'5% 5% 3% 5%'}}>
         <TableDragSelect style={{marginLeft:'auto', marginRight:'auto'}} value={this.state.cells} onChange={this.handleChange}>
           <tr>

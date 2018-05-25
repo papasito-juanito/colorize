@@ -74,6 +74,10 @@ tag에서 onscroll이 안먹는다.
     }
 디드마운트에서 실행하니 된다
 
+***
+#2018-05-23
+axios set cookie문제
+
 
 
 

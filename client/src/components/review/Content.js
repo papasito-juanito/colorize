@@ -88,12 +88,6 @@ class Content extends Component {
         super(props);
         this.state = {
             editing: true,
-            message: '글이나오고 글이나오고 글이나오고',
-            likeCount: 100,
-            id: 'wonbok1213',
-            age: 32,
-            skin: '지성',
-            rating: 3,
             like: false,
             popupIsOpen: false,
             imagepreviewUrl: '',
@@ -101,15 +95,13 @@ class Content extends Component {
             loadingState: false
         }
 
-
-
         this._openPopup = this._openPopup.bind(this);
         this._afterOpenPopup = this._afterOpenPopup.bind(this);
         this._closePopup = this._closePopup.bind(this);
         this._handleModify = this._handleModify.bind(this);
         this._reviewLike = this._reviewLike.bind(this);
-        this.displayItems = this.displayItems.bind(this);
-        this.loadMoreItems = this.loadMoreItems.bind(this)
+        this._displayItems = this._displayItems.bind(this);
+        this._loadMoreItems = this._loadMoreItems.bind(this)
     }
 
     _handleModify = function () {
@@ -137,10 +129,9 @@ class Content extends Component {
         this.setState({ popupIsOpen: false });
     }
 
-    displayItems() {
+    _displayItems() {
         const data = this.props ? this.props.data : [];
         const items = [];
-        // console.log(data)
         for (var i = 0; i < this.state.items; i++) {
             data.length ? items.push(
                 <Container key={i}>
@@ -176,71 +167,37 @@ class Content extends Component {
         return items;
     }
 
-    loadMoreItems() {
-        this.setState({ loadingState: true });
-        setTimeout(() => {
-            this.setState({ items: this.state.items + 1, loadingState: false });
-        }, 3000);
+    _loadMoreItems() {
+        this.state.items !== this.props.data.length ? this.setState({ loadingState: true }) : null;
+            setTimeout( () => {
+                this.setState({items: this.state.items + 2, loadingState: false });
+            }, 3000)
     }
-    
-
-    // componentDidMount() {
-    //     console.log(2);
-    //     this.refs.iScroll.addEventListener("scroll", () => {
-    //         console.log(1);
-            // var scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
-            // var scrollHeight = (document.documentElement && document.documentElement.scrollHeight) || document.body.scrollHeight;
-            // var clientHeight = document.documentElement.clientHeight || window.innerHeight;
-            // var scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
-
-
-            // if (this.refs.iScroll.scrollTop + this.refs.iScroll.clientHeight >= this.refs.iScroll.scrollHeight) {
-                // if(scrolledToBottom){
-        // console.log(this.refs.iScroll.scrollTop)
-        // console.log(this.refs.iScroll.clientHeight)
-        // console.log(this.refs.iScroll.scrollHeight)
-        // console.log(this.refs.iScroll)
-
-
-            // this.loadMoreItems();
-                    // console.log(scrollTop);
-                    // console.log(clientHeight)
-                    // console.log(scrollHeight)
-    //         }
-    //     });
-    // }
- 
+     
     componentDidMount() {
-        console.log(1)
-        console.log(this.props.reviewScroll)
-        window.addEventListener("scroll", () => {
-                console.log(2);
-            console.log(document.body.scrollTop)
-            console.log(document.body.clientHeight)
-            console.log(document.body.scrollHeight)
-            if (document.body.scrollTop + document.body.clientHeight >= document.body.scrollHeight && this.state.items) {
-                console.log(3);
-                // console.log(this.refs.iScroll.scrollTop)
-                // console.log(this.refs.iScroll.clientHeight)
-                // console.log(this.refs.iScroll.scrollHeight)
-                this.loadMoreItems();
+        this.state.items !== this.props.data.length ? window.addEventListener("scroll", () => {  
+            if (document.body.scrollTop + document.body.clientHeight >= document.body.scrollHeight ){
+             this._loadMoreItems() 
             }
-        });
+        }) : window.removeEventListener("scroll", this._loadMoreItems() )  ;
     }
-    
+
+    componentWillUpdate(nextProps, nextState){
+        if(nextState.items> this.props.data.length)  {
+            return nextState.items = this.props.data.length;
+        }
+    }
+
     render() {
         console.log('rerender!!!@!@!@')
-        console.log(this.props.data.length)
-        // console.log(this.state.loadingState)
-        // console.log(this.props.data)
-        // console.log(this.refs.iScroll)
-        // console.log(document.body.scrollTop)
+        console.log('this.props.data.length :', this.props.data.length)
+        console.log('this.state.items :', this.state.items)
+
         let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
 
         return (
-            <div style={{ width: '100%'}}  >
-
-                {this.displayItems()}
+            <div style={{ width: '100%'}} ref ='iScroll' >
+                {this._displayItems()}
                 {this.state.loadingState ? <p className="loading"> loading More Items..</p> : ""}
 
                 <Modal

@@ -30,6 +30,12 @@ const ReviewDiv = styled.div`
      width: 80vw;
 `
 
+const HomeButton = styled.button`
+    position: fixed;
+    right:1%;
+    bottom:1%;
+`
+
 class Detail extends Component {
     constructor(){
         super()
@@ -47,7 +53,7 @@ class Detail extends Component {
     render(){
         console.log(this.state.data)
         return (
-            <div style={{ backgroundColor:'#F4F5F9', padding:'1% 0 0 0'}}>
+            <div style={{ backgroundColor:'#F4F5F9', padding:'1% 0 1% 0'}}>
                 <Wrapper>
                     <DetailLeft data={this.state.data}/>
                     <DetailRight data={this.state.data} id = {this.props.match.params.id}/>
@@ -61,6 +67,7 @@ class Detail extends Component {
                 <ReviewDiv>
                     <AllReview id={this.props.match.params.id} data={this.state.reviewData}/>
                 </ReviewDiv>
+                <HomeButton> TOP </HomeButton>
         </div>
         )
     }

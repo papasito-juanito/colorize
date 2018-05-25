@@ -41,7 +41,7 @@ module.exports = {
             const token = jwt.sign({
               userMail: req.body.userMail
           }, 'jwt-secret', {
-              expiresIn: 24 * 60 * 60
+              expiresIn: 60 * 60
           });
           res.send({'token': token});
           }

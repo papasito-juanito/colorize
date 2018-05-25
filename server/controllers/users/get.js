@@ -21,15 +21,15 @@ module.exports = {
 
   login: (req, res) => {
     db.query(`SELECT id,userPassword FROM users WHERE userMail=
-    "${req.query.userMail}";`, (err, rows) => {
+    "${req.body.userMail}";`, (err, rows) => {
       if (err) throw err;
       else if (!rows.length) res.send(
         {'result': false, 'message': 'invalid usermail'})
       else {
-        middleware(req.query.userPassword, rows[0].userPassword)
+        middleware(req.body.userPassword, rows[0].userPassword)
         .then(boolean => {
           if (boolean) { 
-            req.session.userMail = req.query.userMail;
+            req.session.userMail = req.body.userMail;
             res.send(
               {'result': true, 'userMail': req.session.userMail});
           }

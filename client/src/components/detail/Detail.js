@@ -53,7 +53,8 @@ class Detail extends Component {
     render(){
         console.log(this.state.data)
         return (
-            <div style={{ backgroundColor:'#F4F5F9', padding:'1% 0 1% 0'}}>
+            <div style={{ backgroundColor:'#F4F5F9', padding:'1% 0 1% 0', fontFamily: "Nanum Gothic"
+}}>
                 <Wrapper>
                     <DetailLeft data={this.state.data}/>
                     <DetailRight data={this.state.data} id = {this.props.match.params.id}/>

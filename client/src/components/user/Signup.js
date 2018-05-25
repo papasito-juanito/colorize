@@ -23,7 +23,7 @@ const Container = styled.div`
     align-item: stretch;
     margin-top:10%;
     margin-left: 5%
-    
+    font-family: Nanum Gothic;
 `
 
 const SignupContainer = styled.div`
@@ -31,14 +31,6 @@ const SignupContainer = styled.div`
     width : 40vw;
     margin: 0 auto;
 	position: relative
-`
-
-const IdWrapper = styled.div`
-    border: 2px solid #ddd;
-    display: flex;
-    flex-direction: row
-    height: 10%;
-    
 `
 
 const IdImageDiv = styled.div`
@@ -56,19 +48,9 @@ const IdImage = styled.img`
 const IdInput = styled.input`
     letter-spacing: 2px;
     font-size: 1rem%; 
-    width: 80%;
-    height: 90%
 `
 const InvalidId = styled.div`
     color:red
-`
-
-const PasswordWrapper = styled.div`
-    border: 2px solid #ddd;
-    display: flex;
-    flex-direction: row
-    height: 10%;
-    
 `
 
 const PasswordImageDiv = styled.div`
@@ -85,19 +67,10 @@ const PasswordImage = styled.img`
 
 const PasswordInput = styled.input`
     letter-spacing: 2px;
-    font-size: 1rem%; 
-    width: 80%;
-    height: 90%
+    font-size: 1rem%;
 `
 const InvalidPassword = styled.div`
     color:red
-`
-const NicknameWrapper = styled.div`
-    border: 2px solid #ddd;
-    display: flex;
-    flex-direction: row
-    height: 10%;
-    
 `
 
 const NicknameImageDiv = styled.div`
@@ -115,19 +88,11 @@ const NicknameImage = styled.img`
 const NicknameInput = styled.input`
     letter-spacing: 2px;
     font-size: 1rem%; 
-    width: 80%;
-    height: 90%
 `
 const InvalidNickname = styled.div`
     color:red
 `
-const BirthdateWrapper = styled.div`
-    border: 2px solid #ddd;
-    display: flex;
-    flex-direction: row
-    height: 10%;
-    
-`
+
 const BirthdateImageDiv = styled.div`
     border: 2px solid #ddd;
     width: 10%
@@ -143,18 +108,9 @@ const BirthdateImage = styled.img`
 const BirthdateInput = styled.input`
     letter-spacing: 2px;
     font-size: 1rem%; 
-    width: 80%;
-    height: 90%
 `
 const InvalidBirthdate = styled.div`
     color:red
-`
-
-const GenderWrapper = styled.div`
-    border: 2px solid #ddd;
-    display: flex;
-    flex-direction: row
-    height: 10%;
 `
 
 const GenderImageDiv = styled.div`
@@ -175,13 +131,6 @@ const MaleInput = styled.input`
 const FemaleInput = styled.input`
 
 `
-const SkinWrapper = styled.div`
-    border: 2px solid #ddd;
-    display: flex;
-    flex-direction: row
-    height: 10%;
-    
-`
 const SkinImageDiv = styled.div`
     border: 2px solid #ddd;
     width: 10%
@@ -193,14 +142,8 @@ const SkinImage = styled.img`
     height: auto;
     max-width: 100%;
 `
-const SignupButtonWrapper = styled.div`
-    border: 2px solid #ddd;
-    display: flex;
-    flex-direction: column
-    text-align: center;
-`
+
 const Signupbtn = styled.div`
-    height: 40%
     border: none;
     background-color: black;
     color: white;
@@ -392,56 +335,29 @@ class Signup extends Component {
     render() {
         return (
             <Container>
-                <SignupContainer> 
-                    <IdWrapper> 
-                        <IdImageDiv> 
-                        <IdImage src={mail}/> 
-                        </IdImageDiv>
-                        <IdInput 
-                        onChange={this.onChangeEmial.bind(this)} innerRef={ref => { this.email = ref; }} placeholder="abc@email.com"/> 
-                    </IdWrapper>
-                        {this.state.isValidEmail ? null : <InvalidId>Invalid Type</InvalidId>}
-                    <PasswordWrapper> 
-                        <PasswordImageDiv> 
-                        <PasswordImage src={lock}/> 
-                        </PasswordImageDiv>
-                        <PasswordInput type="password"
-                        onChange={this.onChangePassword.bind(this)} innerRef={ref => { this.password = ref; }} placeholder="Enter Your Password"/> 
-                    </PasswordWrapper>
-                        {this.state.isValidPassword ? null : <InvalidPassword>5~10 letters</InvalidPassword>}  
-                    <NicknameWrapper> 
-                        <NicknameImageDiv> 
-                        <NicknameImage src={nickname}/> 
-                        </NicknameImageDiv>
-                        <NicknameInput
-                        onChange={this.onChangeNickname.bind(this)} innerRef={ref => { this.nickname = ref; }} placeholder="Enter Your Nickname"/> 
-                    </NicknameWrapper>
-                        {this.state.isValidNickname ? null : <InvalidNickname>5~10 letters</InvalidNickname>}
-                    <BirthdateWrapper> 
-                        <BirthdateImageDiv> 
-                        <BirthdateImage src={birthdate}/> 
-                        </BirthdateImageDiv>
-                        <BirthdateInput
-                        onBlur = {this.onBirthdate.bind(this)}
-                        required type='date'innerRef={ref => { this.date = ref; }}/> 
-                    </BirthdateWrapper>
-                    <GenderWrapper>
-                        <GenderImageDiv> 
-                        <GenderImage src={gender}/> 
-                        </GenderImageDiv>
-                        <MaleInput name="gender" onChange={this.onSelectedGender.bind(this)} type="radio" value="male"/> Male 
-                        <FemaleInput name="gender" onChange={this.onSelectedGender.bind(this)} type="radio" value="female"/> Female 
-                    </GenderWrapper>
-                    <SkinWrapper>
-                        <SkinImageDiv> 
-                        <SkinImage src={skin}/> 
-                        </SkinImageDiv>
-                        <Dropdown options={this.colorOptions} onChange={this.onColorSelect.bind(this)} placeholder="Select your color"
-                        value={this.state.colorSelected} />
-                    </SkinWrapper>
-                        <SignupButtonWrapper>
-                            <Signupbtn onClick={this.onSubmit}>Go to pick lips</Signupbtn>
-                    </SignupButtonWrapper>     
+                <SignupContainer>
+                    이메일 주소
+                    <br/>
+                    <IdInput 
+                    onChange={this.onChangeEmial.bind(this)} innerRef={ref => { this.email = ref; }} placeholder="abc@email.com"/> 
+                    {this.state.isValidEmail ? null : <InvalidId>Invalid Type</InvalidId>}
+                    <br/>
+                    <PasswordInput type="password"
+                    onChange={this.onChangePassword.bind(this)} innerRef={ref => { this.password = ref; }} placeholder="Enter Your Password"/> 
+                    {this.state.isValidPassword ? null : <InvalidPassword>5~10 letters</InvalidPassword>}  
+                    <br/>
+                    <NicknameInput
+                    onChange={this.onChangeNickname.bind(this)} innerRef={ref => { this.nickname = ref; }} placeholder="Enter Your Nickname"/> 
+                    {this.state.isValidNickname ? null : <InvalidNickname>5~10 letters</InvalidNickname>}
+                    <br/>
+                    <BirthdateInput
+                    onBlur = {this.onBirthdate.bind(this)}
+                    required type='date'innerRef={ref => { this.date = ref; }}/> 
+                    <FemaleInput name="gender" onChange={this.onSelectedGender.bind(this)} type="radio" value="female"/> 여자 
+                    <MaleInput name="gender" onChange={this.onSelectedGender.bind(this)} type="radio" value="male"/> 남자 
+                    <Dropdown options={this.colorOptions} onChange={this.onColorSelect.bind(this)} placeholder="Select your color"
+                    value={this.state.colorSelected} />
+                        <Signupbtn onClick={this.onSubmit}>Colorize yourself</Signupbtn>
                 </SignupContainer>
                 <Bottom>
                     {this.state.signupSuccess ?

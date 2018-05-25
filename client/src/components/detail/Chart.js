@@ -75,7 +75,7 @@ class Chart extends Component {
     }
 
     render() {
-
+        console.log(this.props.data)
         const data = {
             labels: ['5점', '4점', '3점', '2점', '1점'],
             datasets: [

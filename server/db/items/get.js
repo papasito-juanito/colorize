@@ -30,6 +30,6 @@ SELECT AVG(reviewRating) avg, COUNT(id) total,
   COUNT(CASE WHEN reviewRating='4' THEN 1 END) ssss,
   COUNT(CASE WHEN reviewRating='5' THEN 1 END) sssss
 FROM reviews
-WHERE itemColors_id=2;
+WHERE itemColors_id=?;
   `
 };

@@ -64,7 +64,7 @@ class Rating extends Component {
         const token = localStorage.getItem('token')
         const form = {
             color_id: this.props.id,
-            reviewPhoto: `${this.props.id}_${token}`,
+            reviewPhoto: `${this.props.id}_token`,
             // reviewPhoto: `${__dirname}/public/${this.props.data}.jpg`, this.props로 받을게 아니고 이 사이트의 url 매치랑 들어온 유저정보 
             reviewRating: this.state.rating,
             reviewMessage: this.input.value

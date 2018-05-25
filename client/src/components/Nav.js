@@ -166,6 +166,7 @@ class Nav extends Component {
     }
 
     render(){
+        console.log('loginclicked', this.state.loginClicked);
         return (        
             <NavContatiner id="navbar">
             <Overlay ref='overlay' onClick={this.closeNav}/>

@@ -218,7 +218,7 @@ class Login extends Component {
     api.post('/api/user/get/login', form)
         .then(res => {
             console.log(res); 
-            this.props.handleLoginUser()   
+            // this.props.handleLoginUser()   
             if(res.status===200){
                 this.closeModal()        
                 history.push(history.location.pathname)

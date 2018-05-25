@@ -157,7 +157,8 @@ class Nav extends Component {
         window.addEventListener('scroll',this.hideNav());
         axios.get(`${url}/api/user/get/check`)
         .then(res => {
-            if(res.data.result===true){
+            console.log('nav', res);
+            if(res.data.success){
                 this.setState({
                     isLogined: true
                 })

@@ -217,7 +217,8 @@ class Login extends Component {
     axios.post(`${url}/api/user/get/login`, form)
         .then(res => {
             console.log('login', res);  
-            if(res.data.result===true){
+            if(res.data.token){
+                localStorage.setItem('token', res.data.token)
                 this.props.handleLoginUser()  
                 this.closeModal()        
                 history.push(history.location.pathname)

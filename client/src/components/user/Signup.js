@@ -5,6 +5,8 @@ import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 
 import axios from 'axios';
+import { url } from '../../config';
+
 import validator from 'validator';
 import mail from '../../assets/mail.png'
 import lock from '../../assets/lock.png';
@@ -291,8 +293,7 @@ class Signup extends Component {
             toneName: this.state.colorSelected
         };
         console.log(form)
-        const api = axios.create({ baseURL: 'http://localhost:8080' })
-            api.post('/api/user/post', form)
+            axios.post(`${url}/api/user/post`, form)
                 .then(res => {
                     console.log(res);
                     if(res.data.result===true){
@@ -300,7 +301,7 @@ class Signup extends Component {
                             signupSuccess: true
                         })
                         this.showSucces()
-                    }else if(res.data==='exists'){
+                    }else if(res.data.result===false){
                         this.setState({
                             isExist: res.data
                         })

@@ -90,8 +90,9 @@ class Detail extends Component {
     }
 
     componentDidMount(){
-        axios.get(`${url}/api/item/get/detail?color_id=${this.props.match.params.id}`)
-          .then(response => this.setState({data : response.data.result}))
+        const token = localStorage.getItem('token')
+        axios.get(`${url}/api/item/get/detail?color_id=${this.props.match.params.id}`,{headers : {'token': token}})
+          .then(response => this.setState({data : response.data}))
           .catch(err => console.log(err))
     }    
 

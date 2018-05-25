@@ -12,7 +12,7 @@ const wishList = require('./wishLists');
 
 router.use('/color', color);
 router.use('/item', item);
-router.use('/review', middleware, review);
+router.use('/review', review);
 router.use('/user', user);
 router.use('/wishlist', middleware, wishList);
 

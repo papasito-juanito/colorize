@@ -1,3 +1,6 @@
+// Global import
+const jwt = require('jsonwebtoken');
+
 // Local import
 const model = require('../../models/users/get');
 const middleware = require('../../middlewares/isValidPassword');
@@ -6,7 +9,10 @@ const db = require('../../db');
 module.exports = {
 
   check: (req, res) => {
-    res.send({login: req.session.userMail ? true : false})
+    res.json({
+      success: true,
+      info : req.decodeed
+    });
   },
 
   info: (req, res) => {
@@ -20,6 +26,9 @@ module.exports = {
   },
 
   login: (req, res) => {
+
+    const secret = req.app.get('jwt-secret');
+
     db.query(`SELECT id,userPassword FROM users WHERE userMail=
     "${req.body.userMail}";`, (err, rows) => {
       if (err) throw err;
@@ -29,9 +38,47 @@ module.exports = {
         middleware(req.body.userPassword, rows[0].userPassword)
         .then(boolean => {
           if (boolean) { 
-            req.session.userMail = req.body.userMail;
-            res.send(
-              {'result': true, 'userMail': req.session.userMail});
+
+            const promise = new Promise( (resolve, reject) => {
+              jwt.sign( 
+                {
+                  _id      : user.id,
+                  username : username,
+                  admin    : user.admin
+                },
+                secret,
+                {
+                  expiresIn : '1d',
+                  issuer    : 'colorize.io',
+                  subject   : 'userInfo'
+                },
+                (err, token) => {
+                  if (err) reject(err);
+                  resolve(token);
+                }
+              );
+            });
+            return promise;
+            const respond = (token) => {
+              res.render(
+                'login_ok',
+                {
+                  'token' : token,
+                  'token_arr' : token.split('.')
+                }
+              );
+            };
+          
+            const onError = (error) => {
+              res.status(403).json({
+                message : error.message
+              });
+            };
+          
+            Users.findOneByUsername(username)
+            .then(check)
+            .then(respond)
+            .catch(onError);
           }
           else res.send(
             {'result': false, 'message': 'invalid password'})

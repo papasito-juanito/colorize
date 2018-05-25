@@ -67,8 +67,7 @@ class Rating extends Component {
             reviewPhoto: `${this.props.id}_${token}`,
             // reviewPhoto: `${__dirname}/public/${this.props.data}.jpg`, this.props로 받을게 아니고 이 사이트의 url 매치랑 들어온 유저정보 
             reviewRating: this.state.rating,
-            user_id: 1,
-            reviewMessage: this.input.value,
+            reviewMessage: this.input.value
         }
 
         // console.log(form)

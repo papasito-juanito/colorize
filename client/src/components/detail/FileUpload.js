@@ -90,7 +90,7 @@ class FileUpload extends Component {
         formData.append('filename', `${this.props.id}_token`);
         // this.props.callback(`${this.state.userID + ':' + this.props.id}`)
 
-        axios.post(`${url}/api/review/post/upload`, formData)
+        axios.post(`${url}/upload`, formData)
         // axios.post(`${url}/api/review/post/upload`, formData, { headers: { 'token': token } })
             .then((response) => {
             console.log(response);

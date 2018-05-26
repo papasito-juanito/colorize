@@ -73,7 +73,8 @@ class HomeColor extends Component {
       link = link + elements[i].id + '&';
     }
     link = link.slice(0, -1);
-    window.location.href = `/items/${link}`;
+    const encodeLink = encodeURIComponent(link);
+    window.location.href = `/items/${encodeLink}`;
   }
   
   cells = [

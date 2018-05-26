@@ -167,6 +167,15 @@ const Facebook = styled.button`
     text-align: center;
 `
 
+const fastyle = {
+    color: 'white',
+    fontSize: '1rem',
+    width: '10%',
+    textAlign: 'center',
+    textDecoration: 'none',
+    margin: 'auto',
+}
+
 const Google = styled.button`
     width: 100%;
     height: 40%
@@ -261,7 +270,10 @@ class Login extends Component {
                             <Loginbtn onClick={this.clickToLogin.bind(this)}> Login </Loginbtn>
                             <Signupbtn href="/signup" style={{textDecoration: 'none'}}> SignUp </Signupbtn>
                             OR
-                            <Facebook> Facebook </Facebook>
+                            <Facebook> 
+                                {/* <a href="#" class="fa fa-facebook" style={fastyle}>  Facebook</a> */}
+                                Facebook
+                            </Facebook>   
                             <Google> Google </Google> 
                         </LoginSignupButtonWrapper>
                     </LoginBottom>    

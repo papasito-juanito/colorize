@@ -6,32 +6,32 @@ import lipstick from '../../assets/lipstick.svg';
 // const queryString = require('query-string');
 
 
-const ItemListContainer = styled.div`
-    top:10%;
-    position: absolute;
+const ItemListContainer = styled.div` 
     height: 100%;
-    width: 100%
-    margin-left:5%
-    display: flex
-    flex-direction: column;
+    width: 80%;
+    margin-top: 10%;
+    display: flex;
+    justify-content: center;
 `
 
 //가운데로 필요
 const Ul = styled.ul`
-    position: absolute;
+    width: 100%;
     height: 100%;
-    width: 90%;
-    display:flex;
-    flex-direction: row;
+    padding: 0;
+    padding-left: 6%;
+    display: flex;
     flex-wrap: wrap;
-    margin-top:5%
 `
 
 const Wrapper = styled(Link)`
-    position: relative
-    margin: 20px
-    width: 330px;
-    height: 430px;
+    position: relative;
+    margin: 1%;
+    width: 20%;
+    min-width: 15rem;
+    height: 25rem;
+    display:flex;
+    flex-direction: row;
     &:visited {
         color: black;
         text-decoration: none 
@@ -40,8 +40,7 @@ const Wrapper = styled(Link)`
 
 const Li = styled.li`
     background-color: #f1f1f1;
-    width: 300px;
-    height: 400px;
+    width: 100%;
     margin-top: 15px
     font-size: 30px;
     list-style: none;
@@ -53,19 +52,17 @@ const Li = styled.li`
 `
 
 const ItemTop = styled.div`
-    marin:auto
-    height: 300px;
-    position:relative;
+    width: 100%;
 `
 const Img = styled.img`
-    width: 300px;
-    height: 300px;
+    height: 18rem;
+    width: 100%;
     background-color: "white"
 `
 const Color = styled.div`
     position: absolute; 
     top:10px
-    right: 20px
+    right: -5px;
     border-style: solid;
     border-width: 0 70px 70px 0;
     border-color: transparent #${props=>props.color} transparent transparent;
@@ -95,39 +92,12 @@ const Rating = styled.div`
 const Review = styled.span`
     font-size: 13px;
 `
-const SortContainer = styled.div`
-    margin-top: 2%;
-    margin-left: 3%;
-    overflow: hidden;
-`
-
-const Btn = styled.button`
-    border: none;
-    outline: none;
-    padding: 12px 16px;
-    background-color: #f1f1f1;
-    cursor: pointer;
-    &:hover {
-        background-color: #ddd;
-    }
-    $:active {
-        background-color: #666;
-        color: white;
-    }
-`
 
 const Items = ({item}) => {
     
     return (
         
         <ItemListContainer >
-        <SortContainer>
-            <Btn>기본순</Btn>
-            <Btn>높은가격순</Btn>
-            <Btn>낮은가격순</Btn>
-            <Btn>별점순</Btn>
-            <Btn>최신순</Btn>
-        </SortContainer>    
             <Ul>
                 {item.map((item, i)=>{
                     return (
@@ -154,7 +124,7 @@ const Items = ({item}) => {
                         </Wrapper>
                     )
                 })}
-            </Ul>    
+            </Ul>
         </ItemListContainer>
     );
 };

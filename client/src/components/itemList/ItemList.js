@@ -1,8 +1,40 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
+
 import Items from './Items'
 import Sort from './Sort'
 import axios from 'axios';
 import { url } from '../../config';
+
+const Wrapper = styled.div`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
+
+const SortContainer = styled.div`
+    height: 3rem;
+    margin-top: 2%;
+    margin-left: 3%;
+    overflow: hidden;
+`;
+
+const Btn = styled.button`
+    border: none;
+    outline: none;
+    padding: 12px 16px;
+    background-color: #f1f1f1;
+    cursor: pointer;
+    &:hover {
+        background-color: #ddd;
+    }
+    $:active {
+        background-color: #666;
+        color: white;
+    }
+`;
 
 class ItemList extends Component {
     constructor(props){
@@ -22,9 +54,16 @@ class ItemList extends Component {
   
     render(){
         return (
-            <div>
-            <Items item={this.state.item}/>
-            </div>
+            <Wrapper>
+                <SortContainer>
+                    <Btn>기본순</Btn>
+                    <Btn>높은가격순</Btn>
+                    <Btn>낮은가격순</Btn>
+                    <Btn>별점순</Btn>
+                    <Btn>최신순</Btn>
+                </SortContainer>    
+                <Items item={this.state.item}/>
+            </Wrapper>
         )
     }    
 };

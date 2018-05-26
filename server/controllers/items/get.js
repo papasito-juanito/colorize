@@ -15,7 +15,7 @@ module.exports = {
   list: (req, res) => {
 
     const color_id = JSON.parse(req.query.color_id);
-    const params = [color_id];
+    const params = [color_id, req.query.order_by];
 
     model.list(params, (err, rows) => {
       if (err) throw err;

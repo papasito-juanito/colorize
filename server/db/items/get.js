@@ -20,7 +20,8 @@ FROM itemColors ic, categories2 c, brands b, items i,
   GROUP BY ici.id) rate
 WHERE i.itemToggle='true' AND ic.colorToggle='true' AND
   c.id=i.categories2_id AND b.id=i.brands_id AND i.id=ic.items_id AND
-  ic.id=rate.color_id AND ic.id IN (?);
+  ic.id=rate.color_id AND ic.id IN (?)
+ORDER BY ?;
   `,
   rate: `
 SELECT IFNULL(AVG(reviewRating),0) avg, COUNT(id) total,

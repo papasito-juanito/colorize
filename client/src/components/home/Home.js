@@ -24,7 +24,7 @@ class Home extends React.Component {
     componentDidMount(){
       fetch(`${url}/api/color/get`)
       .then(response => response.json())
-      .then(data => this.setState({data: data.result}))
+      .then(data => this.setState({data: data}))
       .then(() => this.sortColorGroup(this.state.data))
       .then(() => this.setState({isLoaded: true}))
   }
@@ -41,14 +41,16 @@ class Home extends React.Component {
       }
       
       sortColorGroup(dbItemHex) {
-        var lumArr = []; //array to store h values
+        var hArr = []; //array to store h values
         for(var i=0; i<dbItemHex.length; i++) {
-          lumArr.push(tinycolor(dbItemHex[i].itemHex).getLuminance());
+          hArr.push(tinycolor(dbItemHex[i].itemHex).toHsl().h);
         }
-        lumArr.sort(function(a, b){
-          return b-a;
+        hArr.sort(function(a, b){
+          return a-b;
         });
-        var splitArr = Math.round(lumArr.length/8);
+
+        console.log(hArr);
+        var splitArr = Math.round(hArr.length/8);
         
         var idHexLum = JSON.parse(JSON.stringify(dbItemHex));
     
@@ -61,25 +63,25 @@ class Home extends React.Component {
           idHexLum[j].h = h;
           
           //sorting by color group
-          if (lum<=lumArr[0] && lum>=lumArr[splitArr-1]) {
+          if (h>=hArr[0] && h<=hArr[splitArr-1]) {
             this.colorGroup.A.push(idHexLum[j]);
           }
-          else if (lum<lumArr[splitArr-1] && lum>=lumArr[splitArr*2-1]) {
+          else if (h>hArr[splitArr-1] && h<=hArr[splitArr*2-1]) {
             this.colorGroup.B.push(idHexLum[j]);
           }
-          else if (lum<lumArr[splitArr*2-1] && lum>=lumArr[splitArr*3-1]) {
+          else if (h>hArr[splitArr*2-1] && h<=hArr[splitArr*3-1]) {
             this.colorGroup.C.push(idHexLum[j]);
           }
-          else if (lum<lumArr[splitArr*3-1] && lum>=lumArr[splitArr*4-1]) {
+          else if (h>hArr[splitArr*3-1] && h<=hArr[splitArr*4-1]) {
             this.colorGroup.D.push(idHexLum[j]);
           }
-          else if (lum<lumArr[splitArr*4-1] && lum>=lumArr[splitArr*5-1]) {
+          else if (h>hArr[splitArr*4-1] && h<=hArr[splitArr*5-1]) {
             this.colorGroup.E.push(idHexLum[j]);
           }
-          else if (lum<lumArr[splitArr*5-1] && lum>=lumArr[splitArr*6-1]) {
+          else if (h>hArr[splitArr*5-1] && h<=hArr[splitArr*6-1]) {
             this.colorGroup.F.push(idHexLum[j]);
           }
-          else if (lum<lumArr[splitArr*6-1] && lum>=lumArr[splitArr*7-1]) {
+          else if (h>hArr[splitArr*6-1] && h<=hArr[splitArr*7-1]) {
             this.colorGroup.G.push(idHexLum[j]);
           }
           else {
@@ -89,7 +91,7 @@ class Home extends React.Component {
           //sort by luminance high to low
           for(var key in this.colorGroup) {
             this.colorGroup[key].sort(function(obj1, obj2) {
-              return obj2.h - obj1.h;
+              return obj2.lum - obj1.lum;
             })
           }
         }

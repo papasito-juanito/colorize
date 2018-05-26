@@ -23,10 +23,10 @@ const NavContatiner = styled.header`
 const Colorize = styled.div`
     margin: auto
     text-align: center;
-
 `
 
 const NavLink = styled(Link)`
+   
     font-size: 3rem
     &:visited {
         color: white;
@@ -153,11 +153,19 @@ class Nav extends Component {
         }
     }
 
+    handleLogout = () => {
+        localStorage.removeItem('token')
+        this.setState({
+            isLogined: false
+        })
+    }
+
     componentDidMount(){ 
         window.addEventListener('scroll',this.hideNav());
-        axios.get(`${url}/api/user/get/check`, {withCredentials: true})
+        axios.get(`${url}/api/user/get/check`)
         .then(res => {
-            if(res.data.result===true){
+            console.log('nav', res);
+            if(res.data.success === true){
                 this.setState({
                     isLogined: true
                 })
@@ -166,7 +174,7 @@ class Nav extends Component {
     }
 
     render(){
-        console.log('loginclicked', this.state.loginClicked);
+        console.log('loginedloginedloginedloginedlogined', this.state.isLogined);
         return (        
             <NavContatiner id="navbar">
             <Overlay ref='overlay' onClick={this.closeNav}/>
@@ -185,10 +193,10 @@ class Nav extends Component {
                         <SideAnchor href="/myinfo">My Info</SideAnchor>
                         <SideAnchor href="/wishlist">Wish List</SideAnchor>
                         <SideAnchor href="/review">My Review</SideAnchor>
-                        <SideAnchor onClick={()=>{this.renderLogin(); this.closeNav()}}>Logout</SideAnchor>
+                        <SideAnchor onClick={()=>{this.closeNav(); this.handleLogout()}}>Logout</SideAnchor>
                     </SideNav> :
                     <SideNav ref="mySidenav" >
-                        <SideClose onClick={()=>{this.renderLogin(); this.closeNav()}}>&times;</SideClose>
+                        <SideClose onClick={()=>{this.closeNav()}}>&times;</SideClose>
                         <SideAnchor onClick={()=>{this.renderLogin(); this.closeNav()}}>My Info</SideAnchor>
                         <SideAnchor onClick={()=>{this.renderLogin(); this.closeNav()}}>Wish List</SideAnchor>
                         <SideAnchor onClick={()=>{this.renderLogin(); this.closeNav()}}>My Review</SideAnchor>

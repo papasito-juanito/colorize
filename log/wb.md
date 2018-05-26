@@ -77,6 +77,19 @@ tag에서 onscroll이 안먹는다.
 ***
 #2018-05-23
 axios set cookie문제
+api요청이 있을때마다 api가 계속 set-cookie를 해준다
+
+해결: express session cookie secret true로 설정.
+
+로그인 후 페이지 이동시 로그인이 끈긴다 => 위 문제 때문인줄 알았는데 그 후에도 계속 끊김
+리액트 dev서버와 express서버가 달라서 생기는 문제 같은데 axios withcredentials true 후 빌드를 하면 해결된다. 하지만 CRA를 쓰는 모든 개발자들이 매번 빌드를 할 것 같지는 않다. 
+
+***
+#2018-05-23
+서버 session에서 token으로 바꾸기로 했다. 모바일 환경에서도 더 용이하고, stateful하기 때문에 요새 많이 쓴다고.
+
+
+
 
 
 

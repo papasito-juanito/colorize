@@ -3,10 +3,9 @@ const router = require('express').Router();
 
 // Local import
 const controller = require('../../controllers/users/get');
+const middleware = require('../../middlewares/isAuthenticated');
 
 router.get('/check', controller.check);
-router.get('/info', controller.info);
-router.post('/login', controller.login);
-router.get('/logout', controller.logout);
+router.get('/info', middleware, controller.info);
 
 module.exports = router;

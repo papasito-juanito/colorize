@@ -139,7 +139,7 @@ const Items = ({item}) => {
                             </ItemTop >
                             <ItemBottom>
                                 <Brand>{item.brand}</Brand>
-                                <ItemName>{item.item}, {item.volume}</ItemName>
+                                <ItemName>{item.name}, {item.volume}</ItemName>
                                 <Price>{item.price}</Price>
                                 <Rating>
                                     <StarRatingComponent 

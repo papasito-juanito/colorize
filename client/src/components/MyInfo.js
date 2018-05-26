@@ -3,26 +3,29 @@ import styled from 'styled-components';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import axios from 'axios';
+import { url } from '../config';
 
 const Container = styled.div`
   position: relative;
-  margin-top: 10%;
   display: block;
   font-size: 12px;
   line-height: 1.6;
   color: #666;
-  background: #f5f5f5;
-`
+  width: 70%;
+  margin: 0px auto;
+  `
 const Header = styled.h1`
   font-weight: bold;
   color: black;
   letter-spacing: -1px;
+  text-align: center;
 `
 // font-family:;
 const Table = styled.table`
   width: 100%;
   border-top: 2px solid #969696;
   border-collapse: collapse;
+  background: #f5f5f5;
 `
 const Row = styled.tr`
   display: table-row;
@@ -64,8 +67,15 @@ class MyInfo extends Component {
     constructor(){
         super()
         this.state = {
-          hasPhoto: true
+          hasPhoto: true,
+          data: []
         }
+    }
+
+    componentDidMount(){
+      axios.get(`${url}/api/user/get/info`)
+        .then(response => this.setState({data : response.data.result}))
+        .catch(err => console.log(err))
     }
 
     colorOptions = [
@@ -87,6 +97,7 @@ class MyInfo extends Component {
   ]
 
     render() {
+    console.log(this.state.data);
         return (
           <Container>
             <Header>내 정보 수정</Header>

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import {injectGlobal} from 'styled-components'
 import Nav from '../components/Nav'
+import withLoginUser from '../components/withLoginUser'
 
 import Home from './home/Home'
 import ItemList from './itemList/ItemList'

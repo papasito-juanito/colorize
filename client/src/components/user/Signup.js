@@ -244,8 +244,6 @@ class Signup extends Component {
     }
 
     onSelectedGender = (option) => {
-        console.log(option.value);
-        
         this.setState({
             genderSelected: option.value
         })

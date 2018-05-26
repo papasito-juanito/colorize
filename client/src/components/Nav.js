@@ -160,18 +160,20 @@ class Nav extends Component {
         })
     }
 
-    componentDidMount(){ 
+    componentDidMount(){
         const token = localStorage.getItem('token')
         window.addEventListener('scroll',this.hideNav());
-        axios.get(`${url}/api/user/get/check`, {headers: {'token': token}})
-        .then(res => {
-            console.log('nav', res);
-            if(res.data.success === true){
-                this.setState({
-                    isLogined: true
-                })
-            }
-        })
+        if(token){
+            axios.get(`${url}/api/user/get/check`, {headers: {'token': token}})
+            .then(res => {
+                console.log('nav', res);
+                if(res.data.success === true){
+                    this.setState({
+                        isLogined: true
+                    })
+                }
+            })
+        }
     }
 
     render(){
@@ -191,6 +193,7 @@ class Nav extends Component {
                     {this.state.isLogined ? 
                     <SideNav ref="mySidenav" >
                         <SideClose href="javascript:void(0)" onClick={this.closeNav}>&times;</SideClose>
+                        <SideAnchor href="/">Home</SideAnchor>
                         <SideAnchor href="/myinfo">My Info</SideAnchor>
                         <SideAnchor href="/wishlist">Wish List</SideAnchor>
                         <SideAnchor href="/review">My Review</SideAnchor>
@@ -198,6 +201,7 @@ class Nav extends Component {
                     </SideNav> :
                     <SideNav ref="mySidenav" >
                         <SideClose onClick={()=>{this.closeNav()}}>&times;</SideClose>
+                        <SideAnchor href="/">Home</SideAnchor>
                         <SideAnchor onClick={()=>{this.renderLogin(); this.closeNav()}}>My Info</SideAnchor>
                         <SideAnchor onClick={()=>{this.renderLogin(); this.closeNav()}}>Wish List</SideAnchor>
                         <SideAnchor onClick={()=>{this.renderLogin(); this.closeNav()}}>My Review</SideAnchor>

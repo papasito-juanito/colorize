@@ -129,7 +129,7 @@ class Content extends Component {
             like: false,
             popupIsOpen: false,
             imagepreviewUrl: '',
-            items: 1,
+            items: this.props.data.length < 3 ? this.props.data.length : 3,
             loadingState: false
         }
 
@@ -173,7 +173,7 @@ class Content extends Component {
         const data = this.props ? this.props.data : [];
         const items = [];
         for (var i = 0; i < this.state.items; i++) {
-            data.length ? items.push(
+           items.push(
                 <Container key={i}>
                     <ReviewImage onClick={this._openPopup} />
                     {/* <ReviewImage onClick={this._openPopup} src={require(`../public/user/${this.props.파람스매치랑 유저아이디이용}.jpg`)} /> */}
@@ -204,7 +204,7 @@ class Content extends Component {
                         </BottomContainer>
                     </ReviewContent >
                 </Container>
-            ) : null
+            )
         }
         return items;
     }
@@ -215,13 +215,16 @@ class Content extends Component {
                 this.setState({items: this.state.items + 2, loadingState: false });
             }, 3000)
     }
+
      
     componentDidMount() {
         this.state.items !== this.props.data.length ? window.addEventListener("scroll", () => {  
             if (document.body.scrollTop + document.body.clientHeight >= document.body.scrollHeight ){
              this._loadMoreItems() 
             }
-        }) : window.removeEventListener("scroll", this._loadMoreItems() )  ;
+        }) : window.removeEventListener("scroll", this._loadMoreItems());
+
+       
     }
 
     componentWillUpdate(nextProps, nextState){

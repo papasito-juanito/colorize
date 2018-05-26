@@ -8,7 +8,7 @@ import Home from './home/Home'
 import ItemList from './itemList/ItemList'
 import NotMatch from './NotMatch'
 import WishList from './wishList/WishList'
-import Review from './review/Review'
+import MyContent from './review/MyContent'
 // import Login from './user/Login'
 import Signup from './user/Signup'
 import Detail from './detail/Detail'
@@ -37,7 +37,7 @@ class App extends Component {
                     <Switch> 
                         <Route exact path="/" component={Home}/>
                         <Route path="/wishList" component={WishList}/>
-                        <Route path="/review" component={Review}/>
+                        <Route path="/review" component={MyContent}/>
                         <Route path="/signup" component={Signup}/>
                         <Route exact path="/items/:id" component={ItemList}/>
                         <Route path="/items/detail/:id" component={Detail} />

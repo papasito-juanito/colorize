@@ -1,9 +1,11 @@
+// Global import
+const jwt = require('jsonwebtoken');
+
 // Local import
 const model = require('../../models/items/get');
 
 module.exports = {
   detail: (req, res) => {  
-    console.log('tokentokentokentokentokentoken',req.headers.token);
     model.detail(req.query.color_id, (err, rows) => {
       if (err) throw err;
       else res.send(rows);

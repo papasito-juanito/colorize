@@ -126,7 +126,6 @@ class Content extends Component {
         super(props);
         this.state = {
             editing: true,
-            like: false,
             popupIsOpen: false,
             imagepreviewUrl: '',
             items: this.props.data.length < 3 ? this.props.data.length : 3,
@@ -142,16 +141,14 @@ class Content extends Component {
         this._loadMoreItems = this._loadMoreItems.bind(this)
     }
 
-    _handleModify = function () {
+    _handleModify() {
         this.setState({
             editing: !this.state.editing
         })
     }
 
-    _reviewLike = function () {
-        this.setState({ like: !this.state.like })
-        // !this.state.like ? this.setState({ likecount: this.state.likeCount++ }) : this.setState({ likecount: this.state.likeCount-- })
-        //누르면 개별 likes 올라가고 토글 개별로 되게 
+    _reviewLike() {
+        // post 보내기 likes수 올라가게  toggle 바뀌게 사진이랑 숫자 올라갔다 내려왔다 해야함
     }
     _openPopup(e) {
         this.setState({
@@ -198,7 +195,7 @@ class Content extends Component {
                         </div>
                         <BottomContainer >
                             <LikeCount>
-                                <Like onClick={this._reviewLike} src={this.state.like ? like : hate} />
+                                <Like onClick={this._reviewLike} src={data[i].toggle === 'true' ? like : hate} />
                                 {data[i].likes}
                             </LikeCount>
                         </BottomContainer>

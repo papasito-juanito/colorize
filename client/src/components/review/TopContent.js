@@ -188,7 +188,7 @@ class TopContent extends Component {
                             <Info >
                                 <UserDiv > <img alt='user' /></UserDiv>
                                 {/* 유저 이미지 여기서 받아와서 삽입 */}
-                                <div>{item.user}</div>
+                                <div>{item.name}</div>
                                 <div>{item.age}, {item.tone}</div>
                                 <div>
                                     <StarRatingComponent
@@ -206,7 +206,7 @@ class TopContent extends Component {
                                 </div>
                                 <BottomContainer >
                                     <LikeCount>
-                                        <Like onClick={this._reviewLike} src={this.state.like ? like : hate} />
+                                        <Like onClick={this._reviewLike} src={item.toggle === 'true' ? like : hate} />
                                         {item.likes}
                                     </LikeCount>
                                 </BottomContainer>

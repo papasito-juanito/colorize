@@ -3,6 +3,6 @@ module.exports = {
   port: 8080,
   secret: 'sBl2',
   user: 'root',
-  password: '1232',
+  password: '',
   database: 'colorize',
 };

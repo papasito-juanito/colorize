@@ -20,19 +20,20 @@ app.use('/api', router);
 app.use('/', express.static(path.join(__dirname, './../client/build')));
 
 app.post('/upload', function(req, res) {
-  console.log(req.files)
-  if (!req.files)
-    return res.status(400).send('No files were uploaded.');
+  // if (!req.files)
+  //   return res.status(400).send('No files were uploaded.');
  
   // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-  let sampleFile = req.files.file;
+  let imageFile = req.files.file;
+  console.log('__dirname :', __dirname )
   // Use the mv() method to place the file somewhere on your server
-  sampleFile.mv('../../client/src/assets/reviews', function(err) {
+  imageFile.mv(`client/src/assets/reviews/${req.body.filename}.jpg`, function(err) {
     if (err){
       return res.status(500).send(err);
     }
-    res.send('File uploaded!');
+    res.json({ file: `../client/src/assets/reviews/${req.body.filename}.jpg` });
   });
+
 });
 
 app.set('jwt-secret', secret); 

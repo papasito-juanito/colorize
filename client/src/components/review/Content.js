@@ -7,6 +7,7 @@ import hate from '../../assets/emptyHeart.png';
 import StarRatingComponent from 'react-star-rating-component';
 import Modal from 'react-modal';
 
+
 const customStyles = {
     content: {
         top: '50%',
@@ -172,10 +173,12 @@ class Content extends Component {
         for (var i = 0; i < this.state.items; i++) {
            items.push(
                 <Container key={i}>
-                    <ReviewImage onClick={this._openPopup} />
+                   <ReviewImage onClick={this._openPopup} />
+                   {/* <ReviewImage src={ require(`../../../src/assets/reviews/${this.props.id}_.jpg`) } onClick={this._openPopup} /> */}
                     {/* <ReviewImage onClick={this._openPopup} src={require(`../public/user/${this.props.파람스매치랑 유저아이디이용}.jpg`)} /> */}
                     <Info >
-                        <UserDiv > <img alt='user' /></UserDiv>
+                       {console.log('__dirname :', __dirname)}
+                       <UserDiv > <img alt='user' /></UserDiv>
                         {/* 유저 이미지 여기서 받아와서 삽입 */}
                         <div>{data[i].name}</div>
                         <div>{data[i].age}, {data[i].tone}</div>

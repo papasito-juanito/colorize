@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
-import history from '../../utils/history'
+import { Link } from 'react-router-dom';
 
 const SortContainer = styled.div`
     height: 3rem;
@@ -24,8 +24,11 @@ const Btn = styled.button`
     }
 `;
 
-const handleBasic = () => {
-
+const handleBasic = (history) => {
+  console.log('sorting', history);
+  console.log('adsasdasda');
+  history.push(history.location.pathname)
+  
 }
 
 const handeHighPrice = () => {
@@ -44,16 +47,23 @@ const handleLatest = () => {
 
 }
 
-const Sort = ({history}) => {
-    return (
-      <SortContainer>
-        <Btn>기본순</Btn>
-        <Btn>높은가격순</Btn>
-        <Btn>낮은가격순</Btn>
-        <Btn>별점순</Btn>
-        <Btn>최신순</Btn>
-     </SortContainer>  
-    );
+class Sort extends Component {
+
+    render(){
+      const {history} = this.props
+      console.log(history);
+      
+      return (
+        <SortContainer>
+          <Btn onClick={()=>handleBasic()}>기본순</Btn>
+          <Btn>높은가격순</Btn>
+          <Btn>낮은가격순</Btn>
+          <Btn>별점순</Btn>
+          <Btn>최신순</Btn>
+       </SortContainer>  
+      );
+    }
+
 };
 
 export default Sort;

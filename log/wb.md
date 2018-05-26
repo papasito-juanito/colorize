@@ -95,8 +95,7 @@ HOC로 바꾸면 각 컴포넌트가 렌더 된 후 모달창이 뜰것 같다.
 
 login페이지가 있었으면 redirect로 했으면 HOC를 해봤어도 괜찮을 것 같다.
 
-url encode decode 해봤다. itemlist로 넘어갈때 parameter로 item id를 넘겨줘서 원래는 
-1&4&5&6&13&14& 이런식으로 나오는데 굳이 인코딩할 필요는 없지만..
+url encode decode 해봤다. 
 
 
 

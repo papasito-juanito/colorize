@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
+import history from '../../utils/history'
+
 import Items from './Items'
 import Sort from './Sort'
 import axios from 'axios';
@@ -24,10 +26,10 @@ class ItemList extends Component {
     }
     
     componentDidMount(){
-        console.log(this.props);
-        const decode = decodeURIComponent(this.props.match.params.id)
-        console.log(decode);
-        axios.get(`${url}/api/item/get/list?color_id=[${decode.split('&')}]`)
+        // console.log(this.props);
+        // const decode = decodeURIComponent(this.props.match.params.id)
+        // console.log(decode);        
+        axios.get(`${url}/api/item/get/list?color_id=[${this.props.match.params.id.split('&')}]`)
         .then((response) => {
             console.log(response)
             this.setState({item: response.data})
@@ -35,9 +37,10 @@ class ItemList extends Component {
     }    
   
     render(){
+        console.log(history);
         return (
             <Wrapper>
-                <Sort />
+                <Sort history={this.props}/>
                 <Items item={this.state.item}/>
             </Wrapper>
         )

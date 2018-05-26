@@ -87,6 +87,7 @@ class Rating extends Component {
 
     render() {
         console.log(this.props.id)
+        console.log(this.props)
         const { rating } = this.state;
         return (
             <Wrapper>

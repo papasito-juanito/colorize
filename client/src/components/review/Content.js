@@ -102,7 +102,7 @@ border-width: 17px 17px 17px 0;
 border-color: transparent #7F7F7F;
 display: block;
 width: 0;
-z-index: 0;
+z-index: 2;
 left: -20px;
 top: 19px;
     }
@@ -114,7 +114,7 @@ border-width: 15px 15px 15px 0;
 border-color: transparent #FFFFFF;
 display: block;
 width: 0;
-z-index: 1;
+z-index: 3;
 left: -15px;
 top: 21px;
     }

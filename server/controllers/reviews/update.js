@@ -30,7 +30,7 @@ module.exports = {
     FROM reviewLikes rl, reviews r, users u
     WHERE r.reviewToggle='true' AND u.userToggle='true' AND
     u.id=rl.users_id AND r.id=rl.reviews_id AND
-    rl.reviews_id=${review_id} AND u.userMail=${userMail};`, (err, rows) => {
+    rl.reviews_id=${review_id} AND u.userMail="${userMail}";`, (err, rows) => {
       if (err) throw err;
       else {
         if (!rows.length) {

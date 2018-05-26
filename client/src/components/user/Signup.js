@@ -175,7 +175,7 @@ class Signup extends Component {
             isValidPassword: true,
             isValidNickname: true,
             birthdateSelected: '',
-            genderSelcted: '',
+            genderSelected: '',
             colorSelected: '',
             signupSuccess: false,
             isExist: ''
@@ -188,7 +188,7 @@ class Signup extends Component {
             userPassword: this.password.value,
             userName: this.nickname.value,
             birthDate: this.state.birthdateSelected, 
-            gender: this.state.genderSelcted,
+            gender: this.state.genderSelected,
             toneName: this.state.colorSelected
         };
         console.log(form)
@@ -240,15 +240,14 @@ class Signup extends Component {
     }
 
     onColorSelect(option) {
-        console.log(option.value);
-        
         this.setState({ colorSelected: option.value })
     }
 
-    onSelectedGender = (e) => {
-        const gender = e.target.value        
+    onSelectedGender = (option) => {
+        console.log(option.value);
+        
         this.setState({
-            genderSelected: gender
+            genderSelected: option.value
         })
     }
 
@@ -289,7 +288,14 @@ class Signup extends Component {
         }
     ]
 
+    genderOptions = [
+        {value: '여자', label:'여자'},
+        {value: '남자', label:'남자'}
+    ]
+
     render() {
+        console.log(this.state.genderSelected);
+        console.log(this.state.colorSelected);
         return (
             <Container>
                 <SignupContainer>
@@ -314,7 +320,7 @@ class Signup extends Component {
                     onBlur = {this.onBirthdate.bind(this)}
                     required type='date'innerRef={ref => { this.date = ref; }}/>
                     성별<br/>
-                    <Dropdown options={['여자', '남자']} onChange={this.onSelectedGender.bind(this)} placeholder="성별을 선택해주세요"
+                    <Dropdown options={this.genderOptions} onChange={this.onSelectedGender.bind(this)} placeholder="성별을 선택해주세요"
                     value={this.state.genderSelected}/>
                     {/* <input name="gender" onChange={this.onSelectedGender.bind(this)} type="radio" value="female"/> 여자 
                     <input name="gender" onChange={this.onSelectedGender.bind(this)} type="radio" value="male"/> 남자 */}

@@ -16,14 +16,22 @@ module.exports = {
   },
   
   list: (req, res) => {
-    model.list(req.query.color_id, (err, rows) => {
+
+    const userMail = jwt.verify(req.headers.token, 'jwt-secret').userMail;
+    const params = [req.query.color_id, userMail];
+
+    model.list(params, (err, rows) => {
       if (err) throw err;
       else res.send(rows);
     })
   },
 
   rank: (req, res) => {
-    model.rank((req.query.color_id || 'invalid access'), (err, rows) => {
+
+    const userMail = jwt.verify(req.headers.token, 'jwt-secret').userMail;
+    const params = [req.query.color_id, userMail];
+    
+    model.rank(params, (err, rows) => {
       if (err) throw err;
       else res.send(rows);
     })

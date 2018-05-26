@@ -21,7 +21,8 @@ class Allreview extends Component{
 
 
     componentDidMount() {
-        axios.get(`${url}/api/review/get/list?color_id=${this.props.id}`)
+        const token = localStorage.getItem('token')
+        axios.get(`${url}/api/review/get/list?color_id=${this.props.id}`, { headers: { 'token': token } })
             .then(response => 
                 this.setState({ data: response.data })
                 // console.log(response)

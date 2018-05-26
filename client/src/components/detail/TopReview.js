@@ -19,8 +19,9 @@ class TopReview extends Component {
         };
     }
     componentDidMount() {
+        const token = localStorage.getItem('token')
         // axios.get(`${url}/api/item/rate?color_id=${this.props.match.params.id}`)
-        axios.get(`${url}/api/review/get/rank?color_id=${this.props.id}`)
+        axios.get(`${url}/api/review/get/rank?color_id=${this.props.id}`, { headers: { 'token': token } })
             // .then((response) => {
             //     console.log(response);
             // })

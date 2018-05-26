@@ -56,8 +56,14 @@ WHERE ic.colorToggle='true' AND u.userToggle='true' AND r.reviewToggle='true' AN
   r.id=rl.review_id AND ic.id=?
 ORDER BY likes DESC LIMIT 3;
 
-SELECT ri.id review_id, IFNULL(COUNT(rli.id),0) likes 
-  FROM reviews ri
-  LEFT JOIN reviewLikes rli 
-  ON ri.id=rli.reviews_id GROUP BY ri.id
+
+SELECT r.id count(rl.id)
+FROM reviews r
+LEFT JOIN reviewLikes rl 
+ON r.id=rl.reviews_id
+GROUP BY r.id
+ORDER BY r.id
+
+
+
 `

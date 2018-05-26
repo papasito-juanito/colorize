@@ -97,72 +97,80 @@ class HomeColor extends Component {
           <tr>
               {this.colorGroup.A.map((element, i) => 
                 <td
+                key={i}
                 id={element.color_id}
                 style={{borderRadius: '6.5px', backgroundColor: '#' + element.itemHex, width: '4rem', height: '3rem'}}>
-                  <div class='heart'>❤</div>
+                  <div className='heart'>❤</div>
                 </td>
           )}
           </tr>
           <tr>
               {this.colorGroup.B.map((element, i) => 
                 <td
+                key={i}
                 id={element.color_id}
                 style={{borderRadius: '6.5px', backgroundColor: '#' + element.itemHex, width: '4rem', height: '3rem'}}>
-                  <div class='heart'>👄</div>
+                  <div className='heart'>👄</div>
                 </td>
           )}
           </tr>
           <tr>
               {this.colorGroup.C.map((element, i) => 
                 <td
+                key={i}
                 id={element.color_id}
                 style={{borderRadius: '6.5px', backgroundColor: '#' + element.itemHex, width: '4rem', height: '3rem'}}>
-                  <div class='heart'>🗢</div>
+                  <div className='heart'>🗢</div>
                 </td>
           )}
           </tr>
           <tr>
               {this.colorGroup.D.map((element, i) => 
                 <td
+                key={i}
                 id={element.color_id}
                 style={{borderRadius: '6.5px', backgroundColor: '#' + element.itemHex, width: '4rem', height: '3rem'}}>
-                  <div class='heart'>❤</div>
+                  <div className='heart'>❤</div>
                 </td>
           )}
           </tr>
           <tr>
               {this.colorGroup.E.map((element, i) => 
                 <td
+                key={i}
                 id={element.color_id}
                 style={{borderRadius: '6.5px', backgroundColor: '#' + element.itemHex, width: '4rem', height: '3rem'}}>
-                  <div class='heart'>❤</div>
+                  <div className='heart'>❤</div>
                 </td>
           )}
           </tr>
           <tr>
               {this.colorGroup.F.map((element, i) => 
                 <td
+                key={i}
                 id={element.color_id}
                 style={{borderRadius: '6.5px', backgroundColor: '#' + element.itemHex, width: '4rem', height: '3rem'}}>
-                  <div class='heart'>❤</div>
+                  <div className='heart'>❤</div>
                 </td>
           )}
           </tr>
           <tr>
               {this.colorGroup.G.map((element, i) => 
                 <td
+                key={i}
                 id={element.color_id}
                 style={{borderRadius: '6.5px', backgroundColor: '#' + element.itemHex, width: '4rem', height: '3rem'}}>
-                  <div class='heart'>❤</div>
+                  <div className='heart'>❤</div>
                 </td>
           )}
           </tr>
           <tr>
               {this.colorGroup.H.map((element, i) => 
                 <td
+                key={i}
                 id={element.color_id}
                 style={{borderRadius: '6.5px', backgroundColor: '#' + element.itemHex, width: '4rem', height: '3rem'}}>
-                  <div class='heart'>❤</div>
+                  <div className='heart'>❤</div>
                 </td>
           )}
           </tr>

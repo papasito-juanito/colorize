@@ -151,17 +151,17 @@ class Content extends Component {
 
     _reviewLike(e) {
         const token = localStorage.getItem('token')
-        console.log(e.target)
-        // var reviewId = document.getElementById(i)
-        // const form = {
-        //     review_id : 
-        // }
-        // axios.post(`${url}/api/review/update/like`,   { headers: { 'token': token } })
-        //     .then(response =>
-        //         this.setState({ data: response.data })
-        //         // console.log(response)
-        //     )
-        //     .catch(err => console.log(err))
+        const reviewId = this.props.data[e.target.id].review_id
+        const form = {
+            review_id: reviewId
+        }
+
+        axios.post(`${url}/api/review/update/like`,form, { headers: { 'token': token } })
+            .then(response =>
+                // this.setState({ data: response.data })
+                console.log(response)
+            )
+            .catch(err => console.log(err))
     }
 
         // post 보내기 likes수 올라가게  toggle 바뀌게 사진이랑 숫자 올라갔다 내려왔다 해야함 review Id 넣어주기 
@@ -182,7 +182,7 @@ class Content extends Component {
     }
 
     _displayItems() {
-        // console.log('content',this.props);
+        console.log('content',this.props);
         const data = this.props ? this.props.data : [];
         const items = [];
         for (var i = 0; i < this.state.items; i++) {
@@ -211,7 +211,7 @@ class Content extends Component {
                             {/* {this.state.editing ? <Message readOnly>{data[i].message}</Message> : <Message>{data[i].message}</Message>} */}
                             {/* 윗코드는 내 리뷰 할때만 필요 */}
                         </div>
-                       <BottomContainer onClick={this._reviewLike} >
+                       <BottomContainer  >
                             <LikeCount>
                                 <Like id={i} onClick={this._reviewLike} src={data[i].toggle === 'true' ? like : hate} />
                                 {data[i].likes}

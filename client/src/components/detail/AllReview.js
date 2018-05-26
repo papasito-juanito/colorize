@@ -38,7 +38,7 @@ class Allreview extends Component{
                     전체리뷰
                 </div>
                 <div>
-                    {this.state.data.length !== 0 ? <Review data={this.state.data}/> : <div> <h2>등록된 리뷰가 없어요</h2></div>}
+                    {this.state.data.length !== 0 ? <Review id = {this.props.id} data={this.state.data}/> : <div> <h2>등록된 리뷰가 없어요</h2></div>}
                 </div>
             </Div>
         )

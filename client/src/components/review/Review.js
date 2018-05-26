@@ -22,9 +22,10 @@ import Content from './Content'
 // `
 
 const Review = (props) => {
+   console.log(props)
     return (
         <div>
-            <Content data={props.data} />
+            <Content id={props.id} data={props.data} />
         </div>
     );
 };

@@ -4,7 +4,7 @@ const sQuery = require('../../db/users/post');
 
 module.exports = {
   signup: (params, cb) => {
-    db.query(sQuery, params, (err, rows) => { cb(err, rows); })
+    db.query(sQuery.signup, params, (err, rows) => { cb(err, rows); })
   },
 
 

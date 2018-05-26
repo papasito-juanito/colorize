@@ -31,7 +31,7 @@ class Comment extends Component {
             <div>
                 {!review ?
                     <Div>
-                        <FileUpload callback={this._callback.bind(this)} id={this.state.id} />
+                        <FileUpload callback={this._callback.bind(this)} id={this.props.id} />
                         <Rating id={this.props.id} data={this.state.data} />
                     </Div>
                     :

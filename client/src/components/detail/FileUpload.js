@@ -30,8 +30,6 @@ const ImgDiv = styled.div`
     cursor: pointer;
 `
 
-
-
 Modal.setAppElement('#root');
 
 class FileUpload extends Component {
@@ -41,9 +39,7 @@ class FileUpload extends Component {
             file: '',
             imagepreviewUrl: '',
             popupIsOpen: false,
-            selectedFile: '',
             data: '',
-            userID: '',
             imageURL:''
         }
         this._openPopup = this._openPopup.bind(this);
@@ -84,35 +80,42 @@ class FileUpload extends Component {
     }
 
     _fileUploadHandler(e) {
-        // const token = localStorage.getItem('token')
+      
+        const token = localStorage.getItem('token')
         const formData = new FormData();
         formData.append('file', this.uploadInput.files[0]);
-        formData.append('filename', `${this.props.id}_token`);
-        // this.props.callback(`${this.state.userID + ':' + this.props.id}`)
+        formData.append('filename', `${this.props.id}_`);
 
-        // axios.post(`${url}/upload`, formData)
-        // // axios.post(`${url}/api/review/post/upload`, formData, { headers: { 'token': token } })
-        //     .then((response) => {
-        //     console.log(response);
-        //     })
-        //     // .then(response => this.setState({ data: response.data }))
-        //     .catch(err => console.log(err))
+     
+        axios.post(`${url}/upload`, formData, { headers: { 'token': token } } )
+            // .then((response) => {
+            // console.log(response);
+            // })
+            .then(response => 
+                console.log(response.data.file)
+                // this.setState({ imageURL: `${url}/${response.data.file}` })
+            )
+            .catch(err => console.log(err))
 
-        fetch(`${url}/upload`, {
-            method: 'POST',
-            body: formData,
-        }).then((response) => {
-            response.json().then((body) => {
+
+        // fetch(`${url}/upload`, {
+        //     method: 'POST',
+        //     body: formData,
+        // }).then((response) => {
+            // response.json().then((body) => {
                 // console.log(response.json())
-                this.setState({imageURL: `${url}${body.file}` });
-            });
-        });
+                // this.setState({imageURL: `${url}${body.file}` });
+            // });
+        // })
+        // .catch(err => console.log(err))
     
     }
 
 
 
     render() {
+        console.log(this.state.imageURL)
+        
         let { imagepreviewUrl } = this.state;
         let $imagePreview = null;
         let popupImage = (<img src={imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)

@@ -6,7 +6,8 @@ import like from '../../assets/Heart.png';
 import hate from '../../assets/emptyHeart.png';
 import StarRatingComponent from 'react-star-rating-component';
 import Modal from 'react-modal';
-
+import { url } from '../../config';
+import axios from 'axios';
 
 const customStyles = {
     content: {
@@ -148,9 +149,23 @@ class Content extends Component {
         })
     }
 
-    _reviewLike() {
-        // post 보내기 likes수 올라가게  toggle 바뀌게 사진이랑 숫자 올라갔다 내려왔다 해야함
+    _reviewLike(e) {
+        const token = localStorage.getItem('token')
+        const reviewId = this.props.data[e.target.id].review_id
+        const form = {
+            review_id: reviewId
+        }
+
+        axios.post(`${url}/api/review/update/like`,form, { headers: { 'token': token } })
+            .then(response =>
+                // this.setState({ data: response.data })
+                console.log(response)
+            )
+            .catch(err => console.log(err))
     }
+
+        // post 보내기 likes수 올라가게  toggle 바뀌게 사진이랑 숫자 올라갔다 내려왔다 해야함 review Id 넣어주기 
+    
     _openPopup(e) {
         this.setState({
             popupIsOpen: true,
@@ -177,7 +192,7 @@ class Content extends Component {
                    {/* <ReviewImage src={ require(`../../../src/assets/reviews/${this.props.id}_.jpg`) } onClick={this._openPopup} /> */}
                     {/* <ReviewImage onClick={this._openPopup} src={require(`../public/user/${this.props.파람스매치랑 유저아이디이용}.jpg`)} /> */}
                     <Info >
-                       {console.log('__dirname :', __dirname)}
+                       {/* {console.log('__dirname :', __dirname)} */}
                        <UserDiv > <img alt='user' /></UserDiv>
                         {/* 유저 이미지 여기서 받아와서 삽입 */}
                         <div>{data[i].name}</div>
@@ -196,9 +211,9 @@ class Content extends Component {
                             {/* {this.state.editing ? <Message readOnly>{data[i].message}</Message> : <Message>{data[i].message}</Message>} */}
                             {/* 윗코드는 내 리뷰 할때만 필요 */}
                         </div>
-                        <BottomContainer >
+                       <BottomContainer  >
                             <LikeCount>
-                                <Like onClick={this._reviewLike} src={data[i].toggle === 'true' ? like : hate} />
+                                <Like id={i} onClick={this._reviewLike} src={data[i].toggle === 'true' ? like : hate} />
                                 {data[i].likes}
                             </LikeCount>
                         </BottomContainer>

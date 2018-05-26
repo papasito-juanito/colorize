@@ -43,7 +43,8 @@ class FileUpload extends Component {
             popupIsOpen: false,
             selectedFile: '',
             data: '',
-            userID: ''
+            userID: '',
+            imageURL:''
         }
         this._openPopup = this._openPopup.bind(this);
         this._afterOpenPopup = this._afterOpenPopup.bind(this);
@@ -57,7 +58,6 @@ class FileUpload extends Component {
         e.preventDefault();
         let reader = new FileReader();
         let file = e.target.files[0];
-        console.log(file)
 
         reader.readAsDataURL(file)
 
@@ -84,29 +84,30 @@ class FileUpload extends Component {
     }
 
     _fileUploadHandler(e) {
+        // const token = localStorage.getItem('token')
         const formData = new FormData();
         formData.append('file', this.uploadInput.files[0]);
-        formData.append('filename', `${this.state.userID+':'+this.props.id}`);
-        this.props.callback(`${this.state.userID + ':' + this.props.id}`)
+        formData.append('filename', `${this.props.id}_token`);
+        // this.props.callback(`${this.state.userID + ':' + this.props.id}`)
 
-        axios.post(`${url}/upload/reviews`, formData)
-            .then((response) => {
-            console.log(response.json());
-            })
-            // .then(response => this.setState({ data: response.data }))
-            .catch(err => console.log(err))
+        // axios.post(`${url}/upload`, formData)
+        // // axios.post(`${url}/api/review/post/upload`, formData, { headers: { 'token': token } })
+        //     .then((response) => {
+        //     console.log(response);
+        //     })
+        //     // .then(response => this.setState({ data: response.data }))
+        //     .catch(err => console.log(err))
 
-        // fetch('http://localhost:8000/upload', {
-        //     method: 'POST',
-        //     body: formData,
-        // })
-        // .then((response) => {
-            // response.json().then((body) => {
-                // console.log(response)
-                // this.setState({ imageURL: `http://localhost:8000/${body.file}` });
-            // });
-            // .catch(err) => console.log(err);
-        // });
+        fetch(`${url}/upload`, {
+            method: 'POST',
+            body: formData,
+        }).then((response) => {
+            response.json().then((body) => {
+                // console.log(response.json())
+                this.setState({imageURL: `${url}${body.file}` });
+            });
+        });
+    
     }
 
 
@@ -124,7 +125,7 @@ class FileUpload extends Component {
                 <input style={{ width: '100%' }}
                     type='file'
                     ref={ref => { this.uploadInput = ref; }}
-                    onChange={(e) => { this._handleImageChange(e) }} />
+                    onChange={(e) => { this._handleImageChange(e); this._fileUploadHandler(e) }} />
                 <ImgDiv>
                     {$imagePreview}
                 </ImgDiv>

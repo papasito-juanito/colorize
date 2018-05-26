@@ -31,7 +31,7 @@ app.post('/upload', function(req, res) {
     if (err){
       return res.status(500).send(err);
     }
-    res.json('File uploaded!');
+    res.send('File uploaded!');
   });
 });
 

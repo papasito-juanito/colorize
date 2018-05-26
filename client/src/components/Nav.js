@@ -141,12 +141,9 @@ class Nav extends Component {
         var prevScrollpos = window.pageYOffset;
         return function() {
             var currentScrollPos = window.pageYOffset;
-            console.log('current', currentScrollPos);
             if (prevScrollpos >= currentScrollPos) {
-                console.log('IFIFIFIFIFIFIFIcurrent', currentScrollPos);
                 document.getElementById("navbar").style.top = "0";
             } else {
-                console.log('prev', prevScrollpos);
                 document.getElementById("navbar").style.top = "-10%";
             }
             prevScrollpos = currentScrollPos;

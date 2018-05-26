@@ -15,6 +15,6 @@ module.exports = (req, res, next) => {
         message: 'invalid userMail'
       })
     }
+    else next();
   })
-  next();
 }

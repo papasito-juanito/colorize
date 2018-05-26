@@ -43,7 +43,8 @@ class FileUpload extends Component {
             popupIsOpen: false,
             selectedFile: '',
             data: '',
-            userID: ''
+            userID: '',
+            imageURL:''
         }
         this._openPopup = this._openPopup.bind(this);
         this._afterOpenPopup = this._afterOpenPopup.bind(this);
@@ -57,7 +58,6 @@ class FileUpload extends Component {
         e.preventDefault();
         let reader = new FileReader();
         let file = e.target.files[0];
-        console.log(file)
 
         reader.readAsDataURL(file)
 
@@ -90,25 +90,24 @@ class FileUpload extends Component {
         formData.append('filename', `${this.props.id}_token`);
         // this.props.callback(`${this.state.userID + ':' + this.props.id}`)
 
-        axios.post(`${url}/upload`, formData)
-        // axios.post(`${url}/api/review/post/upload`, formData, { headers: { 'token': token } })
-            .then((response) => {
-            console.log(response);
-            })
-            // .then(response => this.setState({ data: response.data }))
-            .catch(err => console.log(err))
+        // axios.post(`${url}/upload`, formData)
+        // // axios.post(`${url}/api/review/post/upload`, formData, { headers: { 'token': token } })
+        //     .then((response) => {
+        //     console.log(response);
+        //     })
+        //     // .then(response => this.setState({ data: response.data }))
+        //     .catch(err => console.log(err))
 
-        // fetch('http://localhost:8000/upload', {
-        //     method: 'POST',
-        //     body: formData,
-        // })
-        // .then((response) => {
-            // response.json().then((body) => {
-                // console.log(response)
-                // this.setState({ imageURL: `http://localhost:8000/${body.file}` });
-            // });
-            // .catch(err) => console.log(err);
-        // });
+        fetch(`${url}/upload`, {
+            method: 'POST',
+            body: formData,
+        }).then((response) => {
+            response.json().then((body) => {
+                // console.log(response.json())
+                this.setState({imageURL: `${url}${body.file}` });
+            });
+        });
+    
     }
 
 

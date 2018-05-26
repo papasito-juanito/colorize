@@ -11,7 +11,7 @@ const Div = styled.div`
     background-color: #F4F5F9;
 `;
 const review = false;
-
+//로그인 안되었을때 ? 리뷰 없는상태, 로그인 되었을때? 리뷰 여부 검사
 class Comment extends Component {
     constructor() {
         super();

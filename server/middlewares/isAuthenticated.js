@@ -1,38 +1,24 @@
 // Global import
 const jwt = require('jsonwebtoken');
 
+// Local import
+const db = require('../db');
+
 module.exports = (req, res, next) => {
-  var token = req.headers['x-access-token'] || req.headers.token;
-	// token = token.replace(/(\s*)/g, ""); // 공백제거;
-	if ( !token ) {
-		return res.status(403).json({
-			success : false,
-			message : 'Login first'
-		});
-	}
-
-	const promise = new Promise( (resolve, reject) => {
-		jwt.verify(
-			token,
-			req.app.get('jwt-secret'),
-			(err, decodeed) => {
-				if ( err ) reject(err);
-				resolve(decodeed);
-			}
-		);
-	});
-
-	const onError = (error) => {
-		res.status(403).json({
-			success : false,
-			message : error.message
-		});
-	};
-
-	promise
-	.then( (decodeed) => {
-		req.decodeed = decodeed; 
-		next(); 
-	})
-	.catch(onError);
+  const userMail = jwt.verify(req.headers.token, 'jwt-secret').userMail;
+  console.log('userMail: ', userMail);
+  db.query(`SELECT id FROM users WHERE userMail="${userMail}";`, (err, rows) => {
+    console.log('rows: ',rows);
+    if (rows.length === 1) {
+      res.json({
+        success: true
+      })
+    } else {
+      res.json({
+        success: false,
+        message: 'invalid userMail'
+      })
+    }
+  })
+  next();
 }

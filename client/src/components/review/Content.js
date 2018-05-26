@@ -150,7 +150,7 @@ class Content extends Component {
 
     _reviewLike = function () {
         this.setState({ like: !this.state.like })
-        !this.state.like ? this.setState({ likecount: this.state.likeCount++ }) : this.setState({ likecount: this.state.likeCount-- })
+        // !this.state.like ? this.setState({ likecount: this.state.likeCount++ }) : this.setState({ likecount: this.state.likeCount-- })
         //누르면 개별 likes 올라가고 토글 개별로 되게 
     }
     _openPopup(e) {

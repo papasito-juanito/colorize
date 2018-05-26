@@ -13,6 +13,10 @@ module.exports = (req, res, next) => {
         success: false,
         message: 'invalid userMail'
       })
+    } else {
+      res.json({
+        success: true
+      })
     }
   })
   next();

@@ -1,16 +1,34 @@
+// Global import
+const jwt = require('jsonwebtoken');
+
 // Local import
 const model = require('../../models/wishLists/update');
+const _delete = require('./delete');
+const _get = require('./get');
+const _post = require('./post');
 
-module.exports = (req, res) => {
-  const {user_id, color_id} = req.body;
-  const params = [user_id, color_id];
+module.exports = async (req, res) => {
 
-  model(params, (err, rows) => {
+  const userMail = await jwt.verify(req.headers.token, 'jwt-secret').userMail;
+  const params = [req.body.color_id, userMail];
+
+  const check = await _get.check(params, (err, rows) => {
     if (err) throw err;
-    else res.send({
-      login: req.session.userMail ? true : false,
-      wish_id: req.body.wish_id,
-      update: true
-    });
-  })
+    else {
+      if (rows.length) _post(params, (err, rows) => {
+        if (err) throw err;
+        else {
+          res.send(rows);
+        }
+      })
+      else {
+        _delete(params, (err, rows) => {
+          if (err) throw err;
+          else {
+            res.send(rows);
+          }
+        })
+      }
+    }
+  });
 };

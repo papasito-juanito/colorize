@@ -1,7 +1,13 @@
 // Local import
 const db = require('../../db');
-const queryStr = require('../../db/wishLists/get');
+const sQuery = require('../../db/wishLists/get');
 
-module.exports = (params, cb) => {
-  db.query(sQuery, params, (err, rows) => { cb(err, rows); })
+module.exports = {
+  check: (params, cb) => {
+    db.query(sQuery.check, params, (err, rows) => { cb(err, rows); })
+  },
+
+  list: (params, cb) => {
+    db.query(sQuery.list, params, (err, rows) => { cb(err, rows); })
+  }
 };

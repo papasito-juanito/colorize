@@ -134,7 +134,7 @@ class Content extends Component {
             imagepreviewUrl: '',
             items: this.props.data.length < 3 ? this.props.data.length : 3,
             loadingState: false,
-            data : this.props.data        
+            data : this.props.data
         }
 
         this._openPopup = this._openPopup.bind(this);
@@ -144,6 +144,7 @@ class Content extends Component {
         this._reviewLike = this._reviewLike.bind(this);
         this._displayItems = this._displayItems.bind(this);
         this._loadMoreItems = this._loadMoreItems.bind(this)
+        this._updateLike = this._updateLike.bind(this);
     }
 
     _handleModify() {
@@ -158,19 +159,23 @@ class Content extends Component {
         const form = {
             review_id: reviewId
         }
-        const elem = this.state.data[e.target.id]
-        console.log(elem)
+        console.log(this.state.data)
         axios.post(`${url}/api/review/update/like`,form, { headers: { 'token': token } })
-            .then(response =>
-                // this.setState({ like: response.data.toggle })
-                // this.props.data[e.target.id].toggle = response.data.toggle
-                // console.log(elem)
-                // elem.toggle = response.data.toggle
-                console.log(response.data.toggle)
-            )
-            .catch(err => console.log(err))
-
+        // .then(res => console.log(res.data))
+            .then(this._updateLike())  
+            .catch(err => console.log(err))            
     }
+
+    _updateLike() {
+        const token = localStorage.getItem('token')
+        axios.get(`${url}/api/review/get/rank?color_id=${this.props.id}`, { headers: { 'token': token } })
+            .then(response => 
+                // console.log(response)
+                this.setState({ data: response.data })
+            )
+            .catch(err => console.log(err));
+    }
+  
 
         // post 보내기 likes수 올라가게  toggle 바뀌게 사진이랑 숫자 올라갔다 내려왔다 해야함 review Id 넣어주기 
     
@@ -190,10 +195,10 @@ class Content extends Component {
     }
 
     _displayItems() {
-        console.log('content',this.state.data);
         const data = this.state.data ? this.state.data : [];
         const items = [];
         for (var i = 0; i < this.state.items; i++) {
+
            items.push(
                 <Container key={i}>
                    <ReviewImage onClick={this._openPopup} />
@@ -254,10 +259,10 @@ class Content extends Component {
         if(nextState.items> this.props.data.length)  {
             return nextState.items = this.props.data.length;
         }
-        console.log(nextState)
     }
 
     render() {
+        console.log(this.state.data)
         let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
 
         return (

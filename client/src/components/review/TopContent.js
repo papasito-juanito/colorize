@@ -13,6 +13,10 @@ const customStyles = {
         bottom: 'auto',
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)'
+    },
+    overlay: {
+        position: 'fixed',
+        zIndex: 5
     }
 };
 
@@ -125,12 +129,7 @@ class TopContent extends Component {
         super(props);
         this.state = {
             editing: true,
-            message: '글이나오고 글이나오고 글이나오고',
             likeCount: 100,
-            id: 'wonbok1213',
-            age: 32,
-            skin: '지성',
-            rating: 3,
             like: false,
             popupIsOpen: false,
             imagepreviewUrl: ''

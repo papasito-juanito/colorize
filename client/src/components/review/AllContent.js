@@ -16,8 +16,11 @@ const customStyles = {
         right: 'auto',
         bottom: 'auto',
         marginRight: '-50%',
-        transform: 'translate(-50%, -50%)'
-    }
+        transform: 'translate(-50%, -50%)',
+    },
+    overlay: { 
+        position:'fixed',
+        zIndex: 5 }
 };
 
 Modal.setAppElement('#root');
@@ -159,7 +162,7 @@ class AllContent extends Component {
         axios.post(`${url}/api/review/update/like`,form, { headers: { 'token': token } })
             .then(res => 
                 axios.get(`${url}/api/review/get/list?color_id=${this.props.id}`, { headers: { 'token': token } })
-                    .then(response => this.setState({ data: response.data }))
+                .then(response => this.setState({ data: response.data }))
             )
             .catch(err => console.log(err))            
     }

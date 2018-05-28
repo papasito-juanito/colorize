@@ -1,37 +1,69 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-const SortingContainer = styled.div`
-    position: fixed;
-    width:8%
-    margin-top:5%
-    height: 100%;
-    background-color: green;
-`
-{/* <div class="sidenav">
-  <a href="#about">About</a>
-  <a href="#services">Services</a>
-  <a href="#clients">Clients</a>
-  <a href="#contact">Contact</a>
-  <button class="dropdown-btn">Dropdown 
-    <i class="fa fa-caret-down"></i>
-  </button>
-  <div class="dropdown-container">
-    <a href="#">Link 1</a>
-    <a href="#">Link 2</a>
-    <a href="#">Link 3</a>
-  </div>
-  <a href="#contact">Search</a>
-</div> */}
+const SortContainer = styled.div`
+    height: 3rem;
+    margin-top: 10%;
+    margin-left: 3%;
+    overflow: hidden;
+`;
 
-//container안에 분류할거 작업해야함
+const Btn = styled.button`
+    border: none;
+    outline: none;
+    padding: 12px 16px;
+    background-color: #f1f1f1;
+    cursor: pointer;
+    &:hover {
+        background-color: #ddd;
+    }
+    $:active {
+        background-color: #666;
+        color: white;
+    }
+`;
 
-const Sort = () => {
-    return (
-        <SortingContainer >
+const handleBasic = (history) => {
+  console.log('sorting', history);
+  console.log('adsasdasda');
+  history.push(history.location.pathname)
+  
+}
 
-        </SortingContainer>
-    );
+const handeHighPrice = () => {
+
+}
+
+const handleLowPrice = () => {
+
+}
+
+const handleRating = () => {
+
+}
+
+const handleLatest = () => {
+
+}
+
+class Sort extends Component {
+
+    render(){
+      const {history} = this.props
+      console.log(history);
+      
+      return (
+        <SortContainer>
+          <Btn onClick={()=>handleBasic()}>기본순</Btn>
+          <Btn>높은가격순</Btn>
+          <Btn>낮은가격순</Btn>
+          <Btn>별점순</Btn>
+          <Btn>최신순</Btn>
+       </SortContainer>  
+      );
+    }
+
 };
 
 export default Sort;

@@ -9,7 +9,7 @@ import lipstick from '../../assets/lipstick.svg';
 const ItemListContainer = styled.div` 
     height: 100%;
     width: 80%;
-    margin-top: 10%;
+    margin-top: 2%;
     display: flex;
     justify-content: center;
 `

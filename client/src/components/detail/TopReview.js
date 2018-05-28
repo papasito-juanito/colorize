@@ -21,7 +21,7 @@ class TopReview extends Component {
     componentDidMount() {
         const token = localStorage.getItem('token')
         // axios.get(`${url}/api/item/rate?color_id=${this.props.match.params.id}`)
-        axios.get(`${url}/api/review/get/rank?color_id=${this.props.id}`, { headers: { 'token': token } })
+        axios.get(`${url}/api/review/get/rank?color_id=${this.props.id}`, token !== null ? { headers: { 'token': token} }: null)
             // .then((response) => {
             //     console.log(response);
             // })
@@ -37,7 +37,7 @@ class TopReview extends Component {
                     베스트리뷰
                 </div>
                 <div>
-                    {this.state.topReview.length !== 0 ? <TopReviews Topdata={this.state.topReview} /> : <div style={{ border: '1px solid black' }}> <h2>등록된 리뷰가 없어요</h2></div>}
+                    {this.state.topReview.length !== 0 ? <TopReviews Topdata={this.state.topReview} /> : <div> <h2>등록된 리뷰가 없어요</h2></div>}
                 </div>
             </Div>
         );

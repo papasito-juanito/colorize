@@ -92,7 +92,7 @@ git folder:
 mysql root password change:
     mysql 접속후
     use mysql;
-    update user set authentication_string=password('') where user='root';
+    update user set authentication_string=('password') where user='root';
 
 ***
 #2018-05-18

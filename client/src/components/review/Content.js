@@ -122,6 +122,8 @@ top: 21px;
     }
 `
 
+
+
 class Content extends Component {
     
     constructor(props) {
@@ -131,7 +133,8 @@ class Content extends Component {
             popupIsOpen: false,
             imagepreviewUrl: '',
             items: this.props.data.length < 3 ? this.props.data.length : 3,
-            loadingState: false
+            loadingState: false,
+            data : this.props.data
         }
 
         this._openPopup = this._openPopup.bind(this);
@@ -141,6 +144,7 @@ class Content extends Component {
         this._reviewLike = this._reviewLike.bind(this);
         this._displayItems = this._displayItems.bind(this);
         this._loadMoreItems = this._loadMoreItems.bind(this)
+        this._updateLike = this._updateLike.bind(this);
     }
 
     _handleModify() {
@@ -155,14 +159,24 @@ class Content extends Component {
         const form = {
             review_id: reviewId
         }
-
+        console.log(reviewId)
         axios.post(`${url}/api/review/update/like`,form, { headers: { 'token': token } })
-            .then(response =>
-                // this.setState({ data: response.data })
-                console.log(response)
-            )
-            .catch(err => console.log(err))
+        // .then(res => console.log(res.data))
+            .then(this._updateLike())  
+            .catch(err => console.log(err))            
     }
+
+    _updateLike() {
+        console.log('previous state: ',this.state.data)
+        const token = localStorage.getItem('token')
+        axios.get(`${url}/api/review/get/list?color_id=${this.props.id}`, { headers: { 'token': token } })
+            .then(response => 
+                // console.log('after state :',response.data)
+                this.setState({ data: response.data })
+            )
+            .catch(err => console.log(err));
+    }
+  
 
         // post 보내기 likes수 올라가게  toggle 바뀌게 사진이랑 숫자 올라갔다 내려왔다 해야함 review Id 넣어주기 
     
@@ -182,11 +196,11 @@ class Content extends Component {
     }
 
     _displayItems() {
-        console.log('content',this.props);
-        const data = this.props ? this.props.data : [];
+        const data = this.state.data ? this.state.data : [];
         const items = [];
         for (var i = 0; i < this.state.items; i++) {
-           items.push(
+
+           data.length ? items.push(
                 <Container key={i}>
                    <ReviewImage onClick={this._openPopup} />
                    {/* <ReviewImage src={ require(`../../../src/assets/reviews/${this.props.id}_.jpg`) } onClick={this._openPopup} /> */}
@@ -213,13 +227,14 @@ class Content extends Component {
                         </div>
                        <BottomContainer  >
                             <LikeCount>
-                                <Like id={i} onClick={this._reviewLike} src={data[i].toggle === 'true' ? like : hate} />
-                                {data[i].likes}
+                               <Like id={i} onClick={this._reviewLike} src={data[i].toggle === 'true' ? like : hate} />
+                               {/* <Like id={i} onClick={this._reviewLike} src={this.state.like === 'true' ? like : hate} /> */}
+                               {data[i].likes}
                             </LikeCount>
                         </BottomContainer>
                     </ReviewContent >
                 </Container>
-            )
+            ) : null;
         }
         return items;
     }
@@ -239,16 +254,18 @@ class Content extends Component {
             }
         }) : window.removeEventListener("scroll", this._loadMoreItems());
 
-       
     }
 
     componentWillUpdate(nextProps, nextState){
         if(nextState.items> this.props.data.length)  {
             return nextState.items = this.props.data.length;
         }
+        console.log('nextProps.items: ', nextState.items)
+        console.log('this.props.data.length: ', this.props.data.length )
     }
 
     render() {
+        console.log('after state :',this.state.data)
         let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
 
         return (

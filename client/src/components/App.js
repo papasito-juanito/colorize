@@ -40,7 +40,7 @@ class App extends Component {
                         <Route path="/wishList" component={WishList}/>
                         <Route path="/review" component={MyContent}/>
                         <Route path="/signup" component={Signup}/>
-                        <Route exact path="/items/:id" component={ItemList}/>
+                        <Route path="/items/:id" component={ItemList}/>
                         <Route path="/items/detail/:id" component={Detail} />
                         <Route path="/myinfo" component={MyInfo}/>
                         <Route component={NotMatch}/>

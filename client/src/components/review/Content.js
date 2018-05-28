@@ -159,7 +159,7 @@ class Content extends Component {
         const form = {
             review_id: reviewId
         }
-        console.log(this.state.data)
+        console.log(reviewId)
         axios.post(`${url}/api/review/update/like`,form, { headers: { 'token': token } })
         // .then(res => console.log(res.data))
             .then(this._updateLike())  
@@ -167,10 +167,11 @@ class Content extends Component {
     }
 
     _updateLike() {
+        console.log('previous state: ',this.state.data)
         const token = localStorage.getItem('token')
-        axios.get(`${url}/api/review/get/rank?color_id=${this.props.id}`, { headers: { 'token': token } })
+        axios.get(`${url}/api/review/get/list?color_id=${this.props.id}`, { headers: { 'token': token } })
             .then(response => 
-                // console.log(response)
+                // console.log('after state :',response.data)
                 this.setState({ data: response.data })
             )
             .catch(err => console.log(err));
@@ -199,7 +200,7 @@ class Content extends Component {
         const items = [];
         for (var i = 0; i < this.state.items; i++) {
 
-           items.push(
+           data.length ? items.push(
                 <Container key={i}>
                    <ReviewImage onClick={this._openPopup} />
                    {/* <ReviewImage src={ require(`../../../src/assets/reviews/${this.props.id}_.jpg`) } onClick={this._openPopup} /> */}
@@ -233,7 +234,7 @@ class Content extends Component {
                         </BottomContainer>
                     </ReviewContent >
                 </Container>
-            )
+            ) : null;
         }
         return items;
     }
@@ -259,10 +260,12 @@ class Content extends Component {
         if(nextState.items> this.props.data.length)  {
             return nextState.items = this.props.data.length;
         }
+        console.log('nextProps.items: ', nextState.items)
+        console.log('this.props.data.length: ', this.props.data.length )
     }
 
     render() {
-        console.log(this.state.data)
+        console.log('after state :',this.state.data)
         let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
 
         return (

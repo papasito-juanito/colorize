@@ -1,10 +1,11 @@
 module.exports = {
   info: `
 SELECT u.userPhoto photo, u.userName name, t.toneName tone,
-  YEAR(NOW())-YEAR(u.birthDate) age, u.gender gender
-FROM users u, tones t
-WHERE u.userToggle='true' AND t.id=u.tones_id AND u.userMail=?;
-  `,
+ YEAR(NOW())-YEAR(u.birthDate) age, u.gender gender, r.reviewMessage message
+FROM users u, tones t, reviews r
+WHERE u.userToggle='true' AND r.reviewToggle='true' AND
+ t.id=u.tones_id AND u.id=r.users_id AND u.userMail=? AND r.itemColors_id=?;
+ `,
   list: `
 SELECT m.*, IFNULL(t.toggle,'false') toggle
 FROM
@@ -12,7 +13,7 @@ FROM
     YEAR(NOW())-YEAR(u.birthDate) age, t.toneName tone, r.reviewRating rating,
     r.reviewMessage message, r.reviewTime writeAt, rl.likes likes
   FROM itemColors ic, users u, reviews r, tones t, 
-    (SELECT ri.id review_id, IFNULL(COUNT(rli.id),0) likes 
+    (SELECT ri.id review_id, IFNULL(COUNT(CASE WHEN rli.likeToggle='true' THEN 1 END),0) likes  
     FROM reviews ri
     LEFT JOIN reviewLikes rli 
     ON ri.id=rli.reviews_id GROUP BY ri.id) rl
@@ -35,7 +36,7 @@ FROM
     YEAR(NOW())-YEAR(u.birthDate) age, t.toneName tone, r.reviewRating rating,
     r.reviewMessage message, r.reviewTime writeAt, rl.likes likes
   FROM itemColors ic, users u, reviews r, tones t, 
-    (SELECT ri.id review_id, IFNULL(COUNT(rli.id),0) likes 
+    (SELECT ri.id review_id, IFNULL(COUNT(CASE WHEN rli.likeToggle='true' THEN 1 END),0) likes 
     FROM reviews ri
     LEFT JOIN reviewLikes rli 
     ON ri.id=rli.reviews_id GROUP BY ri.id) rl

@@ -20,17 +20,12 @@ class TopReview extends Component {
     }
     componentDidMount() {
         const token = localStorage.getItem('token')
-        // axios.get(`${url}/api/item/rate?color_id=${this.props.match.params.id}`)
         axios.get(`${url}/api/review/get/rank?color_id=${this.props.id}`, token !== null ? { headers: { 'token': token} }: null)
-            // .then((response) => {
-            //     console.log(response);
-            // })
             .then(response => this.setState({ topReview: response.data }))
             .catch(err => console.log(err));
     }
 
     render() {
-        console.log(this.state.topReview)
         return (
             <Div>
                 <div> 

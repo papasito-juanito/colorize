@@ -100,19 +100,16 @@ class Detail extends Component {
 
 
     render(){
-        console.log('login state :', this.props.isLogined)
-        console.log(this.state.data)
         let loginState = this.props.isLogined;
 
         return (
-            <div style={{ backgroundColor:'#F4F5F9', padding:'1% 0 1% 0', fontFamily: "Nanum Gothic"
-}}>
+            <div style={{ backgroundColor:'#F4F5F9', padding:'1% 0 1% 0', fontFamily: "Nanum Gothic"}}>
                 <Wrapper>
                     <DetailLeft data={this.state.data}/>
                     <DetailRight data={this.state.data} id = {this.props.match.params.id}/>
                 </Wrapper>
                 <Div>
-                    <Comment id={this.props.match.params.id}/>
+                    <Comment loginState={loginState} id={this.props.match.params.id}/>
                 </Div>
                 <ReviewDiv>
                     <TopReview id={this.props.match.params.id} />

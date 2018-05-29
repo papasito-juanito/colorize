@@ -1,45 +1,36 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { url } from '../config';
+import {Redirect} from 'react-router-dom';
+import history from '../utils/history'
 
-const withLoginUser = () => (WrappedComponent) => {
+const withLoginUser = (WrappedComponent, props) => {
     return class extends Component {
       state = {
         isLogined: false
       }
-  
-    //   async checkUserToken() {
-    //     const token = localStorage.getItem('token')
-    //     try {
-    //       const response = await axios.get(`${url}/api/user/get/check`, {headers: {'token': token}});
-    //       this.setState({
-    //         isLogined: response.data
-    //       });
-    //     } catch (e) {
-    //       console.log(e);
-    //     }
-    //   }
-  
-      componentDidMount() {
-        const token = localStorage.getItem('token')
+    
+      async authcheck(){
+        const token = localStorage.getItem('token')     
         if(token){
-            axios.get(`${url}/api/user/get/check`, {headers: {'token': token}})
-            .then(res => {
-                console.log('nav', res);
-                if(res.data.success === true){
-                    this.setState({
-                        isLogined: true
-                    })
-                }
-            })
+          const res = await axios.get(`${url}/api/user/get/check`, {headers: {'token': token}})    
+              // if(res.data.success === true){
+                .then(()=>this.setState({
+                  isLogined: true}))
+              // }, )
+              return res.data.success
+            }
+            
         }
-      }
   
       render() {
+        console.log('fxfxfxfxfxfxfxfxf',this.authcheck());
         const isLogined= this.state.isLogined;
-        return (
-          <WrappedComponent {...this.props} isLogined={isLogined}/>
-        )
+        console.log('HOC', this.state,isLogined);
+          return (isLogined ? 
+          <WrappedComponent {...this.props} isLogined={isLogined}/> :
+          <Redirect to ='/' />
+          )
       }
     }
   }

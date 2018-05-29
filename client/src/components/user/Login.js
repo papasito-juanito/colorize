@@ -236,7 +236,7 @@ class Login extends Component {
     }
 
     render(){
-        console.log('renderHistory', history);
+        console.log('renderHistory', this.props.handleLoginUser);
         const {renderLogin} = this.props        
         return (
             <LoginContainer>

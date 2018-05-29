@@ -100,7 +100,8 @@ class Detail extends Component {
     
 
     render(){
-        console.log(this.state.data)
+        console.log(this.props);
+        
         return (
             <div style={{ backgroundColor:'#F4F5F9', padding:'1% 0 1% 0', fontFamily: "Nanum Gothic"
 }}>

@@ -201,7 +201,10 @@ class MyContent extends Component {
 
 
     render() {
-        console.log(this.review)
+        // console.log('mycontent', this.props)
+        // if(!this.props.isLogined){
+        //     this.props.history.push('/')
+        // }
         let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
             return (
                 <div style={{width: '100%' }}>

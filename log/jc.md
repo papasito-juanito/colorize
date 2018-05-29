@@ -142,3 +142,10 @@ axios:
     해결방법은 axios.get(~~~, withcredentials: true)을 붙이면 됨.
     그리고 쿠키에 대한 내용은 C-R-A의 dev server port 3000에서는 적용되지 않아서
     이제부터 계속 빌드를 돌려야 된다... 우왕!
+
+#2018-05-29
+***
+process.env:
+  colorize 폴더에서
+    export NODE_ENV=production
+    export NODE_ENV=develpment

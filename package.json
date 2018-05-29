@@ -19,6 +19,7 @@
     "bcrypt": "^2.0.1",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
+    "dotenv": "^5.0.1",
     "express": "^4.16.3",
     "express-fileupload": "^0.4.0",
     "jsonwebtoken": "^8.2.1",
@@ -29,6 +30,8 @@
   "scripts": {
     "init": "mysql -u root < server/db/utility/schema.sql",
     "fake": "mysql -u root < server/db/utility/fake.sql",
+    "pro": "NODE_ENV=production nodemon server/index.js --ignore './client'",
+    "dev": "NODE_ENV=development nodemon server/index.js --ignore './client'",
     "server": "nodemon server/index.js --ignore './client'"
   },
   "devDependencies": {

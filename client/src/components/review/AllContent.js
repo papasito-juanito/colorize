@@ -160,9 +160,11 @@ class AllContent extends Component {
             review_id: reviewId
         }
         axios.post(`${url}/api/review/update/like`,form, { headers: { 'token': token } })
-            .then(res => 
-                axios.get(`${url}/api/review/get/list?color_id=${this.props.id}`, { headers: { 'token': token } })
+            .then(() => {
+                return axios.get(`${url}/api/review/get/list?color_id=${this.props.id}`, { headers: { 'token': token } })
                 .then(response => this.setState({ data: response.data }))
+                .catch(err => console.log(err))
+                }
             )
             .catch(err => console.log(err))            
     }

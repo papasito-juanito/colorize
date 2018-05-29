@@ -103,7 +103,7 @@ class Detail extends Component {
         console.log(this.props);
         
         let loginState = this.props.isLogined;
-
+        console.log('login stsate :', this.props.isLogined)
         return (
             <div style={{ backgroundColor:'#F4F5F9', padding:'1% 0 1% 0', fontFamily: "Nanum Gothic"}}>
                 <Wrapper>

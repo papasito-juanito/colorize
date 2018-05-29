@@ -3,6 +3,7 @@ import axios from 'axios';
 import { url } from '../config';
 import {Redirect} from 'react-router-dom';
 import history from '../utils/history'
+import { resolve } from 'url';
 
 const withLoginUser = (WrappedComponent) => {
     return class extends Component {
@@ -13,29 +14,38 @@ const withLoginUser = (WrappedComponent) => {
         }
       }
 
-      componentDidMount=()=>{
+      authCheck=async()=>{
         const token = localStorage.getItem('token')     
         if(token){
-           axios.get(`${url}/api/user/get/check`, {headers: {'token': token}})
-          .then(res=>{
-            console.log('resresres', res);
-            if(res.data.success===true){
-              this.setState({
+           const res = await axios.get(`${url}/api/user/get/check`, {headers: {'token': token}})
+           console.log('resresresresresres', res);
+           if(res.data.success){
+            this.setState({
                 isLogined: true
               })
-            }
-          })
+           }
+          // .then(res=>{
+        //     console.log('resresres', res);
+        //     if(res.data.success===true){
+        //       this.setState({
+        //         isLogined: true
+        //       })
+        //     }
+        //   })
         }
       }
   
       render() {
-      
-        const isLogined= this.state.isLogined;
+        // this.authCheck().then(console.log(this.state.isLogined)
+        // )
+        const isLogined= this.authCheck().then(this.state.isLogined);
         console.log('HOCHOCHOCHOCHOCHOC', isLogined);
         console.log('historyhistoryhistory', history);
         
           return  (
+            isLogined ? 
           <WrappedComponent {...this.props} isLogined={isLogined}/> 
+          : <Redirect to='/' />
           )
       }
     }

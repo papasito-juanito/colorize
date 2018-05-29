@@ -9,6 +9,8 @@ import NotMatch from './NotMatch'
 import WishList from './wishList/WishList'
 import MyContent from './review/MyContent'
 
+import MyReviews from './review/MyReviews'
+// import Login from './user/Login'
 import Signup from './user/Signup'
 import Detail from './detail/Detail'
 import MyInfo from './MyInfo'
@@ -73,7 +75,8 @@ class App extends Component {
                         <Route exact path="/" component={Home}/>
                         <Route path="/wishList" component={WishList}/>
                         {/* <PrivateRoute isLogined={this.state.isLogined} path="/review" component={MyContent}/> */}
-                        <Route path='/review' component={withLoginUser(MyContent)}/> 
+                        {/* <Route path='/review' component={withLoginUser(MyReviews)}/>  */}
+                        <Route path='/review' component={withLoginUser(MyReviews)} />
                         <Route path="/signup" component={Signup}/>
                         <Route exact path="/items/:id" component={ItemList}/>
                         <Route path="/items/detail/:id" render={(props)=><Detail {...props} isLogined={this.state.isLogined}/>} />

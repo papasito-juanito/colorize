@@ -71,3 +71,4 @@ login 되어있을시 리뷰 안썼으면 리뷰쓰는 화면 보이고 썼으�
 좋아요 버튼 눌렀을 시 toggle 버튼 구현 
 axios 비동기 함수 post 후 get 구현해야하는데 비동기가 제대로 작동하지 않아 시간이 많이걸림
 axios async로 검색해서 비동기 chain 처리 구현 
+.then 뒤에 axios return 으로

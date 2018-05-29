@@ -213,11 +213,6 @@ class MyContent extends Component {
     }
 
     render() {
-        // console.log('mycontent', this.props.isLogined)
-        // if(this.props.isLogined===false){
-        //     console.log('falsefalsefalsefalsefalse');
-        //     <Redirect to='/' />
-        // } 
         let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
             return (
                 <div style={{width: '100%' }}>

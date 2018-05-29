@@ -7,6 +7,7 @@ import Login from './user/Login'
 
 import axios from 'axios';
 import { url } from '../config';
+import history from '../utils/history'
 
 const NavContatiner = styled.header`
     background-color: black;
@@ -127,15 +128,8 @@ class Nav extends Component {
     renderLogin = () => {
         this.setState({
             loginClicked: !this.state.loginClicked,
-            // isLogined: this.state.isLogined ? false : this.state.isLogined
         })
     }
-
-    // handleLoginUser = () => {
-    //     this.setState({
-    //         isLogined: true
-    //     })
-    // }
 
     hideNav = () => {
         var prevScrollpos = window.pageYOffset;
@@ -149,11 +143,6 @@ class Nav extends Component {
             prevScrollpos = currentScrollPos;
         }
     }
-
-    // handleLogout = () => {
-    //     localStorage.removeItem('token')
-    //     this.props.isLogined = false
-    // }
 
     componentDidMount(){
         window.addEventListener('scroll',this.hideNav());

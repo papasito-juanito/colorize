@@ -8,7 +8,7 @@ import ItemList from './itemList/ItemList'
 import NotMatch from './NotMatch'
 import WishList from './wishList/WishList'
 import MyContent from './review/MyContent'
-// import Login from './user/Login'
+
 import Signup from './user/Signup'
 import Detail from './detail/Detail'
 import MyInfo from './MyInfo'

@@ -27,21 +27,20 @@ const SortContainer = styled.div`
 
 const Btn = styled(Link)`
     border: none;
+    color:white
     outline: none;
     padding: 12px 16px;
-    background-color: #f1f1f1;
+    background-color: grey;
     cursor: pointer;
     text-decoration: none;
-    &:hover {
-        background-color: #ddd;
-    }
-    $:active {
-        background-color: #666;
+    &:visited {
         color: white;
     }
-    &:visited {
-        text-color: black;
+    &:active {
+        background-color: black;
+        color: white;
     }
+  
 `;
 
 const style = {
@@ -57,26 +56,26 @@ class ItemList extends Component {
     }
     
     componentDidMount(){
-        console.log('itemsitemsitemsitems', this.props);
-        // const decode = decodeURIComponent(this.props.match.params.id)
-        // console.log(decode);        
-        axios.get(`${url}/api/item/get/list?color_id=[${this.props.match.params.id.split('&')}]`)
+        console.log('itemsitemsitemsitems', this.props);    
+        axios.get(`${url}/api/item/get/list?color_id=[${this.props.match.params.id.split('&')}]&order_by=avg DESC`)
         .then((response) => {
             console.log(response)
             this.setState({item: response.data})
           })
+        switch (this.props.history.location.search.split('=')[1]) {
+            case 'price_desc' : this.handeHighPrice()
+                break;
+            case 'price_asc' : this.handleLowPrice()
+                break;
+            case 'latest' : this.handleLatest()   
+                break; 
+            default:
+                break;
+        }
     }
-
-     handleBasic = () => {
-        axios.get(`${url}/api/item/get/list?color_id=[${this.props.match.params.id.split('&')}]`)
-        .then((response) => {
-            console.log(response)
-            this.setState({item: response.data})
-          })
-      }
-    
+ 
      handeHighPrice = () => {
-        axios.get(`${url}/api/item/get/list?color_id=[${this.props.match.params.id.split('&')}]&order_by=price ASC`)
+        axios.get(`${url}/api/item/get/list?color_id=[${this.props.match.params.id.split('&')}]&order_by=price DESC`)
         .then((response) => {
             console.log('price',response)
             this.setState({item: response.data})
@@ -84,15 +83,27 @@ class ItemList extends Component {
         }
     
      handleLowPrice = () => {
-
+        axios.get(`${url}/api/item/get/list?color_id=[${this.props.match.params.id.split('&')}]&order_by=price ASC`)
+        .then((response) => {
+            console.log('price',response)
+            this.setState({item: response.data})
+          })
     }
     
      handleRating = () => {
-    
+        axios.get(`${url}/api/item/get/list?color_id=[${this.props.match.params.id.split('&')}]&order_by=avg DESC`)
+        .then((response) => {
+            console.log('price',response)
+            this.setState({item: response.data})
+          })
     }
     
      handleLatest = () => {
-    
+        axios.get(`${url}/api/item/get/list?color_id=[${this.props.match.params.id.split('&')}]&order_by=date DESC`)
+        .then((response) => {
+            console.log('price',response)
+            this.setState({item: response.data})
+          })
     }
   
     render(){
@@ -101,11 +112,10 @@ class ItemList extends Component {
         return (
             <Wrapper>
                     <SortContainer>
-                        <Btn to='/'>기본순</Btn>
-                        <Btn to={`?sort=price_asc`} onClick={this.handeHighPrice.bind(this)}>높은가격순</Btn>
-                        <Btn to={`?sort=price_asc`}>낮은가격순</Btn>
-                        <Btn to={`?sort=price_asc`}>별점순</Btn>
-                        <Btn to={`?sort=price_asc`}>최신순</Btn>
+                        <Btn to={`?sort=rating`} onClick={this.handleRating.bind(this)}>별점순</Btn>
+                        <Btn to={`?sort=price_desc`} onClick={this.handeHighPrice.bind(this)}>높은가격순</Btn>
+                        <Btn to={`?sort=price_asc`} onClick={this.handleLowPrice.bind(this)}>낮은가격순</Btn>
+                        <Btn to={`?sort=latest`} onClick={this.handleLatest.bind(this)}>최신순</Btn>
                     </SortContainer>  
                 <Items item={this.state.item}/>
             </Wrapper>

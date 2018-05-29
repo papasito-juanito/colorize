@@ -37,7 +37,6 @@ class ItemList extends Component {
     }    
   
     render(){
-        console.log(history);
         return (
             <Wrapper>
                 <Sort history={this.props}/>

@@ -5,7 +5,6 @@ import axios from 'axios';
 import { url } from '../../config';
 
 
-const logged = true;
 
 const TextArea = styled.textarea`
     resize: none;
@@ -71,7 +70,7 @@ class Rating extends Component {
         }
 
         // console.log(form)
-        !logged ? alert('로그인 먼저해') :
+        !this.props.loginState ? alert('로그인 먼저해') :
             axios.post(`${url}/api/review/post/message`, form, { headers: { 'token': token } })
                 .then((response) => {
                 console.log(response);
@@ -82,12 +81,10 @@ class Rating extends Component {
     }
 
     _alertReview() {
-        alert('후기가 등록되었습니다');
+        this.props.loginState ? alert('후기가 등록되었습니다') : null;
     }
 
     render() {
-        console.log(this.props.id)
-        console.log(this.props)
         const { rating } = this.state;
         return (
             <Wrapper>

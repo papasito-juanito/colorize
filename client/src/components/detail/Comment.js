@@ -12,8 +12,7 @@ const Div = styled.div`
     display: flex;
     background-color: #F4F5F9;
 `;
-const review = false;
-//로그인 안되었을때 ? 리뷰 없는상태, 로그인 되었을때? 리뷰 여부 검사
+
 class Comment extends Component {
     constructor(props) {
         super(props);
@@ -31,27 +30,35 @@ class Comment extends Component {
 
     componentDidMount(){
         const token = localStorage.getItem('token')
-        // axios.get(`${url}/api/item/rate?color_id=${this.props.match.params.id}`)
+
         axios.get(`${url}/api/review/get/info?color_id=${this.props.id}`, { headers: { 'token': token } })
-            // .then((response) => {
-            //     console.log(response);
-            // })
-            .then(response => this.setState({ user: response.data }))
-            .catch(err => console.log(err));
+            .then(response => 
+                this.setState({ user: response.data })
+            )
+            .catch(err => console.log(err)) 
+            
     }
     
     render() {
+        console.log(this.state.user?this.state.user:null)
         return (
             <div>
-                {!review ?
-                    <Div>
-                        <FileUpload callback={this._callback.bind(this)} id={this.props.id} />
-                        <Rating info = {this.state.user} id={this.props.id} data={this.state.data} />
-                    </Div>
-                    :
-                    <Div>
-                        <MyContent />
-                    </Div>}
+                {!this.state.user ? 
+                <Div>
+                    <FileUpload callback={this._callback.bind(this)} id={this.props.id} />
+                    <Rating loginState={this.props.loginState} info={this.state.user} id={this.props.id} data={this.state.data} />
+                </Div> 
+                : this.state.user[0] && this.state.user[0].message ?
+                <Div>
+                    <MyContent id={this.props.id} user={this.state.user}/>
+                </Div> 
+                :
+                <Div>
+                    <FileUpload callback={this._callback.bind(this)} id={this.props.id} />
+                    <Rating loginState={this.props.loginState} info={this.state.user} id={this.props.id} data={this.state.data} />
+                </Div>    
+                }
+
             </div>
         );
     }

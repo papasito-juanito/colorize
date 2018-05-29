@@ -5,6 +5,8 @@ import like from '../../assets/Heart.png';
 import hate from '../../assets/emptyHeart.png';
 import StarRatingComponent from 'react-star-rating-component';
 import Modal from 'react-modal';
+import axios from 'axios';
+import { url } from '../../config';
 
 const customStyles = {
     content: {
@@ -184,7 +186,6 @@ class MyContent extends Component {
     }
 
     _openPopup(e) {
-        console.log(e.target.src)
         this.setState({
             popupIsOpen: true,
             imagepreviewUrl: e.target.src
@@ -197,6 +198,16 @@ class MyContent extends Component {
 
     _closePopup() {
         this.setState({ popupIsOpen: false });
+    }
+
+    componentDidMount() {
+        const token = localStorage.getItem('token')
+        //user id를 받아야하는데 그게 api 받을때 없음
+        axios.get(`${url}/api/review/get/user?color_id=${this.props.id},user_id=${1}`, { headers: { 'token': token } })
+            .then(response =>
+              console.log(response.data)
+            )
+            .catch(err => console.log(err))
     }
 
 

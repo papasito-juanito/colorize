@@ -13,7 +13,7 @@ const NavContatiner = styled.header`
     height: 10%;
     width: 100vw;
     top:0;
-    z-index:1;
+    z-index:4;
     position: fixed
     display: flex;
     flex-direction: row;
@@ -54,7 +54,7 @@ const SideNav = styled.div`
     height: 100%;
     width: 0;
     position: fixed;
-    z-index: 1;
+    z-index: 4;
     top: 0;
     right: 0;
     background-color: #111;
@@ -95,7 +95,7 @@ const Overlay = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    z-index:1
+    z-index:4;
     background-color: rgba(0,0,0,0.5);
     transition: 0.5s;
 `

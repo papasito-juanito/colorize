@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Review from '../review/Review';
+import AllReviews from '../review/AllReviews';
 import { url } from '../../config';
 import styled from 'styled-components';
 
@@ -25,7 +25,6 @@ class Allreview extends Component{
         axios.get(`${url}/api/review/get/list?color_id=${this.props.id}`, { headers: { 'token': token } })
             .then(response => 
                 this.setState({ data: response.data })
-                // console.log(response)
             )
             .catch(err => console.log(err))
     }
@@ -38,7 +37,7 @@ class Allreview extends Component{
                     전체리뷰
                 </div>
                 <div>
-                    {this.state.data.length !== 0 ? <Review id = {this.props.id} data={this.state.data}/> : <div> <h2>등록된 리뷰가 없어요</h2></div>}
+                    {this.state.data.length !== 0 ? <AllReviews id = {this.props.id} data={this.state.data}/> : <div> <h2>등록된 리뷰가 없어요</h2></div>}
                 </div>
             </Div>
         )

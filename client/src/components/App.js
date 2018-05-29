@@ -24,45 +24,6 @@ injectGlobal`
     margin:0;
   }
 `
-
-// function PrivateRoute ({component: Component, isLogined, ...rest}) {
-//     console.log(isLogined);
-//     console.log({...rest});
-//     const token = localStorage.getItem('token')
-//         axios.get(`${url}/api/user/get/check`, {headers: {'token': token}})
-//         .then(res => {
-//             console.log('nav', res);
-//             if(res.data.success === true){  
-//                     isLogined: true
-//             } else{
-//                     isLogined: false
-//             }
-//         })
-//     return (
-//       <Route
-//         {...rest} render={ (props) => isLogined ?
-//           <Component {...rest} {...props} /> :
-//             <Redirect to={{pathname: '/', state: { from: props.location }}}/>  
-//         }
-//       />
-//     )
-//   }
-
-// function handlePrivate({props, ...rest}){
-//     const token = localStorage.getItem('token')
-//     if(token){
-//         axios.get(`${url}/api/user/get/check`, {headers: {'token': token}})
-//         .then(res => {
-//             if(res.data.success === true){
-                        
-//                 return <Component {...rest} {...props} /> 
-//             } else{
-//                 return <Redirect to={{pathname: '/', state: { from: props.location }}}/> 
-//             }
-//         })
-//     }
-// }  
-
 class App extends Component {
     constructor(){
         super()

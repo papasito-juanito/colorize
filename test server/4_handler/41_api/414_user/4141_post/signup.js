@@ -1,10 +1,12 @@
-const query = require('../../../../9_query/91_color/911_post');
+// Local import
+const controller = require('../../../../6_controller');
+const postQuery = require('../../../../9_query/94_user/941_post');
+const getQuery = require('../../../../9_query/94_user/942_get');
 
-module.exports = async (req, res, next) => {
-  const params = req.body.id;
-  console.log(`[4_handler ] activated query: ${query}`);
-  console.log(`[4_handler ] activated params: ${params}`);
-  req.query = query;
-  req.params = params;
-  next();
+module.exports = (req, res) => {
+  const { userMail, userPassword, userName, toneName, birthDate, gender } = req.body;
+  const params = [userMail, userPassword, userName, toneName, birthDate, gender];
+  console.log(`[4_handler ] activated getQuery: ${getQuery.userMail}`);
+  controller(getQuery.userMail, userMail)
+    .then((rows) => { res.send(rows); });
 };

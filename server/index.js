@@ -1,3 +1,4 @@
+process.env.NODE_ENV = ( process.env.NODE_ENV && ( process.env.NODE_ENV ).trim().toLowerCase() == 'production' ) ? 'production' : 'development';
 // Global import
 const express = require('express');
 const cors = require('cors');
@@ -5,6 +6,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
 const path = require('path');
+const {url} = require('../client/src/config');
 
 // Local import
 const { port, secret } = require('../config');
@@ -43,7 +45,7 @@ app.set('jwt-secret', secret);
 // });
 
 app.listen(port, () => {
-  console.log(`[server    ] opening express server on port ${port}...`)
+  console.log(`[server    ] opening express server on ${url} port ${port}...`);
 });
 
 module.exports = app;

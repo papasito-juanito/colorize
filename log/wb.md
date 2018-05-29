@@ -97,6 +97,13 @@ login페이지가 있었으면 redirect로 했으면 HOC를 해봤어도 괜찮�
 
 url encode decode 해봤다. 
 
+***
+#2018-05-28
+로그인 끝난줄 알았는데 주소를 직접 치고 들어오는 비 로그인 유저 핸들링이 안된다.
+
+Private route하려고 하는데 첫 render시 무조건 false가 들어온다 그다음 didmount된 후
+true로 바뀐다. 그래서 자꾸 리다이렉트를 함
+
 
 
 

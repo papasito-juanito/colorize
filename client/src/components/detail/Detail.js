@@ -66,8 +66,8 @@ const delayInMs = 10;
 
 
 class Detail extends Component {
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state = {
             data: '',
             intervalId : 0
@@ -97,25 +97,27 @@ class Detail extends Component {
     }    
 
 
-    
+
 
     render(){
-        console.log(this.state.data)
+        console.log(this.props);
+        
+        let loginState = this.props.isLogined;
+        console.log('login stsate :', this.props.isLogined)
         return (
-            <div style={{ backgroundColor:'#F4F5F9', padding:'1% 0 1% 0', fontFamily: "Nanum Gothic"
-}}>
+            <div style={{ backgroundColor:'#F4F5F9', padding:'1% 0 1% 0', fontFamily: "Nanum Gothic"}}>
                 <Wrapper>
                     <DetailLeft data={this.state.data}/>
                     <DetailRight data={this.state.data} id = {this.props.match.params.id}/>
                 </Wrapper>
                 <Div>
-                    <Comment id={this.props.match.params.id}/>
+                    <Comment loginState={loginState} id={this.props.match.params.id}/>
                 </Div>
                 <ReviewDiv>
-                    <TopReview id={this.props.match.params.id} data ={this.state.reviewData}/>
+                    <TopReview id={this.props.match.params.id} />
                 </ReviewDiv>
                 <ReviewDiv>
-                    <AllReview id={this.props.match.params.id} data={this.state.reviewData}/>
+                    {loginState ? <AllReview id={this.props.match.params.id}/> : <div><h2>리뷰를 보시려면 로그인 해주세요 </h2></div>}
                 </ReviewDiv>
                 <HomeButton onClick={this.scrollToTop}><Arrow/><br/> Top </HomeButton>
         </div>

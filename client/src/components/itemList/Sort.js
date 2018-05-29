@@ -50,12 +50,10 @@ const handleLatest = () => {
 class Sort extends Component {
 
     render(){
-      const {history} = this.props
-      console.log(history);
       
       return (
         <SortContainer>
-          <Btn onClick={()=>handleBasic()}>기본순</Btn>
+          <Btn>기본순</Btn>
           <Btn>높은가격순</Btn>
           <Btn>낮은가격순</Btn>
           <Btn>별점순</Btn>

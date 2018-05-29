@@ -7,13 +7,14 @@ import Login from './user/Login'
 
 import axios from 'axios';
 import { url } from '../config';
+import history from '../utils/history'
 
 const NavContatiner = styled.header`
     background-color: black;
     height: 10%;
     width: 100vw;
     top:0;
-    z-index:1;
+    z-index:4;
     position: fixed
     display: flex;
     flex-direction: row;
@@ -54,7 +55,7 @@ const SideNav = styled.div`
     height: 100%;
     width: 0;
     position: fixed;
-    z-index: 1;
+    z-index: 4;
     top: 0;
     right: 0;
     background-color: #111;
@@ -95,7 +96,7 @@ const Overlay = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    z-index:1
+    z-index:4;
     background-color: rgba(0,0,0,0.5);
     transition: 0.5s;
 `
@@ -105,7 +106,7 @@ class Nav extends Component {
         super()
         this.state = {
             loginClicked: false,
-            isLogined: false,
+            // isLogined: false,
             closeAll: false,
             isHide: false
         }
@@ -131,11 +132,11 @@ class Nav extends Component {
         })
     }
 
-    handleLoginUser = () => {
-        this.setState({
-            isLogined: true
-        })
-    }
+    // handleLoginUser = () => {
+    //     this.setState({
+    //         isLogined: true
+    //     })
+    // }
 
     hideNav = () => {
         var prevScrollpos = window.pageYOffset;
@@ -150,31 +151,17 @@ class Nav extends Component {
         }
     }
 
-    handleLogout = () => {
-        localStorage.removeItem('token')
-        this.setState({
-            isLogined: false
-        })
-    }
+    // handleLogout = () => {
+    //     localStorage.removeItem('token')
+    //     this.props.isLogined = false
+    // }
 
     componentDidMount(){
-        const token = localStorage.getItem('token')
         window.addEventListener('scroll',this.hideNav());
-        if(token){
-            axios.get(`${url}/api/user/get/check`, {headers: {'token': token}})
-            .then(res => {
-                console.log('nav', res);
-                if(res.data.success === true){
-                    this.setState({
-                        isLogined: true
-                    })
-                }
-            })
-        }
     }
 
     render(){
-        console.log('loginedloginedloginedloginedlogined', this.state.isLogined);
+        const { isLogined, handleLoginUser, handleLogout } = this.props
         return (        
             <NavContatiner id="navbar">
             <Overlay ref='overlay' onClick={this.closeNav}/>
@@ -187,14 +174,14 @@ class Nav extends Component {
                  <Menu onClick={this.openNav} >
                     &#9776;
                  </Menu>
-                    {this.state.isLogined ? 
+                    {isLogined ? 
                     <SideNav ref="mySidenav" >
                         <SideClose href="javascript:void(0)" onClick={this.closeNav}>&times;</SideClose>
                         <SideAnchor href="/">Home</SideAnchor>
                         <SideAnchor href="/myinfo">My Info</SideAnchor>
                         <SideAnchor href="/wishlist">Wish List</SideAnchor>
                         <SideAnchor href="/review">My Review</SideAnchor>
-                        <SideAnchor onClick={()=>{this.closeNav(); this.handleLogout()}}>Logout</SideAnchor>
+                        <SideAnchor onClick={()=>{this.closeNav(); handleLogout()}}>Logout</SideAnchor>
                     </SideNav> :
                     <SideNav ref="mySidenav" >
                         <SideClose onClick={()=>{this.closeNav()}}>&times;</SideClose>
@@ -208,7 +195,7 @@ class Nav extends Component {
                  </MenuWrapper>    
                 {this.state.loginClicked ? 
                 <Login renderLogin={this.renderLogin} 
-                    handleLoginUser={this.handleLoginUser}
+                    handleLoginUser={handleLoginUser}
                 /> : null}
             </NaveRightContainer>
         </NavContatiner>

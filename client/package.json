@@ -32,9 +32,10 @@
     "validator": "^10.2.0"
   },
   "scripts": {
-    "start": "react-scripts start",
     "build": "react-scripts build",
+    "start": "react-scripts start",
     "test": "react-scripts test --env=jsdom",
+    "development": "node ./scripts/development.js",
     "eject": "react-scripts eject"
   }
 }

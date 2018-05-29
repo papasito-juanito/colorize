@@ -7,6 +7,7 @@ import Login from './user/Login'
 
 import axios from 'axios';
 import { url } from '../config';
+import history from '../utils/history'
 
 const NavContatiner = styled.header`
     background-color: black;
@@ -164,12 +165,14 @@ class Nav extends Component {
             axios.get(`${url}/api/user/get/check`, {headers: {'token': token}})
             .then(res => {
                 console.log('nav', res);
+                console.log(history)
                 if(res.data.success === true){
                     this.setState({
                         isLogined: true
                     })
                 }
             })
+            // .then(window.location.reload())
         }
     }
 

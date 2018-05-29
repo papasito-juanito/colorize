@@ -31,6 +31,7 @@ const Btn = styled(Link)`
     padding: 12px 16px;
     background-color: #f1f1f1;
     cursor: pointer;
+    text-decoration: none;
     &:hover {
         background-color: #ddd;
     }
@@ -38,8 +39,14 @@ const Btn = styled(Link)`
         background-color: #666;
         color: white;
     }
+    &:visited {
+        text-color: black;
+    }
 `;
 
+const style = {
+    textDecoration: "none"
+}
 
 class ItemList extends Component {
     constructor(props){
@@ -95,10 +102,10 @@ class ItemList extends Component {
             <Wrapper>
                     <SortContainer>
                         <Btn to='/'>기본순</Btn>
-                        <Btn to={`?sort=priceASC`} onClick={this.handeHighPrice.bind(this)}>높은가격순</Btn>
-                        {/* <Btn >낮은가격순</Btn>
-                        <Btn>별점순</Btn>
-                        <Btn>최신순</Btn> */}
+                        <Btn to={`?sort=price_asc`} onClick={this.handeHighPrice.bind(this)}>높은가격순</Btn>
+                        <Btn to={`?sort=price_asc`}>낮은가격순</Btn>
+                        <Btn to={`?sort=price_asc`}>별점순</Btn>
+                        <Btn to={`?sort=price_asc`}>최신순</Btn>
                     </SortContainer>  
                 <Items item={this.state.item}/>
             </Wrapper>

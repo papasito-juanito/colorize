@@ -9,7 +9,7 @@ module.exports = (req, res) => {
   const userMail = jwt.verify(req.headers.token, 'jwt-secret').userMail;
   const params = [req.body.color_id, userMail];
 
-  db.query(`SELECT * FROM wishLists WHERE itemColors_id=? AND (SELECT id FROM users WHERE userMail=?);`, params, (err, rows) => {
+  db.query(`SELECT * FROM wishLists WHERE itemColors_id=? AND (SELECT id FROM users WHERE userMail=?);`, parmas, (err, rows) => {
     if (err) throw err;
     else if (!rows.length) {
       db.query(`INSERT INTO wishLists (itemColors_id, users_id)

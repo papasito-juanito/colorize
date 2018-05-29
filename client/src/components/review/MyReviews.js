@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import StarRatingComponent from 'react-star-rating-component';
 import like from '../../assets/reviewLike.png';
 import Modal from 'react-modal';
+import Login from '../user/Login'
 
 const Wrapper = styled.div`
     margin : 7% auto 2% auto;
@@ -239,7 +240,9 @@ class MyReviews extends Component {
       data : '',
       intervalId: 0,
       popupIsOpen : false,
-      imagepreviewUrl : ''
+      imagepreviewUrl : '',
+      clickedComment:'',
+      isReply: false
     }
 
     this.scrollStep = this.scrollStep.bind(this);
@@ -249,7 +252,7 @@ class MyReviews extends Component {
     this._closePopup = this._closePopup.bind(this);
     this._handleModify = this._handleModify.bind(this);
     this._onStarClick = this._onStarClick.bind(this);
-    this._clickDelete = this._clickDelete.bind(this);
+    this.changeReply = this.changeReply.bind(this);
   }
 
 
@@ -291,8 +294,11 @@ class MyReviews extends Component {
     this.setState({ rating: nextValue });
   }
 
-  _clickDelete(e){
-    console.log(e.target.id)
+  changeReply(e){
+    console.log(e.target)
+    this.setState({
+      isReply: !this.state.isReply, clickedComment: e.target.id
+    })
   }
 
   componentDidMount(){
@@ -307,8 +313,14 @@ class MyReviews extends Component {
   }
 
   render(){
+    // console.log('myreviewmyreviewmyreviewmyreview', this.props.isLogined);
+    // if(this.props.isLoginded===false)
+    // console.log('myreviewProps', this.props);
+    console.log(this.state.isReply)
+    console.log(this.state.clickedComment)
+
     let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
-    console.log(this.state.data)
+    // console.log(this.state.data)
     return (
       <div style={{ backgroundColor: '#F4F5F9', padding: '1% 0 1% 0', fontFamily: "Nanum Gothic" }}>
       <Wrapper>
@@ -336,15 +348,25 @@ class MyReviews extends Component {
               </Info >
               <ReviewContent >
                 <div style={{ textAlign: 'center' }}>
-              
+             
                   <Bubble>
+                    {/* this.state.isReply && this.state.clickedComment === {this.state.data.key} ?       <Message readOnly innerRef={ref => { this.review = ref; }}>{item.message}</Message> 
+                    : <Message innerRef={ref => { this.modifyReview = ref; }}>{item.message}</Message>}  */}
                   {item.toggle ? 
                     <Message readOnly innerRef={ref => { this.review = ref; }}>{item.message}</Message> 
                     : <Message innerRef={ref => { this.modifyReview = ref; }}>{item.message}</Message>} 
                   </Bubble>
                 </div>
                 <BottomContainer >
-                  {item.toggle ? <Modify id={i} onClick={this._clickDelete}>수정</Modify> : <Modify onClick={this._handleModify}>완료</Modify>} 
+                  {!this.state.isReply ? <Modify id={i} onClick={this.changeReply}>수정</Modify> 
+                    : <Modify id={i} onClick={this.changeReply}>완료</Modify>}
+                  {/* : <Modify id={i} onClick={this.changeReply}>수정</Modify>  */}
+
+
+                  {/* this.state.isReply && this.state.clickedComment === i ? */}
+
+
+                  
                   {item.toggle ? <Delete >삭제</Delete> : <Cancel onClick={this._reviewCancel}>취소</Cancel>}
                   <LikeCount>
                     <Like src={like} />

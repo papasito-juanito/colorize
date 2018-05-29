@@ -85,10 +85,6 @@ class DetailRight extends Component {
 
 
     render() {
-        console.log(this.refs.detail)
-        console.log(this.props.data)
- 
-
         return ( 
             <Wrapper>
                 <DetailDiv innerRef={ref => { this.detail = ref; }}>

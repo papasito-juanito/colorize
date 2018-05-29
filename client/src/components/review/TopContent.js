@@ -65,7 +65,7 @@ const Message = styled.textarea`
 const LikeCount = styled.div`
     width: 20%
     height: 70%
-    top: 20%;
+    top: 10%;
     left: 90%;
     position: absolute;
 `
@@ -200,7 +200,7 @@ class TopContent extends Component {
                                 </div>
                             </Info >
                             <ReviewContent >
-                                <div style={{ border: 'solid 1px', textAlign: 'center' }}>
+                                <div style={{ textAlign: 'center' }}>
                                     <Bubble><Message readOnly>{item.message}</Message> </Bubble>
                                     {/* {this.state.editing ? <Message readOnly>{data[i].message}</Message> : <Message>{data[i].message}</Message>} */}
                                     {/* 윗코드는 내 리뷰 할때만 필요 */}

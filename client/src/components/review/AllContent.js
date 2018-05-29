@@ -58,7 +58,7 @@ const ReviewContent = styled.div`
 
 const Message = styled.textarea`
     border: none;
-    margin:1%;
+    margin: 1% auto auto auto;
     resize: none;
     width: 95%;
     height: 12vh;
@@ -67,7 +67,7 @@ const Message = styled.textarea`
 const LikeCount = styled.div`
     width: 20%
     height: 70%
-    top: 20%;
+    top: 10%;
     left: 90%;
     position: absolute;
 `

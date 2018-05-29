@@ -212,7 +212,7 @@ class MyContent extends Component {
 
 
     render() {
-        // console.log('mycontent', this.props)
+        console.log('mycontent', this.props.user)
         // if(!this.props.isLogined){
         //     this.props.history.push('/')
         // }
@@ -225,31 +225,32 @@ class MyContent extends Component {
                         <Info >
                             <UserDiv > <img alt='user' /></UserDiv>
                             <div style={{boxSizing:'border-box', margin:'10% 0 0 0'}}>
-                            <div>{this.state.id}</div>
-                            <div>{this.state.age}, {this.state.skin}</div>
+                            <div>{this.props.user[0].name}</div>
+                                <div>{this.props.user[0].age}, {this.props.user[0].tone}</div>
                             <div>
                                 <StarRatingComponent
                                     name="rate2"
                                     editing={false}
                                     value={this.state.rating}
+                                    // value = {this.props.user[0].rating}
                                 />
                             </div>
                             </div>
                         </Info >
-                            <ReviewContent >
-                                <div style={{ textAlign: 'center' }}>
-                                {!this.state.editing ? <Message readOnly innerRef={ref => { this.review = ref; }}>{this.state.message}</Message> : <Message innerRef={ref => { this.modifyReview = ref; }}>{this.state.message}</Message>}
-                                </div>
-                                <BottomContainer >
-                                    {!this.state.editing ? <Modify onClick={this._handleModify}>수정</Modify> : <Modify onClick={this._handleModify}>완료</Modify>}
-                                    {!this.state.editing ? <Delete >삭제</Delete> : <Cancel onClick={this._reviewCancel}>취소</Cancel>}
-                                {/* <Delete>삭제</Delete> */}
-                                    <LikeCount>
-                                        <Like onClick={this._reviewLike} src={this.state.like ? like : hate} />
-                                    {this.state.likeCount}
-                                    </LikeCount>
-                                </BottomContainer>
-                            </ReviewContent >
+                        <ReviewContent >
+                            <div style={{ textAlign: 'center' }}>
+                            {!this.state.editing ? <Message readOnly innerRef={ref => { this.review = ref; }}>{this.props.user[0].message}</Message> : <Message innerRef={ref => { this.modifyReview = ref; }}>{this.state.message}</Message>}
+                            </div>
+                            <BottomContainer >
+                                {!this.state.editing ? <Modify onClick={this._handleModify}>수정</Modify> : <Modify onClick={this._handleModify}>완료</Modify>}
+                                {!this.state.editing ? <Delete >삭제</Delete> : <Cancel onClick={this._reviewCancel}>취소</Cancel>}
+
+                                <LikeCount>
+                                    <Like onClick={this._reviewLike} src={this.state.like ? like : hate} />
+                                {this.state.likeCount}
+                                </LikeCount>
+                            </BottomContainer>
+                        </ReviewContent >
                         
 
                         <Modal

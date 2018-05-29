@@ -3,14 +3,15 @@ import axios from 'axios';
 import { url } from '../../config';
 import styled from 'styled-components';
 import StarRatingComponent from 'react-star-rating-component';
-import like from '../../assets/Heart.png';
+import like from '../../assets/reviewLike.png';
 import Modal from 'react-modal';
 
 const Wrapper = styled.div`
     margin : 7% auto 2% auto;
     width: 80vw;
-    height: 100vh;
+    height: 100%;
     background-color: #F4F5F9;
+    box-sizing:border-box;
 `
 
 const Container = styled.div`
@@ -26,9 +27,34 @@ const Container = styled.div`
 
 const ReviewImage = styled.img`
     margin: 1vh 0 1vh 1vw;
-    width: 20%;
+    width: 15%;
     height: 90%;
     cursor: pointer;
+`
+
+const MyImageDiv = styled.div`
+    margin: 1vh 0 1vh 1vw;
+    width: 15%;
+    height: 90%;
+    cursor: pointer;
+    position: relative;
+`
+const MyImage = styled.img`
+    width: 100%;
+    height: 90%;
+    border: 1px solid #d9dee8;
+`
+
+const DeleteImage = styled.div`
+    border-radius : 50%;
+    border: 1px solid #d9dee8;
+    width: 20%;
+    height: 20%;
+    position: absolute;
+    right: -5%;
+    top: -5%;
+    background-color: white;
+    text-align: center;
 `
 
 const Info = styled.div`
@@ -39,13 +65,14 @@ const Info = styled.div`
 
 const ReviewContent = styled.div`
     margin: 1vh 1vw 1vh 0;
-    width: 60%;
+    width: 50%;
     height: 70%;
     position: relative;
 `
 
 const Message = styled.textarea`
     border: none;
+    margin: 1% auto auto auto;
     resize: none;
     width: 95%;
     height: 12vh;
@@ -54,7 +81,7 @@ const Message = styled.textarea`
 const LikeCount = styled.div`
     width: 20%
     height: 70%
-    top: 20%;
+    top: 10%;
     left: 90%;
     position: absolute;
 `
@@ -71,7 +98,7 @@ const BottomContainer = styled.div`
 const Modify = styled.button`
     font-size: 0.8rem;    
     width: 7%;
-    height: 50%;
+    height: 70%;
     color: black;
     top: 2%;
     left: 2%;
@@ -87,7 +114,7 @@ const Modify = styled.button`
 const Delete = styled.button`
     font-size: 0.8em;    
     width: 7%;
-    height: 50%;
+    height: 70%;
     color: black;
     top: 2%;
     left: 10%;
@@ -102,7 +129,7 @@ const Delete = styled.button`
 const Cancel = styled.button`
     font-size: 0.8em;    
     width: 7%;
-    height: 50%;
+    height: 70%;
     color: black;
     top: 2%;
     left: 10%;
@@ -221,10 +248,13 @@ class MyReviews extends Component {
     this._afterOpenPopup = this._afterOpenPopup.bind(this);
     this._closePopup = this._closePopup.bind(this);
     this._handleModify = this._handleModify.bind(this);
+    this._onStarClick = this._onStarClick.bind(this);
+    this._clickDelete = this._clickDelete.bind(this);
   }
 
 
-  _handleModify = function () {
+  _handleModify(e) {
+    console.log(e.target.id)
     this.setState({
       editing: !this.state.editing
     })
@@ -257,6 +287,14 @@ class MyReviews extends Component {
     this.setState({ popupIsOpen: false });
   }
 
+  _onStarClick(nextValue, prevValue, name) {
+    this.setState({ rating: nextValue });
+  }
+
+  _clickDelete(e){
+    console.log(e.target.id)
+  }
+
   componentDidMount(){
 //여기서 내가쓴 리뷰 전체모아오기
     const token = localStorage.getItem('token')
@@ -272,12 +310,17 @@ class MyReviews extends Component {
     let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
     console.log(this.state.data)
     return (
+      <div style={{ backgroundColor: '#F4F5F9', padding: '1% 0 1% 0', fontFamily: "Nanum Gothic" }}>
       <Wrapper>
         <h2> My Reviews </h2>
         {this.state.data ? this.state.data.map((item, i) => {
           return (
             <Container key={i}>
               <ReviewImage onClick={this._openPopup} src={item.photo} />
+                <MyImageDiv>
+                {/* <DeleteImage onClick={this._clickDelete}>X</DeleteImage> */}
+                <MyImage onClick={this._openPopup} src ={like}  />
+              </MyImageDiv>
               <Info >
                 <div>{item.brand}</div>
                 <div>{item.name}</div>
@@ -286,8 +329,8 @@ class MyReviews extends Component {
                 <div>
                   <StarRatingComponent
                     name="rate2"
-                    editing={false}
                     value={item.rating}
+                    onStarClick={this._onStarClick}
                   />
                 </div>
               </Info >
@@ -295,14 +338,14 @@ class MyReviews extends Component {
                 <div style={{ textAlign: 'center' }}>
               
                   <Bubble>
-                  {!this.state.editing ? 
+                  {item.toggle ? 
                     <Message readOnly innerRef={ref => { this.review = ref; }}>{item.message}</Message> 
-                    : <Message innerRef={ref => { this.modifyReview = ref; }}>{item.message}</Message>}
+                    : <Message innerRef={ref => { this.modifyReview = ref; }}>{item.message}</Message>} 
                   </Bubble>
                 </div>
                 <BottomContainer >
-                  {!this.state.editing ? <Modify onClick={this._handleModify}>수정</Modify> : <Modify onClick={this._handleModify}>완료</Modify>}
-                  {!this.state.editing ? <Delete >삭제</Delete> : <Cancel onClick={this._reviewCancel}>취소</Cancel>}
+                  {item.toggle ? <Modify id={i} onClick={this._clickDelete}>수정</Modify> : <Modify onClick={this._handleModify}>완료</Modify>} 
+                  {item.toggle ? <Delete >삭제</Delete> : <Cancel onClick={this._reviewCancel}>취소</Cancel>}
                   <LikeCount>
                     <Like src={like} />
                     {item.likes}
@@ -325,6 +368,7 @@ class MyReviews extends Component {
           <button style={{ cursor: 'pointer' }} onClick={this._closePopup}>close</button>
         </Modal>
       </Wrapper>
+      </div>
     )
   }
 

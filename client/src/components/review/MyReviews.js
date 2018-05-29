@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { url } from '../../config';
-import styled from 'styled-components'
+import styled from 'styled-components';
+import StarRatingComponent from 'react-star-rating-component';
 
 const Container = styled.div`
     border: 1px solid #d9dee8;
@@ -145,7 +146,7 @@ class MyReviews extends Component {
                 </div>
                 <BottomContainer >
                   <LikeCount>
-                    <Like onClick={this._reviewLike} src={item.toggle === 'true' ? like : hate} />
+                    <Like onClick={this._reviewLike}  />
                     {item.likes}
                   </LikeCount>
                 </BottomContainer>

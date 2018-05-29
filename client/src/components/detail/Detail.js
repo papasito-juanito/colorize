@@ -100,6 +100,8 @@ class Detail extends Component {
 
 
     render(){
+        console.log(this.props);
+        
         let loginState = this.props.isLogined;
         console.log('login stsate :', this.props.isLogined)
         return (

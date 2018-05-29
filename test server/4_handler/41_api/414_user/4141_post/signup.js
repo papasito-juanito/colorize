@@ -7,6 +7,8 @@ module.exports = (req, res) => {
   const { userMail, userPassword, userName, toneName, birthDate, gender } = req.body;
   const params = [userMail, userPassword, userName, toneName, birthDate, gender];
   console.log(`[4_handler ] activated getQuery: ${getQuery.userMail}`);
-  controller(getQuery.userMail, userMail)
-    .then((rows) => { res.send(rows); });
+  controller(getQuery.userMail, userMail, (err, rows) => {
+    res.send(rows);
+  });
+    // .then((rows) => { res.send(rows); });
 };

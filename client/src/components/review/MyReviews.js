@@ -3,6 +3,15 @@ import axios from 'axios';
 import { url } from '../../config';
 import styled from 'styled-components';
 import StarRatingComponent from 'react-star-rating-component';
+import like from '../../assets/Heart.png';
+import Modal from 'react-modal';
+
+const Wrapper = styled.div`
+    margin : 7% auto 2% auto;
+    width: 80vw;
+    height: 100vh;
+    background-color: #F4F5F9;
+`
 
 const Container = styled.div`
     border: 1px solid #d9dee8;
@@ -59,6 +68,52 @@ const BottomContainer = styled.div`
     position: relative;
     height: 30%;
 `
+const Modify = styled.button`
+    font-size: 0.8rem;    
+    width: 7%;
+    height: 50%;
+    color: black;
+    top: 2%;
+    left: 2%;
+    position: absolute
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    &:hover {
+        background-color: RoyalBlue;
+    }
+`
+
+const Delete = styled.button`
+    font-size: 0.8em;    
+    width: 7%;
+    height: 50%;
+    color: black;
+    top: 2%;
+    left: 10%;
+    position: absolute
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    &:hover {
+        background-color: red;
+    }
+`
+const Cancel = styled.button`
+    font-size: 0.8em;    
+    width: 7%;
+    height: 50%;
+    color: black;
+    top: 2%;
+    left: 10%;
+    position: absolute
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    &:hover {
+        background-color: red;
+    }
+`
 
 const UserDiv = styled.div`
     border: 1px solid black;
@@ -103,33 +158,131 @@ left: -15px;
 top: 21px;
     }
 `
+const HomeButton = styled.button`
+    position: fixed;
+    background-color:black;
+    color: white;
+    border: none;
+    right:1%;
+    bottom:1%;
+    opacity: 1;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    &:hover {
+    opacity: 0.3;
+    border: none;
+  }
+`
+
+const Arrow = styled.i`
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 6%;
+`
+
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)'
+  },
+  overlay: {
+    position: 'fixed',
+    zIndex: 5
+  }
+};
+
+Modal.setAppElement('#root');
+const scrollStepInPx = 50;
+const delayInMs = 10;
 
 class MyReviews extends Component {
   constructor(){
     super();
     this.state = {
-      data : ''
+      data : '',
+      intervalId: 0,
+      popupIsOpen : false,
+      imagepreviewUrl : ''
     }
+
+    this.scrollStep = this.scrollStep.bind(this);
+    this.scrollToTop = this.scrollToTop.bind(this);
+    this._openPopup = this._openPopup.bind(this);
+    this._afterOpenPopup = this._afterOpenPopup.bind(this);
+    this._closePopup = this._closePopup.bind(this);
+    this._handleModify = this._handleModify.bind(this);
+  }
+
+
+  _handleModify = function () {
+    this.setState({
+      editing: !this.state.editing
+    })
+  }
+
+  scrollToTop() {
+    let intervalId = setInterval(this.scrollStep, delayInMs);
+    this.setState({ intervalId: intervalId });
+  }
+
+  scrollStep() {
+    if (window.pageYOffset === 0) {
+      clearInterval(this.state.intervalId);
+    }
+    window.scroll(0, window.pageYOffset - scrollStepInPx);
+  }
+
+  _openPopup(e) {
+    this.setState({
+      popupIsOpen: true,
+      imagepreviewUrl: e.target.src
+    })
+  }
+
+  _afterOpenPopup() {
+    this.subtitle.style.color = '#f00';
+  }
+
+  _closePopup() {
+    this.setState({ popupIsOpen: false });
   }
 
   componentDidMount(){
 //여기서 내가쓴 리뷰 전체모아오기
-
+    const token = localStorage.getItem('token')
+    axios.get(`${url}/api/review/get/user`, { headers: { 'token': token } })
+      .then(response =>
+         this.setState({ data: response.data })
+        // console.log(response)
+        )
+      .catch(err => console.log(err))
   }
 
   render(){
+    let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
+    console.log(this.state.data)
     return (
-      <div>
-        {this.props.data ? this.props.data.map((item, i) => {
+      <Wrapper>
+        <h2> My Reviews </h2>
+        {this.state.data ? this.state.data.map((item, i) => {
           return (
             <Container key={i}>
-              <ReviewImage onClick={this._openPopup} />
-              {/* <ReviewImage onClick={this._openPopup} src={require(`../public/user/${this.props.파람스매치랑 유저아이디이용}.jpg`)} /> */}
+              <ReviewImage onClick={this._openPopup} src={item.photo} />
               <Info >
-                <UserDiv > <img alt='user' /></UserDiv>
-                {/* 유저 이미지 여기서 받아와서 삽입 */}
+                <div>{item.brand}</div>
                 <div>{item.name}</div>
-                <div>{item.age}, {item.tone}</div>
+                <div>{item.color}</div>
+                <div>내 평점:</div>
                 <div>
                   <StarRatingComponent
                     name="rate2"
@@ -140,13 +293,18 @@ class MyReviews extends Component {
               </Info >
               <ReviewContent >
                 <div style={{ textAlign: 'center' }}>
-                  <Bubble><Message readOnly>{item.message}</Message> </Bubble>
-                  {/* {this.state.editing ? <Message readOnly>{data[i].message}</Message> : <Message>{data[i].message}</Message>} */}
-                  {/* 윗코드는 내 리뷰 할때만 필요 */}
+              
+                  <Bubble>
+                  {!this.state.editing ? 
+                    <Message readOnly innerRef={ref => { this.review = ref; }}>{item.message}</Message> 
+                    : <Message innerRef={ref => { this.modifyReview = ref; }}>{item.message}</Message>}
+                  </Bubble>
                 </div>
                 <BottomContainer >
+                  {!this.state.editing ? <Modify onClick={this._handleModify}>수정</Modify> : <Modify onClick={this._handleModify}>완료</Modify>}
+                  {!this.state.editing ? <Delete >삭제</Delete> : <Cancel onClick={this._reviewCancel}>취소</Cancel>}
                   <LikeCount>
-                    <Like onClick={this._reviewLike}  />
+                    <Like src={like} />
                     {item.likes}
                   </LikeCount>
                 </BottomContainer>
@@ -154,7 +312,19 @@ class MyReviews extends Component {
             </Container>
           )
         }) : null}
-      </div>
+        <HomeButton onClick={this.scrollToTop}><Arrow /><br /> Top </HomeButton>
+        <Modal
+          isOpen={this.state.popupIsOpen}
+          onAfterOpen={this._afterOpenPopup}
+          onRequestClose={this._closePopup}
+          style={customStyles}
+          contentLabel="Image popup"
+        >
+          <h2 ref={subtitle => this.subtitle = subtitle}>Review Image</h2>
+          <div style={{ width: '50vh' }}>{popupImage}</div>
+          <button style={{ cursor: 'pointer' }} onClick={this._closePopup}>close</button>
+        </Modal>
+      </Wrapper>
     )
   }
 

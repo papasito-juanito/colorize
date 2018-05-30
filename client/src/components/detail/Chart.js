@@ -101,6 +101,7 @@ class Chart extends Component {
                         <StarRatingComponent
                             name="평점"
                             value={this.props.data ? this.props.data[0].avg : 0}
+                            
                         />
                     </RatingDiv>
                     <ChartDiv>

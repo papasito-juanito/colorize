@@ -58,7 +58,7 @@ ORDER BY likes DESC LIMIT 3;
  r.reviewMessage message, r.reviewTime writeAt, rl.likes likes,
  ic.itemHex hex, ic.itemPhoto photo, c.category2Name category,
  ic.itemColor color, b.brandName brand, i.itemName name, i.itemPrice price,
- i.itemVolume volume, ic.itemDate date
+ i.itemVolume volume, ic.itemDate date, r.reviewToggle toggle
 FROM itemColors ic, users u, reviews r, tones t,
  (SELECT ri.id review_id, IFNULL(COUNT(CASE WHEN rli.likeToggle='true' THEN 1 END),0) likes
  FROM reviews ri

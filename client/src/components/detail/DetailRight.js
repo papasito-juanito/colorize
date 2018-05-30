@@ -58,7 +58,7 @@ class DetailRight extends Component {
 
     componentDidMount() {
         // axios.get(`${url}/api/item/rate?color_id=${this.props.match.params.id}`)
-        console.log(this.detail.offsetHeight)
+        // console.log(this.detail.offsetHeight)
         axios.get(`${url}/api/item/get/rate?color_id=${this.props.id}`)
             // .then((response) => {
             //     console.log(response.data);

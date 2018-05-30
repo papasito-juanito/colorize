@@ -14,6 +14,6 @@ router.use('/color', color);
 router.use('/item', item);
 router.use('/review', review);
 router.use('/user', user);
-router.use('/wishlist', middleware, wishList);
+router.use('/wishlist', wishList);
 
 module.exports = router;

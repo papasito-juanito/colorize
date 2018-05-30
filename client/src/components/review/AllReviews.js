@@ -22,7 +22,6 @@ import AllContent from './AllContent'
 // `
 
 const AllReviews = (props) => {
-   console.log(props)
     return (
         <div>
             <AllContent id={props.id} data={props.data} />

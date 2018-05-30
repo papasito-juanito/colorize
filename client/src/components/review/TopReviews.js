@@ -22,7 +22,6 @@ import TopContent from './TopContent'
 // `
 
 const TopReview = (props) => {
-    console.log(props)
     return (
         <div>
         {/* <Content data={props.data} /> */}

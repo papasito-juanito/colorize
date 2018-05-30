@@ -253,6 +253,7 @@ class MyReviews extends Component {
     this._handleModify = this._handleModify.bind(this);
     this._onStarClick = this._onStarClick.bind(this);
     this.changeReply = this.changeReply.bind(this);
+    this._reviewCancel = this._reviewCancel.bind(this)
   }
 
 
@@ -295,10 +296,41 @@ class MyReviews extends Component {
   }
 
   changeReply(e){
-    console.log(e.target)
+    var reviewId = this.state.data[e.target.id].review_id
     this.setState({
-      isReply: !this.state.isReply, clickedComment: e.target.id
+      isReply: !this.state.isReply, clickedComment: reviewId
     })
+  }
+
+  _reviewCancel(e){
+    var re = this.modifyReview.value
+    console.log(re)
+    console.log(this.review.value)
+    console.log(this.modifyReview.value)
+    console.log(e.target)
+      //  let reviewMessage = this.state.message
+      //  this.modifyReview.value = reviewMessage
+      //  this.setState({
+      //    isReply: !this.state.isReply
+      //  })
+
+      // const form = {
+      //   reviewPhoto : ,
+      //   reviewRating : ,
+      //   reviewMessage : ,
+      //   review_id : 
+      // }
+
+      //  const token = localStorage.getItem('token')
+      //   axios.post(`${url}`, form,  { headers: { 'token': token } })
+      //     .then((response) => {
+      //         console.log(response.data);
+            // })
+          // .then(response => this.setState({
+          //   data: response.data
+          // }))
+          // .catch(err => console.log(err));
+    
   }
 
   componentDidMount(){
@@ -313,14 +345,9 @@ class MyReviews extends Component {
   }
 
   render(){
-    // console.log('myreviewmyreviewmyreviewmyreview', this.props.isLogined);
-    // if(this.props.isLoginded===false)
-    // console.log('myreviewProps', this.props);
-    console.log(this.state.isReply)
-    console.log(this.state.clickedComment)
-
+    console.log(this.state.data)
     let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
-    // console.log(this.state.data)
+    
     return (
       <div style={{ backgroundColor: '#F4F5F9', padding: '1% 0 1% 0', fontFamily: "Nanum Gothic" }}>
       <Wrapper>
@@ -328,7 +355,8 @@ class MyReviews extends Component {
         {this.state.data ? this.state.data.map((item, i) => {
           return (
             <Container key={i}>
-              <ReviewImage onClick={this._openPopup} src={item.photo} />
+            {/* {console.log(item.review_id)} */}
+              <ReviewImage src={item.photo} />
                 <MyImageDiv>
                 {/* <DeleteImage onClick={this._clickDelete}>X</DeleteImage> */}
                 <MyImage onClick={this._openPopup} src ={like}  />
@@ -348,26 +376,22 @@ class MyReviews extends Component {
               </Info >
               <ReviewContent >
                 <div style={{ textAlign: 'center' }}>
-             
                   <Bubble>
-                    {/* this.state.isReply && this.state.clickedComment === {this.state.data.key} ?       <Message readOnly innerRef={ref => { this.review = ref; }}>{item.message}</Message> 
-                    : <Message innerRef={ref => { this.modifyReview = ref; }}>{item.message}</Message>}  */}
-                  {item.toggle ? 
-                    <Message readOnly innerRef={ref => { this.review = ref; }}>{item.message}</Message> 
-                    : <Message innerRef={ref => { this.modifyReview = ref; }}>{item.message}</Message>} 
+                    {!this.state.isReply ?  <Message readOnly innerRef={ref => { this.review = ref; }}>{item.message}</Message> 
+                    : this.state.isReply && this.state.clickedComment === item.review_id ? <Message innerRef={ref => { this.modifyReview = ref; }}>{item.message}</Message>
+                    : <Message readOnly innerRef={ref => { this.review = ref; }}> {item.message} </Message>  }
+
                   </Bubble>
                 </div>
                 <BottomContainer >
                   {!this.state.isReply ? <Modify id={i} onClick={this.changeReply}>수정</Modify> 
-                    : <Modify id={i} onClick={this.changeReply}>완료</Modify>}
-                  {/* : <Modify id={i} onClick={this.changeReply}>수정</Modify>  */}
+                  : this.state.isReply && this.state.clickedComment === item.review_id ? <Modify id={i} onClick={this.changeReply}>완료</Modify>
+                  :<Modify id={i} onClick={this.changeReply}>수정</Modify> }
 
+                  {!this.state.isReply ? <Delete id={i}> 삭제</Delete> 
+                    : this.state.isReply && this.state.clickedComment === item.review_id ? <Cancel onClick = {this._reviewCancel} > 취소 </Cancel>
+                    : <Delete id={i}> 삭제</Delete> }
 
-                  {/* this.state.isReply && this.state.clickedComment === i ? */}
-
-
-                  
-                  {item.toggle ? <Delete >삭제</Delete> : <Cancel onClick={this._reviewCancel}>취소</Cancel>}
                   <LikeCount>
                     <Like src={like} />
                     {item.likes}

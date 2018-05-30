@@ -11,6 +11,6 @@ module.exports = (req, res) => {
   // utility()
 
   model(query.signup, params, (err, rows) => {
-    res.send(rows);
+    res.json({ success: true, message: 'signup' });
   });
 };

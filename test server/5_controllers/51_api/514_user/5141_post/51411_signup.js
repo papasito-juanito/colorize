@@ -1,21 +1,23 @@
 // Local import
-const utility = require('../../../../6_utility/63_isDuplicate');
+const hash = require('../../../../6_utility/61_bcrypt/611_hash');
+const check = require('../../../../6_utility/63_isDuplicate');
 const model = require('../../../../7_models');
-const query = require('../../../../9_query/94_users/941_post');
+const query = require('../../../../9_query/94_users/941_post/9411_signup');
 
-module.exports = (req, res) => {
-  const {
-    userMail, userPassword, userName, toneName, birthDate, gender,
-  } = req.body;
+module.exports = async (req, res) => {
+  const userPassword = await hash(req.body.userPassword);
+  const { userMail, userName, toneName, birthDate, gender } = req.body;
   const params = [userMail, userPassword, userName, toneName, birthDate, gender];
-  console.log(`[5_control ] activated query: ${query.signup}`);
+  
+  console.log(`[5_control ] activated query: ${query}`);
 
-  utility.userMail(userMail, (err, rows) => {
-    res.send(rows);
-  });
+  const mail = await check.userMail(userMail);
+  const name = await check.userName(userName);
 
-  model(query.signup, params, (err, rows) => {
-    if (err) res.json({ success: false, message: err });
-    else res.json({ success: true, message: rows });
-  });
+  if (mail.length) res.json({ success: false, message: 'invalid mail' });
+  else if (name.length) res.json({ sucess: false, message: 'invalid name' });
+  else {
+    const rows = await model(query, params);
+    res.json({ sucess: true, message: `${userMail} registered` });
+  }
 };

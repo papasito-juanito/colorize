@@ -1,21 +1,20 @@
 // Global import
-const jwt = require('jsonwebtoken');
+const jsonwebtoken = require('jsonwebtoken');
 
 // Local import
-const { secret } = require('../../0_config');
-const mysql = require('../../8_mysql');
-const query = require('../../9_query');
+const { jwt } = require('../../0_config');
+const model = require('../../7_models');
+const query = require('../../9_query/94_users/942_get/9429_check');
 
-module.exports = (req, res, next) => {
-  const { userMail } = jwt.verify(req.headers.token, secret);
-  console.log(`[3_middle  ] activated userMail: ${userMail}`);
-  mysql.query(query, userMail, (err, rows) => {
-    console.log(`[3_middle  ] activated rows: ${rows}`);
-    if (!rows.length === 1) {
-      res.json({ success: false, message: 'invalid token' });
-    } else {
-      req.user_id = rows[0].id;
-      next();
-    }
-  });
+module.exports = async (req, res, next) => {
+  console.log(`[3_middle  ] activated token: ${req.headers.token}`);
+
+  if (!req.headers.token) res.json({ success: false, message: 'send token' });
+  else {
+    const { userMail } = await jsonwebtoken.verify(req.headers.token, jwt.secret);
+    const rows = await model(query.userMail, userMail);
+
+    if (!rows.length) res.json({ success: false, message: 'invalid token' });
+    else next();
+  }
 };

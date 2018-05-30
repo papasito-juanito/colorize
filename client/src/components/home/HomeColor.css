@@ -23,6 +23,7 @@
 /* Cells that have been selected */
 .table-drag-select td.cell-selected {
   color: white;
+  opacity: 30% t;
   font-size: 30px;
 }
 

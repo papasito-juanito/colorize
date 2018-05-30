@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import './HomeColor.css';
-import tinycolor from "tinycolor2";
 import TableDragSelect from "react-table-drag-select";
-import {Link} from "react-router-dom";
 import styled from 'styled-components';
 
 const Button = styled.button`
@@ -91,7 +89,6 @@ class HomeColor extends Component {
 
   render() {
     this.colorGroup = this.props.colorGroup;
-    console.log(this.state.cells);
     return (
       <div className="HomeColor" style={{ backgroundColor:'white', margin:'2% 2% 2% 2%', width:'100%', heigth:'100%'}}>
         <div style={{ margin:'5% 5% 3% 5%'}}>

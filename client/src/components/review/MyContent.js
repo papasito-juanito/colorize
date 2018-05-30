@@ -7,8 +7,6 @@ import StarRatingComponent from 'react-star-rating-component';
 import Modal from 'react-modal';
 import axios from 'axios';
 import { url } from '../../config';
-import {Redirect} from 'react-router-dom';
-import history from '../../utils/history'
 
 const customStyles = {
     content: {

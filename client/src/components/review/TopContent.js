@@ -60,6 +60,9 @@ const Message = styled.textarea`
     height: 12vh;
     margin: 1% auto auto auto;
     border-radius: 10px;
+    &: focus {
+        outline: none;
+    }
 `
 
 const LikeCount = styled.div`

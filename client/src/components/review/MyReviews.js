@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import StarRatingComponent from 'react-star-rating-component';
 import like from '../../assets/reviewLike.png';
 import Modal from 'react-modal';
-import Login from '../user/Login'
+
 
 const Wrapper = styled.div`
     margin : 7% auto 2% auto;
@@ -26,10 +26,14 @@ const Container = styled.div`
 
 `
 
+const LinkDiv = styled.div`
+    width: 15%; 
+    height: 90%;
+`
 const ReviewImage = styled.img`
     margin: 1vh 0 1vh 1vw;
-    width: 15%;
-    height: 90%;
+    width: 100%;
+    height: 100%;
     cursor: pointer;
 `
 
@@ -77,6 +81,9 @@ const Message = styled.textarea`
     resize: none;
     width: 95%;
     height: 12vh;
+    &:focus {
+      outline: none;
+    }
 `
 
 const LikeCount = styled.div`
@@ -232,6 +239,7 @@ const customStyles = {
 Modal.setAppElement('#root');
 const scrollStepInPx = 50;
 const delayInMs = 10;
+const token = localStorage.getItem('token')
 
 class MyReviews extends Component {
   constructor(){
@@ -242,7 +250,8 @@ class MyReviews extends Component {
       popupIsOpen : false,
       imagepreviewUrl : '',
       clickedComment:'',
-      isReply: false
+      isReply: false,
+      rating : 5
     }
 
     this.scrollStep = this.scrollStep.bind(this);
@@ -252,8 +261,10 @@ class MyReviews extends Component {
     this._closePopup = this._closePopup.bind(this);
     this._handleModify = this._handleModify.bind(this);
     this._onStarClick = this._onStarClick.bind(this);
-    this.changeReply = this.changeReply.bind(this);
-    this._reviewCancel = this._reviewCancel.bind(this)
+    this._changeReply = this._changeReply.bind(this);
+    this._reviewCancel = this._reviewCancel.bind(this);
+    this._updateReply = this._updateReply.bind(this);
+    this._reviewDelete = this._reviewDelete.bind(this);
   }
 
 
@@ -291,28 +302,66 @@ class MyReviews extends Component {
     this.setState({ popupIsOpen: false });
   }
 
-  _onStarClick(nextValue, prevValue, name) {
+  _onStarClick(nextValue, prevValue, name, e) {
+    console.log(e.target)
     this.setState({ rating: nextValue });
   }
 
-  changeReply(e){
+  _changeReply(e){
     var reviewId = this.state.data[e.target.id].review_id
     this.setState({
       isReply: !this.state.isReply, clickedComment: reviewId
     })
   }
 
+  _updateReply(e){
+    console.log(e.target.id)
+    const previousMessage = this.state.data[e.target.id].message;
+     this.setState({
+           isReply: !this.state.isReply
+     })
+
+
+     const form = {
+       reviewPhoto : 1,
+       reviewRating : this.state.rating,
+       reviewMessage : this.modifyReview.value,
+       review_id : e.target.id
+     }
+
+
+        axios.post(`${url}/api/review/update`, form,  { headers: { 'token': token } })
+          .then((response) => {
+              console.log(response.data);
+          })
+          .catch(err => console.log(err));
+
+      // previousMessage !== this.modifyReview.value ? 
+      alert('리뷰가 수정되었습니다')   
+      window.location.reload();
+  }
+
+  _reviewDelete(e){
+    const reviewId = this.state.data[e.target.id].review_id
+    const form = {
+      review_id : reviewId
+    }
+      axios.post(`${url}/api/review/update`, form,  { headers: { 'token': token } })
+          .then((response) => {
+              console.log(response.data);
+          })
+          .catch(err => console.log(err));
+
+
+  }
   _reviewCancel(e){
-    var re = this.modifyReview.value
-    console.log(re)
-    console.log(this.review.value)
-    console.log(this.modifyReview.value)
-    console.log(e.target)
+    var previousMessage = this.state.data[e.target.id].message;
+    this.modifyReview.value = previousMessage;
       //  let reviewMessage = this.state.message
       //  this.modifyReview.value = reviewMessage
-      //  this.setState({
-      //    isReply: !this.state.isReply
-      //  })
+       this.setState({
+         isReply: !this.state.isReply
+       })
 
       // const form = {
       //   reviewPhoto : ,
@@ -355,8 +404,7 @@ class MyReviews extends Component {
         {this.state.data ? this.state.data.map((item, i) => {
           return (
             <Container key={i}>
-            {/* {console.log(item.review_id)} */}
-              <ReviewImage src={item.photo} />
+             <LinkDiv><a href={`http://localhost:3000/items/detail/${item.color_id}`}><ReviewImage src={item.photo} /></a></LinkDiv>
                 <MyImageDiv>
                 {/* <DeleteImage onClick={this._clickDelete}>X</DeleteImage> */}
                 <MyImage onClick={this._openPopup} src ={like}  />
@@ -365,32 +413,46 @@ class MyReviews extends Component {
                 <div>{item.brand}</div>
                 <div>{item.name}</div>
                 <div>{item.color}</div>
-                <div>내 평점:</div>
-                <div>
-                  <StarRatingComponent
-                    name="rate2"
-                    value={item.rating}
-                    onStarClick={this._onStarClick}
-                  />
-                </div>
+             
+                {!this.state.isReply ? 
+                  <div>내 평점:
+                    <div>
+                      <StarRatingComponent name="rate2" value={item.rating} editing = {false}/>
+                    </div>
+                  </div>
+                : this.state.isReply && this.state.clickedComment === item.review_id ?
+                  <div> 평점 수정: 
+                    <div>
+                      <StarRatingComponent name="rate2" value={this.state.rating} onStarClick={this._onStarClick}/>
+                    </div>
+                  </div>
+                :
+                  <div>내 평점:
+                    <div>
+                      <StarRatingComponent name="rate2" value={item.rating} editing = {false}/>
+                    </div>
+                  </div>
+              }
+     
               </Info >
               <ReviewContent >
                 <div style={{ textAlign: 'center' }}>
                   <Bubble>
-                    {!this.state.isReply ?  <Message readOnly innerRef={ref => { this.review = ref; }}>{item.message}</Message> 
+                    {!this.state.isReply ?  <Message readOnly>{item.message}</Message> 
                     : this.state.isReply && this.state.clickedComment === item.review_id ? <Message innerRef={ref => { this.modifyReview = ref; }}>{item.message}</Message>
-                    : <Message readOnly innerRef={ref => { this.review = ref; }}> {item.message} </Message>  }
+                    : <Message readOnly> {item.message} </Message>  }
 
                   </Bubble>
                 </div>
                 <BottomContainer >
-                  {!this.state.isReply ? <Modify id={i} onClick={this.changeReply}>수정</Modify> 
-                  : this.state.isReply && this.state.clickedComment === item.review_id ? <Modify id={i} onClick={this.changeReply}>완료</Modify>
-                  :<Modify id={i} onClick={this.changeReply}>수정</Modify> }
+                  {!this.state.isReply ? <Modify id={i} onClick={this._changeReply}>수정</Modify> 
+                  : this.state.isReply && this.state.clickedComment === item.review_id ? 
+                  <Modify id={i} onClick={this._updateReply}>완료</Modify>
+                  :<Modify id={i} onClick={this._changeReply}>수정</Modify> }
 
-                  {!this.state.isReply ? <Delete id={i}> 삭제</Delete> 
-                    : this.state.isReply && this.state.clickedComment === item.review_id ? <Cancel onClick = {this._reviewCancel} > 취소 </Cancel>
-                    : <Delete id={i}> 삭제</Delete> }
+                  {!this.state.isReply ? <Delete id={i} onClick={this._reviewDelete}> 삭제</Delete> 
+                    : this.state.isReply && this.state.clickedComment === item.review_id ? <Cancel id={i} onClick = {this._reviewCancel} > 취소 </Cancel>
+                    : <Delete id={i} onClick={this._reviewDelete}> 삭제</Delete> }
 
                   <LikeCount>
                     <Like src={like} />

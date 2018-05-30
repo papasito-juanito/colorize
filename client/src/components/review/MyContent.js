@@ -59,6 +59,9 @@ const Message = styled.textarea`
     resize: none;
     width: 95%;
     height: 20vh;
+    &: focus {
+        outline: none;
+    }
 `
 
 const LikeCount = styled.div`

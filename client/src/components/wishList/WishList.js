@@ -1,16 +1,24 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
 import Items from './Items';
+import styled from 'styled-components';
 
 import axios from 'axios';
 import { url } from '../../config';
 
+const Wrapper = styled.div`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
 
 class WishList extends Component {
     constructor(props){
         super()
         this.state = {
-            item: []
+            items: []
         }
     }
 
@@ -25,9 +33,9 @@ class WishList extends Component {
     }
     render(){
         return (
-            <div>
-                <Items/>
-            </div>
+            <Wrapper>
+                <Items items={this.state.item}/>
+            </Wrapper>
         );
     }
 };

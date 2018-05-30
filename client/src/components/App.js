@@ -26,11 +26,23 @@ injectGlobal`
     margin:0;
   }
 `
+const PrivateRoute = ({ component: Component, isLogined, ...rest }) => (
+    <Route {...rest} render={(props) => (
+        isLogined === true
+        ? <Component {...props} />
+        : <Redirect to={{
+            pathname: '/',
+            state: { from: props.location }
+          }} />
+    )} />
+  )
+
 class App extends Component {
     constructor(){
         super()
         this.state = {
-            isLogined: false
+            isLogined: false,
+            isLoding: false,
         }
     }
 
@@ -75,8 +87,9 @@ class App extends Component {
                         <Route exact path="/" component={Home}/>
                         <Route path="/wishList" component={WishList}/>
                         {/* <PrivateRoute isLogined={this.state.isLogined} path="/review" component={MyContent}/> */}
+                        <Route path="/login" component={Login}/>
                         {/* <Route path='/review' component={withLoginUser(MyReviews)}/>  */}
-                        <Route path='/review' component={withLoginUser(MyReviews)} />
+                        <Route path='/review' component={MyReviews} />
                         <Route path="/signup" component={Signup}/>
                         <Route exact path="/items/:id" component={ItemList}/>
                         <Route path="/items/detail/:id" render={(props)=><Detail {...props} isLogined={this.state.isLogined}/>} />

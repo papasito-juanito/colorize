@@ -120,9 +120,6 @@ class Nav extends Component {
     closeNav = () => {
         ReactDOM.findDOMNode(this.refs.mySidenav).style.width = '0px'
         ReactDOM.findDOMNode(this.refs.overlay).style.display = 'none'
-        // this.setState({
-        //     closeAll: true
-        // })
     }
 
     renderLogin = () => {

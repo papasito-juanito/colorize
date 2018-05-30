@@ -72,11 +72,12 @@ class HomeColor extends Component {
     for (var i=0; i<elements.length; i++) {
       link = link + elements[i].id + '&';
     }
-    link = link.slice(0, -1);
+   link = link.slice(0, -1);
     // const encodeLink = encodeURIComponent(link);
-    window.location.href = `/items/${link}`;
+    window.location.href = `/items/${link}?sort=rating`;
+    // return <Link to ={`/items/${link}?sort=rating`}/>
   }
-  
+
   cells = [
     [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
     [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],

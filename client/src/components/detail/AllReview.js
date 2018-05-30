@@ -30,7 +30,6 @@ class Allreview extends Component{
     }
 
     render(){
-        console.log(this.state.data)
         return(
             <Div>
                 <div>

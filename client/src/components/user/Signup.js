@@ -190,9 +190,9 @@ class Signup extends Component {
             birthDate: this.state.birthdateSelected, 
             gender: this.state.genderSelected,
             toneName: this.state.colorSelected
-        };
+        }
         console.log(form)
-            axios.post(`${url}/api/user/post`, form)
+            axios.post(`${url}/api/user/post/signup`, form)
                 .then(res => {
                     console.log(res);
                     if(res.data.result===true){

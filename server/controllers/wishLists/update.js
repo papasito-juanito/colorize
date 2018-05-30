@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 
 // Local import
 const model = require('../../models/wishLists/update');
+const db = require('../../db')
 
 module.exports = (req, res) => {
   const userMail = jwt.verify(req.headers.token, 'jwt-secret').userMail;

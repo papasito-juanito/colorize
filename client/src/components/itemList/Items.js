@@ -96,7 +96,6 @@ const Review = styled.span`
 const Items = ({item}) => {
     
     return (
-        
         <ItemListContainer >
             <Ul>
                 {item.map((item, i)=>{

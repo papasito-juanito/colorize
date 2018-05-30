@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import StarRatingComponent from 'react-star-rating-component';
 import like from '../../assets/Heart.png';
 import Modal from 'react-modal';
+import Login from '../user/Login'
 
 const Wrapper = styled.div`
     margin : 7% auto 2% auto;
@@ -269,6 +270,10 @@ class MyReviews extends Component {
   }
 
   render(){
+    console.log('myreviewmyreviewmyreviewmyreview', this.props.isLogined);
+    // if(this.props.isLoginded===false)
+    console.log('myreviewProps', this.props);
+
     let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
     console.log(this.state.data)
     return (

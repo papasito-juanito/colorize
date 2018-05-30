@@ -8,7 +8,7 @@ const path = require('path');
 
 // Local import
 const config = require('../0_config');
-const router = require('../2_route');
+const router = require('../2_routes');
 
 const app = express();
 

@@ -104,6 +104,17 @@ url encode decode 해봤다.
 Private route하려고 하는데 첫 render시 무조건 false가 들어온다 그다음 didmount된 후
 true로 바뀐다. 그래서 자꾸 리다이렉트를 함
 
+***
+#2018-05-29
+sort란 주소로 바로 들어와 있을 때 그 상태이게
+
+해결 : didmount시 history search를 찾아서 매치 할때 각각의 handler함수를 실행한다.
+
+
+
+
+
+
 
 
 

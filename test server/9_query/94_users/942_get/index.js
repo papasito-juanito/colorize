@@ -1,4 +1,4 @@
 // Local import
-const check = require('./check');
+const check = require('./9429_check');
 
 module.exports = { check };

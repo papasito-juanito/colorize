@@ -326,7 +326,7 @@ class MyReviews extends Component {
        reviewPhoto : 3,
        reviewRating : this.state.rating,
        reviewMessage : this.modifyReview.value,
-       review_id : e.target.id
+       review_id : this.state.data[e.target.id].review_id
      }
 
 
@@ -337,8 +337,9 @@ class MyReviews extends Component {
           .catch(err => console.log(err));
 
       // previousMessage !== this.modifyReview.value ? 
+      window.location.reload();
       alert('리뷰가 수정되었습니다')   
-      // window.location.reload();
+      
   }
 
   _reviewDelete(e){
@@ -346,7 +347,7 @@ class MyReviews extends Component {
     const form = {
       review_id : reviewId
     }
-      axios.post(`${url}/api/review/update`, form,  { headers: { 'token': token } })
+      axios.post(`${url}/api/review/delete`, form,  { headers: { 'token': token } })
           .then((response) => {
               console.log(response.data);
           })

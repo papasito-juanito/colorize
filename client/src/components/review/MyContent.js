@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import lip from '../../assets/lip.jpg';
 import like from '../../assets/Heart.png';
-import hate from '../../assets/emptyHeart.png';
 import StarRatingComponent from 'react-star-rating-component';
 import Modal from 'react-modal';
 import axios from 'axios';
 import { url } from '../../config';
 import {Redirect} from 'react-router-dom';
-import history from '../../utils/history'
+import history from '../../utils/history';
+import male from '../../assets/male.png';
+import female from '../../assets/female.png';
 
 const customStyles = {
     content: {
@@ -18,7 +19,11 @@ const customStyles = {
         bottom: 'auto',
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)'
-    }
+    },
+        overlay: {
+            position: 'fixed',
+            zIndex: 5
+        }
 };
 
 Modal.setAppElement('#root');
@@ -29,7 +34,7 @@ const Container = styled.div`
     border-radius: 5px;
     display:flex;
     width:100%;
-    height: 100%;
+    height: 80%;
 `
 
 const ReviewImage = styled.img`
@@ -55,10 +60,10 @@ const ReviewContent = styled.div`
 `
 
 const Message = styled.textarea`
-    border: 2px solid #ccc;
+    border: none;
     resize: none;
     width: 95%;
-    height: 20vh;
+    height: 14vh;
     &: focus {
         outline: none;
     }
@@ -67,7 +72,7 @@ const Message = styled.textarea`
 const LikeCount = styled.div`
     width: 20%
     height: 60%
-    top: 1%;
+    top: 7%;
     left:85%;
     position: absolute;
     align-content: center;
@@ -138,25 +143,48 @@ const UserDiv = styled.div`
     border-radius:50%;
 `
 
-// const ModifyForm = styled.form`
-    
-// `
-// const ModifyText = styled.textarea`
-//     border: 2px solid #ccc;
-//     height: 80%
-// `
+const Bubble = styled.div`
+position: relative;
+width: 98%;
+height: 15vh;
+padding: 0px;
+background: #FFFFFF;
+-webkit-border-radius: 17px;
+-moz-border-radius: 17px;
+border-radius: 17px;
+border: #7F7F7F solid 3px;
+
+    &::before {
+content: '';
+position: absolute;
+border-style: solid;
+border-width: 17px 17px 17px 0;
+border-color: transparent #7F7F7F;
+display: block;
+width: 0;
+z-index: 2;
+left: -20px;
+top: 19px;
+    }
+    &::after {
+content: '';
+position: absolute;
+border-style: solid;
+border-width: 15px 15px 15px 0;
+border-color: transparent #FFFFFF;
+display: block;
+width: 0;
+z-index: 3;
+left: -15px;
+top: 21px;
+    }
+`
 
 
 class MyContent extends Component {
     constructor(props) {
         super();
         this.state = {
-            editing: false,
-            message: '글이나오고 글이나오고 글이나오고',
-            likeCount: 100,
-            id: 'wonbok1213',
-            age: 32,
-            skin: '지성',
             rating: 3,
             like: false,
             popupIsOpen: false,
@@ -166,21 +194,9 @@ class MyContent extends Component {
         this._openPopup = this._openPopup.bind(this);
         this._afterOpenPopup = this._afterOpenPopup.bind(this);
         this._closePopup = this._closePopup.bind(this);
-        this._handleModify = this._handleModify.bind(this);
-        this._reviewLike = this._reviewLike.bind(this);
         this._reviewCancel = this._reviewCancel.bind(this);
     }
 
-    _handleModify = function () {
-        this.setState({
-            editing: !this.state.editing
-        })
-    }
-
-    _reviewLike = function () {
-        this.setState({ like: !this.state.like })
-        // !this.state.like ? this.setState({ likecount: this.state.likeCount++ }) : this.setState({ likecount: this.state.likeCount-- })
-    }
 
     _reviewCancel(){
         let reviewMessage = this.state.message
@@ -206,31 +222,29 @@ class MyContent extends Component {
     }
 
     componentDidMount() {
-        const token = localStorage.getItem('token')
+        // const token = localStorage.getItem('token')
         //user id를 받아야하는데 그게 api 받을때 없음
-        axios.get(`${url}/api/review/get/user?color_id=${this.props.id},user_id=${1}`, { headers: { 'token': token } })
-            .then(response =>
-              console.log(response.data)
-            )
-            .catch(err => console.log(err))
+        // axios.get(`${url}/api/review/get/user?color_id=${this.props.id},user_id=${2}`, { headers: { 'token': token } })
+        //     .then(response =>
+        //       console.log(response.data)
+        //     )
+        //     .catch(err => console.log(err))
     }
 
     render() {
         console.log('mycontent', this.props.user)
-        // if(!this.props.isLogined){
-        //     this.props.history.push('/')
-        // }
+
         let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
             return (
-                <div style={{width: '100%' }}>
-
+                <div style={{width: '100%'}}>
+                  <div style ={{width: '100%', height:'20%'}}>Your Review <div style={{width:'100%', border:'2px solid #ccc'}}></div></div>
                     <Container>
                         <ReviewImage onClick={this._openPopup} src={lip} />
                         <Info >
                             <UserDiv > <img alt='user' /></UserDiv>
-                            <div style={{boxSizing:'border-box', margin:'10% 0 0 0'}}>
-                            <div>{this.props.user[0].name}</div>
-                                <div>{this.props.user[0].age}, {this.props.user[0].tone}</div>
+                            <div style={{boxSizing:'border-box', margin:'8% 0 0 0'}}>
+                            <div>{this.props.user[0].name} <img style={{width: '8%', height:'8%'}} src = {this.props.user[0].gender === 'male'? male : female}/></div>
+                                <div>{this.props.user[0].age}, {this.props.user[0].tone}<br/>{'rating 필요'}</div>
                             <div>
                                 <StarRatingComponent
                                     name="rate2"
@@ -243,15 +257,12 @@ class MyContent extends Component {
                         </Info >
                         <ReviewContent >
                             <div style={{ textAlign: 'center' }}>
-                            {!this.state.editing ? <Message readOnly innerRef={ref => { this.review = ref; }}>{this.props.user[0].message}</Message> : <Message innerRef={ref => { this.modifyReview = ref; }}>{this.state.message}</Message>}
+                            <Bubble> <Message readOnly>{this.props.user[0].message}</Message></Bubble>
                             </div>
                             <BottomContainer >
-                                {!this.state.editing ? <Modify onClick={this._handleModify}>수정</Modify> : <Modify onClick={this._handleModify}>완료</Modify>}
-                                {!this.state.editing ? <Delete >삭제</Delete> : <Cancel onClick={this._reviewCancel}>취소</Cancel>}
-
                                 <LikeCount>
-                                    <Like onClick={this._reviewLike} src={this.state.like ? like : hate} />
-                                {this.state.likeCount}
+                                    <Like src={like} />
+                                {"likeCount"}
                                 </LikeCount>
                             </BottomContainer>
                         </ReviewContent >

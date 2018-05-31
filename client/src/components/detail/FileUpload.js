@@ -120,7 +120,7 @@ class FileUpload extends Component {
         let popupImage = (<img src={imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
 
         this.state.imagepreviewUrl ? $imagePreview = (<img onClick={this._openPopup} src={imagepreviewUrl} style={{ height: '100%', width: '80%' }} alt='Yours' />) :
-            $imagePreview = (<div> Please upload your Review Image </div>);
+            $imagePreview = (<div style={{textAlign:'center'}}> Please upload your Review Image </div>);
 
         return (
             <Div>

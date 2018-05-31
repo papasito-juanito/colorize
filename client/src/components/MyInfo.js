@@ -35,7 +35,7 @@ const Row = styled.tr`
 const Column = styled.th`
   width: 100px;
   background-color: #eef1f8;
-  text-align: left;
+  text-align: center;
   white-space: nowrap;
   padding: 14px 30px;
   border-bottom: 1px solid #ddd;
@@ -68,14 +68,43 @@ class MyInfo extends Component {
         super()
         this.state = {
           hasPhoto: true,
-          data: []
+          data: '',
+          tone : false,
+          nickName : false
         }
+
+        this._toneChange = this._toneChange.bind(this);
+        this._photoChange = this._photoChange.bind(this);
+        this._nickNameChange = this._nickNameChange.bind(this);
+        this._ChangeName = this._ChangeName.bind(this);
     }
 
     componentDidMount(){
-      axios.get(`${url}/api/user/get/info`)
-        .then(response => this.setState({data : response.data.result}))
+      const token = localStorage.getItem('token')
+      axios.get(`${url}/api/user/get/info`, { headers: { 'token': token } })
+        .then(response => 
+          this.setState({data : response.data})
+          // console.log(response)
+        )
         .catch(err => console.log(err))
+    }
+
+    _toneChange(){
+      this.setState({tone : !this.state.tone})
+    }
+
+    _photoChange(){
+      this.setState({hasPhoto : !this.state.hasPhoto})
+    }
+
+    _nickNameChange(){
+      this.setState({nickName : !this.state.nickName})
+    }
+
+    _ChangeName(){
+      console.log(this.nickname.value)  
+      
+       this.setState({nickName : !this.state.nickName})
     }
 
     colorOptions = [
@@ -104,21 +133,34 @@ class MyInfo extends Component {
             <Table>
               <Row>
                 <Column>사진</Column>
-                <Data>{this.state.hasPhoto ? 'showmyphoto' : ''}<div><input type="file"/></div></Data>
+                <Data>{this.state.hasPhoto ? <div>'show my photo' <button onClick={this._photoChange}> 사진 변경</button></div> 
+                : <div><input type="file"/><button onClick={this._photoChange}>취소</button></div>}</Data>
               </Row>
               <Row>
                 <Column>이메일</Column>
-                <Data>sudaseul@gmail.com</Data>
+                <Data>{this.state.data ? this.state.data[0].mail : null}</Data>
               </Row>
               <Row>
                 <Column>닉네임</Column>
-                <Data>립콜렉터9696
-                  <button type='button' style={{'margin-left': '15px'}}>닉네임 변경</button>
+                <Data>
+                  {/* <input  ref={ref => { this.nickname = ref; }} value ={!this.state.data ? null : this.state.nickName === false ? this.state.data[0].name : null}/>
+                  {!this.state.nickName ? <button onClick = {this._nickNameChange} style={{'margin-left': '15px'}}>닉네임 변경</button>
+                    : <div><button onClick = {this._ChangeName}>변경</button> <button onClick={this._nickNameChange}>변경취소</button></div>} */}
+                    {this.state.nickName === false ? <div><input value = {this.state.data ? this.state.data[0].name : null} ref={ref => { this.nickname = ref; }}  readOnly/> <button onClick = {this._nickNameChange} style={{'margin-left': '15px'}}>닉네임 변경</button></div>
+                    : <div><input ref={ref => { this.nickname = ref; }} /><button onClick = {this._ChangeName}>변경</button> <button onClick={this._nickNameChange}>변경취소</button></div>}
+                 {/* {this.state.nickName === false ? <div>{this.state.data ? this.state.data[0].name:null} <button onClick = {this._nickNameChange} style={{'margin-left': '15px'}}>닉네임 변경</button></div>
+                 : <div><input  ref={ref => { this.nickname = ref; }}/><button onClick = {this._ChangeName}>변경</button> <button onClick={this._nickNameChange}>변경취소</button></div>} */}
                 </Data>
               </Row>
               <Row>
                 <Column>피부타입</Column>
-                <Data><Dropdown options={this.colorOptions} placeholder="USER'S PERSONAL COLOR" /></Data>
+                <Data>
+                  {!this.state.data ? null : this.state.tone === false ? this.state.data[0].tone : null}
+                   {this.state.tone === false ? <button onClick = {this._toneChange}style={{'margin-left': '15px'}}>피부타입 변경</button> : null }
+                  {this.state.tone === true ? 
+                    <div><Dropdown options={this.colorOptions} placeholder="USER'S PERSONAL COLOR" /> <button onClick={this._toneChange}>변경취소</button></div> 
+                  : null}
+                </Data>
               </Row>              
               <Row>
                 <Column>비밀번호</Column>
@@ -143,11 +185,11 @@ class MyInfo extends Component {
               </Row>
               <Row>
                 <Column>성별</Column>
-                <Data>여자</Data>
+                <Data>{this.state.data ? this.state.data[0].gender : null}</Data>
               </Row>
               <Row>
                 <Column>생년월일</Column>
-                <Data>1990년 0월 00일</Data>
+                <Data>{this.state.data ? this.state.data[0].birth.split('T')[0] : null}</Data>
               </Row>
 
 

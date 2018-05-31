@@ -45,6 +45,16 @@ const Button = styled.button`
     position: relative;
     left: 2%;
     cursor: pointer;
+    border: none;
+    color: white;
+    background-color: black;
+    text-align: center;
+    opacity: 0.6;
+    transition: 0.3s;
+    border-radius:10px;
+    &:hover {
+        opacity: 1;
+    }
 `
 
 class Rating extends Component {
@@ -73,7 +83,7 @@ class Rating extends Component {
         }
 
         // console.log(form)
-        !this.props.loginState ? alert('로그인 먼저해') :
+        !this.props.loginState ? alert('로그인이 필요한 서비스 입니다.') :
             axios.post(`${url}/api/review/post/message`, form, { headers: { 'token': token } })
                 .then((response) => {
                 console.log(response);
@@ -81,6 +91,7 @@ class Rating extends Component {
                 // .then(response => this.setState({ data: response.data }))
                 .catch(err => console.log(err))
         this.input.value = '';
+        window.location.reload();
     }
 
     _alertReview() {
@@ -101,7 +112,7 @@ class Rating extends Component {
                     />
                 </RatingDiv>
                 <ReviewDiv>
-                    <TextArea placeholder='후기 입력해주세요 ㅎㅎㅎㅎ' innerRef={ref => { this.input = ref; }} /><br />
+                    <TextArea placeholder='사용후기를 입력해주세요' innerRef={ref => { this.input = ref; }} /><br />
                     <SendDiv>
                         <Button onClick={() => { this._alertReview(); this._clickReview() }} >등록</Button>
                     </SendDiv>

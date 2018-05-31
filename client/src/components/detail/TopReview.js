@@ -7,7 +7,6 @@ import styled from 'styled-components';
 const Div = styled.div`
      width: 100%;
      height: 100%;
-     border: 1px solid #d9dee8; 
 `
 
 
@@ -29,7 +28,7 @@ class TopReview extends Component {
         return (
             <Div>
                 <div> 
-                    베스트리뷰
+                       <div style ={{width: '100%', height:'20%'}}>Top3 Reviews <div style={{width:'100%', border:'2px solid #ccc'}}></div></div>
                 </div>
                 <div>
                     {this.state.topReview.length !== 0 ? <TopReviews Topdata={this.state.topReview} /> : <div> <h2>등록된 리뷰가 없어요</h2></div>}

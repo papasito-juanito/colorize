@@ -17,5 +17,12 @@ ssh로 서버 못 들어 갈 때는 ebs volume detach했다가 attach 하는 방
 원래 다 npm install/npm run build 했었는데 너무 오래걸려서 yarn으로 바꿈. 엄청 빨라짐.
 
 forever 설치함
+port 80으로 바꿈.
 
-nginx 잘 안됨 ㅜㅜ
+git으로 변경사항 받을 때...
+1. forever stop 0
+2. git pull (colorize)
+3. rm -r static (colorize/client/build)
+4. yarn run build (colorize/client)
+5. yarn run pro (colorize) (to check if it runs well)
+6. forever start server/index.js

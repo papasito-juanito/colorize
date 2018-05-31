@@ -68,13 +68,14 @@ class MyInfo extends Component {
         super()
         this.state = {
           hasPhoto: true,
-          data: []
+          data: ''
         }
     }
 
     componentDidMount(){
-      axios.get(`${url}/api/user/get/info`)
-        .then(response => this.setState({data : response.data.result}))
+      const token = localStorage.getItem('token');
+      axios.get(`${url}/api/user/get/info`, {headers: { 'token': token }})
+        .then(response => this.setState({data : response.data[0]}))
         .catch(err => console.log(err))
     }
 
@@ -97,8 +98,9 @@ class MyInfo extends Component {
   ]
 
     render() {
-    console.log(this.state.data);
+    const info = this.state.data;
         return (
+          this.state.data ?
           <Container>
             <Header>내 정보 수정</Header>
             <Table>
@@ -108,17 +110,17 @@ class MyInfo extends Component {
               </Row>
               <Row>
                 <Column>이메일</Column>
-                <Data>sudaseul@gmail.com</Data>
+                <Data>{info.mail}</Data>
               </Row>
               <Row>
                 <Column>닉네임</Column>
-                <Data>립콜렉터9696
+                <Data>{info.name}
                   <button type='button' style={{'margin-left': '15px'}}>닉네임 변경</button>
                 </Data>
               </Row>
               <Row>
                 <Column>피부타입</Column>
-                <Data><Dropdown options={this.colorOptions} placeholder="USER'S PERSONAL COLOR" /></Data>
+                <Data><Dropdown options={this.colorOptions} placeholder={info.tone} /></Data>
               </Row>              
               <Row>
                 <Column>비밀번호</Column>
@@ -143,17 +145,18 @@ class MyInfo extends Component {
               </Row>
               <Row>
                 <Column>성별</Column>
-                <Data>여자</Data>
+                <Data>{info.gender}</Data>
               </Row>
               <Row>
                 <Column>생년월일</Column>
-                <Data>1990년 0월 00일</Data>
+                <Data>{info.birth.substring(0,10)}</Data>
               </Row>
 
 
 
             </Table>
           </Container>
+          : 'Loading...'
         )
     }
 }

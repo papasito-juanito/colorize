@@ -95,7 +95,7 @@ class Rating extends Component {
     }
 
     _alertReview() {
-        this.props.loginState ? alert('후기가 등록되었습니다') : null;
+         alert('후기가 등록되었습니다');
     }
 
     render() {

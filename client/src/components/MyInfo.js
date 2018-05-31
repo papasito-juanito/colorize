@@ -1,9 +1,13 @@
+/* eslint-disable */
+
+
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import axios from 'axios';
 import { url } from '../config';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   position: relative;
@@ -63,6 +67,39 @@ const InTH = styled.th`
   padding-left: 8px;
 `
 
+const Button = styled.button `
+    cursor: pointer;
+    width: 10%;
+    height: 5vh;
+    border: none;
+    color: white;
+    background-color: black;
+    text-align: center;
+    opacity: 0.6;
+    transition: 0.3s;
+    border: 1px solid #d9dee8;
+    margin-right: 5%
+    &:hover {
+        opacity: 1;
+    }
+`
+const CancelButton = styled.button `
+    cursor: pointer;
+    width: 10%;
+    height: 5vh;
+    border: none;
+    color: black;
+    background-color: #F4F5F9;
+    text-align: center;
+    opacity: 0.6;
+    transition: 0.3s;
+    border: 1px solid #d9dee8;
+    &:hover {
+        opacity: 1;
+    }
+`
+//닉네임 중복확인 api 비밀번호 확인 api  validation 확인 
+
 class MyInfo extends Component {
     constructor(){
         super()
@@ -70,13 +107,18 @@ class MyInfo extends Component {
           hasPhoto: true,
           data: '',
           tone : false,
-          nickName : false
+          nickName : false,
+          colorSelected : '',
+          validate : true
         }
 
         this._toneChange = this._toneChange.bind(this);
         this._photoChange = this._photoChange.bind(this);
         this._nickNameChange = this._nickNameChange.bind(this);
-        this._ChangeName = this._ChangeName.bind(this);
+        this._comparePassword = this._comparePassword.bind(this);
+        this._passwordInput = this._passwordInput.bind(this);
+        this._submit = this._submit.bind(this);
+        this._onColorSelect = this._onColorSelect.bind(this);
     }
 
     componentDidMount(){
@@ -90,6 +132,7 @@ class MyInfo extends Component {
     }
 
     _toneChange(){
+   
       this.setState({tone : !this.state.tone})
     }
 
@@ -98,14 +141,50 @@ class MyInfo extends Component {
     }
 
     _nickNameChange(){
+           
       this.setState({nickName : !this.state.nickName})
     }
 
-    _ChangeName(){
-      console.log(this.nickname.value)  
+    _comparePassword(){
+      console.log(this.newPassword.value)
+      console.log(this.confirmPassword.value)
+      this.newPassword.value !== this.confirmPassword.value ? 
+       this.setState({validate : false})
+        // alert('입력한 비밀번호가 일치하지 않습니다') 
       
-       this.setState({nickName : !this.state.nickName})
+       : 
+       this.setState({validate : true})
+      // alert('ok');
     }
+
+    _passwordInput(){
+      !this.newPassword.value ? alert('새로운 패스워드를 먼저 입력해주세요') : null;
+    }
+
+    _onColorSelect(option) {
+      console.log(option.value)
+      this.setState({ colorSelected: option.value })
+    }
+
+    _submit(){
+      const token = localStorage.getItem('token')
+      const form = {
+        // userPassword : this.newPassword.value || 비밀번호 변경안하면 뭘 보내줘야하는지? , 
+        userName : this.nickname.value, 
+        userPhoto : 3,
+        // toneName : this.state.colorSelected || this.state.data[0].tone
+
+      }
+      this.state.validate !== true ? alert('비밀번호 확인해주세요') : 
+      axios.post(`${url}`, form,  { headers: { 'token': token } })
+          .then(response => 
+              // this.setState({ user: response.data })
+              console.log(response)
+          )
+          .catch(err => console.log(err)) 
+    }
+      
+    
 
     colorOptions = [
       { value: '모르겠어요', label: '모르겠어요' },
@@ -126,7 +205,7 @@ class MyInfo extends Component {
   ]
 
     render() {
-    console.log(this.state.data);
+    console.log(this.state.validate);
         return (
           <Container>
             <Header>내 정보 수정</Header>
@@ -143,13 +222,8 @@ class MyInfo extends Component {
               <Row>
                 <Column>닉네임</Column>
                 <Data>
-                  {/* <input  ref={ref => { this.nickname = ref; }} value ={!this.state.data ? null : this.state.nickName === false ? this.state.data[0].name : null}/>
-                  {!this.state.nickName ? <button onClick = {this._nickNameChange} style={{'margin-left': '15px'}}>닉네임 변경</button>
-                    : <div><button onClick = {this._ChangeName}>변경</button> <button onClick={this._nickNameChange}>변경취소</button></div>} */}
                     {this.state.nickName === false ? <div><input value = {this.state.data ? this.state.data[0].name : null} ref={ref => { this.nickname = ref; }}  readOnly/> <button onClick = {this._nickNameChange} style={{'margin-left': '15px'}}>닉네임 변경</button></div>
-                    : <div><input ref={ref => { this.nickname = ref; }} /><button onClick = {this._ChangeName}>변경</button> <button onClick={this._nickNameChange}>변경취소</button></div>}
-                 {/* {this.state.nickName === false ? <div>{this.state.data ? this.state.data[0].name:null} <button onClick = {this._nickNameChange} style={{'margin-left': '15px'}}>닉네임 변경</button></div>
-                 : <div><input  ref={ref => { this.nickname = ref; }}/><button onClick = {this._ChangeName}>변경</button> <button onClick={this._nickNameChange}>변경취소</button></div>} */}
+                    : <div><input ref={ref => { this.nickname = ref; }} /><button onClick={this._nickNameChange}>변경취소</button></div>}
                 </Data>
               </Row>
               <Row>
@@ -158,7 +232,7 @@ class MyInfo extends Component {
                   {!this.state.data ? null : this.state.tone === false ? this.state.data[0].tone : null}
                    {this.state.tone === false ? <button onClick = {this._toneChange}style={{'margin-left': '15px'}}>피부타입 변경</button> : null }
                   {this.state.tone === true ? 
-                    <div><Dropdown options={this.colorOptions} placeholder="USER'S PERSONAL COLOR" /> <button onClick={this._toneChange}>변경취소</button></div> 
+                    <div><Dropdown options={this.colorOptions} placeholder="USER'S PERSONAL COLOR" onChange={this._onColorSelect} /> <button onClick={this._toneChange}>변경취소</button></div> 
                   : null}
                 </Data>
               </Row>              
@@ -172,16 +246,22 @@ class MyInfo extends Component {
                   </tr>
                   <tr>
                     <InTH>신규 비밀번호</InTH>
-                    <td><input type='password'/></td>
+                    <td><input onChange = {this._comparePassword} ref={ref => { this.newPassword = ref; }} type='password'/></td>
                   </tr>
                   <tr>
                     <InTH>비밀번호 재입력</InTH>
-                    <td><input type='password'/></td>
+                    <td> <input onClick={this._passwordInput} onChange = {this._comparePassword} ref={ref => { this.confirmPassword = ref; }}type='password'/></td>
                   </tr>
                   <tr>
-                    <td><button type='button'>비밀번호 확인</button></td>
+                    <td>
+                  
+                      {/* <button type='button'>비밀번호 확인</button> */}
+                      </td>
                   </tr>                  
-                </Intable></Data>
+                </Intable>
+                      {!this.confirmPassword && !this.newPassword ?  null : this.confirmPassword.value && this.newPassword.value ? <div>{this.state.validate === true ? 'Ok' : '입력한 비밀번호가 일치하지 않습니다'}</div>:null}
+                      
+                      </Data>
               </Row>
               <Row>
                 <Column>성별</Column>
@@ -191,11 +271,14 @@ class MyInfo extends Component {
                 <Column>생년월일</Column>
                 <Data>{this.state.data ? this.state.data[0].birth.split('T')[0] : null}</Data>
               </Row>
-
-
-
             </Table>
-          </Container>
+            <div style={{margin: ' 5% auto auto auto' , textAlign:'center'}}>
+              <Button onClick={this._submit}> 
+                  변경 
+              </Button>
+                <Link to='/' style={{ textDecoration: 'none' }}> <CancelButton>취소</CancelButton> </Link>
+            </div>
+            </Container>
         )
     }
 }

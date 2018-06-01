@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 process.env.NODE_ENV = ( process.env.NODE_ENV && ( process.env.NODE_ENV ).trim().toLowerCase() == 'production' ) ? 'production' : 'development';
 // Global import
 const express = require('express');
@@ -7,6 +9,8 @@ const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
 const path = require('path');
 const {url} = require('../client/src/config');
+const aws = require('aws-sdk');
+
 
 // Local import
 const { port, secret } = require('../config');
@@ -37,6 +41,10 @@ app.post('/upload', function(req, res) {
   });
 
 });
+
+
+
+
 
 app.set('jwt-secret', secret); 
 

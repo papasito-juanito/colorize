@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import { HorizontalBar } from 'react-chartjs-2';
 import styled from 'styled-components';

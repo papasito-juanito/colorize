@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import StarRatingComponent from 'react-star-rating-component';
 import like from '../../assets/reviewLike.png';
 import Modal from 'react-modal';
+import { Link } from 'react-router-dom';
 
 
 const Wrapper = styled.div`
@@ -412,8 +413,8 @@ class MyReviews extends Component {
         <h2> My Reviews </h2>
         {this.state.data.length ? this.state.data.map((item, i) => {
           return (
-            <Container key={i}>
-             <LinkDiv><a href={`http://localhost:3000/items/detail/${item.color_id}`}><ReviewImage src={item.photo} /></a></LinkDiv>
+            <Container key={i}>           
+             <LinkDiv> <Link to={`/items/detail/${item.color_id}`} style={{ textDecoration: 'none' }}><ReviewImage src={item.photo} /> </Link></LinkDiv>
                 <MyImageDiv>
                 {/* <DeleteImage onClick={this._clickDelete}>X</DeleteImage> */}
                 <MyImage onClick={this._openPopup} src ={like}  />

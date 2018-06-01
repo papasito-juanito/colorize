@@ -8,6 +8,8 @@ import 'react-dropdown/style.css';
 import axios from 'axios';
 import { url } from '../config';
 import { Link } from 'react-router-dom';
+import Dropzone from 'react-dropzone';
+
 
 const Container = styled.div`
   position: relative;
@@ -109,7 +111,10 @@ class MyInfo extends Component {
           tone : false,
           nickName : false,
           colorSelected : '',
-          validate : true
+          validate : true,
+          files:'',
+          imagepreviewUrl: ''
+          
         }
 
         this._toneChange = this._toneChange.bind(this);
@@ -119,6 +124,8 @@ class MyInfo extends Component {
         this._passwordInput = this._passwordInput.bind(this);
         this._submit = this._submit.bind(this);
         this._onColorSelect = this._onColorSelect.bind(this);
+        this._onDrop = this._onDrop.bind(this);
+        this._submitImg = this._submitImg.bind(this)
     }
 
     componentDidMount(){
@@ -130,7 +137,14 @@ class MyInfo extends Component {
         )
         .catch(err => console.log(err))
     }
+    _submitImg(){
+         axios.post(`${url}/test`, {'base64' :this.state.imagepreviewUrl, 'mail' : this.state.data[0].mail})
+           .then((result) => {
+             console.log(result)
+           })
+           .catch(err => console.log(err))
 
+    }
     _toneChange(){
    
       this.setState({tone : !this.state.tone})
@@ -166,13 +180,96 @@ class MyInfo extends Component {
       this.setState({ colorSelected: option.value })
     }
 
+    _onDrop(files){
+
+      var file = files[0];
+      console.log(files)
+      console.log(file)
+      console.log(typeof file.preview)
+       let reader = new FileReader();
+
+       reader.readAsDataURL(file)
+
+             reader.onload = () => {
+               this.setState({
+                 file:file,
+                 imagepreviewUrl: reader.result
+               })
+             }
+            //  console.log(this.state.imagepreviewUrl)
+      
+
+      // var options = {
+      //     headers : {
+      //       'content-type': "application/json"
+      //     //  'multipart/form-data'
+      //     }
+      //   }
+   
+      }
+
+            // axios.get(`${url}`, {
+            //     filename: file.name,
+            //     filetype: file.type
+            // })
+            // .then((result) => {
+            //   var signedUrl = result.data.signedUrl;
+
+    // this.setState({
+    //   files
+    // });
+  // files.forEach(file => {
+  //   const reader = new FileReader();
+  //   reader.onload = () => {
+  //     const fileAsBinaryString = reader.result;
+  //     // do whatever you want with the file content
+  //   };
+  //   reader.onabort = () => console.log('file reading was aborted');
+  //   reader.onerror = () => console.log('file reading has failed');
+
+  //   reader.readAsBinaryString(file);
+  // });
+// }
+
+
+
+      // var file = files[0];
+      // console.log(file)
+      // var options = {
+      //    headers : {
+      //      'content-type': file.type
+      //     //  'multipart/form-data'
+      //    }
+      //   }
+      // axios.post(`${url}/update`, file, options)
+      //   .then((result) => {
+      //       console.log(result)
+      //   })
+      //   .catch(err => console.log(err))
+      // }
+
+      // axios.get(`${url}`, {
+      //     filename: file.name,
+      //     filetype: file.type
+      // })
+      // .then((result) => {
+      //   var signedUrl = result.data.signedUrl;
+
+  
+
+  
+
+
+      // })
+  
+
     _submit(){
       const token = localStorage.getItem('token')
       const form = {
         // userPassword : this.newPassword.value || 비밀번호 변경안하면 뭘 보내줘야하는지? , 
         userName : this.nickname.value, 
         userPhoto : 3,
-        // toneName : this.state.colorSelected || this.state.data[0].tone
+        toneName : this.state.colorSelected || this.state.data[0].tone
 
       }
       this.state.validate !== true ? alert('비밀번호 확인해주세요') : 
@@ -205,7 +302,8 @@ class MyInfo extends Component {
   ]
 
     render() {
-    console.log(this.state.validate);
+      console.log(this.state.data)
+        // console.log(this.state.imagepreviewUrl)
         return (
           <Container>
             <Header>내 정보 수정</Header>
@@ -213,7 +311,13 @@ class MyInfo extends Component {
               <Row>
                 <Column>사진</Column>
                 <Data>{this.state.hasPhoto ? <div>'show my photo' <button onClick={this._photoChange}> 사진 변경</button></div> 
-                : <div><input type="file"/><button onClick={this._photoChange}>취소</button></div>}</Data>
+                  : <div><Dropzone onDrop={ this._onDrop } size={ 50 }>
+                       <div> Drop some files here!</div>
+                           </Dropzone>
+                           <button onClick={this._submitImg}> 변경</button>
+                          <button onClick={this._photoChange}> 취소</button></div>}
+                                 {/* : <div><input type="file"/><button onClick={this._photoChange}>취소</button></div>} */}
+                </Data>
               </Row>
               <Row>
                 <Column>이메일</Column>
@@ -232,7 +336,7 @@ class MyInfo extends Component {
                   {!this.state.data ? null : this.state.tone === false ? this.state.data[0].tone : null}
                    {this.state.tone === false ? <button onClick = {this._toneChange}style={{'margin-left': '15px'}}>피부타입 변경</button> : null }
                   {this.state.tone === true ? 
-                    <div><Dropdown options={this.colorOptions} placeholder="USER'S PERSONAL COLOR" onChange={this._onColorSelect} /> <button onClick={this._toneChange}>변경취소</button></div> 
+                    <div><Dropdown options={this.colorOptions} placeholder="USER'S PERSONAL COLOR" onChange={this._onColorSelect} value = {this.state.colorSelected} /> <button onClick={this._toneChange}>변경취소</button></div> 
                   : null}
                 </Data>
               </Row>              

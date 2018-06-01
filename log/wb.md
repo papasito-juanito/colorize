@@ -110,6 +110,55 @@ sort란 주소로 바로 들어와 있을 때 그 상태이게
 
 해결 : didmount시 history search를 찾아서 매치 할때 각각의 handler함수를 실행한다.
 
+***
+#2018-05-30
+1. HOC 말고 PrivateRoute로 바꿈
+
+결국 app의 isLogined상태로 라우팅을 하기 떄문에 HOC때와 같은 문제가 발생한다.
+
+render시 false가 먼저 들어와서 redirect됨
+
+그래서 login시 locastorage에 login된 상태를 status: true라는 형식으로 set
+이때 문제점은 로그 아웃시에는 local storage를 다 날리지만 
+token만료 되서 로그인 안될때는 status가 그대로 남아있기 때문에 로그인 안한 유저도
+private으로 들어올 수 있다.
+
+해결: 맞는 방법인지는 모르겠지만, app에서 auth체크를 할때 verified되지 않은 토큰의 response가 오면 status도 지워 버린다.
+
+2. withRouter사용
+items페이지에서 회원가입시 
+
+로그인하면 history module사용해서 history.push(history.location.pathname) 하기 때문에 뒤에 쿼리스트링이 사라진다
+
+withRouter를 이용해 수정함
+
+***
+#2018-05-33
+ private route비동기 처리 했음 로딩으로 
+
+ const PrivateRoute = ({ component: Component,isLoading,isLogined, ...rest }) => {
+   return (
+    <Route {...rest} render={(props) => {
+        // const status = localStorage.getItem('status') 
+
+       return isLoading ? <div>asd</div> : isLogined ?
+        <Component {...props} {...rest} />
+        : <Redirect to ={{
+            pathname: '/login',
+            state: { from: props.location }
+          }}/>
+    }} />
+)}
+
+Nav에 a를 Link로 할떄는 컴포넌트만 렌더 되기때문에 /에서 10초 후에 wishlist들어가면
+
+login: true / token은 만료 상태  
+
+wishlist에서는  토큰이 만료되면 
+this.props.history.push('/login', {from: this.props.location})한다.
+
+login에서도 login true이기 떄문에 로그인 유저라고 나온다.
+
 
 
 

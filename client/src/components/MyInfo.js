@@ -107,7 +107,6 @@ class MyInfo extends Component {
         super()
         this.state = {
           hasPhoto: true,
-<<<<<<< HEAD
           data: '',
           tone : false,
           nickName : false,
@@ -116,9 +115,6 @@ class MyInfo extends Component {
           files:'',
           imagepreviewUrl: ''
           
-=======
-          data: ''
->>>>>>> 7c4207d336ea5e0efcae158689e1fc6babd61019
         }
 
         this._toneChange = this._toneChange.bind(this);
@@ -133,18 +129,9 @@ class MyInfo extends Component {
     }
 
     componentDidMount(){
-<<<<<<< HEAD
-      const token = localStorage.getItem('token')
-      axios.get(`${url}/api/user/get/info`, { headers: { 'token': token } })
-        .then(response => 
-          this.setState({data : response.data})
-          // console.log(response)
-        )
-=======
       const token = localStorage.getItem('token');
       axios.get(`${url}/api/user/get/info`, {headers: { 'token': token }})
         .then(response => this.setState({data : response.data.rows[0]}))
->>>>>>> 7c4207d336ea5e0efcae158689e1fc6babd61019
         .catch(err => console.log(err))
     }
     _submitImg(){
@@ -312,12 +299,8 @@ class MyInfo extends Component {
   ]
 
     render() {
-<<<<<<< HEAD
       console.log(this.state.data)
         // console.log(this.state.imagepreviewUrl)
-=======
-    const info = this.state.data;
->>>>>>> 7c4207d336ea5e0efcae158689e1fc6babd61019
         return (
           this.state.data ?
           <Container>
@@ -336,7 +319,6 @@ class MyInfo extends Component {
               </Row>
               <Row>
                 <Column>이메일</Column>
-<<<<<<< HEAD
                 <Data>{this.state.data ? this.state.data[0].mail : null}</Data>
               </Row>
               <Row>
@@ -344,19 +326,10 @@ class MyInfo extends Component {
                 <Data>
                     {this.state.nickName === false ? <div><input value = {this.state.data ? this.state.data[0].name : null} ref={ref => { this.nickname = ref; }}  readOnly/> <button onClick = {this._nickNameChange} style={{'margin-left': '15px'}}>닉네임 변경</button></div>
                     : <div><input ref={ref => { this.nickname = ref; }} /><button onClick={this._nickNameChange}>변경취소</button></div>}
-=======
-                <Data>{info.mail}</Data>
-              </Row>
-              <Row>
-                <Column>닉네임</Column>
-                <Data>{info.name}
-                  <button type='button' style={{'margin-left': '15px'}}>닉네임 변경</button>
->>>>>>> 7c4207d336ea5e0efcae158689e1fc6babd61019
                 </Data>
               </Row>
               <Row>
                 <Column>피부타입</Column>
-<<<<<<< HEAD
                 <Data>
                   {!this.state.data ? null : this.state.tone === false ? this.state.data[0].tone : null}
                    {this.state.tone === false ? <button onClick = {this._toneChange}style={{'margin-left': '15px'}}>피부타입 변경</button> : null }
@@ -364,9 +337,6 @@ class MyInfo extends Component {
                     <div><Dropdown options={this.colorOptions} placeholder="USER'S PERSONAL COLOR" onChange={this._onColorSelect} value = {this.state.colorSelected} /> <button onClick={this._toneChange}>변경취소</button></div> 
                   : null}
                 </Data>
-=======
-                <Data><Dropdown options={this.colorOptions} placeholder={info.tone} /></Data>
->>>>>>> 7c4207d336ea5e0efcae158689e1fc6babd61019
               </Row>              
               <Row>
                 <Column>비밀번호</Column>
@@ -397,22 +367,13 @@ class MyInfo extends Component {
               </Row>
               <Row>
                 <Column>성별</Column>
-<<<<<<< HEAD
                 <Data>{this.state.data ? this.state.data[0].gender : null}</Data>
               </Row>
               <Row>
                 <Column>생년월일</Column>
                 <Data>{this.state.data ? this.state.data[0].birth.split('T')[0] : null}</Data>
-=======
-                <Data>{info.gender}</Data>
-              </Row>
-              <Row>
-                <Column>생년월일</Column>
-                <Data>{info.birth.substring(0,10)}</Data>
->>>>>>> 7c4207d336ea5e0efcae158689e1fc6babd61019
               </Row>
             </Table>
-<<<<<<< HEAD
             <div style={{margin: ' 5% auto auto auto' , textAlign:'center'}}>
               <Button onClick={this._submit}> 
                   변경 
@@ -420,10 +381,6 @@ class MyInfo extends Component {
                 <Link to='/' style={{ textDecoration: 'none' }}> <CancelButton>취소</CancelButton> </Link>
             </div>
             </Container>
-=======
-          </Container>
-          : 'Loading...'
->>>>>>> 7c4207d336ea5e0efcae158689e1fc6babd61019
         )
     }
 }

@@ -151,9 +151,6 @@ class MyInfo extends Component {
                 <Column>생년월일</Column>
                 <Data>{info.birth.substring(0,10)}</Data>
               </Row>
-
-
-
             </Table>
           </Container>
           : 'Loading...'

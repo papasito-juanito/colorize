@@ -175,14 +175,14 @@ class Signup extends Component {
             axios.post(`${url}/api/user/post/signup`, form)
                 .then(res => {
                     console.log(res);
-                    if(res.data.result===true){
+                    if(res.data.success===true){
                         this.setState({
                             signupSuccess: true
                         })
                         this.showSucces()
-                    }else if(res.data.result===false){
+                    }else if(res.data.success===false){
                         this.setState({
-                            isExist: res.data
+                            isExist: res.data.message
                         })
                         this.showFailure();
                     }
@@ -230,7 +230,10 @@ class Signup extends Component {
     }
 
     clickToLogin = () => {
-        history.goBack()
+        const {history} = this.props
+        const {pathname} = this.props.location.state.from
+        const {search} = this.props.location.state.from
+        history.push('/login', {from: {pathname: pathname, search: search}})   
     }
 
     showSucces = () => {
@@ -272,6 +275,8 @@ class Signup extends Component {
     ]
 
     render() {
+        console.log('signup', this.props);
+        
         console.log(this.state.genderSelected);
         console.log(this.state.colorSelected);
         return (

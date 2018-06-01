@@ -1,4 +1,4 @@
-/* eslint-disable */
+32/* eslint-disable */
 import React, {Component} from 'react';
 import styled from 'styled-components';
 import { Link, Redirect, withRouter } from 'react-router-dom';
@@ -112,7 +112,7 @@ const Loginbtn = styled.button`
     cursor: pointer;
     text-align: center;
 `
-const Signupbtn = styled.a`
+const Signupbtn = styled.button`
     height: 40%
     border: none;
     background-color: black;
@@ -122,9 +122,7 @@ const Signupbtn = styled.a`
     font-size: 1rem;
     cursor: pointer;
     text-align: center;
-    &:visited {
-        text-decoration: none;
-    }  
+ 
 `
 
 const Facebook = styled.button`
@@ -219,6 +217,13 @@ class Login extends Component {
     //         }
     //     })
     // }
+    clickSighup = () => {
+        console.log('clickSighup', this.props);
+        const {history} = this.props
+        const {pathname} = this.props.location.state.from
+        const {search} = this.props.location.state.from
+        history.push('/signup', {from: {pathname: pathname, search: search}})        
+    }
     
     render(){
         console.log('LoginpropsLoginpropsLoginprops', this.props); 
@@ -263,7 +268,7 @@ class Login extends Component {
                         <FindPassword> forgot password ? </FindPassword>
                         <LoginSignupButtonWrapper> 
                             <Loginbtn onClick={this.clickToLogin}> Login </Loginbtn>
-                            <Signupbtn href="/signup" style={{textDecoration: 'none'}}> SignUp </Signupbtn>
+                            <Signupbtn onClick={this.clickSighup}> SignUp </Signupbtn>
                             OR
                             <Facebook> 
                                 {/* <a href="#" class="fa fa-facebook" style={fastyle}>  Facebook</a> */}

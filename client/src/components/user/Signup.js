@@ -8,13 +8,6 @@ import axios from 'axios';
 import { url } from '../../config';
 
 import validator from 'validator';
-import mail from '../../assets/mail.png'
-import lock from '../../assets/lock.png';
-import nickname from '../../assets/nickname.png';
-import birthdate from '../../assets/birthdate.png';
-import gender from '../../assets/gender.png';
-import skin from '../../assets/skin.png';
-import bottom from '../../assets/bottom.png';
 import history from '../../utils/history'
 
 const Container = styled.div`
@@ -26,7 +19,6 @@ const Container = styled.div`
     font-family: Nanum Gothic;
     border: 1px solid black;
 `
-
 const SignupContainer = styled.div`
     width : 40vw;
     margin: 0 auto;
@@ -40,18 +32,6 @@ const SignupContainer = styled.div`
     .Dropdown-option {
         font-size: 0.8rem;
     }
-`
-
-const IdImageDiv = styled.div`
-    border: 2px solid #ddd;
-    width: 10%
-    height: 50%;
-`
-
-const IdImage = styled.img`
-    width: auto; 
-    height: auto;
-    max-width: 100%;
 `
 const BdayInput = styled.input`
     margin: 5px 0 20px 0;
@@ -190,9 +170,9 @@ class Signup extends Component {
             birthDate: this.state.birthdateSelected, 
             gender: this.state.genderSelected,
             toneName: this.state.colorSelected
-        };
+        }
         console.log(form)
-            axios.post(`${url}/api/user/post`, form)
+            axios.post(`${url}/api/user/post/signup`, form)
                 .then(res => {
                     console.log(res);
                     if(res.data.result===true){

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import { HorizontalBar } from 'react-chartjs-2';
 import styled from 'styled-components';
@@ -101,6 +102,7 @@ class Chart extends Component {
                         <StarRatingComponent
                             name="평점"
                             value={this.props.data ? this.props.data[0].avg : 0}
+                            
                         />
                     </RatingDiv>
                     <ChartDiv>

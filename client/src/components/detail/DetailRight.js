@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, {Component} from 'react';
 import Chart from './Chart';
 import styled from 'styled-components';
@@ -58,13 +59,13 @@ class DetailRight extends Component {
 
     componentDidMount() {
         // axios.get(`${url}/api/item/rate?color_id=${this.props.match.params.id}`)
-        console.log(this.detail.offsetHeight)
+        // console.log(this.detail.offsetHeight)
         axios.get(`${url}/api/item/get/rate?color_id=${this.props.id}`)
             // .then((response) => {
             //     console.log(response.data);
             //   })
             .then(response => this.setState({
-                data: response.data
+                data: response.data.rows
             }))
             .catch(err => console.log(err));
     }

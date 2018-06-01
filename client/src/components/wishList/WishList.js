@@ -157,6 +157,8 @@ class WishList extends Component {
         axios.get(`${url}/api/wishlist/get/list`, {headers: {'token': token}})
         .then((response) => {
             if(response.data.success===true){
+                console.log('wishSUCCESS', response.data);
+                
                 this.setState({
                     items: response.data.rows
                 })

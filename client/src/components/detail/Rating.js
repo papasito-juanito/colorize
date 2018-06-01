@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import StarRatingComponent from 'react-star-rating-component';
 import styled from 'styled-components';
@@ -14,6 +15,9 @@ const TextArea = styled.textarea`
     margin: 1% 0 0 0;
     background-color: #F6F6F6;
     border-radius: 5px;
+    &: focus {
+        outline: none;
+    }
 `
 const Wrapper = styled.div`
     border: 1px solid #d9dee8;

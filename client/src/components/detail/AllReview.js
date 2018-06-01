@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import axios from 'axios';
 import AllReviews from '../review/AllReviews';
@@ -23,14 +24,18 @@ class Allreview extends Component{
     componentDidMount() {
         const token = localStorage.getItem('token')
         axios.get(`${url}/api/review/get/list?color_id=${this.props.id}`, { headers: { 'token': token } })
-            .then(response => 
-                this.setState({ data: response.data })
-            )
-            .catch(err => console.log(err))
+            .then(response => {
+               if(response.data.success===true){
+                this.setState({ data: response.data.rows })
+               } else {
+                   console.log('allreview', response);
+                this.props.handleLogout()
+               }
+            }
+        )
     }
 
     render(){
-        console.log(this.state.data)
         return(
             <Div>
                 <div>

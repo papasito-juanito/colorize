@@ -8,9 +8,10 @@ import Login from './user/Login'
 
 import axios from 'axios';
 import { url } from '../config';
-import history from '../utils/history'
+import history from '../utils/history';
+import neon from '../assets/neon.png';
 
-const NavContatiner = styled.header`
+const NavContainer = styled.header`
     background-color: black;
     height: 10%;
     width: 100vw;
@@ -21,19 +22,16 @@ const NavContatiner = styled.header`
     flex-direction: row;
     transition: top 0.3s;
 `
-
-const Colorize = styled.div`
-    margin: auto
-    text-align: center;
-`
-
 const NavLink = styled(Link)`
-   
-    font-size: 3rem
-    &:visited {
-        color: white;
-        text-decoration: none;
-    }  
+`
+const Logo = styled.img`
+    object-fit: scale-down;
+    max-width: 100%;
+    max-height: 80%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 `
 
 const NaveRightContainer = styled.div`
@@ -152,12 +150,11 @@ class Nav extends Component {
         console.log('navnavnav', this.props);   
         const { isLogined, handleLogout } = this.props
         return (        
-            <NavContatiner id="navbar">
+            <NavContainer id="navbar">
             <Overlay ref='overlay' onClick={this.closeNav}/>
-            <Colorize>
             <NavLink to="/" style={{ textDecoration: 'none' }}>
-            <span>Colorize</span></NavLink>
-            </Colorize>
+                <Logo src={neon} alt={"Colorize"}/>
+            </NavLink>
             <NaveRightContainer>
                  <MenuWrapper>
                  <Menu onClick={this.openNav} >
@@ -183,7 +180,7 @@ class Nav extends Component {
                     }     
                  </MenuWrapper>    
             </NaveRightContainer>
-        </NavContatiner>
+        </NavContainer>
       );   
     }
 };

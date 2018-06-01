@@ -4,7 +4,7 @@ const sQuery = require('../../db/reviews/update');
 
 module.exports = {
   message: (params, cb) => {
-    db.query(sQuery, params, (err, rows) => { cb(err, rows); })
+    db.query(sQuery.message, params, (err, rows) => { cb(err, rows); })
   },
 
   like: {

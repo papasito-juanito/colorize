@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import TopReviews from '../review/TopReviews';
 import axios from 'axios';
@@ -21,7 +22,7 @@ class TopReview extends Component {
     componentDidMount() {
         const token = localStorage.getItem('token')
         axios.get(`${url}/api/review/get/rank?color_id=${this.props.id}`, token !== null ? { headers: { 'token': token} }: null)
-            .then(response => this.setState({ topReview: response.data }))
+            .then(response => this.setState({ topReview: response.data.rows }))
             .catch(err => console.log(err));
     }
 

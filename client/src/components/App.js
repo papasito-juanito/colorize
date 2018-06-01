@@ -57,7 +57,6 @@ class App extends Component {
 
     handleLogout = () => {
         localStorage.removeItem('token')
-        localStorage.removeItem('status')
         this.setState({
             isLogined: false
         })
@@ -98,7 +97,7 @@ class App extends Component {
                         <Route path="/login" 
                         render={(props)=><Login handleLoginUser={this.handleLoginUser}/>}/>
                         <Route path="/items/detail/:id" 
-                        render={(props)=><Detail {...props} isLogined={isLogined}/>} />
+                        render={(props)=><Detail {...props} handleLogout={this.handleLogout} isLogined={isLogined}/>} />
                         <PrivateRoute path="/myinfo" isLoading={isLoading} isLogined={isLogined} handleLogout={this.handleLogout} handleLoginUser={this.handleLoginUser} component={MyInfo}/>
                         <PrivateRoute path='/review' isLoading={isLoading} isLogined={isLogined} handleLogout={this.handleLogout}  handleLoginUser={this.handleLoginUser} component={MyReviews} />
                         <PrivateRoute path='/wishlist' isLoading={isLoading} isLogined={isLogined} handleLogout={this.handleLogout} handleLoginUser={this.handleLoginUser} component={WishList} />

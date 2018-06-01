@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
@@ -60,7 +61,7 @@ class ItemList extends Component {
         axios.get(`${url}/api/item/get/list?color_id=[${this.props.match.params.id.split('&')}]&order_by=avg DESC`)
         .then((response) => {
             console.log(response)
-            this.setState({item: response.data})
+            this.setState({item: response.data.rows})
           })
         switch (this.props.history.location.search.split('=')[1]) {
             case 'price_desc' : this.handeHighPrice()

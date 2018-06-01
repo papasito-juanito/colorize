@@ -6,8 +6,6 @@ import StarRatingComponent from 'react-star-rating-component';
 import Modal from 'react-modal';
 import axios from 'axios';
 import { url } from '../../config';
-import {Redirect} from 'react-router-dom';
-import history from '../../utils/history';
 import male from '../../assets/male.png';
 import female from '../../assets/female.png';
 

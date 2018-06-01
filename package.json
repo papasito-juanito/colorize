@@ -34,7 +34,7 @@
     "fake": "mysql -u root < server/db/utility/fake.sql",
     "pro": "NODE_ENV=production nodemon server/index.js --ignore './client'",
     "dev": "NODE_ENV=development nodemon server/index.js --ignore './client'",
-    "server": "nodemon server/index.js --ignore './client'"
+    "server": "nodemon server/index.js --ignore 'client/'"
   },
   "devDependencies": {
     "eslint": "^4.19.1",

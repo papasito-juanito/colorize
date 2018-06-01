@@ -1,50 +1,22 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
-import { Link, Redirect } from 'react-router-dom';
-import Modal from 'react-modal';
+import { Link, Redirect, withRouter } from 'react-router-dom';
 import lipImage from '../../assets/lipImage.png';
 import avatar from '../../assets/avatar.png';
 import lock from '../../assets/lock.png';
 import axios from 'axios';
 import { url } from '../../config';
-import history from '../../utils/history'
+
 
 const LoginContainer = styled.div`
     margin-top:10%
     display: flex;
     flex-direction: column
-    z-index: 2
+    width: 80%
 `
 
-const customStyles = {
-    content: {
-        width: '38vw',
-        height: '70vh',
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)'
-    },
-    overlay: {
-        backgroundColor: 'rgba(0,0,0,0.5)'
-      }
-
-};
-
-const CloseButton = styled.div`
-    content: '✖';
-    color: #777;
-    font: 14px/100% arial, sans-serif;
-    position: absolute;
-    right: 5px;
-    text-decoration: none;
-    text-shadow: 0 1px 0 #fff;
-    top: 5px;
-    cursor: pointer;
-`
 const LoginTop = styled.div`
+
     display:flex;
     flex-direction: row
 `
@@ -189,34 +161,16 @@ const Google = styled.button`
     text-align: center;
 `
 
-Modal.setAppElement(document.getElementById('root'));
-
 class Login extends Component {
     constructor(props) {
         super();
-        this.state = {
-            modalIsOpen: true
-
-          };
-       
-          this.openModal = this.openModal.bind(this);
-        //   this.afterOpenModal = this.afterOpenModal.bind(this);
-          this.closeModal = this.closeModal.bind(this);
-        }
-       
-    openModal() {
-        this.setState({modalIsOpen: true});
+        // this.state={
+        //     isLogined: false,
+        //     isLoading: true,
+        //     redirect: false
+        // }
     }
-    
-    // afterOpenModal() {
-    //     // references are now sync'd and can be accessed.
-    //     this.subtitle.style.color = '#f00';
-    // }
-    
-    closeModal() {
-        this.setState({modalIsOpen: false});
-    }
-
+       
     clickToLogin = () => {
     const form = {
         userMail: this.email.value,
@@ -228,27 +182,66 @@ class Login extends Component {
             console.log('login', res);  
             if(res.data.token){
                 localStorage.setItem('token', res.data.token)
-                this.props.handleLoginUser()  
-                this.closeModal()        
-                history.push(history.location.pathname)
+                this.props.handleLoginUser()
+                const {history} = this.props
+                var pathname = ""
+                    if(this.props.location.state){
+                        var {search} = this.props.location.state.from
+                        pathname = this.props.location.state.from.pathname
+                    } else {
+                        console.log('elselse', this.props);
+                        pathname = '/'
+                    }    
+                    console.log('pathname', pathname);
+                    console.log('search', search);
+                    search ? history.push(pathname + search) : history.push(pathname)       
         }})
         .catch(error => console.log(error))
     }
 
+    // componentDidMount(){
+    //     const token = localStorage.getItem('token')
+    //     axios.get(`${url}/api/user/get/check`, {headers: {'token': token}})
+    //     .then(res => {
+    //         console.log('app', res);
+    //         if(res.data.success === true){
+    //             this.setState({
+    //                 isLoading: false,
+    //                 isLogined: true
+    //             })
+    //         } else{
+    //             console.log('appfailfailresresres', res);
+    //             this.setState({
+    //                 isLoading: false,
+    //                 isLogined: false
+    //             })
+    //         }
+    //     })
+    // }
+    
     render(){
-        console.log('LoginpropsLoginpropsLoginprops', this.props);
-        console.log('renderHistory', this.props.handleLoginUser);
-        const {renderLogin} = this.props        
-        return (
-            <LoginContainer>
-                    <Modal
-                    isOpen={this.state.modalIsOpen}
-                    onAfterOpen={this.afterOpenModal}
-                    onRequestClose={this.closeModal}
-                    style={customStyles}
-                    contentLabel="Login Modal"
-                    shouldCloseOnOverlayClick={false}
-                    >
+        console.log('LoginpropsLoginpropsLoginprops', this.props); 
+        console.log('redirecredirecredirecredirec', this.state);
+        // const { isLogined, isLoading } = this.props
+        // const {isLoading, isLogined} = this.state
+        // const {history} = this.props
+        // var pathname = ""
+        // if (this.state.redirect === true) {
+        //     if(this.props.location.state){
+        //         var {search} = this.props.location.state.from
+        //         pathname = this.props.location.state.from.pathname
+        //     } else {
+        //         console.log('elselse', this.props);
+        //         pathname = '/'
+        //     }    
+        //     console.log('pathname', pathname);
+        //     console.log('search', search);
+        //     return search ? <Redirect push to={pathname + search}/> : <Redirect push to={pathname} />        
+        //   }
+        // const {isLoading, isLogined} = this.state      
+            return (
+                // isLoading ? <div>loading</div> : isLogined ? <Redirect to={this.props.history.go(-1)}/> :
+                <LoginContainer>
                     <LoginTop>
                     <Img src={lipImage}/>
                     <Text>Colorize</Text>
@@ -268,7 +261,7 @@ class Login extends Component {
                         </PasswordWrapper>
                         <FindPassword> forgot password ? </FindPassword>
                         <LoginSignupButtonWrapper> 
-                            <Loginbtn onClick={this.clickToLogin.bind(this)}> Login </Loginbtn>
+                            <Loginbtn onClick={this.clickToLogin}> Login </Loginbtn>
                             <Signupbtn href="/signup" style={{textDecoration: 'none'}}> SignUp </Signupbtn>
                             OR
                             <Facebook> 
@@ -277,14 +270,10 @@ class Login extends Component {
                             </Facebook>   
                             <Google> Google </Google> 
                         </LoginSignupButtonWrapper>
-                    </LoginBottom>    
-                    <CloseButton 
-                        onClick={()=>{this.closeModal(); renderLogin(); this.clickToLogin();}}>
-                        X</CloseButton>
-                    </Modal>
-            </LoginContainer>
-        );
-    }
+                    </LoginBottom>
+                </LoginContainer>
+            );
+          }
 };
 
-export default Login;
+export default  withRouter(Login);

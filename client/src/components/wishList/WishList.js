@@ -4,6 +4,8 @@ import React, {Component} from 'react';
 import styled from 'styled-components';
 import StarRatingComponent from 'react-star-rating-component';
 import { Link } from 'react-router-dom';
+import Login from '../user/Login'
+import {Redirect} from 'react-router-dom';
 
 import axios from 'axios';
 import { url } from '../../config';
@@ -128,7 +130,8 @@ class WishList extends Component {
     constructor(props){
         super()
         this.state = {
-            items: []
+            items: [],
+            tokenVerified: true
         }
     }
     
@@ -141,7 +144,9 @@ class WishList extends Component {
             .then((response) => {
                 axios.get(`${url}/api/wishlist/get/list`, {headers: {'token': token}})
                 .then((response) => {
-                    this.setState({items: response.data})
+                    this.setState({
+                        items: response.data
+                    })
                   })
               })
         console.log(e.target.id);    
@@ -151,11 +156,22 @@ class WishList extends Component {
         const token = localStorage.getItem('token')  
         axios.get(`${url}/api/wishlist/get/list`, {headers: {'token': token}})
         .then((response) => {
-            this.setState({items: response.data})
+            if(response.data.success===true){
+                this.setState({
+                    items: response.data.rows
+                })
+            }else {
+                console.log('wishFAil', response);
+                console.log('thisprops', this.props);
+                //Link로 타고들어오면 이게 없으면 nav로그인 상태는 유지되어있다.
+                this.props.handleLogout()
+                this.props.history.push('/login', {from: this.props.location})
+            }
           })
     }
 
     render(){
+        console.log('wishpropswishpropswishprops',this.props);
         return (
             <PageWrapper>
                 <ItemListContainer >

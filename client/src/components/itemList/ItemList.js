@@ -77,7 +77,7 @@ class ItemList extends Component {
         axios.get(`${url}/api/item/get/list?color_id=[${this.props.match.params.id.split('&')}]&order_by=price DESC`)
         .then((response) => {
             console.log('price',response)
-            this.setState({item: response.data})
+            this.setState({item: response.data.rows})
           })
         }
     
@@ -85,7 +85,7 @@ class ItemList extends Component {
         axios.get(`${url}/api/item/get/list?color_id=[${this.props.match.params.id.split('&')}]&order_by=price ASC`)
         .then((response) => {
             console.log('price',response)
-            this.setState({item: response.data})
+            this.setState({item: response.data.rows})
           })
     }
     
@@ -93,7 +93,7 @@ class ItemList extends Component {
         axios.get(`${url}/api/item/get/list?color_id=[${this.props.match.params.id.split('&')}]&order_by=avg DESC`)
         .then((response) => {
             console.log('price',response)
-            this.setState({item: response.data})
+            this.setState({item: response.data.rows})
           })
     }
     
@@ -101,7 +101,7 @@ class ItemList extends Component {
         axios.get(`${url}/api/item/get/list?color_id=[${this.props.match.params.id.split('&')}]&order_by=date DESC`)
         .then((response) => {
             console.log('price',response)
-            this.setState({item: response.data})
+            this.setState({item: response.data.rows})
           })
     }
   

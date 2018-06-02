@@ -397,15 +397,20 @@ class MyReviews extends Component {
 //여기서 내가쓴 리뷰 전체모아오기
     const token = localStorage.getItem('token')
     axios.get(`${url}/api/review/get/user`, { headers: { 'token': token } })
-      .then(response =>
-        
-         this.setState({ data: response.data.rows })
-        // console.log(response)
-        )
+      .then(response =>{
+        if(response.data.success===true){
+          this.setState({ data: response.data.rows })
+        } else {
+          this.props.handleLogout()
+          this.props.history.push('/login', {from: this.props.location})
+        }
+      })
       .catch(err => console.log(err))
   }
 
   render(){
+    console.log('myreview', this.props);
+    
     console.log(this.state.data)
     let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
     

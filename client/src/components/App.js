@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Link, Route, Switch, Redirect} from 'react-router-dom';
+import { BrowserRouter as Router, Link, Route, Switch, Redirect, withRouter} from 'react-router-dom';
 import {injectGlobal} from 'styled-components'
 
 import Nav from '../components/Nav'
@@ -18,7 +18,8 @@ import MyInfo from './MyInfo'
 import axios from 'axios';
 import { url } from '../config';
 import Login from './user/Login'
-import withLoginUser from './withLoginUser'
+import history from '../utils/history'
+
 
 injectGlobal`
   body{
@@ -60,9 +61,13 @@ class App extends Component {
         this.setState({
             isLogined: false
         })
+        console.log(history)
+        history.push(history.location)
     }
 
     componentDidMount(){
+        console.log(this.props);
+        
         const token = localStorage.getItem('token')
             axios.get(`${url}/api/user/get/check`, {headers: {'token': token}})
             .then(res => {
@@ -91,7 +96,6 @@ class App extends Component {
                 <Nav isLogined={isLogined} handleLogout={this.handleLogout}/>   
                     <Switch> 
                         <Route exact path="/" component={Home}/>
-                        <Route path='/review' component={MyReviews} />
                         <Route path="/signup" component={Signup}/>
                         <Route exact path="/items/:id" component={ItemList}/>
                         <Route path="/login" 

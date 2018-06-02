@@ -406,6 +406,8 @@ class MyReviews extends Component {
   }
 
   render(){
+    console.log('myreview', this.props);
+    
     console.log(this.state.data)
     let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
     

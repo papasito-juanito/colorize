@@ -1,126 +1,118 @@
+/* eslint-disable */
 import React from 'react';
 import styled from 'styled-components';
 import StarRatingComponent from 'react-star-rating-component';
 import { Link } from 'react-router-dom';
-import lipstick from '../../assets/lipstick.svg';
 // const queryString = require('query-string');
 
-
-const ItemListContainer = styled.div` 
-    height: 100%;
+const Container = styled.ul`
     width: 80%;
-    margin-top: 2%;
-    display: flex;
-    justify-content: center;
-`;
-
-// 가운데로 필요
-const Ul = styled.ul`
-    width: 100%;
-    height: 100%;
     padding: 0;
-    padding-left: 6%;
+    // border: solid grey 1px;
     display: flex;
-    flex-wrap: wrap;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    margin: 0 -10px;
 `;
 
-const Wrapper = styled(Link)`
+const ItemLink = styled(Link)`
     position: relative;
-    margin: 1%;
-    width: 20%;
-    min-width: 15rem;
-    height: 25rem;
-    display:flex;
-    flex-direction: row;
+    width: 17%;
+    max-width: 300px;
+    min-width: 225px;
+    max-height: 300px;
+    min-height: 300px;
+		margin: 0 10px;
+		margin-bottom: 20px;
     &:visited {
         color: black;
         text-decoration: none 
     }  
-`;
-
-const Li = styled.li`
-    background-color: #f1f1f1;
-    width: 100%;
-    margin-top: 15px
-    font-size: 30px;
-    list-style: none;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    &:hover {
-        box-shadow: 16px 16px 16px rgba(0,0,0,0.2);
+    @media (max-width: 250px) {
+				width: 90%;
+				min-width: 100px;
     }
 `;
-
-const ItemTop = styled.div`
+const Item = styled.li`
+    // border: solid red 1px;
     width: 100%;
+    height: 100%;
+    font-size: 30px;
+    list-style: none;
 `;
 const Img = styled.img`
-    height: 18rem;
     width: 100%;
-    background-color: "white"
+    height: 75%;
+		background-color: white;
+		object-fit: contain;
+		justify-content: center;
+		display: block;
 `;
-const Color = styled.div`
-    position: absolute; 
-    top:10px
-    right: -5px;
-    border-style: solid;
-    border-width: 0 70px 70px 0;
-    border-color: transparent #${props => props.color} transparent transparent;
+const Colorline = styled.div`
+		width: 100%;
+		height: 10px;
+		background-color: #${props => props.color};
+		margin-bottom: 5%;
 `;
-
 const ItemBottom = styled.div`
-    marin:auto
-    height: 100px;
+		float: bottom;
+		width: 100%;
+		height: 25%;
+		display: block;
 `;
-const Brand = styled.div`
-    font-size:8px;
-    text-align: center
+const ItemDetails = styled.div`
+		width: 100%;
+		text-align: center;
 `;
 const ItemName = styled.div`
-    font-size:16px;
-    text-align: center
+	font-size: 43%;
+	text-overflow: scale;
+	color: black;
+	font-weight: bold;
 `;
-const Price = styled.div`
-    font-size: 14px;
-    text-align: center
+const Detail = styled.div`
+		font-size: 40%;
+		color: grey;
 `;
-
+const Brand = styled.span`
+		font-weight: bold;
+`;
 const Rating = styled.div`
-    font-size: 19px;
-    text-align: center
+	font-size: 70%;
+`;
+const Stars = styled.span`
+	vertical-align: middle;
 `;
 const Review = styled.span`
-    font-size: 13px;
-`;
+	font-size: 60%;
+	vertical-align: middle;
+	color: grey;
+	`;
 
 const Items = ({ item }) => (
-  <ItemListContainer >
-    <Ul>
-      {item.map((item, i) => (
-        <Wrapper to={`/items/detail/${item.color_id}`} style={{ textDecoration: 'none' }} >
-          <Li key={i}>
-            <ItemTop >
-              <Img src={item.photo} />
-              {/* <Color color={item.hex}/> */}
-            </ItemTop >
+  <Container>
+    {item.map((item, i) => (
+      <ItemLink to={`/items/detail/${item.color_id}`} style={{ textDecoration: 'none' }} >
+          <Item key={i}>
+            <Img src={item.photo}/>
+						<Colorline color={item.hex}/>
             <ItemBottom>
-              <Brand>{item.brand}</Brand>
-              <ItemName>{item.name}, {item.volume}</ItemName>
-              <Price>{item.price}</Price>
-              <Rating>
-                <StarRatingComponent
-                  name="itemList"
-                  editing={false}
-                  value={item.avg}
-                                    />, <Review>({item.reviews})</Review>
-              </Rating>
+							<ItemDetails>
+								<ItemName>{item.name}</ItemName>
+								<Detail><Brand>{item.brand}</Brand> {item.volume} / {item.price}원</Detail>
+								<Rating>
+										<Stars><StarRatingComponent
+										name="itemList"
+										editing={false}
+										value={item.avg}
+										/></Stars> <Review>({item.reviews})</Review>
+								</Rating>
+							</ItemDetails>
             </ItemBottom>
-          </Li>
-          <Color color={item.hex} />
-        </Wrapper>
-                    ))}
-    </Ul>
-  </ItemListContainer>
+            </Item>
+        </ItemLink>
+        ))}
+  </Container>
 );
 
 export default Items;

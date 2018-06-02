@@ -19,10 +19,8 @@ const Wrapper = styled.div`
 `;
 
 const SortContainer = styled.div`
-    height: 3rem;
+    height: 10vw;
     margin-top: 10%;
-    margin-left: 3%;
-    overflow: hidden;
 `;
 
 const Btn = styled(Link)`

@@ -10,6 +10,7 @@ import axios from 'axios';
 import { url } from '../config';
 import history from '../utils/history';
 import neon from '../assets/neon.png';
+import './Nav.css';
 
 const NavContainer = styled.header`
     background-color: black;
@@ -38,7 +39,9 @@ const NaveRightContainer = styled.div`
     position: absolute;
     right: 5%
 `
-
+const Search = styled.input`
+    margin-right: 15%;
+`
 const MenuWrapper = styled.div`
     overflow: hidden;
     font-size: 3.5rem;
@@ -152,6 +155,10 @@ class Nav extends Component {
             <NavLink to="/" style={{ textDecoration: 'none' }}>
                 <Logo src={neon} alt={"Colorize"}/>
             </NavLink>
+            {/* <Search type="text" placeholder="Search"/> */}
+            <form id="demo-2">
+	            <input type="search" placeholder="Search"/>
+            </form>
             <NaveRightContainer>
                  <MenuWrapper>
                  <Menu onClick={this.openNav} >

@@ -6,24 +6,19 @@ import styled from 'styled-components';
 const Button = styled.button`
   padding: 1% 2%;
   font-size: 1em;
+  color: #fff;
   text-align: center;
   cursor: pointer;
-  outline: none;
   color: #fff;
-  background-color: #121212;
-  border: none;
-  border-radius: 15px;
-  box-shadow: 0 9px #999;
+  background-color: #000000;
   margin: 1%;
+  border: 0;
+  font-family: 'Roboto';
+  font-weight: 300;
   &:hover {
-    background-color: #484848;
+    text-shadow: 0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F;
+    // text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0080, 0 0 30px #ff0080, 0 0 40px #ff0080, 0 0 55px #ff0080, 0 0 75px #ff0080;
   }  
-  &:active {
-    background-color: #121212;
-    box-shadow: 0 5px #666;
-    transform: translateY(4px);
-  }  
-
 `
 
 class HomeColor extends Component {
@@ -98,8 +93,8 @@ class HomeColor extends Component {
                 <td
                 key={i}
                 id={element.color_id}
-                style={{borderRadius: '6.5px', backgroundColor: '#' + element.itemHex, width: '4rem', height: '3rem'}}>
-                  <div className='heart'>❤</div>
+                style={{backgroundColor: '#' + element.itemHex, width: '5vw', height: '7.5vh'}}>
+                  <div className='heart'/>
                 </td>
           )}
           </tr>
@@ -108,8 +103,8 @@ class HomeColor extends Component {
                 <td
                 key={i}
                 id={element.color_id}
-                style={{borderRadius: '6.5px', backgroundColor: '#' + element.itemHex, width: '4rem', height: '3rem'}}>
-                  <div className='heart'>👄</div>
+                style={{backgroundColor: '#' + element.itemHex, width: '5vw', height: '7.5vh'}}>
+                  <div className='heart'/>
                 </td>
           )}
           </tr>
@@ -118,8 +113,8 @@ class HomeColor extends Component {
                 <td
                 key={i}
                 id={element.color_id}
-                style={{borderRadius: '6.5px', backgroundColor: '#' + element.itemHex, width: '4rem', height: '3rem'}}>
-                  <div className='heart'>🗢</div>
+                style={{backgroundColor: '#' + element.itemHex, width: '5vw', height: '7.5vh'}}>
+                  <div className='heart'/>
                 </td>
           )}
           </tr>
@@ -128,8 +123,8 @@ class HomeColor extends Component {
                 <td
                 key={i}
                 id={element.color_id}
-                style={{borderRadius: '6.5px', backgroundColor: '#' + element.itemHex, width: '4rem', height: '3rem'}}>
-                  <div className='heart'>❤</div>
+                style={{backgroundColor: '#' + element.itemHex, width: '5vw', height: '7.5vh'}}>
+                  <div className='heart'/>
                 </td>
           )}
           </tr>
@@ -138,8 +133,8 @@ class HomeColor extends Component {
                 <td
                 key={i}
                 id={element.color_id}
-                style={{borderRadius: '6.5px', backgroundColor: '#' + element.itemHex, width: '4rem', height: '3rem'}}>
-                  <div className='heart'>❤</div>
+                style={{backgroundColor: '#' + element.itemHex, width: '5vw', height: '7.5vh'}}>
+                  <div className='heart'/>
                 </td>
           )}
           </tr>
@@ -148,8 +143,8 @@ class HomeColor extends Component {
                 <td
                 key={i}
                 id={element.color_id}
-                style={{borderRadius: '6.5px', backgroundColor: '#' + element.itemHex, width: '4rem', height: '3rem'}}>
-                  <div className='heart'>❤</div>
+                style={{backgroundColor: '#' + element.itemHex, width: '5vw', height: '7.5vh'}}>
+                  <div className='heart'/>
                 </td>
           )}
           </tr>
@@ -158,8 +153,8 @@ class HomeColor extends Component {
                 <td
                 key={i}
                 id={element.color_id}
-                style={{borderRadius: '6.5px', backgroundColor: '#' + element.itemHex, width: '4rem', height: '3rem'}}>
-                  <div className='heart'>❤</div>
+                style={{backgroundColor: '#' + element.itemHex, width: '5vw', height: '7.5vh'}}>
+                  <div className='heart'/>
                 </td>
           )}
           </tr>
@@ -168,8 +163,8 @@ class HomeColor extends Component {
                 <td
                 key={i}
                 id={element.color_id}
-                style={{borderRadius: '6.5px', backgroundColor: '#' + element.itemHex, width: '4rem', height: '3rem'}}>
-                  <div className='heart'>❤</div>
+                style={{backgroundColor: '#' + element.itemHex, width: '5vw', height: '7.5vh'}}>
+                  <div className='heart'/>
                 </td>
           )}
           </tr>

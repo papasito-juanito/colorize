@@ -132,13 +132,15 @@ class MyInfo extends Component {
     componentDidMount(){
       const token = localStorage.getItem('token');
       axios.get(`${url}/api/user/get/info`, {headers: { 'token': token }})
-        .then(response =>
-          {
-            console.log(response);
-            
-            this.setState({data : response.data.rows[0]})
-          } )
-        .catch(err => console.log(err))
+        .then(response =>{
+            if(response.data.success===true){
+              this.setState({data : response.data.rows[0]})
+            }else {
+              this.props.handleLogout()
+              this.props.history.push('/login', {from: this.props.location})
+            }
+          }) 
+
     }
     _submitImg(){
          axios.post(`${url}/test`, {'base64' :this.state.imagepreviewUrl, 'mail' : this.state.data.mail})
@@ -340,6 +342,8 @@ class MyInfo extends Component {
 
     render() {
       console.log('datadatadtata', this.state.data)
+      console.log('myinfomyinfomyinfo', this.props);
+      
         // console.log(this.state.imagepreviewUrl)
         return (
           this.state.data ?

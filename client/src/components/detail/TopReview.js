@@ -19,10 +19,10 @@ class TopReview extends Component {
         };
     }
     componentDidMount() {
-        const token = localStorage.getItem('token')
-        axios.get(`${url}/api/review/get/rank?color_id=${this.props.id}`, token !== null ? { headers: { 'token': token} }: null)
-            .then(response => this.setState({ topReview: response.data.rows }))
-            .catch(err => console.log(err));
+        // const token = localStorage.getItem('token')
+        // axios.get(`${url}/api/review/get/rank?color_id=${this.props.id}`, token !== null ? { headers: { 'token': token} }: null)
+        //     .then(response => this.setState({ topReview: response.data.rows }))
+        //     .catch(err => console.log(err));
     }
 
     render() {
@@ -32,7 +32,7 @@ class TopReview extends Component {
                        <div style ={{width: '100%', height:'20%'}}>Top3 Reviews <div style={{width:'100%', border:'2px solid #ccc'}}></div></div>
                 </div>
                 <div>
-                    {this.state.topReview.length !== 0 ? <TopReviews Topdata={this.state.topReview} /> : <div> <h2>등록된 리뷰가 없어요</h2></div>}
+                    {/* {this.state.topReview.length !== 0 ? <TopReviews Topdata={this.state.topReview} /> : <div> <h2>등록된 리뷰가 없어요</h2></div>} */}
                 </div>
             </Div>
         );

@@ -186,7 +186,8 @@ class MyContent extends Component {
             rating: 3,
             like: false,
             popupIsOpen: false,
-            imagepreviewUrl: ''
+            imagepreviewUrl: '',
+            data:''
         }
 
         this._openPopup = this._openPopup.bind(this);
@@ -221,19 +222,22 @@ class MyContent extends Component {
 
     componentDidMount() {
         const token = localStorage.getItem('token')
+        console.log(1)
         axios.get(`${url}/api/review/get/info?color_id=${this.props.id}`, { headers: { 'token': token } })
-            .then(response =>
+            .then(response =>{
               console.log(response)
+              this.setState({data: response})
+            }
             )
             .catch(err => console.log(err))
     }
 
     render() {
-
+        console.log(this.state.data)
         let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
             return (
-                <div style={{width: '100%'}}>
-                  <div style ={{width: '100%', height:'20%'}}>Your Review <div style={{width:'100%', border:'2px solid #ccc'}}></div></div>
+                <div style={{width: '100%'}}> hi
+                  {/* <div style ={{width: '100%', height:'20%'}}>Your Review <div style={{width:'100%', border:'2px solid #ccc'}}></div></div>
                     <Container>
                         <ReviewImage onClick={this._openPopup} src={lip} />
                         <Info >
@@ -275,7 +279,7 @@ class MyContent extends Component {
                             <div style={{ width: '50vh' }}>{popupImage}</div>
                             <button style={{ cursor: 'pointer' }} onClick={this._closePopup}>close</button>
                         </Modal>
-                    </Container>
+                    </Container> */}
                 </div>
         );
     }

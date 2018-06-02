@@ -163,9 +163,12 @@ class AllContent extends Component {
             review_id: reviewId
         }
         axios.post(`${url}/api/review/update/like`,form, { headers: { 'token': token } })
-            .then(() => {
+            .then((res) => {
                 return axios.get(`${url}/api/review/get/list?color_id=${this.props.id}`, { headers: { 'token': token } })
-                .then(response => this.setState({ data: response.data }))
+                .then(response => 
+                    // console.log(response)
+                    this.setState({ data: response.data.rows })
+                )
                 .catch(err => console.log(err))
                 }
             )
@@ -253,6 +256,7 @@ class AllContent extends Component {
     }
 
     render() {
+        console.log(this.props)
         // console.log('카운팅@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ :', count++)
         // console.log('after state :',this.state.data)
         let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)

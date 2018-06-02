@@ -9,7 +9,6 @@ import styled from 'styled-components';
 const Div = styled.div`
      width: 100%;
      height: 100%;
-     border: 1px solid #d9dee8;
 `
 
 class Allreview extends Component{
@@ -39,7 +38,7 @@ class Allreview extends Component{
         return(
             <Div>
                 <div>
-                    전체리뷰
+                   <div style ={{width: '100%', height:'20%'}}>All Reviews <div style={{width:'100%', border:'2px solid #ccc'}}></div></div>
                 </div>
                 <div>
                     {this.state.data.length !== 0 ? <AllReviews id = {this.props.id} data={this.state.data}/> : <div> <h2>등록된 리뷰가 없어요</h2></div>}

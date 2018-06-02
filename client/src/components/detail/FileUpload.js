@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import Modal from 'react-modal';
 import axios from 'axios';
@@ -56,7 +57,6 @@ class FileUpload extends Component {
         let file = e.target.files[0];
 
         reader.readAsDataURL(file)
-
         reader.onload = () => {
             this.setState({
                 file: file,
@@ -86,7 +86,7 @@ class FileUpload extends Component {
         formData.append('file', this.uploadInput.files[0]);
         formData.append('filename', `${this.props.id}_`);
 
-     
+        
         axios.post(`${url}/upload`, formData, { headers: { 'token': token } } )
             // .then((response) => {
             // console.log(response);
@@ -108,19 +108,20 @@ class FileUpload extends Component {
             // });
         // })
         // .catch(err => console.log(err))
-    
+
     }
 
 
 
     render() {
-        
+        console.log(this.state.file)
+        console.log(this.state.imagepreviewUrl)
         let { imagepreviewUrl } = this.state;
         let $imagePreview = null;
         let popupImage = (<img src={imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
 
         this.state.imagepreviewUrl ? $imagePreview = (<img onClick={this._openPopup} src={imagepreviewUrl} style={{ height: '100%', width: '80%' }} alt='Yours' />) :
-            $imagePreview = (<div> Please upload your Review Image </div>);
+            $imagePreview = (<div style={{textAlign:'center'}}> Please upload your Review Image </div>);
 
         return (
             <Div>

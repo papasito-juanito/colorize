@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import noWish from '../../assets/emptyHeart.png'
-import Wish from '../../assets/Heart.png'
+import noWish from '../../assets/emptyHeart.png';
+import Wish from '../../assets/Heart.png';
 import styled from 'styled-components';
+import axios from 'axios';
+import { url } from '../../config';
 
 const Div = styled.div`
     height : 100%;
@@ -19,13 +21,13 @@ const ImageDiv = styled.div`
 `
 
 const Image = styled.img`
-    width: 90%;
+    width: 100%;
     height: 100%;
 `
 
 const Wishlist = styled.div`
-    width: 4.5vw;
-    height: 4.5vw;
+    width: 2.5vw;
+    height: 2.5vw;
     position: absolute;
     left: 1%;
     top:1%;
@@ -33,8 +35,8 @@ const Wishlist = styled.div`
 `
 
 const ColorDiv = styled.div`
-    width: 4.5vw;
-    height: 4.5vw;
+    width: 2.5vw;
+    height: 2.5vw;
     position: absolute;
     border-radius: 50%;
     right: 1%;
@@ -52,10 +54,22 @@ class DetailLeft extends Component {
     }
     
     _clickToWish() {
-        this.setState({wish : !this.state.wish})
+        const token = localStorage.getItem('token')
+        // this.setState({wish : !this.state.wish})
+        const form = {
+            color_id: this.props.data[0].color_id
+        }
+
+        axios.post(`${url}/api/wishlist/update`, form,  { headers: { 'token': token } })
+          .then((response) => {
+              console.log(response.data);
+          })
+          .catch(err => console.log(err));
+
     }
 
     render(){
+        console.log('left : ', this.props)
         return (
             <Div>
                 <ImageDiv >

@@ -113,7 +113,8 @@ class MyInfo extends Component {
           colorSelected : '',
           validate : true,
           files:'',
-          imagepreviewUrl: ''
+          imagepreviewUrl: '',
+          photos:''
           
         }
 
@@ -125,7 +126,8 @@ class MyInfo extends Component {
         this._submit = this._submit.bind(this);
         this._onColorSelect = this._onColorSelect.bind(this);
         this._onDrop = this._onDrop.bind(this);
-        this._submitImg = this._submitImg.bind(this)
+        this._submitImg = this._submitImg.bind(this);
+        this.insta = this.insta.bind(this);
     }
 
     componentDidMount(){
@@ -159,6 +161,40 @@ class MyInfo extends Component {
     _nickNameChange(){
            
       this.setState({nickName : !this.state.nickName})
+    }
+
+    insta(){
+      var token = "1999393974.aeb3e70.9d79c6af391944e690362b4aacb9516f";
+      var count = "10";
+      // axios.get("https://api.instagram.com/v1/users/self/media/recent/?access_token=" + token + "&count=" + count)
+      axios.get(`https://www.instagram.com/explore/tags/제주/?__a=1`)
+      // .then(res => console.log(res))
+        // .then(res => res.json())
+        .then(res =>
+        //   //  console.log(res.graphql.hashtag.edge_hashtag_to_top_posts.edges[0].node.display_url)
+          this.setState({photos : res.data.graphql.hashtag.edge_hashtag_to_top_posts.edges[1].node.display_url})
+        )
+        // )
+        .catch(err=>console.log(err))
+      //     if (response.data.length > 0) {
+      //       for (var i = 0; i < response.data.length; i++) {
+      //         insta = '<div class="insta-box">';
+      //         insta += "<a target='_blank' href='" + response.data[i].link + "'>";
+      //         insta += "<div class='image-layer'>";
+      //         insta += '<img src="' + response.data[i].images.low_resolution.url + '">';
+      //         insta += "</div>";
+      //         //insta += "<div class='caption-layer'>";  
+      //         //insta += "<span class='insta-likes'>" + response.data[i].likes.count + " Likes</span>";  
+      //         //insta += "</div>";  
+      //         insta += "</a>";
+      //         insta += "</div>";
+      //         $("#instaPics").append(insta);
+      //       }
+      //     }
+      //   }
+      // });
+      // [출처] 인스타그램 api | 작성자 jhee_608
+
     }
 
     _comparePassword(){
@@ -385,6 +421,11 @@ class MyInfo extends Component {
               </Button>
                 <Link to='/' style={{ textDecoration: 'none' }}> <CancelButton>취소</CancelButton> </Link>
             </div>
+            {/* <button onClick={this.insta}> 검색 </button> */}
+            {/* < img style = {{width:'100px', height:'100px'}} src = {this.state.photos ? this.state.photos : null} */}
+             {/*//이건나중에 < img style = {{width:'100px', height:'100px'}} src = {this.state.photos ? this.state.photos.data[0].images.standard_resolution.url : null} */}
+            
+          
             </Container>
             : "Loading"
         )

@@ -25,8 +25,8 @@ class Home extends React.Component {
       fetch(`${url}/api/color/get`)
       .then(response => response.json())
       .then(data =>{
-        console.log(('data', data));
-        this.setState({data: data.rows})} )
+        console.log('data', data);
+        this.setState({data:data.rows})} )
       .then(() => this.sortColorGroup(this.state.data))
       .then(() => this.setState({isLoaded: true}))
   }

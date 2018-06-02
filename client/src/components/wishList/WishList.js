@@ -142,10 +142,12 @@ class WishList extends Component {
         const token = localStorage.getItem('token') 
         axios.post(`${url}/api/wishlist/delete`, form)
             .then((response) => {
+                console.log('delete', response);
+                
                 axios.get(`${url}/api/wishlist/get/list`, {headers: {'token': token}})
                 .then((response) => {
                     this.setState({
-                        items: response.data
+                        items: response.data.rows
                     })
                   })
               })

@@ -1,6 +1,5 @@
 /* eslint-disable */
 
-
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import Dropdown from 'react-dropdown';
@@ -10,8 +9,8 @@ import { url } from '../config';
 import { Link } from 'react-router-dom';
 import Dropzone from 'react-dropzone';
 
-
 const Container = styled.div`
+  padding-top: 100px;
   position: relative;
   display: block;
   font-size: 12px;

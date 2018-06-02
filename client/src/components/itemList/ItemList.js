@@ -13,15 +13,21 @@ import { url } from '../../config';
 
 const Wrapper = styled.div`
     width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 70px;
+    @media (max-width: 768px) {
+        margin-top: 50px;
+    }
 `;
 
 const SortContainer = styled.div`
-    height: 10vw;
-    margin-top: 10%;
+    display: flex;
+    margin-top: 30px;
+    @media (max-width: 768px) {
+        margin-top: 20px;
+    }
 `;
 
 const Btn = styled(Link)`

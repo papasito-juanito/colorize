@@ -85,8 +85,8 @@ class HomeColor extends Component {
   render() {
     this.colorGroup = this.props.colorGroup;
     return (
-      <div className="HomeColor" style={{ backgroundColor:'white', margin:'2% 2% 2% 2%', width:'100%', heigth:'100%'}}>
-        <div style={{ margin:'5% 5% 3% 5%'}}>
+      <div className="HomeColor" style={{ backgroundColor:'white', margin:'20px 2% 2% 2%', width:'100%', heigth:'100%'}}>
+        <div style={{ margin:'0% 5% 3% 5%'}}>
         <TableDragSelect style={{marginLeft:'auto', marginRight:'auto'}} value={this.state.cells} onChange={this.handleChange}>
           <tr>
               {this.colorGroup.A.map((element, i) => 

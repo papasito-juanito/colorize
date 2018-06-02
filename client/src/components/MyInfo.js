@@ -113,7 +113,9 @@ class MyInfo extends Component {
           validate : true,
           files:'',
           imagepreviewUrl: '',
-          photos:''
+          photos:'',
+          confirmPassword : '',
+          confirmNickname :''
           
         }
 
@@ -127,6 +129,9 @@ class MyInfo extends Component {
         this._onDrop = this._onDrop.bind(this);
         this._submitImg = this._submitImg.bind(this);
         this.insta = this.insta.bind(this);
+        this._passwordConfirm = this._passwordConfirm.bind(this);
+        this._passwordCompare = this._passwordCompare.bind(this);
+        this._confirmNickname = this._confirmNickname.bind(this);
     }
 
     componentDidMount(){
@@ -153,6 +158,21 @@ class MyInfo extends Component {
     _toneChange(){
    
       this.setState({tone : !this.state.tone})
+    }
+
+    _confirmNickname(){
+      const token = localStorage.getItem('token')
+      console.log(this.password.value)
+      const form = {
+        userName: this.nickname.value
+      }
+        axios.post(`${url}/api/user/update/username`, { headers: { 'token': token} })
+            .then(response => {
+              console.log(response.data.success)
+              response.data.success === true ? (this.setState({confirmNickname : true}), alert('사용가능한 닉네임입니다.')) : (this.setState({confirmNickname : false}), alert('중복된 닉네임입니다.') )
+            }
+            )
+            .catch(err => console.log(err));
     }
 
     _photoChange(){
@@ -293,14 +313,24 @@ class MyInfo extends Component {
       // })
       // .then((result) => {
       //   var signedUrl = result.data.signedUrl;
-
-  
-
-  
-
-
       // })
-  
+
+    _passwordConfirm(){
+      console.log(this.password.value.length)
+    }
+
+    _passwordCompare(){
+      const token = localStorage.getItem('token')
+      console.log(this.password.value)
+      const form = {
+        userPassword : this.password.value
+      }
+        axios.post(`${url}/api/user/update/password`, { headers: { 'token': token} })
+            .then(response => 
+              response.data.success === true ? this.setState({confirmPassword : true}) : this.setState({confirmPassword : false})
+            )
+            .catch(err => console.log(err));
+    }
 
     _submit(){
       const token = localStorage.getItem('token')
@@ -369,7 +399,7 @@ class MyInfo extends Component {
                 <Column>닉네임</Column>
                 <Data>
                     {this.state.nickName === false ? <div><input value = {this.state.data ? this.state.data.name : null} ref={ref => { this.nickname = ref; }}  readOnly/> <button onClick = {this._nickNameChange} style={{'margin-left': '15px'}}>닉네임 변경</button></div>
-                    : <div><input ref={ref => { this.nickname = ref; }} /><button onClick={this._nickNameChange}>변경취소</button></div>}
+                    : <div><input ref={ref => { this.nickname = ref; }} /><button onClick = {this._confirmNickname}> 중복확인 </button><button onClick={this._nickNameChange}>변경취소</button></div>}
                 </Data>
               </Row>
               <Row>
@@ -388,11 +418,12 @@ class MyInfo extends Component {
                   <tr><td colspan='2'>비밀번호는 5-10자 이내로 설정해주세요.</td></tr>
                   <tr>
                     <InTH>현재 비밀번호</InTH>
-                    <td><input type='password'/></td>
+                    <td><input onBlur={this._passwordCompare} ref={ref => { this.password = ref; }}type='password'/></td>
+                    {this.state.confirmPassword  === false && this.password ? <div> 비밀번호를 확인해주세요</div> : !this.password ? null : <div>Ok</div>}
                   </tr>
                   <tr>
                     <InTH>신규 비밀번호</InTH>
-                    <td><input onChange = {this._comparePassword} ref={ref => { this.newPassword = ref; }} type='password'/></td>
+                    <td><input onBlur={this._passwordCompare} onChange = {this._comparePassword} ref={ref => { this.newPassword = ref; }} type='password'/></td>
                   </tr>
                   <tr>
                     <InTH>비밀번호 재입력</InTH>

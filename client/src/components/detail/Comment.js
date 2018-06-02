@@ -53,6 +53,7 @@ class Comment extends Component {
     
     render() {
         console.log(this.state.user?this.state.user:null)
+        console.log(this.props.id)
         return (
             <div>
                 {!this.state.user.success ? 

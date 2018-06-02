@@ -46,11 +46,11 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const path = require('path');
-const { url } = require('../../client/src/config');
 
 // Local import
-const { port, secret } = require('../0_config');
-const router = require('../2_routes');
+const { port } = require('../config');
+const { url } = require('../client/src/config');
+const router = require('./2_routes');
 
 const app = express();
 
@@ -58,10 +58,10 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use('/api', router);
-app.use('/', express.static(path.join(__dirname, './../../client/build')));
+app.use('/', express.static(path.join(__dirname, './../client/build')));
 
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, './../../client/build/index.html'));
+  res.sendFile(path.resolve(__dirname, './../client/build/index.html'));
 });
 
 app.listen(port, () => {

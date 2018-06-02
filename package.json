@@ -32,9 +32,9 @@
   "scripts": {
     "init": "mysql -u root < server/8_mysql/schema.sql",
     "fake": "mysql -u root < server/8_mysql/fake.sql",
-    "pro": "NODE_ENV=production nodemon server/1_express//index.js --ignore './client'",
-    "dev": "NODE_ENV=development nodemon server/1_express//index.js --ignore './client'",
-    "server": "nodemon server/1_express/index.js --ignore 'client/'"
+    "pro": "NODE_ENV=production nodemon server/index.js --ignore './client'",
+    "dev": "NODE_ENV=development nodemon server/index.js --ignore './client'",
+    "server": "nodemon server/index.js --ignore 'client/'"
   },
   "devDependencies": {
     "eslint": "^4.19.1",

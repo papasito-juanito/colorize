@@ -42,7 +42,7 @@ const Img = styled.img`
 const LoginBottom= styled.div`
     height: 80%;
     width: 70%
-    margin:auto;
+    margin:20px auto;
 `
 
 const IdWrapper = styled.div`

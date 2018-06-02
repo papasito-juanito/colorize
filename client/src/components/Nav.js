@@ -14,8 +14,8 @@ import './Nav.css';
 
 const NavContainer = styled.header`
     background-color: black;
-    height: 10%;
-    width: 100vw;
+    height: 70px;
+    width: 100%;
     top:0;
     z-index:4;
     position: fixed

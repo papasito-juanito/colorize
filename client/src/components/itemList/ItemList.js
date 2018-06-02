@@ -13,15 +13,15 @@ import { url } from '../../config';
 
 const Wrapper = styled.div`
     width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 70px;
 `;
 
 const SortContainer = styled.div`
-    height: 10vw;
-    margin-top: 10%;
+    display: flex;
+    margin-top: 30px;
 `;
 
 const Btn = styled(Link)`
@@ -77,7 +77,7 @@ class ItemList extends Component {
         axios.get(`${url}/api/item/get/list?color_id=[${this.props.match.params.id.split('&')}]&order_by=price DESC`)
         .then((response) => {
             console.log('price',response)
-            this.setState({item: response.data})
+            this.setState({item: response.data.rows})
           })
         }
     
@@ -85,7 +85,7 @@ class ItemList extends Component {
         axios.get(`${url}/api/item/get/list?color_id=[${this.props.match.params.id.split('&')}]&order_by=price ASC`)
         .then((response) => {
             console.log('price',response)
-            this.setState({item: response.data})
+            this.setState({item: response.data.rows})
           })
     }
     
@@ -93,7 +93,7 @@ class ItemList extends Component {
         axios.get(`${url}/api/item/get/list?color_id=[${this.props.match.params.id.split('&')}]&order_by=avg DESC`)
         .then((response) => {
             console.log('price',response)
-            this.setState({item: response.data})
+            this.setState({item: response.data.rows})
           })
     }
     
@@ -101,7 +101,7 @@ class ItemList extends Component {
         axios.get(`${url}/api/item/get/list?color_id=[${this.props.match.params.id.split('&')}]&order_by=date DESC`)
         .then((response) => {
             console.log('price',response)
-            this.setState({item: response.data})
+            this.setState({item: response.data.rows})
           })
     }
   

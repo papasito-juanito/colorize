@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+/* eslint-disable */
+import React, {Component} from 'react';
 import Chart from './Chart';
 import styled from 'styled-components';
 import axios from 'axios';

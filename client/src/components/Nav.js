@@ -3,14 +3,15 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import lipImage from '../assets/lipImage.png';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import Login from './user/Login'
 
 import axios from 'axios';
 import { url } from '../config';
-import history from '../utils/history'
+import history from '../utils/history';
+import neon from '../assets/neon.png';
 
-const NavContatiner = styled.header`
+const NavContainer = styled.header`
     background-color: black;
     height: 10%;
     width: 100vw;
@@ -21,19 +22,16 @@ const NavContatiner = styled.header`
     flex-direction: row;
     transition: top 0.3s;
 `
-
-const Colorize = styled.div`
-    margin: auto
-    text-align: center;
-`
-
 const NavLink = styled(Link)`
-   
-    font-size: 3rem
-    &:visited {
-        color: white;
-        text-decoration: none;
-    }  
+`
+const Logo = styled.img`
+    object-fit: scale-down;
+    max-width: 100%;
+    max-height: 80%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 `
 
 const NaveRightContainer = styled.div`
@@ -65,7 +63,7 @@ const SideNav = styled.div`
     padding-top: 60px;
 `
 
-const SideAnchor = styled.a`
+const SideAnchor = styled(Link)`
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
@@ -76,7 +74,17 @@ const SideAnchor = styled.a`
         color: #f1f1f1;
     }
 `
-
+const LoginAnchor = styled.a`
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+    &:hover {
+        color: #f1f1f1;
+    }
+`
 const SideClose = styled.a`
     color: #777;
     font: 2rem arial, sans-serif;
@@ -106,10 +114,8 @@ class Nav extends Component {
     constructor(props){
         super()
         this.state = {
-            loginClicked: false,
-            // isLogined: false,
             closeAll: false,
-            isHide: false
+            isHide: false,
         }
     }
 
@@ -123,13 +129,7 @@ class Nav extends Component {
         ReactDOM.findDOMNode(this.refs.overlay).style.display = 'none'
     }
 
-    renderLogin = () => {
-        this.setState({
-            loginClicked: !this.state.loginClicked,
-        })
-    }
-
-    hideNav = () => {
+    hideHeader= () => {
         var prevScrollpos = window.pageYOffset;
         return function() {
             var currentScrollPos = window.pageYOffset;
@@ -143,18 +143,18 @@ class Nav extends Component {
     }
 
     componentDidMount(){
-        window.addEventListener('scroll',this.hideNav());
+        window.addEventListener('scroll',this.hideHeader());
     }
 
     render(){
-        const { isLogined, handleLoginUser, handleLogout } = this.props
+        console.log('navnavnav', this.props);   
+        const { isLogined, handleLogout } = this.props
         return (        
-            <NavContatiner id="navbar">
+            <NavContainer id="navbar">
             <Overlay ref='overlay' onClick={this.closeNav}/>
-            <Colorize>
             <NavLink to="/" style={{ textDecoration: 'none' }}>
-            <span>Colorize</span></NavLink>
-            </Colorize>
+                <Logo src={neon} alt={"Colorize"}/>
+            </NavLink>
             <NaveRightContainer>
                  <MenuWrapper>
                  <Menu onClick={this.openNav} >
@@ -163,31 +163,27 @@ class Nav extends Component {
                     {isLogined ? 
                     <SideNav ref="mySidenav" >
                         <SideClose href="javascript:void(0)" onClick={this.closeNav}>&times;</SideClose>
-                        <SideAnchor href="/">Home</SideAnchor>
-                        <SideAnchor href="/myinfo">My Info</SideAnchor>
-                        <SideAnchor href="/wishlist">Wish List</SideAnchor>
-                        <SideAnchor href="/review">My Review</SideAnchor>
-                        <SideAnchor onClick={()=>{this.closeNav(); handleLogout()}}>Logout</SideAnchor>
+                        <SideAnchor to="/" onClick={this.closeNav}>Home</SideAnchor>
+                        <SideAnchor to="/myinfo" onClick={this.closeNav}>My Info</SideAnchor>
+                        <SideAnchor to="/wishlist" onClick={this.closeNav}>Wish List</SideAnchor>
+                        <SideAnchor to="/review" onClick={this.closeNav}>My Review</SideAnchor>
+                        <SideAnchor to={this.props.location.pathname + this.props.location.search} onClick={()=>{this.closeNav(); handleLogout()}}>Logout</SideAnchor>
                     </SideNav> :
                     <SideNav ref="mySidenav" >
                         <SideClose onClick={()=>{this.closeNav()}}>&times;</SideClose>
-                        <SideAnchor href="/">Home</SideAnchor>
-                        <SideAnchor onClick={()=>{this.renderLogin(); this.closeNav()}}>My Info</SideAnchor>
-                        <SideAnchor onClick={()=>{this.renderLogin(); this.closeNav()}}>Wish List</SideAnchor>
-                        <SideAnchor onClick={()=>{this.renderLogin(); this.closeNav()}}>My Review</SideAnchor>
-                        <SideAnchor onClick={()=>{this.renderLogin(); this.closeNav()}}>Login</SideAnchor>
+                        <SideAnchor to="/" onClick={()=>{this.closeNav();}}>Home</SideAnchor>
+                        <SideAnchor to={{pathname: "/login", state: {from: {pathname: '/myinfo'}}}} onClick={()=>{this.closeNav();}}>My Info</SideAnchor>
+                        <SideAnchor to={{pathname: "/login", state: {from: {pathname: '/wishlist'}}}} onClick={()=>{this.closeNav();}}>Wish List</SideAnchor>
+                        <SideAnchor to={{pathname: "/login", state: {from: {pathname: '/review'}}}} onClick={()=>{this.closeNav();}}>My Review</SideAnchor>
+                        <SideAnchor replace={true} to={{pathname: "/login", state: {from: this.props.location}} } onClick={()=>{this.closeNav();}}>Login</SideAnchor>
                     </SideNav>
                     }     
                  </MenuWrapper>    
-                {this.state.loginClicked ? 
-                <Login renderLogin={this.renderLogin} 
-                    handleLoginUser={handleLoginUser}
-                /> : null}
             </NaveRightContainer>
-        </NavContatiner>
+        </NavContainer>
       );   
     }
 };
 
-export default Nav;
+export default withRouter(Nav)
 

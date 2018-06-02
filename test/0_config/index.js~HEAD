@@ -3,8 +3,9 @@ module.exports = {
     host: 'http://127.0.0.1/',
     port: 8080,
   },
-  middleware: {
+  jwt: {
     secret: 'sBl2',
+    expiresIn: '1d',
   },
   mysql: {
     user: 'root',

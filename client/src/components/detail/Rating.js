@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import StarRatingComponent from 'react-star-rating-component';
 import styled from 'styled-components';

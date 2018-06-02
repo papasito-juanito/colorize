@@ -5,7 +5,7 @@ module.exports = {
   },
   jwt: {
     secret: 'sBl2',
-    expiresIn: '1d',
+    expiresIn: '10000',
   },
   mysql: {
     user: 'root',

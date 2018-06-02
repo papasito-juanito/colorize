@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import axios from 'axios';
 import { url } from '../../config';
@@ -397,7 +398,8 @@ class MyReviews extends Component {
     const token = localStorage.getItem('token')
     axios.get(`${url}/api/review/get/user`, { headers: { 'token': token } })
       .then(response =>
-         this.setState({ data: response.data })
+        
+         this.setState({ data: response.data.rows })
         // console.log(response)
         )
       .catch(err => console.log(err))

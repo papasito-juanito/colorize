@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, {Component} from 'react';
 import DetailLeft from './DetailLeft';
 import DetailRight from './DetailRight';
@@ -92,7 +93,7 @@ class Detail extends Component {
     componentDidMount(){
         const token = localStorage.getItem('token')
         axios.get(`${url}/api/item/get/detail?color_id=${this.props.match.params.id}`,{headers : {'token': token}})
-          .then(response => this.setState({data : response.data}))
+          .then(response => this.setState({data : response.data.rows}))
           .catch(err => console.log(err))
     }    
 
@@ -103,6 +104,7 @@ class Detail extends Component {
         console.log(this.props);
         
         let loginState = this.props.isLogined;
+        const {handleLogout} = this.props
         console.log('login stsate :', this.props.isLogined)
         return (
             <div style={{ backgroundColor:'#F4F5F9', padding:'1% 0 1% 0', fontFamily: "Nanum Gothic"}}>
@@ -117,7 +119,7 @@ class Detail extends Component {
                     <TopReview id={this.props.match.params.id} />
                 </ReviewDiv>
                 <ReviewDiv>
-                    {loginState ? <AllReview id={this.props.match.params.id}/> : <div><h2>리뷰를 보시려면 로그인 해주세요 </h2></div>}
+                    {loginState ? <AllReview handleLogout={handleLogout} id={this.props.match.params.id}/> : <div><h2>리뷰를 보시려면 로그인 해주세요 </h2></div>}
                 </ReviewDiv>
                 <HomeButton onClick={this.scrollToTop}><Arrow/><br/> Top </HomeButton>
         </div>

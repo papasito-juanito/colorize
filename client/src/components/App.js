@@ -63,7 +63,6 @@ class App extends Component {
         })
         console.log(history)
         history.push(history.location)
-        window.location.reload()
     }
 
     componentDidMount(){
@@ -97,7 +96,6 @@ class App extends Component {
                 <Nav isLogined={isLogined} handleLogout={this.handleLogout}/>   
                     <Switch> 
                         <Route exact path="/" component={Home}/>
-                        <Route path='/review' component={MyReviews} />
                         <Route path="/signup" component={Signup}/>
                         <Route exact path="/items/:id" component={ItemList}/>
                         <Route path="/login" 

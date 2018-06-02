@@ -26,7 +26,7 @@ class Home extends React.Component {
       .then(response => response.json())
       .then(data =>{
         console.log('data', data);
-        this.setState({data:data})} )
+        this.setState({data:data.rows})} )
       .then(() => this.sortColorGroup(this.state.data))
       .then(() => this.setState({isLoaded: true}))
   }

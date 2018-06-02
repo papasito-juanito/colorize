@@ -14,7 +14,7 @@ import './Nav.css';
 
 const NavContainer = styled.header`
     background-color: black;
-    height: 10%;
+    height: 100px;
     width: 100vw;
     top:0;
     z-index:4;

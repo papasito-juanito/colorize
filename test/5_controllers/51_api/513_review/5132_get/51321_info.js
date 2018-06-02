@@ -12,11 +12,15 @@ module.exports = async (req, res) => {
   switch (check.length) {
     case 0: {
       const rows = await model(query.info.zero, decoded.user_id);
+      console.log(`[51321_cont] check.length: ${check.length}`);
+      console.log(`[51321_cont] rows: ${rows}`);
       res.json({ success: true, message: 'not written', rows });
       break;
     }
     case 1: {
       const rows = await model(query.info.one, [req.query.color_id, decoded.user_id]);
+      console.log(`[51321_cont] check.length: ${check.length}`);
+      console.log(`[51321_cont] rows: ${rows}`);
       res.json({ success: true, message: 'written', rows });
       break;
     }

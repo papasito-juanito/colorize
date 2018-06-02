@@ -4,7 +4,7 @@ const model = require('../../../../7_models');
 const query = require('../../../../9_query/93_reviews/932_get');
 
 module.exports = async (req, res) => {
-  console.log(`[5_control ] activated query: ${query.check.info}`);
+  console.log(`[51321_cont] activated query: ${query.check.info}`);
 
   const decoded = await verify(req.headers.token);
   const check = await model(query.check.info, [req.query.color_id, decoded.user_id]);

@@ -16,7 +16,7 @@ module.exports = async (req, res) => {
   if (mail.length) res.json({ success: false, message: 'invalid mail' });
   else if (name.length) res.json({ success: false, message: 'invalid name' });
   else {
-    const rows = await model(query, params);
+    await model(query, params);
     res.json({ success: true, message: `${userMail} registered` });
   }
 };

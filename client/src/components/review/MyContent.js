@@ -220,17 +220,15 @@ class MyContent extends Component {
     }
 
     componentDidMount() {
-        // const token = localStorage.getItem('token')
-        //user id를 받아야하는데 그게 api 받을때 없음
-        // axios.get(`${url}/api/review/get/user?color_id=${this.props.id},user_id=${2}`, { headers: { 'token': token } })
-        //     .then(response =>
-        //       console.log(response.data)
-        //     )
-        //     .catch(err => console.log(err))
+        const token = localStorage.getItem('token')
+        axios.get(`${url}/api/review/get/info?color_id=${this.props.id}`, { headers: { 'token': token } })
+            .then(response =>
+              console.log(response)
+            )
+            .catch(err => console.log(err))
     }
 
     render() {
-        console.log('mycontent', this.props.user)
 
         let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
             return (

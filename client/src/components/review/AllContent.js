@@ -256,7 +256,7 @@ class AllContent extends Component {
     }
 
     render() {
-        console.log(this.props)
+        console.log(this.props.data)
         // console.log('카운팅@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ :', count++)
         // console.log('after state :',this.state.data)
         let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)

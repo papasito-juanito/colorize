@@ -8,8 +8,8 @@ module.exports = (req, res) => {
   middleware(req.body.userPassword).then(hash => {
     
     const userPassword = hash;
-    const {user_id, userMail, userName, toneName, birthDate, gender} = req.body;
-    const params = [userMail, userPassword, userName, toneName, birthDate, gender, user_id];
+    const {userName, toneName, userPhoto} = req.body;
+    const params = [ userPassword, userName, userPhoto, toneName, userMail];
 
     db.query(`SELECT userToggle FROM users WHERE id=
       ${req.body.user_id};`, (err, rows) => {

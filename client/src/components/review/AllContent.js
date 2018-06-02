@@ -1,4 +1,4 @@
-
+/* eslint-disable */
 
 import React, { Component } from 'react';
 import styled from 'styled-components';
@@ -202,7 +202,7 @@ class AllContent extends Component {
                        <UserDiv > <img alt='user' /></UserDiv>
                         {/* 유저 이미지 여기서 받아와서 삽입 */}
                         <div>{data[i].name}</div>
-                        <div>{data[i].age}, {data[i].tone}</div>
+                        <div>{data[i].age}세 · {data[i].tone}</div>
                         <div>
                             <StarRatingComponent
                                 name="rate2"
@@ -210,6 +210,7 @@ class AllContent extends Component {
                                 value={data[i].rating}
                             />
                         </div>
+                        <div style={{ fontSize: '0.8rem'}}> {data[i].writeAt.split('T')[0]} </div>
                     </Info >
                     <ReviewContent >
                         <div style={{ textAlign: 'center' }}>

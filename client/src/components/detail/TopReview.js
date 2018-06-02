@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import TopReviews from '../review/TopReviews';
 import axios from 'axios';
@@ -7,7 +8,6 @@ import styled from 'styled-components';
 const Div = styled.div`
      width: 100%;
      height: 100%;
-     border: 1px solid #d9dee8; 
 `
 
 
@@ -21,7 +21,7 @@ class TopReview extends Component {
     componentDidMount() {
         const token = localStorage.getItem('token')
         axios.get(`${url}/api/review/get/rank?color_id=${this.props.id}`, token !== null ? { headers: { 'token': token} }: null)
-            .then(response => this.setState({ topReview: response.data }))
+            .then(response => this.setState({ topReview: response.data.rows }))
             .catch(err => console.log(err));
     }
 
@@ -29,7 +29,7 @@ class TopReview extends Component {
         return (
             <Div>
                 <div> 
-                    베스트리뷰
+                       <div style ={{width: '100%', height:'20%'}}>Top3 Reviews <div style={{width:'100%', border:'2px solid #ccc'}}></div></div>
                 </div>
                 <div>
                     {this.state.topReview.length !== 0 ? <TopReviews Topdata={this.state.topReview} /> : <div> <h2>등록된 리뷰가 없어요</h2></div>}

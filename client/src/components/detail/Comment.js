@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import FileUpload from './FileUpload';
@@ -32,8 +33,11 @@ class Comment extends Component {
         const token = localStorage.getItem('token')
 
         axios.get(`${url}/api/review/get/info?color_id=${this.props.id}`, { headers: { 'token': token } })
-            .then(response => 
-                this.setState({ user: response.data })
+            .then(response => {
+                console.log(response)
+                this.setState({ user: response.data.rows })
+
+            }
             )
             .catch(err => console.log(err)) 
             

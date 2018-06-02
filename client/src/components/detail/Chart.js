@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import { HorizontalBar } from 'react-chartjs-2';
 import styled from 'styled-components';
@@ -17,13 +18,13 @@ const RatingDiv = styled.div`
     width: 25%;
     height: 100%;
     text-align: center;
-    padding: 22% 0 0 0 ;
+    padding: 30% 0 0 0 ;
     box-sizing: border-box; 
 `
 const ChartDiv = styled.div`
-    width: 65%; 
+    width: 70%; 
     height: 100%;
-    padding: 9% 0 0 0;
+    padding: 13% 0 0 0;
     box-sizing: border-box; 
 `
 

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import axios from 'axios';
 import { url } from '../../config';
@@ -5,19 +6,19 @@ import styled from 'styled-components';
 import StarRatingComponent from 'react-star-rating-component';
 import like from '../../assets/reviewLike.png';
 import Modal from 'react-modal';
+import { Link } from 'react-router-dom';
 
 
 const Wrapper = styled.div`
     margin : 7% auto 2% auto;
     width: 80vw;
     height: 100%;
-    background-color: #F4F5F9;
     box-sizing:border-box;
 `
 
 const Container = styled.div`
     border: 1px solid #d9dee8;
-    background-color: white;
+    background-color: #F4F5F9;
     border-radius: 5px;
     display:flex;
     width:95%;
@@ -29,12 +30,15 @@ const Container = styled.div`
 const LinkDiv = styled.div`
     width: 15%; 
     height: 90%;
+    margin: 0 1% 0 0;
 `
 const ReviewImage = styled.img`
     margin: 1vh 0 1vh 1vw;
     width: 100%;
     height: 100%;
     cursor: pointer;
+    background-color: white;
+    border: 1px solid #d9dee8;
 `
 
 const MyImageDiv = styled.div`
@@ -43,11 +47,13 @@ const MyImageDiv = styled.div`
     height: 90%;
     cursor: pointer;
     position: relative;
+    background-color: white;
+    border: 1px solid #d9dee8;
 `
 const MyImage = styled.img`
     width: 100%;
     height: 90%;
-    border: 1px solid #d9dee8;
+    background-color: white;
 `
 
 const DeleteImage = styled.div`
@@ -66,6 +72,8 @@ const Info = styled.div`
     margin: 1vh 0 1vh 1vw;
     width: 20%;
     height: 90%;
+    background-color: white;
+    border: 1px solid #d9dee8;
 `
 
 const ReviewContent = styled.div`
@@ -108,8 +116,8 @@ const Modify = styled.button`
     width: 7%;
     height: 70%;
     color: black;
-    top: 2%;
-    left: 2%;
+    top: 10%;
+    left: 7%;
     position: absolute
     border-radius: 50%;
     border: none;
@@ -124,8 +132,8 @@ const Delete = styled.button`
     width: 7%;
     height: 70%;
     color: black;
-    top: 2%;
-    left: 10%;
+    top: 10%;
+    left: 15%;
     position: absolute
     border-radius: 50%;
     border: none;
@@ -139,8 +147,8 @@ const Cancel = styled.button`
     width: 7%;
     height: 70%;
     color: black;
-    top: 2%;
-    left: 10%;
+    top: 10%;
+    left: 15%;
     position: absolute
     border-radius: 50%;
     border: none;
@@ -159,8 +167,9 @@ const UserDiv = styled.div`
 
 const Bubble = styled.div`
 position: relative;
-width: 98%;
+width: 93%;
 height: 14vh;
+left : 5%;
 padding: 0px;
 background: #FFFFFF;
 -webkit-border-radius: 17px;
@@ -251,7 +260,7 @@ class MyReviews extends Component {
       imagepreviewUrl : '',
       clickedComment:'',
       isReply: false,
-      rating : 5
+      rating : ''
     }
 
     this.scrollStep = this.scrollStep.bind(this);
@@ -309,8 +318,9 @@ class MyReviews extends Component {
 
   _changeReply(e){
     var reviewId = this.state.data[e.target.id].review_id
+    var rating = this.state.data[e.target.id].rating
     this.setState({
-      isReply: !this.state.isReply, clickedComment: reviewId
+      isReply: !this.state.isReply, clickedComment: reviewId, rating:rating
     })
   }
 
@@ -337,9 +347,9 @@ class MyReviews extends Component {
           .catch(err => console.log(err));
 
       // previousMessage !== this.modifyReview.value ? 
-      window.location.reload();
-      alert('리뷰가 수정되었습니다')   
       
+      alert('리뷰가 수정되었습니다')   
+      window.location.reload();
   }
 
   _reviewDelete(e){
@@ -352,7 +362,7 @@ class MyReviews extends Component {
               console.log(response.data);
           })
           .catch(err => console.log(err));
-
+    window.location.reload();
 
   }
   _reviewCancel(e){
@@ -388,7 +398,8 @@ class MyReviews extends Component {
     const token = localStorage.getItem('token')
     axios.get(`${url}/api/review/get/user`, { headers: { 'token': token } })
       .then(response =>
-         this.setState({ data: response.data })
+        
+         this.setState({ data: response.data.rows })
         // console.log(response)
         )
       .catch(err => console.log(err))
@@ -399,13 +410,13 @@ class MyReviews extends Component {
     let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
     
     return (
-      <div style={{ backgroundColor: '#F4F5F9', padding: '1% 0 1% 0', fontFamily: "Nanum Gothic" }}>
+      <div style={{ padding: '1% 0 1% 0', fontFamily: "Nanum Gothic" }}>
       <Wrapper>
         <h2> My Reviews </h2>
-        {this.state.data ? this.state.data.map((item, i) => {
+        {this.state.data.length ? this.state.data.map((item, i) => {
           return (
-            <Container key={i}>
-             <LinkDiv><a href={`http://localhost:3000/items/detail/${item.color_id}`}><ReviewImage src={item.photo} /></a></LinkDiv>
+            <Container key={i}>           
+             <LinkDiv> <Link to={`/items/detail/${item.color_id}`} style={{ textDecoration: 'none' }}><ReviewImage src={item.photo} /> </Link></LinkDiv>
                 <MyImageDiv>
                 {/* <DeleteImage onClick={this._clickDelete}>X</DeleteImage> */}
                 <MyImage onClick={this._openPopup} src ={like}  />
@@ -463,7 +474,7 @@ class MyReviews extends Component {
               </ReviewContent >
             </Container>
           )
-        }) : null}
+        }) : <div><h2> 등록된 리뷰가 없습니다 </h2></div>}
         <HomeButton onClick={this.scrollToTop}><Arrow /><br /> Top </HomeButton>
         <Modal
           isOpen={this.state.popupIsOpen}

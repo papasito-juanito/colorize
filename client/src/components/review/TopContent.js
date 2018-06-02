@@ -177,7 +177,7 @@ class TopContent extends Component {
 
     render() {
         // const data = this.props ? this.props.data : null;
-        // console.log(this.props.data)
+        console.log(this.props.data)
         // console.log(data)
         let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
 
@@ -193,7 +193,7 @@ class TopContent extends Component {
                                 <UserDiv > <img alt='user' /></UserDiv>
                                 {/* 유저 이미지 여기서 받아와서 삽입 */}
                                 <div>{item.name}</div>
-                                <div>{item.age}, {item.tone}</div>
+                                <div>{item.age}세 · {item.tone}</div>
                                 <div>
                                     <StarRatingComponent
                                         name="rate2"
@@ -201,6 +201,7 @@ class TopContent extends Component {
                                         value={item.rating}
                                     />
                                 </div>
+                                <div style={{ fontSize: '0.8rem'}}> {item.writeAt.split('T')[0]} </div>
                             </Info >
                             <ReviewContent >
                                 <div style={{ textAlign: 'center' }}>

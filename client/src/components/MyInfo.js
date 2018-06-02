@@ -430,7 +430,7 @@ class MyInfo extends Component {
             
           
             </Container>
-            : "Loading"
+            : <div style={{width:'1000px', height:'1000px', backgroundColor:'yellow'}}> "Loading"</div>
         )
     }
 }

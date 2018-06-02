@@ -17,6 +17,6 @@ LEFT JOIN
   FROM users uj, reviews rj, reviewLikes rlj
   WHERE uj.userToggle='true' AND rj.reviewToggle='true' AND rlj.likeToggle='true' AND
     uj.id=rlj.users_id AND rj.id=rlj.reviews_id AND
-    uj.userMail=?) t
+    uj.id=?) t
 ON m.review_id=t.review_id
 ORDER BY writeAt DESC;`;

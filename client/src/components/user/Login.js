@@ -10,20 +10,28 @@ import { url } from '../../config';
 
 
 const LoginContainer = styled.div`
-    margin-top:10%
+    margin: 15% auto
     display: flex;
     flex-direction: column
-    width: 80%
+    width : 30vw;
+    padding: 5%
+    border: 1px solid black;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
 `
 
 const LoginTop = styled.div`
-
     display:flex;
-    flex-direction: row
+    flex-direction: column
 `
 const Text = styled.div`
     font-size: 2rem;
-    margin-left: 25%;
+    margin: auto
+    font-family: Roboto;
+    font-weight: 100
 `
 
 const Img = styled.img`
@@ -32,70 +40,43 @@ const Img = styled.img`
 `
 
 const LoginBottom= styled.div`
-    border: 2px solid #ddd;
     height: 80%;
     width: 70%
-    margin:auto;
+    margin:20px auto;
 `
 
 const IdWrapper = styled.div`
-    border: 2px solid #ddd;
     display: flex;
-    flex-direction: row
+    flex-direction: column
     height: 10%;
 `
 
-const IdImageDiv = styled.div`
-    border: 2px solid #ddd;
-    width: 10%
-    height: 50%;
-`
-
-const IdImage = styled.img`
-    width: auto; 
-    height: auto;
-    max-width: 100%;
-`
 
 const IdInput = styled.input`
-    letter-spacing: 2px;
-    font-size: 100%; 
-    width: 80%;
-    height: 100%
-`
-
-const FindPassword = styled.div`
-    text-align: right
+    margin: 5px 0 20px 0;
+    border: 0.5px solid black;
+    width: 100%;
+    padding: 10px;
+    font-size: 0.8rem
 `
 
 const PasswordWrapper = styled.div`
-    border: 2px solid #ddd;
     display: flex;
-    flex-direction: row
+    flex-direction: column
     height: 10%;
-`
-const PasswordImageDiv = styled.div`
-    border: 2px solid #ddd;
-    width: 10%
-    height: 50%;
-`
-const PasswordImage = styled.img`
-    width: auto; 
-    height: auto;
-    max-width: 100%;
 `
 
 const PasswordInput = styled.input.attrs({
     type: 'password'
 })`
-    letter-spacing: 2px;
-    font-size: 100%; 
-    width: 80%;
-    height: 100%
+    margin: 5px 0 20px 0;
+    border: 0.5px solid black;
+    width: 100%;
+    padding: 10px;
+    font-size: 0.8rem
 `
 
 const LoginSignupButtonWrapper = styled.div`
-    border: 2px solid #ddd;
     display: flex;
     flex-direction: column
     text-align: center;
@@ -104,6 +85,7 @@ const LoginSignupButtonWrapper = styled.div`
 const Loginbtn = styled.button`
     width: 100%;
     height: 40%
+    margin-bottom: 5px
     border: none;
     background-color: black;
     color: white;
@@ -111,63 +93,35 @@ const Loginbtn = styled.button`
     font-size: 1rem;
     cursor: pointer;
     text-align: center;
+    font-size: 1em;
+    font-family: 'Roboto';
+    font-weight: 300;
+    &:hover {
+        text-shadow: 0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F;
+        // text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0080, 0 0 30px #ff0080, 0 0 40px #ff0080, 0 0 55px #ff0080, 0 0 75px #ff0080;
+      }  
 `
 const Signupbtn = styled.button`
     height: 40%
     border: none;
     background-color: black;
     color: white;
-    margin-top: 5px
+    margin: 5px 0 10px 0;
     padding: 14px 28px;
     font-size: 1rem;
     cursor: pointer;
     text-align: center;
+    font-weight: 300;
+    &:hover {
+        text-shadow: 0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F;
+        // text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0080, 0 0 30px #ff0080, 0 0 40px #ff0080, 0 0 55px #ff0080, 0 0 75px #ff0080;
+      }  
  
-`
-
-const Facebook = styled.button`
-    width: 100%;
-    height: 40%
-    border: none;
-    background-color: #3B5998;;
-    color: white;
-    margin-top: 5px
-    padding: 14px 28px;
-    font-size: 1rem;
-    cursor: pointer;
-    text-align: center;
-`
-
-const fastyle = {
-    color: 'white',
-    fontSize: '1rem',
-    width: '10%',
-    textAlign: 'center',
-    textDecoration: 'none',
-    margin: 'auto',
-}
-
-const Google = styled.button`
-    width: 100%;
-    height: 40%
-    border: none;
-    background-color: #dd4b39;;
-    color: white;
-    margin-top: 5px
-    padding: 14px 28px;
-    font-size: 1rem;
-    cursor: pointer;
-    text-align: center;
 `
 
 class Login extends Component {
     constructor(props) {
         super();
-        // this.state={
-        //     isLogined: false,
-        //     isLoading: true,
-        //     redirect: false
-        // }
     }
        
     clickToLogin = () => {
@@ -198,25 +152,6 @@ class Login extends Component {
         .catch(error => console.log(error))
     }
 
-    // componentDidMount(){
-    //     const token = localStorage.getItem('token')
-    //     axios.get(`${url}/api/user/get/check`, {headers: {'token': token}})
-    //     .then(res => {
-    //         console.log('app', res);
-    //         if(res.data.success === true){
-    //             this.setState({
-    //                 isLoading: false,
-    //                 isLogined: true
-    //             })
-    //         } else{
-    //             console.log('appfailfailresresres', res);
-    //             this.setState({
-    //                 isLoading: false,
-    //                 isLogined: false
-    //             })
-    //         }
-    //     })
-    // }
     clickSighup = () => {
         console.log('clickSighup', this.props);
         const {history} = this.props
@@ -227,54 +162,24 @@ class Login extends Component {
     
     render(){
         console.log('LoginpropsLoginpropsLoginprops', this.props); 
-        console.log('redirecredirecredirecredirec', this.state);
-        // const { isLogined, isLoading } = this.props
-        // const {isLoading, isLogined} = this.state
-        // const {history} = this.props
-        // var pathname = ""
-        // if (this.state.redirect === true) {
-        //     if(this.props.location.state){
-        //         var {search} = this.props.location.state.from
-        //         pathname = this.props.location.state.from.pathname
-        //     } else {
-        //         console.log('elselse', this.props);
-        //         pathname = '/'
-        //     }    
-        //     console.log('pathname', pathname);
-        //     console.log('search', search);
-        //     return search ? <Redirect push to={pathname + search}/> : <Redirect push to={pathname} />        
-        //   }
-        // const {isLoading, isLogined} = this.state      
+        console.log('redirecredirecredirecredirec', this.state);    
             return (
-                // isLoading ? <div>loading</div> : isLogined ? <Redirect to={this.props.history.go(-1)}/> :
                 <LoginContainer>
                     <LoginTop>
-                    <Img src={lipImage}/>
-                    <Text>Colorize</Text>
+                    <Text>Colorize yourself</Text>
                     </LoginTop>
                     <LoginBottom> 
                         <IdWrapper> 
-                            <IdImageDiv> 
-                            <IdImage src={avatar}/> 
-                            </IdImageDiv>
-                            <IdInput innerRef={ref => { this.email = ref; }} placeholder="email"/> 
+                            이메일 주소
+                            <IdInput innerRef={ref => { this.email = ref; }} placeholder="abc@email.com"/> 
                         </IdWrapper>
                         <PasswordWrapper> 
-                            <PasswordImageDiv> 
-                            <PasswordImage src={lock}/> 
-                            </PasswordImageDiv>
-                            <PasswordInput innerRef={ref => { this.password = ref; }} placeholder="Enter your password"/> 
+                            비밀번호
+                            <PasswordInput innerRef={ref => { this.password = ref; }} placeholder="Enter Your Password"/> 
                         </PasswordWrapper>
-                        <FindPassword> forgot password ? </FindPassword>
                         <LoginSignupButtonWrapper> 
                             <Loginbtn onClick={this.clickToLogin}> Login </Loginbtn>
                             <Signupbtn onClick={this.clickSighup}> SignUp </Signupbtn>
-                            OR
-                            <Facebook> 
-                                {/* <a href="#" class="fa fa-facebook" style={fastyle}>  Facebook</a> */}
-                                Facebook
-                            </Facebook>   
-                            <Google> Google </Google> 
                         </LoginSignupButtonWrapper>
                     </LoginBottom>
                 </LoginContainer>

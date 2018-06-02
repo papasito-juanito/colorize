@@ -29,13 +29,21 @@ class Comment extends Component {
         })
     }
 
+
+            // .then(response =>{
+            // if(response.data.success===true){
+            //   this.setState({data : response.data.rows[0]})
+            // }else {
+            //   this.props.handleLogout()
+            //   this.props.history.push('/login', {from: this.props.location})
+            // }
     componentDidMount(){
         const token = localStorage.getItem('token')
 
         axios.get(`${url}/api/review/get/info?color_id=${this.props.id}`, { headers: { 'token': token } })
             .then(response => {
                 console.log(response)
-                this.setState({ user: response.data.rows })
+                this.setState({ user: response.data })
 
             }
             )
@@ -47,12 +55,12 @@ class Comment extends Component {
         console.log(this.state.user?this.state.user:null)
         return (
             <div>
-                {!this.state.user ? 
+                {!this.state.user.success ? 
                 <Div>
                     <FileUpload callback={this._callback.bind(this)} id={this.props.id} />
-                    <Rating loginState={this.props.loginState} info={this.state.user} id={this.props.id} data={this.state.data} />
+                    <Rating  info={this.state.user} id={this.props.id} data={this.state.data} />
                 </Div> 
-                : this.state.user[0] && this.state.user[0].message ?
+                : this.state.user.success===true && this.state.user.message === 'written' ?
                 <Div>
                     <MyContent id={this.props.id} user={this.state.user}/>
                 </Div> 

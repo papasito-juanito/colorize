@@ -11,7 +11,7 @@ LEFT JOIN (SELECT ic.id color_id, w.wishToggle wish
   FROM wishLists w, users u, itemColors ic
   WHERE w.wishToggle='true' AND u.userToggle='true' AND ic.colorToggle='true' AND
     u.id=w.users_id AND ic.id=w.itemColors_id AND u.id=?) t2
-ON t1.color_id=t2.color_id;`,  
+ON t1.color_id=t2.color_id;`,
   visitor: `
 SELECT ic.id color_id, ic.itemHex hex, ic.itemPhoto photo, c.category2Name category,
   ic.itemColor color, b.brandName brand, i.itemName name, i.itemPrice price,

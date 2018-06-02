@@ -1,7 +1,7 @@
 module.exports = {
   express: {
     host: 'http://127.0.0.1/',
-    port: 80,
+    port: 8080,
   },
   jwt: {
     secret: 'sBl2',

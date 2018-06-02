@@ -17,11 +17,17 @@ const Wrapper = styled.div`
     flex-direction: column;
     align-items: center;
     margin-top: 70px;
+    @media (max-width: 768px) {
+        margin-top: 50px;
+    }
 `;
 
 const SortContainer = styled.div`
     display: flex;
     margin-top: 30px;
+    @media (max-width: 768px) {
+        margin-top: 20px;
+    }
 `;
 
 const Btn = styled(Link)`

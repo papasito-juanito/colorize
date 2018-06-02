@@ -6,10 +6,10 @@ import tinycolor from "tinycolor2";
 import { url } from '../../config';
 
 const HomeContainer = styled.div`
-    background-color: black;
-    height:100vh;
-    width:100vw;
-    display: flex;
+  background-color: white;
+  height:100%;
+  width:100%;
+  display: flex;
 `
 
 class Home extends React.Component {
@@ -25,8 +25,8 @@ class Home extends React.Component {
       fetch(`${url}/api/color/get`)
       .then(response => response.json())
       .then(data =>{
-        console.log(('data', data));
-        this.setState({data: data.rows})} )
+        console.log('data', data);
+        this.setState({data:data.rows})} )
       .then(() => this.sortColorGroup(this.state.data))
       .then(() => this.setState({isLoaded: true}))
   }
@@ -104,10 +104,9 @@ class Home extends React.Component {
       console.log(this.state.data);
         return (
             <HomeContainer>
-                {/* <HomeTitle/> */}
-                {this.state.isLoaded ? 
-                <HomeColor colorGroup={this.colorGroup}/>
-                :'Loading...'}
+              {this.state.isLoaded ?
+              <HomeColor colorGroup={this.colorGroup}/>
+              :'Loading...'}
             </HomeContainer>     
         );
     }

@@ -8,13 +8,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const path = require('path');
-<<<<<<< HEAD
-const {url} = require('../client/src/config');
-const aws = require('aws-sdk');
-
-=======
 const { url } = require('../client/src/config');
->>>>>>> 7c4207d336ea5e0efcae158689e1fc6babd61019
 
 // Local import
 const { port, secret } = require('../config');

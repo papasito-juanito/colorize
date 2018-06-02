@@ -4,14 +4,28 @@
 
 /* Cells that can be interacted with */
 .table-drag-select td.cell-enabled {
+}
+
+@media only screen and (max-width: 768px) {
+  tr {
+    display: block;
+    float: left;
+   }
+  th, td {
+    display: block;
+    width: 10vw !important;
+    height: 5vh !important;
+  }
+}
+
+
+.table-drag-select {
+  border-collapse: separate;
+  border-spacing: 2px;
   color: black;
   font-size: 0px;
   cursor: cell;
-}
-
-.heart{
-  opacity: 0.3;
-  text-align:center;
+  padding: 0 !important;
 }
 
 /* Cells that cannot be interacted with */
@@ -22,15 +36,39 @@
 
 /* Cells that have been selected */
 .table-drag-select td.cell-selected {
-  color: white;
-  opacity: 30% t;
-  font-size: 30px;
+  -webkit-box-shadow:inset 0px 0px 0px 3px black;
+  -moz-box-shadow:inset 0px 0px 0px 3px black;
+  box-shadow:inset 0px 0px 0px 3px black;
+}
+
+.table-drag-select td.cell-selected .heart {
+  /* background: rgba(255,255,255,0.7); */
+  /* border-left: 1.5rem solid transparent;
+  border-right: 1.5rem solid blue;
+  border-bottom: 1.5rem solid transparent;
+  height: 0;
+  width: 0;*/
+  /* position: absolute; */
+  /*right: 0px;
+  z-index: 2; */
+  /* border-width: 0 3rem 3rem 0;
+  border-style:solid;
+  border-color: transparent white transparent transparent;
+  position: absolute;
+  top: 0;
+  right: 0; */
 }
 
 /* Cells that are in the process of being selected */
 .table-drag-select td.cell-being-selected {
-  color: white;
-  font-size: 15px;
+  /* -webkit-box-shadow:inset 0px 0px 0px 3px #505050;
+  -moz-box-shadow:inset 0px 0px 0px 3px #505050;
+  box-shadow:inset 0px 0px 0px 3px #505050; */
+}
+.table-drag-select td.cell-being-selected .heart {
+  background: rgba(0,0,0,0.3);
+  width: 100%;
+  height: 100%;
 }
 
 /* Cells in first row */
@@ -42,6 +80,5 @@
 /* Cells in first column */
 .table-drag-select td:first-child {
   /* Consume less whitespace */
-  width: 3rem;
 }
 

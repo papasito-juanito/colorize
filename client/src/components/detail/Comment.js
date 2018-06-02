@@ -33,8 +33,11 @@ class Comment extends Component {
         const token = localStorage.getItem('token')
 
         axios.get(`${url}/api/review/get/info?color_id=${this.props.id}`, { headers: { 'token': token } })
-            .then(response => 
+            .then(response => {
+                console.log(response)
                 this.setState({ user: response.data.rows })
+
+            }
             )
             .catch(err => console.log(err)) 
             

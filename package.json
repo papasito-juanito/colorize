@@ -23,7 +23,6 @@
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
     "express-fileupload": "^0.4.0",
-    "express-promise-router": "^3.0.2",
     "jsonwebtoken": "^8.2.1",
     "morgan": "^1.9.0",
     "mysql": "^2.15.0",
@@ -34,7 +33,8 @@
     "fake": "mysql -u root < server/db/utility/fake.sql",
     "pro": "NODE_ENV=production nodemon server/index.js --ignore './client'",
     "dev": "NODE_ENV=development nodemon server/index.js --ignore './client'",
-    "server": "nodemon server/index.js --ignore 'client/'"
+    "server": "nodemon server/index.js --ignore 'client/'",
+    "test": "nodemon test/1_express/index.js --ignore 'client/'"
   },
   "devDependencies": {
     "eslint": "^4.19.1",

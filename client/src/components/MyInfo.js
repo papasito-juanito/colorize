@@ -131,11 +131,16 @@ class MyInfo extends Component {
     componentDidMount(){
       const token = localStorage.getItem('token');
       axios.get(`${url}/api/user/get/info`, {headers: { 'token': token }})
-        .then(response => this.setState({data : response.data.rows[0]}))
+        .then(response =>
+          {
+            console.log(response);
+            
+            this.setState({data : response.data.rows[0]})
+          } )
         .catch(err => console.log(err))
     }
     _submitImg(){
-         axios.post(`${url}/test`, {'base64' :this.state.imagepreviewUrl, 'mail' : this.state.data[0].mail})
+         axios.post(`${url}/test`, {'base64' :this.state.imagepreviewUrl, 'mail' : this.state.data.mail})
            .then((result) => {
              console.log(result)
            })
@@ -266,7 +271,7 @@ class MyInfo extends Component {
         // userPassword : this.newPassword.value || 비밀번호 변경안하면 뭘 보내줘야하는지? , 
         userName : this.nickname.value, 
         userPhoto : 3,
-        toneName : this.state.colorSelected || this.state.data[0].tone
+        toneName : this.state.colorSelected || this.state.data.tone
 
       }
       this.state.validate !== true ? alert('비밀번호 확인해주세요') : 
@@ -299,7 +304,7 @@ class MyInfo extends Component {
   ]
 
     render() {
-      console.log(this.state.data)
+      console.log('datadatadtata', this.state.data)
         // console.log(this.state.imagepreviewUrl)
         return (
           this.state.data ?
@@ -319,19 +324,19 @@ class MyInfo extends Component {
               </Row>
               <Row>
                 <Column>이메일</Column>
-                <Data>{this.state.data ? this.state.data[0].mail : null}</Data>
+                <Data>{this.state.data ? this.state.data.mail : null}</Data>
               </Row>
               <Row>
                 <Column>닉네임</Column>
                 <Data>
-                    {this.state.nickName === false ? <div><input value = {this.state.data ? this.state.data[0].name : null} ref={ref => { this.nickname = ref; }}  readOnly/> <button onClick = {this._nickNameChange} style={{'margin-left': '15px'}}>닉네임 변경</button></div>
+                    {this.state.nickName === false ? <div><input value = {this.state.data ? this.state.data.name : null} ref={ref => { this.nickname = ref; }}  readOnly/> <button onClick = {this._nickNameChange} style={{'margin-left': '15px'}}>닉네임 변경</button></div>
                     : <div><input ref={ref => { this.nickname = ref; }} /><button onClick={this._nickNameChange}>변경취소</button></div>}
                 </Data>
               </Row>
               <Row>
                 <Column>피부타입</Column>
                 <Data>
-                  {!this.state.data ? null : this.state.tone === false ? this.state.data[0].tone : null}
+                  {!this.state.data ? null : this.state.tone === false ? this.state.data.tone : null}
                    {this.state.tone === false ? <button onClick = {this._toneChange}style={{'margin-left': '15px'}}>피부타입 변경</button> : null }
                   {this.state.tone === true ? 
                     <div><Dropdown options={this.colorOptions} placeholder="USER'S PERSONAL COLOR" onChange={this._onColorSelect} value = {this.state.colorSelected} /> <button onClick={this._toneChange}>변경취소</button></div> 
@@ -367,11 +372,11 @@ class MyInfo extends Component {
               </Row>
               <Row>
                 <Column>성별</Column>
-                <Data>{this.state.data ? this.state.data[0].gender : null}</Data>
+                <Data>{this.state.data ? this.state.data.gender : null}</Data>
               </Row>
               <Row>
                 <Column>생년월일</Column>
-                <Data>{this.state.data ? this.state.data[0].birth.split('T')[0] : null}</Data>
+                <Data>{this.state.data ? this.state.data.birth.split('T')[0] : null}</Data>
               </Row>
             </Table>
             <div style={{margin: ' 5% auto auto auto' , textAlign:'center'}}>
@@ -381,6 +386,7 @@ class MyInfo extends Component {
                 <Link to='/' style={{ textDecoration: 'none' }}> <CancelButton>취소</CancelButton> </Link>
             </div>
             </Container>
+            : "Loading"
         )
     }
 }

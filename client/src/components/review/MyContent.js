@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import lip from '../../assets/lip.jpg';
@@ -220,49 +221,49 @@ class MyContent extends Component {
         this.setState({ popupIsOpen: false });
     }
 
-    componentDidMount() {
-        const token = localStorage.getItem('token')
-        console.log(1)
-        axios.get(`${url}/api/review/get/info?color_id=${this.props.id}`, { headers: { 'token': token } })
-            .then(response =>{
-              console.log(response)
-              this.setState({data: response})
-            }
-            )
-            .catch(err => console.log(err))
-    }
+    // componentDidMount() {
+    //     const token = localStorage.getItem('token')
+    //     console.log(1)
+    //     axios.get(`${url}/api/review/get/info?color_id=${this.props.id}`, { headers: { 'token': token } })
+    //         .then(response =>{
+    //           console.log(response)
+    //           this.setState({data: response})
+    //         }
+    //         )
+    //         .catch(err => console.log(err))
+    // }
 
     render() {
-        console.log(this.state.data)
+        console.log(this.props.id)
         let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
             return (
-                <div style={{width: '100%'}}> hi
-                  {/* <div style ={{width: '100%', height:'20%'}}>Your Review <div style={{width:'100%', border:'2px solid #ccc'}}></div></div>
+                <div style={{width: '100%'}}> 
+                  <div style ={{width: '100%', height:'20%'}}>Your Review <div style={{width:'100%', border:'2px solid #ccc'}}></div></div>
                     <Container>
                         <ReviewImage onClick={this._openPopup} src={lip} />
                         <Info >
                             <UserDiv > <img alt='user' /></UserDiv>
                             <div style={{boxSizing:'border-box', margin:'8% 0 0 0'}}>
-                            <div>{this.props.user[0].name} <img style={{width: '8%', height:'8%'}} src = {this.props.user[0].gender === 'male'? male : female}/></div>
-                                <div>{this.props.user[0].age}, {this.props.user[0].tone}<br/>{'rating 필요'}</div>
+                            <div>{this.props.user.rows[0].name} <img style={{width: '8%', height:'8%'}} src = {this.props.user.rows[0].gender === 'male'? male : female}/></div>
+                                <div>{this.props.user.rows[0].age}, {this.props.user.rows[0].tone}<br/></div>
                             <div>
                                 <StarRatingComponent
                                     name="rate2"
                                     editing={false}
-                                    value={this.state.rating}
-                                    // value = {this.props.user[0].rating}
+                                    value={this.props.user.rows[0].rating}
+                                    // value = {this.props.user.rows[0].rating}
                                 />
                             </div>
                             </div>
                         </Info >
                         <ReviewContent >
                             <div style={{ textAlign: 'center' }}>
-                            <Bubble> <Message readOnly>{this.props.user[0].message}</Message></Bubble>
+                            <Bubble> <Message readOnly>{this.props.user.rows[0].message}</Message></Bubble>
                             </div>
                             <BottomContainer >
                                 <LikeCount>
                                     <Like src={like} />
-                                {"likeCount"}
+                                {this.props.user.rows[0].likes}
                                 </LikeCount>
                             </BottomContainer>
                         </ReviewContent >
@@ -279,7 +280,7 @@ class MyContent extends Component {
                             <div style={{ width: '50vh' }}>{popupImage}</div>
                             <button style={{ cursor: 'pointer' }} onClick={this._closePopup}>close</button>
                         </Modal>
-                    </Container> */}
+                    </Container>
                 </div>
         );
     }

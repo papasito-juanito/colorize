@@ -140,12 +140,15 @@ class WishList extends Component {
             color_id: e.target.id
         }
         const token = localStorage.getItem('token') 
-        axios.post(`${url}/api/wishlist/delete`, form)
+        axios.post(`${url}/api/wishlist/delete`, form, {headers: {'token': token}})
             .then((response) => {
                 console.log('delete', response);
+                console.log(token);
                 
                 axios.get(`${url}/api/wishlist/get/list`, {headers: {'token': token}})
                 .then((response) => {
+                    console.log('rerererere', response);
+                    
                     this.setState({
                         items: response.data.rows
                     })

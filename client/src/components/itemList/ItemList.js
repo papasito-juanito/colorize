@@ -35,11 +35,6 @@ const Btn = styled(Link)`
     &:visited {
         color: white;
     }
-    &:active {
-        background-color: black;
-        color: white;
-    }
-  
 `;
 
 const style = {
@@ -62,13 +57,13 @@ class ItemList extends Component {
             this.setState({item: response.data.rows})
           })
         switch (this.props.history.location.search.split('=')[1]) {
-            case 'price_desc' : this.handeHighPrice()
+            case 'price_desc' : this.handeHighPrice(); 
                 break;
-            case 'price_asc' : this.handleLowPrice()
+            case 'price_asc' : this.handleLowPrice(); 
                 break;
-            case 'latest' : this.handleLatest()   
+            case 'latest' : this.handleLatest(); 
                 break; 
-            default:
+            default : document.getElementById('rating').style.background ="black"
                 break;
         }
     }
@@ -79,6 +74,7 @@ class ItemList extends Component {
             console.log('price',response)
             this.setState({item: response.data.rows})
           })
+        //   document.getElementById('desc').style.background ="black"
         }
     
      handleLowPrice = () => {
@@ -87,6 +83,7 @@ class ItemList extends Component {
             console.log('price',response)
             this.setState({item: response.data.rows})
           })
+        //   document.getElementById('asc').style.background ="black"
     }
     
      handleRating = () => {
@@ -95,6 +92,7 @@ class ItemList extends Component {
             console.log('price',response)
             this.setState({item: response.data.rows})
           })
+        //   document.getElementById('rating').style.background ="black"
     }
     
      handleLatest = () => {
@@ -103,6 +101,7 @@ class ItemList extends Component {
             console.log('price',response)
             this.setState({item: response.data.rows})
           })
+        //   document.getElementById('latest').style.background ="black"  
     }
   
     render(){
@@ -111,10 +110,10 @@ class ItemList extends Component {
         return (
             <Wrapper>
                     <SortContainer>
-                        <Btn to={`?sort=rating`} onClick={this.handleRating.bind(this)}>별점순</Btn>
-                        <Btn to={`?sort=price_desc`} onClick={this.handeHighPrice.bind(this)}>높은가격순</Btn>
-                        <Btn to={`?sort=price_asc`} onClick={this.handleLowPrice.bind(this)}>낮은가격순</Btn>
-                        <Btn to={`?sort=latest`} onClick={this.handleLatest.bind(this)}>최신순</Btn>
+                        <Btn to={`?sort=rating`} activeStyle={{ color: 'black' }} onClick={this.handleRating.bind(this)} id='rating'>별점순</Btn>
+                        <Btn to={`?sort=price_desc`} activeStyle={{ color: 'black' }} onClick={this.handeHighPrice.bind(this)} id='desc'>높은가격순</Btn>
+                        <Btn to={`?sort=price_asc`} activeStyle={{ color: 'black' }} onClick={this.handleLowPrice.bind(this)} id='asc'>낮은가격순</Btn>
+                        <Btn to={`?sort=latest`} activeStyle={{ color: 'black' }} onClick={this.handleLatest.bind(this)} id='latest'>최신순</Btn>
                     </SortContainer>  
                 <Items item={this.state.item}/>
             </Wrapper>

@@ -58,6 +58,7 @@ const PasswordImage = styled.img`
 `
 const InvalidPassword = styled.div`
     color:red
+    font-size: 0.8rem;
 `
 
 const NicknameImageDiv = styled.div`
@@ -73,6 +74,7 @@ const NicknameImage = styled.img`
 `
 const InvalidNickname = styled.div`
     color:red
+    font-size: 0.8rem;
 `
 
 const BirthdateImageDiv = styled.div`
@@ -82,6 +84,7 @@ const BirthdateImageDiv = styled.div`
 `
 const InvalidBirthdate = styled.div`
     color:red
+    
 `
 const Signupbtn = styled.div`
     border: none;
@@ -93,7 +96,15 @@ const Signupbtn = styled.div`
     text-align: center;
     &:visited {
         text-decoration: none;
-    }  
+    }
+    font-size: 1.5em;
+    font-family: 'Roboto';
+    font-weight: 300;
+    &:hover {
+        text-shadow: 0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F;
+        // text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0080, 0 0 30px #ff0080, 0 0 40px #ff0080, 0 0 55px #ff0080, 0 0 75px #ff0080;
+      }  
+      
 `
 
 const Bottom = styled.div`
@@ -108,19 +119,6 @@ const BttomImg = styled.img`
     max-width: 100%;
 `
 
-const Alert = styled.div`
-    padding: 20px;
-    background-color: green;
-    color: white;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    bottom: 10%;
-    right: 0;
-    background-color: #4CAF50;
-    transition: width 2s;
-`
-
 const Confirm = styled.span`
     margin-left: 15px;
     color: white;
@@ -133,19 +131,6 @@ const Confirm = styled.span`
     &:hover {
         color: black;
     }
-`
-
-const Failalert = styled.div`
-    display: block
-    background-color: green;
-    color: white;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    bottom: 10%;
-    right: 0;
-    background-color: #f44336;
-    transition: 1s;
 `
 
 class Signup extends Component {
@@ -189,16 +174,25 @@ class Signup extends Component {
                  }, 3000);
             } else if(!validator.isLength(userPassword, {min: 5, max: 10})){
                 document.getElementById('password').style.display = "inline-block"
-                document.getElementById('pawword').style.color = "red"
-                document.getElementById('email').style.fontSize = "0.8rem"
+                document.getElementById('password').style.color = "red"
+                document.getElementById('password').style.fontSize = "0.8rem"
+                window.setTimeout(function() {
+                    document.getElementById('nickname').style.display='none'
+                 }, 3000);
             } else if(!validator.isLength(userName, {min: 5, max: 10})){
                 document.getElementById('nickname').style.display = "inline-block"
                 document.getElementById('nickname').style.color = "red"
-                document.getElementById('email').style.fontSize = "0.8rem"
+                document.getElementById('nickname').style.fontSize = "0.8rem"
+                window.setTimeout(function() {
+                    document.getElementById('nickname').style.display='none'
+                 }, 3000);
             } else if(birthDate.slice(0,4)>2018){
                 document.getElementById('birthdate').style.display = "inline-block"
                 document.getElementById('birthdate').style.color = "red"
-                document.getElementById('email').style.fontSize = "0.8rem"
+                document.getElementById('birthdate').style.fontSize = "0.8rem"
+                window.setTimeout(function() {
+                    document.getElementById('birthdate').style.display='none'
+                 }, 3000);
             } else {
                 axios.post(`${url}/api/user/post/signup`, form)
                 .then(res => {
@@ -223,7 +217,7 @@ class Signup extends Component {
                          }, 3000);
                     }else if(!res.data.success&&res.data.message==='invalid name'){
                         this.setState({
-                            isExist: "중복된 닉네임 입니다."
+                            isExistName: "중복된 닉네임 입니다."
                         })
                         document.getElementById('nickname').style.display = "inline-block"
                         document.getElementById('nickname').style.color = "red"
@@ -331,17 +325,17 @@ class Signup extends Component {
                     onChange={this.onChangeEmail.bind(this)} innerRef={ref => { this.email = ref; }} placeholder="abc@email.com"/> 
                     {this.state.isValidEmail ? null : <InvalidId style={{fontSiz:'0.6rem'}}>Invalid Email Type</InvalidId>}
                     <br/>
-                    비밀번호<span style={{display: 'none'}} id='password'>비밀번호 길이 틀림</span><br/>
+                    비밀번호<span style={{display: 'none', marginLeft: '10px'}} id='password'>비밀번호 길이 틀림</span><br/>
                     <Input type="password"
                     onChange={this.onChangePassword.bind(this)} innerRef={ref => { this.password = ref; }} placeholder="Enter Your Password"/> 
                     {this.state.isValidPassword ? null : <InvalidPassword>5글자 이상 10글자 이하로 입력 해 주세요</InvalidPassword>}  
                     <br/>
-                    닉네임<span style={{display: 'none'}} id='nickname'>{this.state.isExist ? this.state.isExist : '닉네임 길이 틀림'}</span><br/>
+                    닉네임<span style={{display: 'none', marginLeft: '10px'}} id='nickname'>{this.state.isExistName ? this.state.isExistName : '닉네임 길이 틀림'}</span><br/>
                     <Input
                     onChange={this.onChangeNickname.bind(this)} innerRef={ref => { this.nickname = ref; }} placeholder="Enter Your Nickname"/> 
                     {this.state.isValidNickname ? null : <InvalidNickname>5글자 이상 10글자 이하로 입력 해 주세요</InvalidNickname>}
                     <br/>
-                    생년월일<span style={{display: 'none'}} id='birthdate'>넌 미래에 사니</span><br/>
+                    생년월일<span style={{display: 'none', marginLeft: '10px'}} id='birthdate'>잘못 된 날짜 형식입니다</span><br/>
                     <BdayInput
                     onBlur = {this.onBirthdate.bind(this)}
                     required type='date'innerRef={ref => { this.date = ref; }}/>

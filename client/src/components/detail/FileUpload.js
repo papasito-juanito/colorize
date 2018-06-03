@@ -87,7 +87,7 @@ class FileUpload extends Component {
         formData.append('filename', `${this.props.id}_`);
 
         
-        axios.post(`${url}/upload`, formData, { headers: { 'token': token } } )
+        axios.post(`${url}/api/upload`, formData, { headers: { 'token': token } } )
             // .then((response) => {
             // console.log(response);
             // })

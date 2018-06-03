@@ -6,14 +6,12 @@ const multerS3 = require('multer-s3');
 // Local import
 const { multerAWS } = require('../../0_config');
 
-var app = express()
-
-var s3 = new aws.S3({ multerAWS })
+const s3 = new aws.S3({ multerAWS });
  
-var upload = multer({
+const upload = multer({
   storage: multerS3({
     s3: s3,
-    bucket: 'some-bucket',
+    bucket: 'colorize.io',
     metadata: function (req, file, cb) {
       cb(null, {fieldName: file.fieldname});
     },

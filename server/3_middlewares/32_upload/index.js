@@ -6,6 +6,9 @@ const multerS3 = require('multer-s3');
 // Local import
 const { multerAWS } = require('../../0_config');
 
+module.exports = (req, res, next) => {
+  
+}
 const s3 = new aws.S3({ multerAWS });
  
 const upload = multer({

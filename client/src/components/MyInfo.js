@@ -166,7 +166,11 @@ class MyInfo extends Component {
       const form = {
         userName: this.nickname.value
       }
-        axios.post(`${url}/api/user/update/username`, { headers: { 'token': token} })
+        axios.post(`${url}/api/user/update/username`, form, {
+          headers: {
+            'token': token
+          }
+        })
             .then(response => {
               console.log(response.data.success)
               response.data.success === true ? (this.setState({confirmNickname : true}), alert('사용가능한 닉네임입니다.')) : (this.setState({confirmNickname : false}), alert('중복된 닉네임입니다.') )
@@ -326,7 +330,7 @@ class MyInfo extends Component {
       const form = {
         userPassword : this.password.value
       }
-        axios.post(`${url}/api/user/update/password`, { headers: { 'token': token} })
+        axios.post(`${url}/api/user/update/password`, form, { headers: { 'token': token} })
             .then(response => {
               console.log(response.data)
             
@@ -464,7 +468,7 @@ class MyInfo extends Component {
             
           
             </Container>
-            : <div style={{width:'1000px', height:'1000px', backgroundColor:'yellow'}}> "Loading"</div>
+            : < Container > "Loading..." </Container>
         )
     }
 }

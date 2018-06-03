@@ -1,5 +1,5 @@
 module.exports = {
-  multer: {
+  multerAWS: {
     accessKeyID: '',
     secretAccessKey: '',
   },

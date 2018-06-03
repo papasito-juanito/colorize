@@ -76,6 +76,8 @@ class Detail extends Component {
 
         this.scrollStep = this.scrollStep.bind(this);
         this.scrollToTop = this.scrollToTop.bind(this);
+        this._clickToWish = this._clickToWish.bind(this);
+
     }
 
     scrollStep() {
@@ -90,10 +92,33 @@ class Detail extends Component {
         this.setState({ intervalId: intervalId });
     }
 
+
+    _clickToWish() {
+    const token = localStorage.getItem('token')
+    const form = {
+        color_id: this.props.match.params.id
+    }
+
+    axios.post(`${url}/api/wishlist/update`, form, { headers: {'token': token}})
+        .then((response) => {
+            return axios.get(`${url}/api/item/get/detail?color_id=${this.props.match.params.id}`,{headers : {'token': token}})
+                .then(response => {
+                    this.setState({data : response.data.rows})
+                    })
+                    .catch(err => console.log(err))
+        })
+        .catch(err => console.log(err));
+
+    }
+
+    
     componentDidMount(){
-        const token = localStorage.getItem('token')
+    const token = localStorage.getItem('token')
         axios.get(`${url}/api/item/get/detail?color_id=${this.props.match.params.id}`,{headers : {'token': token}})
-          .then(response => this.setState({data : response.data.rows}))
+          .then(response => {
+              console.log(response.data.rows)
+            this.setState({data : response.data.rows})
+          })
           .catch(err => console.log(err))
     }    
 
@@ -101,7 +126,6 @@ class Detail extends Component {
 
 
     render(){
-        console.log(this.state.data);
         
         let loginState = this.props.isLogined;
         const {handleLogout} = this.props
@@ -109,7 +133,7 @@ class Detail extends Component {
         return (
             <div style={{ backgroundColor:'#F4F5F9', padding:'1% 0 1% 0', fontFamily: "Nanum Gothic"}}>
                 <Wrapper>
-                    <DetailLeft data={this.state.data}/>
+                    <DetailLeft data={this.state.data}  changeWish={this._clickToWish}/>
                     <DetailRight data={this.state.data} id = {this.props.match.params.id}/>
                 </Wrapper>
                 <Div>

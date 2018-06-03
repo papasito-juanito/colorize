@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import noWish from '../../assets/emptyHeart.png';
 import Wish from '../../assets/Heart.png';
@@ -48,34 +49,10 @@ class DetailLeft extends Component {
     constructor(props){
         super(props);
         this.state = {
-            wish:''
         }
-        this._clickToWish = this._clickToWish.bind(this);
-    }
-    
-    _clickToWish() {
-        const token = localStorage.getItem('token')
-        // this.setState({wish : !this.state.wish})
-        const form = {
-            color_id: this.props.data[0].color_id
-        }
-
-        axios.post(`${url}/api/wishlist/update`, form,  { headers: { 'token': token } })
-          .then((response) => {
-              console.log(response.data);
-          })
-          .catch(err => console.log(err));
-
-    }
-
-    componentDidMount(){
-       
     }
 
     render(){
-        // console.log(this.state.wish)
-        // console.log(this.props.data ? this.props.data[0].wish : null)
-        console.log(this.props.data ? this.props.data[0].wish:null)
         return (
             <Div>
                 <ImageDiv >
@@ -83,7 +60,7 @@ class DetailLeft extends Component {
                 </ImageDiv>
                     <ColorDiv color={this.props.data ? this.props.data[0].hex : null} />
                 <Wishlist>
-                    <Image onClick={this._clickToWish} src={!this.props.data ? null : this.props.data[0].wish === 'true' ? Wish : noWish} alt={'wishlist'} />  
+                    <Image onClick={this.props.changeWish} src={!this.props.data ? null : this.props.data[0].wish === 'true'  ? Wish : noWish} alt={'wishlist'} />  
                 </Wishlist>
             </Div>
         )

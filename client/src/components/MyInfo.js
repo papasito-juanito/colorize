@@ -321,14 +321,17 @@ class MyInfo extends Component {
 
     _passwordCompare(){
       const token = localStorage.getItem('token')
+      console.log(token)
       console.log(this.password.value)
       const form = {
         userPassword : this.password.value
       }
         axios.post(`${url}/api/user/update/password`, { headers: { 'token': token} })
-            .then(response => 
+            .then(response => {
+              console.log(response.data)
+            
               response.data.success === true ? this.setState({confirmPassword : true}) : this.setState({confirmPassword : false})
-            )
+            })
             .catch(err => console.log(err));
     }
 

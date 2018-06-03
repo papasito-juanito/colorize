@@ -342,17 +342,19 @@ class MyInfo extends Component {
     _submit(){
       const token = localStorage.getItem('token')
       const form = {
-        // userPassword : this.newPassword.value || 비밀번호 변경안하면 뭘 보내줘야하는지? , 
+        userPassword : this.newPassword.value || '', 
         userName : this.nickname.value, 
         userPhoto : 3,
         toneName : this.state.colorSelected || this.state.data.tone
 
       }
+
       this.state.validate !== true ? alert('비밀번호 확인해주세요') : 
-      axios.post(`${url}`, form,  { headers: { 'token': token } })
+      axios.post(`${url}/api/user/update/info`, form,  { headers: { 'token': token } })
           .then(response => 
               // this.setState({ user: response.data })
-              console.log(response)
+              // console.log(response)
+              response.data.success === true ? (alert('변경이 완료되었습니다'), window.location.reload()) : null
           )
           .catch(err => console.log(err)) 
     }

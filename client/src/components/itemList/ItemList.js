@@ -49,7 +49,7 @@ const Btn = styled(Link)`
 `;
 
 const Loading = styled.div`
-    margin-top: 20%
+    margin-top: 15%
     border: 16px solid #f3f3f3;
     border-radius: 50%;
     border-top: 16px solid black;
@@ -62,7 +62,39 @@ const Loading = styled.div`
         100% { transform: rotate(360deg); }
     }
 `
+const HomeButton = styled.button`
+    position: fixed;
+    background-color:black;
+    color: white;
+    border: none;
+    right:1%;
+    bottom:1%;
+    opacity: 1;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    &:hover {
+    opacity: 0.3;
+    border: none;
+  }
+  &:active {
+      border:none
+  }
+`
 
+const Arrow = styled.i`
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 6%;
+`
+const scrollStepInPx = 50;
+
+const delayInMs = 10;
 
 class ItemList extends Component {
     constructor(props){
@@ -71,6 +103,20 @@ class ItemList extends Component {
             item: [],
             isLoading: true
         }
+        this.scrollStep = this.scrollStep.bind(this);
+        this.scrollToTop = this.scrollToTop.bind(this);
+    }
+    scrollStep() {
+        if (window.pageYOffset === 0) {
+            clearInterval(this.state.intervalId);
+        }
+        window.scroll(0, window.pageYOffset - scrollStepInPx);
+    }
+
+    scrollToTop() {
+        let intervalId = setInterval(this.scrollStep, delayInMs);
+        this.setState({ intervalId: intervalId });
+        document.getElementById('top').style.borderColor = "none"
     }
      
      handeHighPrice = () => {         
@@ -173,6 +219,7 @@ class ItemList extends Component {
                     </SortContainer>
                     {this.state.isLoading ?   
                 <Loading />:<Items item={this.state.item}/> }
+                <HomeButton id="top" onClick={this.scrollToTop}><Arrow/><br/> Top </HomeButton>
             </Wrapper>
         )
     }    

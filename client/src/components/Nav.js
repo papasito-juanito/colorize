@@ -10,24 +10,29 @@ import axios from 'axios';
 import { url } from '../config';
 import history from '../utils/history';
 import neon from '../assets/neon.png';
+import lipbite from '../assets/lipbite.png';
 import './Nav.css';
 
 const NavContainer = styled.header`
     background-color: black;
-    height: 100px;
-    width: 100vw;
+    height: 70px;
+    width: 100%;
     top:0;
     z-index:4;
     position: fixed
     display: flex;
     flex-direction: row;
     transition: top 0.3s;
+
+    @media (max-width: 768px) {
+        height: 50px;
+    }
 `
 const NavLink = styled(Link)`
 `
 const Logo = styled.img`
     object-fit: scale-down;
-    max-width: 100%;
+    max-width: 50%;
     max-height: 80%;
     position: absolute;
     top: 50%;
@@ -35,22 +40,23 @@ const Logo = styled.img`
     transform: translate(-50%, -50%);
 `
 
-const NaveRightContainer = styled.div`
+const NavRightContainer = styled.div`
+    // border: solid blue 3px;
+    height: 100%;
     position: absolute;
-    right: 5%
+    right: 15px;
+		cursor: pointer;
+		vertical-align: middle;
 `
 const Search = styled.input`
     margin-right: 15%;
 `
-const MenuWrapper = styled.div`
-    overflow: hidden;
-    font-size: 3.5rem;
-    cursor: pointer
+const Menu = styled.img`
+	height: 70%;
+	margin-top: 10%;
 
-`
-
-const Menu = styled.div`
-    color: white
+	object-fit: scale-down;
+	// border: solid red 3px;
 `
 
 const SideNav = styled.div`
@@ -162,31 +168,28 @@ class Nav extends Component {
             <form id="demo-2">
 	            <input type="search" placeholder="Search"/>
             </form>
-            <NaveRightContainer>
-                 <MenuWrapper>
-                 <Menu onClick={this.openNav} >
-                    &#9776;
-                 </Menu>
-                    {isLogined ? 
-                    <SideNav ref="mySidenav" >
-                        <SideClose href="javascript:void(0)" onClick={this.closeNav}>&times;</SideClose>
-                        <SideAnchor to="/" onClick={this.closeNav}>Home</SideAnchor>
-                        <SideAnchor to="/myinfo" onClick={this.closeNav}>My Info</SideAnchor>
-                        <SideAnchor to="/wishlist" onClick={this.closeNav}>Wish List</SideAnchor>
-                        <SideAnchor to="/review" onClick={this.closeNav}>My Review</SideAnchor>
-                        <SideAnchor to={this.props.location.pathname + this.props.location.search} onClick={()=>{this.closeNav(); handleLogout()}}>Logout</SideAnchor>
-                    </SideNav> :
-                    <SideNav ref="mySidenav" >
-                        <SideClose onClick={()=>{this.closeNav()}}>&times;</SideClose>
-                        <SideAnchor to="/" onClick={()=>{this.closeNav();}}>Home</SideAnchor>
-                        <SideAnchor to={{pathname: "/login", state: {from: {pathname: '/myinfo'}}}} onClick={()=>{this.closeNav();}}>My Info</SideAnchor>
-                        <SideAnchor to={{pathname: "/login", state: {from: {pathname: '/wishlist'}}}} onClick={()=>{this.closeNav();}}>Wish List</SideAnchor>
-                        <SideAnchor to={{pathname: "/login", state: {from: {pathname: '/review'}}}} onClick={()=>{this.closeNav();}}>My Review</SideAnchor>
-                        <SideAnchor replace={true} to={{pathname: "/login", state: {from: this.props.location}} } onClick={()=>{this.closeNav();}}>Login</SideAnchor>
-                    </SideNav>
-                    }     
-                 </MenuWrapper>    
-            </NaveRightContainer>
+                <NavRightContainer>
+                    <Menu src={lipbite} alt={'#'} onClick={this.openNav} >
+                    </Menu>
+                        {isLogined ? 
+                        <SideNav ref="mySidenav" >
+                            <SideClose href="javascript:void(0)" onClick={this.closeNav}>&times;</SideClose>
+                            <SideAnchor to="/" onClick={this.closeNav}>Home</SideAnchor>
+                            <SideAnchor to="/myinfo" onClick={this.closeNav}>My Info</SideAnchor>
+                            <SideAnchor to="/wishlist" onClick={this.closeNav}>Wish List</SideAnchor>
+                            <SideAnchor to="/review" onClick={this.closeNav}>My Review</SideAnchor>
+                            <SideAnchor to={this.props.location.pathname + this.props.location.search} onClick={()=>{this.closeNav(); handleLogout()}}>Logout</SideAnchor>
+                        </SideNav> :
+                        <SideNav ref="mySidenav" >
+                            <SideClose onClick={()=>{this.closeNav()}}>&times;</SideClose>
+                            <SideAnchor to="/" onClick={()=>{this.closeNav();}}>Home</SideAnchor>
+                            <SideAnchor to={{pathname: "/login", state: {from: {pathname: '/myinfo'}}}} onClick={()=>{this.closeNav();}}>My Info</SideAnchor>
+                            <SideAnchor to={{pathname: "/login", state: {from: {pathname: '/wishlist'}}}} onClick={()=>{this.closeNav();}}>Wish List</SideAnchor>
+                            <SideAnchor to={{pathname: "/login", state: {from: {pathname: '/review'}}}} onClick={()=>{this.closeNav();}}>My Review</SideAnchor>
+                            <SideAnchor replace={true} to={{pathname: "/login", state: {from: this.props.location}} } onClick={()=>{this.closeNav();}}>Login</SideAnchor>
+                        </SideNav>
+                        }     
+            </NavRightContainer>
         </NavContainer>
       );   
     }

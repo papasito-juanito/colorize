@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 // const queryString = require('query-string');
 
 const Container = styled.ul`
-    width: 80%;
+		width: 80%;
     padding: 0;
     // border: solid grey 1px;
     display: flex;

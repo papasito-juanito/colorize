@@ -7,9 +7,13 @@ import { url } from '../../config';
 
 const HomeContainer = styled.div`
   background-color: white;
-  height:100%;
   width:100%;
   display: flex;
+  margin-top: 70px;
+
+  @media (max-width: 768px) {
+    margin-top: 50px;
+  }
 `
 
 class Home extends React.Component {

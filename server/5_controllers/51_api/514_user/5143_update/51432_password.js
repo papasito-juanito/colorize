@@ -11,8 +11,6 @@ module.exports = async (req, res) => {
   if (!decoded.success) res.json({ success: false, message: decoded.message });
   else {
     const rows = await model(query, decoded.user_id);
-    console.log('rosw', rows);
-    console.log('user', req.body.userPassword);
     const valid = await compare(req.body.userPassword, rows[0].userPassword);
     if (!valid) {
       res.json({ success: false, message: 'invalid password' });

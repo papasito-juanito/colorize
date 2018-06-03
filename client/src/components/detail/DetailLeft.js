@@ -48,7 +48,7 @@ class DetailLeft extends Component {
     constructor(props){
         super(props);
         this.state = {
-            wish:false
+            wish:''
         }
         this._clickToWish = this._clickToWish.bind(this);
     }
@@ -68,8 +68,14 @@ class DetailLeft extends Component {
 
     }
 
+    componentDidMount(){
+       
+    }
+
     render(){
-        console.log('left : ', this.props)
+        // console.log(this.state.wish)
+        // console.log(this.props.data ? this.props.data[0].wish : null)
+        console.log(this.props.data ? this.props.data[0].wish:null)
         return (
             <Div>
                 <ImageDiv >
@@ -77,7 +83,7 @@ class DetailLeft extends Component {
                 </ImageDiv>
                     <ColorDiv color={this.props.data ? this.props.data[0].hex : null} />
                 <Wishlist>
-                    <Image onClick={this._clickToWish} src={!this.state.wish ? noWish : Wish} alt={'wishlist'} />  
+                    <Image onClick={this._clickToWish} src={!this.props.data ? null : this.props.data[0].wish === 'true' ? Wish : noWish} alt={'wishlist'} />  
                 </Wishlist>
             </Div>
         )

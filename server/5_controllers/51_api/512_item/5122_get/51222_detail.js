@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
 
   switch (decoded.success) {
     case true: {
-      const rows = await model(query.member, [req.query.color_id, decoded.id]);
+      const rows = await model(query.member, [req.query.color_id, decoded.user_id]);
       res.json({ success: true, message: decoded.userMail, rows });
       break;
     }

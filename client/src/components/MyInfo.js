@@ -8,6 +8,7 @@ import axios from 'axios';
 import { url } from '../config';
 import { Link } from 'react-router-dom';
 import Dropzone from 'react-dropzone';
+import avatar from '../assets/profile.png';
 
 const Container = styled.div`
   padding-top: 100px;
@@ -115,7 +116,8 @@ class MyInfo extends Component {
           imagepreviewUrl: '',
           photos:'',
           confirmPassword : '',
-          confirmNickname :''
+          confirmNickname :'',
+          minNum : ''
           
         }
 
@@ -127,11 +129,12 @@ class MyInfo extends Component {
         this._submit = this._submit.bind(this);
         this._onColorSelect = this._onColorSelect.bind(this);
         this._onDrop = this._onDrop.bind(this);
-        this._submitImg = this._submitImg.bind(this);
+        // this._submitImg = this._submitImg.bind(this);
         this.insta = this.insta.bind(this);
         this._passwordConfirm = this._passwordConfirm.bind(this);
         this._passwordCompare = this._passwordCompare.bind(this);
         this._confirmNickname = this._confirmNickname.bind(this);
+        this._minNumber = this._minNumber.bind(this);
     }
 
     componentDidMount(){
@@ -147,14 +150,14 @@ class MyInfo extends Component {
           }) 
 
     }
-    _submitImg(){
-         axios.post(`${url}/test`, {'base64' :this.state.imagepreviewUrl, 'mail' : this.state.data.mail})
-           .then((result) => {
-             console.log(result)
-           })
-           .catch(err => console.log(err))
+    // _submitImg(){
+    //      axios.post(`${url}/test`, {'base64' :this.state.imagepreviewUrl, 'mail' : this.state.data.mail})
+    //        .then((result) => {
+    //          console.log(result)
+    //        })
+    //        .catch(err => console.log(err))
 
-    }
+    // }
     _toneChange(){
    
       this.setState({tone : !this.state.tone})
@@ -248,11 +251,11 @@ class MyInfo extends Component {
       var file = files[0];
       console.log(files)
       console.log(file)
-      console.log(typeof file.preview)
+      console.log(typeof file)
        let reader = new FileReader();
 
-       reader.readAsDataURL(file)
-
+      // typeof file === 'string'||'object' ? reader.readAsDataURL(file) :alert('적당한형식이 아닙니당')
+ reader.readAsDataURL(file)
              reader.onload = () => {
                this.setState({
                  file:file,
@@ -323,6 +326,10 @@ class MyInfo extends Component {
       console.log(this.password.value.length)
     }
 
+    _minNumber(){
+      this.newPassword.value.length <5 ? this.setState({minNum : false}) : this.setState({minNum : true})
+    }
+
     _passwordCompare(){
       const token = localStorage.getItem('token')
       console.log(token)
@@ -334,7 +341,7 @@ class MyInfo extends Component {
             .then(response => {
               console.log(response.data)
             
-              response.data.success === true ? this.setState({confirmPassword : true}) : this.setState({confirmPassword : false})
+              response.data.success === true || !this.password.value ? this.setState({confirmPassword : true}) : this.setState({confirmPassword : false})
             })
             .catch(err => console.log(err));
     }
@@ -350,7 +357,7 @@ class MyInfo extends Component {
       }
         // /confirmNickname true
 
-        this.state.validate === true && this.state.confirmNickname !== false && this.state.confirmPassword !== false ?  
+        this.state.validate === true && this.state.confirmNickname !== false && this.state.confirmPassword !== false && this.state.minNum !== false ?  
           axios.post(`${url}/api/user/update/info`, form,  { headers: { 'token': token } })
           .then(response => 
               // this.setState({ user: response.data })
@@ -385,9 +392,10 @@ class MyInfo extends Component {
       console.log('닉네임 유효 :', this.state.confirmNickname)
       console.log('현재비번 유효 :', this.state.confirmPassword)
       console.log('비번 대조 :', this.state.validate)
+      console.log('최소 비번숫자 :', this.state.minNum)
       console.log('datadatadtata', this.state.data)
       console.log('myinfomyinfomyinfo', this.props);
-      
+
         // console.log(this.state.imagepreviewUrl)
         return (
           this.state.data ?
@@ -396,10 +404,16 @@ class MyInfo extends Component {
             <Table>
               <Row>
                 <Column>사진</Column>
-                <Data>{this.state.hasPhoto ? <div>'show my photo' <button onClick={this._photoChange}> 사진 변경</button></div> 
-                  : <div><Dropzone onDrop={ this._onDrop } size={ 50 }>
+                <Data>{this.state.hasPhoto ? <div><img style = {{ verticalAlign:'middle',width:'10%', borderRadius:'50%'}} src= {avatar} /><button onClick={this._photoChange}> 사진 변경</button></div> 
+                  : <div><Dropzone onDrop={ this._onDrop } size={ 50 }     >
+                  {/* accept = "image/jpeg, image/png" */}
+                  <div style={{width:'100%', height:'100%', textAlign:'center'}}>
                        <div> Drop some files here!</div>
+                       <div style= {{width: '100%', height:'90%'}}> {this.state.imagepreviewUrl ? <img style = {{ verticalAlign:'middle', width:'90%', height:'90%', borderRadius:'50%'}} src= {this.state.imagepreviewUrl} />:null}</div>
+                           </div>
+                                 {/* <AvatarEditor width={100} height={100} border={50} scale={1.2} image={this.state.imagepreviewUrl} /> */}
                            </Dropzone>
+                           
                            <button onClick={this._submitImg}> 변경</button>
                           <button onClick={this._photoChange}> 취소</button></div>}
                                  {/* : <div><input type="file"/><button onClick={this._photoChange}>취소</button></div>} */}
@@ -433,17 +447,29 @@ class MyInfo extends Component {
                   <tr>
                     <InTH>현재 비밀번호</InTH>
                     <td><input onChange={this._passwordCompare} ref={ref => { this.password = ref; }}type='password'/></td>
-                    {this.state.confirmPassword  === true  ? <div>Ok</div> : this.state.confirmPassword === false && this.password.value ? <div>비밀번호 확인해주세요</div>:null}
+                      {!this.password ? null : this.state.confirmPassword === true ? < div > Ok </div> :  this.state.confirmPassword === false ? <div>비밀번호 확인해주세요</div > : null}
+
+
+                    {/* {this.state.confirmPassword  === true  ? <div>Ok</div> : this.state.confirmPassword === false && this.password.value ? <div>비밀번호 확인해주세요</div>:null} */}
+
+
+
+
+
+
                     {/* {this.state.confirmPassword  === false && this.password ? <div> 비밀번호를 확인해주세요</div> : !this.password ? null : <div>Ok</div>} */}
                   </tr>
                   <tr>
                     <InTH>신규 비밀번호</InTH>
-                    <td><input onBlur={this._passwordCompare} onChange = {this._comparePassword} ref={ref => { this.newPassword = ref; }} type='password'/></td>
+                    <td><input onChange ={this._minNumber} ref={ref => { this.newPassword = ref; }} type='password'/></td>
+                    {!this.newPassword ? null: !this.state.minNum ? <div>비밀번호는 5글자 이상 입력하셔야 합니다.</div> : <div>Ok</div>}
                   </tr>
                   <tr>
                     <InTH>비밀번호 재입력</InTH>
                     <td> <input onClick={this._passwordInput} onChange = {this._comparePassword} ref={ref => { this.confirmPassword = ref; }}type='password'/></td>
+                     {!this.confirmPassword && !this.newPassword ?  null : this.confirmPassword.value && this.newPassword.value ? <div>{this.state.validate === true ? '비밀번호가 일치합니다' : '입력한 비밀번호가 일치하지 않습니다'}</div>:null}
                   </tr>
+                 
                   <tr>
                     <td>
                   
@@ -451,7 +477,7 @@ class MyInfo extends Component {
                       </td>
                   </tr>                  
                 </Intable>
-                      {!this.confirmPassword && !this.newPassword ?  null : this.confirmPassword.value && this.newPassword.value ? <div>{this.state.validate === true ? 'Ok' : '입력한 비밀번호가 일치하지 않습니다'}</div>:null}
+                      
                       
                       </Data>
               </Row>

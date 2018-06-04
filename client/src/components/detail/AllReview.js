@@ -24,6 +24,7 @@ class Allreview extends Component{
         const token = localStorage.getItem('token')
         axios.get(`${url}/api/review/get/list?color_id=${this.props.id}`, { headers: { 'token': token } })
             .then(response => {
+                console.log('all review response :', response)
                if(response.data.success===true){
                 this.setState({ data: response.data.rows })
                } else {

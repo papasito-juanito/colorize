@@ -115,6 +115,7 @@ class Detail extends Component {
         .catch(err => console.log(err));
 
     }
+    
 
     
     componentDidMount(){

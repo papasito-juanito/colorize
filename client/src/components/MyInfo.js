@@ -342,19 +342,23 @@ class MyInfo extends Component {
     _submit(){
       const token = localStorage.getItem('token')
       const form = {
-        // userPassword : this.newPassword.value || 비밀번호 변경안하면 뭘 보내줘야하는지? , 
+        userPassword : this.newPassword.value || undefined, 
         userName : this.nickname.value, 
         userPhoto : 3,
         toneName : this.state.colorSelected || this.state.data.tone
 
       }
-      this.state.validate !== true ? alert('비밀번호 확인해주세요') : 
-      axios.post(`${url}`, form,  { headers: { 'token': token } })
+        // /confirmNickname true
+
+        this.state.validate === true && this.state.confirmNickname !== false && this.state.confirmPassword !== false ?  
+          axios.post(`${url}/api/user/update/info`, form,  { headers: { 'token': token } })
           .then(response => 
               // this.setState({ user: response.data })
-              console.log(response)
+              // console.log(response)
+              response.data.success === true ? (alert('변경이 완료되었습니다'), window.location.reload()) : null
           )
-          .catch(err => console.log(err)) 
+          .catch(err => console.log(err)) :  alert('변경 정보를 확인해주세요') 
+     
     }
       
     
@@ -378,6 +382,9 @@ class MyInfo extends Component {
   ]
 
     render() {
+      console.log('닉네임 유효 :', this.state.confirmNickname)
+      console.log('현재비번 유효 :', this.state.confirmPassword)
+      console.log('비번 대조 :', this.state.validate)
       console.log('datadatadtata', this.state.data)
       console.log('myinfomyinfomyinfo', this.props);
       
@@ -425,8 +432,9 @@ class MyInfo extends Component {
                   <tr><td colspan='2'>비밀번호는 5-10자 이내로 설정해주세요.</td></tr>
                   <tr>
                     <InTH>현재 비밀번호</InTH>
-                    <td><input onBlur={this._passwordCompare} ref={ref => { this.password = ref; }}type='password'/></td>
-                    {this.state.confirmPassword  === false && this.password ? <div> 비밀번호를 확인해주세요</div> : !this.password ? null : <div>Ok</div>}
+                    <td><input onChange={this._passwordCompare} ref={ref => { this.password = ref; }}type='password'/></td>
+                    {this.state.confirmPassword  === true  ? <div>Ok</div> : this.state.confirmPassword === false && this.password.value ? <div>비밀번호 확인해주세요</div>:null}
+                    {/* {this.state.confirmPassword  === false && this.password ? <div> 비밀번호를 확인해주세요</div> : !this.password ? null : <div>Ok</div>} */}
                   </tr>
                   <tr>
                     <InTH>신규 비밀번호</InTH>

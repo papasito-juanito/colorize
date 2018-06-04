@@ -7,6 +7,7 @@ package-lock.json
 # confidential
 /.vscode
 
-client/src/config.js
-server/0_config
-server_old/
+/client/src/config.js
+/server/0_config
+/server_old
+/uploads

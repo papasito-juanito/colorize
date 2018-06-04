@@ -80,18 +80,17 @@ class FileUpload extends Component {
     }
 
     _fileUploadHandler(e) {
-      
+      //로그인 안되어있을때 사진올리는거 막기 
         const token = localStorage.getItem('token')
         const formData = new FormData();
         formData.append('file', this.uploadInput.files[0]);
-        formData.append('filename', `${this.props.id}`);
         
         axios.post(`${url}/api/review/post/upload`, formData, { headers: { 'token': token } } )
             // .then((response) => {
             // console.log(response);
             // })
             .then(response => 
-                console.log(response.data.file)
+                console.log(response)
                 // this.setState({ imageURL: `${url}/${response.data.file}` })
             )
             .catch(err => console.log(err))
@@ -128,6 +127,7 @@ class FileUpload extends Component {
                     type='file'
                     ref={ref => { this.uploadInput = ref; }}
                     onChange={(e) => { this._handleImageChange(e); this._fileUploadHandler(e) }} />
+                    <div style = {{height:'150px', width:'150px', border: '1px solid black'}}> <img src={require('../../assets/reviews/2214a465160945280f9d70ad975c9f59')}/></div>
                 <ImgDiv>
                     {$imagePreview}
                 </ImgDiv>

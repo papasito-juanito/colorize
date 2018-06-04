@@ -4,27 +4,34 @@ const multer = require('multer');
 const multerS3 = require('multer-s3');
 
 // Local import
-const { multerAWS } = require('../../0_config');
+const { credentials, bucket } = require('../../0_config');
 
-module.exports = (req, res, next) => {
-  console.log('req.files: ', req.files);
-  console.lof('multerAWS: ', multerAWS);
-  const s3 = new aws.S3({ multerAWS });
+module.exports = (req, res) => {
+  console.log('[6_utility ] activated upload');
 
+  const s3 = new aws.S3({ credentials });
   const upload = multer({
     storage: multerS3({
       s3,
-      bucket: 'colorize.io',
+      bucket,
+      acl: 'public-read',
+      cacheControl: 'max-age=31536000',
+      contentType: multerS3.AUTO_CONTENT_TYPE,
+      storageClass: 'REDUCED_REDUNDANCY',
       metadata(req, file, cb) {
-        cb(null, { fieldName: file.fieldname });
+        cb(null, { originalName: file.originalname });
       },
       key(req, file, cb) {
-        cb(null, Date.now().toString());
+        cb(null, `${Date.now().toString()}_${file.originalname}`);
       },
     }),
+  }).single('file');
+
+  upload(req, res, (err) => {
+    if (err) {
+      res.json({ success: false, message: err.message });
+    } else {
+      res.json({ success: true, meesage: req.file.location });
+    }
   });
-  
-  app.post('/upload', upload.array('photos', 3), (req, res, next) => {
-    res.send(`Successfully uploaded ${req.files.length} files!`);
 };
-});

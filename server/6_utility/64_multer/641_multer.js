@@ -2,22 +2,17 @@
 const multer = require('multer');
 
 // Local import
-const { multerConfig } = require('../../0_config');
+const { multerReview } = require('../../0_config');
 
-module.exports = (req, res) => {
-  const upload = multer({
-    storage: multer.diskStorage({
-      destination: multerConfig.dest,
-      filename: (req, file, cb) => {
-        cb(null, new Date().valueOf() + file.originalname);
-      },
-    }),
-  }).single('file');
+module.exports = async (req, res) => {
+  console.log('[6_utility ] activated upload');
+
+  const storage = await multer.diskStorage(multerReview);
+  const upload = await multer({ storage }).single('file');
   upload(req, res, (err) => {
     if (err) {
-      console.log('err');
+      res.json({ success: false, message: err.message });
     } else {
-      console.log(`[6_utility ] activated file: ${req.file.filename}`);
       res.json({ success: true, meesage: req.file.path });
     }
   });

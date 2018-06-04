@@ -364,17 +364,44 @@ class MyReviews extends Component {
     const form = {
       review_id : reviewId
     }
-      axios.post(`${url}/api/review/delete`, form,  { headers: { 'token': token } })
-          .then((response) => {
-              console.log(response.data);
+
+        confirm({
+      title: '선택한 리뷰를 삭제 하시겠습니까?',
+      okText: 'Yes',
+      okType: 'danger',
+      cancelText: 'No',
+
+      onOk: () => {
+        const token = localStorage.getItem('token')
+        axios.post(`${url}/api/review/delete`, form, {
+            headers: {
+              'token': token
+            }
           })
-          .catch(err => console.log(err));
-    window.location.reload();
+          .then((res) => {
+            console.log(res)
+              window.location.reload();
+              })
+        console.log('ok');
+
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+    });
+    //   axios.post(`${url}/api/review/delete`, form,  { headers: { 'token': token } })
+    //       .then((response) => {
+    //           console.log(response.data);
+    //       })
+    //       .catch(err => console.log(err));
+    // window.location.reload();
 
   }
 
   _showDeleteConfirm(e) {
     console.log(e.target.id)
+    // const reviewId = this.state.data[e.target.id]
+    console.log(this.state)
   // const reviewId = this.state.data[e.target.id].review_id
   //     console.log(reviewId)
   // const form = {
@@ -510,9 +537,9 @@ class MyReviews extends Component {
                   <Modify id={i} onClick={this._updateReply}>완료</Modify>
                   :<Modify id={i} onClick={this._changeReply}>수정</Modify> }
 
-                  {!this.state.isReply ? <Delete id={i} onClick={this._showDeleteConfirm}> 삭제</Delete> 
+                  {!this.state.isReply ? <Delete id={i} onClick={this._reviewDelete}> 삭제</Delete> 
                     : this.state.isReply && this.state.clickedComment === item.review_id ? <Cancel id={i} onClick = {this._reviewCancel} > 취소 </Cancel>
-                    : <Delete id={i} type="dashed" onClick={this._showDeleteConfirm}> 삭제</Delete> }
+                    : <Delete id={i} type="dashed" onClick={this._reviewDelete}> 삭제</Delete> }
 
                   <LikeCount>
                     <Like src={like} />

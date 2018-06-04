@@ -241,6 +241,7 @@ class MyContent extends Component {
                   <div style ={{width: '100%', height:'20%z'}}>Your Review <div style={{width:'100%', border:'2px solid #ccc'}}></div></div>
                     <Container>
                         <ReviewImage onClick={this._openPopup} src={this.props.user.review_photo} />
+                        {/* <ReviewImage onClick={this._openPopup} src={this.props.user.review_photo} /> */}
                         <Info >
                             <UserDiv > <img alt='user' /></UserDiv>
                             <div style={{boxSizing:'border-box', margin:'8% 0 0 0'}}>

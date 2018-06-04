@@ -31,7 +31,7 @@ module.exports = (req, res) => {
     if (err) {
       res.json({ success: false, message: err.message });
     } else {
-      res.json({ success: true, meesage: req.file.location });
+      res.json({ success: true, message: req.file.location });
     }
   });
 };

@@ -1,6 +1,6 @@
 module.exports = {
   multerConfig: {
-    dest: 'uploads/',
+    dest: 'client/src/assets/reviews',
     filename: 'file',
   },
   multerS3Config: {

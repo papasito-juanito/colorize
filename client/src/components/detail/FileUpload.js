@@ -66,14 +66,15 @@ class FileUpload extends Component {
         e.preventDefault();
         let reader = new FileReader();
         let file = e.target.files[0];
-
+        let mimeType = e.target.files[0].type.split('image/')[1];
         reader.readAsDataURL(file)
         reader.onload = () => {
+        mimeType === 'png' || mimeType === 'jpg' || mimeType === 'jpeg' ?
             this.setState({
                 file: file,
                 imagepreviewUrl: reader.result,
                 imageAddress : ''
-            })
+            }) : this.setState({imagepreviewUrl : ''})
         }
 
 
@@ -100,7 +101,7 @@ class FileUpload extends Component {
         var mimeType = e.target.files[0].type.split('image/')[1];
         console.log(mimeType)
         
-        mimeType === 'png' || mimeType === 'jpg' ?
+        mimeType === 'png' || mimeType === 'jpg' || mimeType === 'jpeg' ?
         axios.post(`${url}/api/review/post/upload`, formData, { headers: { 'token': token , id: this.props.id} } )
             // .then((response) => {
             // console.log(response);
@@ -112,7 +113,7 @@ class FileUpload extends Component {
                 // this.setState({ imageURL: `${url}/${response.data.file}` })
             )
             .catch(err => console.log(err))
-            : (alert('jpg/png 파일만 올릴수있어요'), window.location.reload())
+            : (alert('jpg/png 파일만 올릴수있어요'))
 
         // fetch(`${url}/upload`, {
         //     method: 'POST',
@@ -148,7 +149,7 @@ class FileUpload extends Component {
                 </ImgDiv>
                 <FileButton
                     type='file'
-                    accept = ".jpg, .png"
+                    accept = ".jpg, .png, .jpeg"
                     ref={ref => { this.uploadInput = ref; }}
                     onChange={(e) => { this._handleImageChange(e); this._fileUploadHandler(e) }} />
                 <Modal

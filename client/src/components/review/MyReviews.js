@@ -5,7 +5,8 @@ import { url } from '../../config';
 import styled from 'styled-components';
 import StarRatingComponent from 'react-star-rating-component';
 import like from '../../assets/reviewLike.png';
-import Modal from 'react-modal';
+import RModal from 'react-modal';
+import { Modal } from 'antd';
 import { Link } from 'react-router-dom';
 import 'antd/dist/antd.css';
 
@@ -248,7 +249,8 @@ const customStyles = {
 
 const confirm = Modal.confirm;
 
-Modal.setAppElement('#root');
+RModal.setAppElement('#root');
+
 const scrollStepInPx = 50;
 const delayInMs = 10;
 const token = localStorage.getItem('token')
@@ -277,6 +279,7 @@ class MyReviews extends Component {
     this._reviewCancel = this._reviewCancel.bind(this);
     this._updateReply = this._updateReply.bind(this);
     this._reviewDelete = this._reviewDelete.bind(this);
+    this.__showDeleteConfirm = this._showDeleteConfirm.bind(this)
   }
 
 
@@ -368,6 +371,40 @@ class MyReviews extends Component {
     window.location.reload();
 
   }
+
+  _showDeleteConfirm(e) {
+  const reviewId = this.state.data[e.target.id].review_id
+  const form = {
+    review_id: reviewId
+  }
+
+    confirm({
+      title: '선택한 리뷰를 삭제 하시겠습니까?',
+      okText: 'Yes',
+      okType: 'danger',
+      cancelText: 'No',
+
+      onOk: () => {
+        const token = localStorage.getItem('token')
+        axios.post(`${url}/api/review/delete`, form, {
+            headers: {
+              'token': token
+            }
+          })
+          .then((res) => {
+            console.log(res)
+              // window.location.reload();
+              })
+        console.log('ok');
+
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+    });
+  }
+
+
   _reviewCancel(e){
     var previousMessage = this.state.data[e.target.id].message;
     this.modifyReview.value = previousMessage;
@@ -470,9 +507,9 @@ class MyReviews extends Component {
                   <Modify id={i} onClick={this._updateReply}>완료</Modify>
                   :<Modify id={i} onClick={this._changeReply}>수정</Modify> }
 
-                  {!this.state.isReply ? <Delete id={i} onClick={this._reviewDelete}> 삭제</Delete> 
+                  {!this.state.isReply ? <Delete id={i} onClick={this._showDeleteConfirm}> 삭제</Delete> 
                     : this.state.isReply && this.state.clickedComment === item.review_id ? <Cancel id={i} onClick = {this._reviewCancel} > 취소 </Cancel>
-                    : <Delete id={i} onClick={this._reviewDelete}> 삭제</Delete> }
+                    : <Delete id={i} type="dashed" onClick={this._showDeleteConfirm}> 삭제</Delete> }
 
                   <LikeCount>
                     <Like src={like} />
@@ -484,7 +521,7 @@ class MyReviews extends Component {
           )
         }) : <div><h2> 등록된 리뷰가 없습니다 </h2></div>}
         <HomeButton onClick={this.scrollToTop}><Arrow /><br /> Top </HomeButton>
-        <Modal
+        <RModal
           isOpen={this.state.popupIsOpen}
           onAfterOpen={this._afterOpenPopup}
           onRequestClose={this._closePopup}
@@ -494,7 +531,7 @@ class MyReviews extends Component {
           <h2 ref={subtitle => this.subtitle = subtitle}>Review Image</h2>
           <div style={{ width: '50vh' }}>{popupImage}</div>
           <button style={{ cursor: 'pointer' }} onClick={this._closePopup}>close</button>
-        </Modal>
+        </RModal>
       </Wrapper>
       </div>
     )

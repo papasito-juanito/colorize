@@ -53,12 +53,13 @@ class Comment extends Component {
     render() {
         console.log(this.state.user?this.state.user:null)
         console.log(this.props.id)
+        console.log(this.state.data)
         return (
             <div>
                 {!this.props.isLogined ? 
                 <Div>
                     <FileUpload callback={this._callback.bind(this)} id={this.props.id} />
-                    <Rating loginState = {this.props.loginState} handleLogout={this.props.handleLogout} info={this.state.user} id={this.props.id} data={this.state.data} />
+                    <Rating loginState = {this.props.loginState} handleLogout={this.props.handleLogout} info={this.state.user} id={this.props.id} image={this.state.data} />
                 </Div> 
                 : this.props.isLogined === true && this.state.user.message === 'written' ?
                 <Div>
@@ -67,7 +68,7 @@ class Comment extends Component {
                 :
                 <Div>
                     <FileUpload callback={this._callback.bind(this)} id={this.props.id} />
-                    <Rating loginState = {this.props.loginState} handleLogout={this.props.handleLogout} info={this.state.user} id={this.props.id} data={this.state.data} />
+                    <Rating loginState = {this.props.loginState} handleLogout={this.props.handleLogout} info={this.state.user} id={this.props.id} image={this.state.data} />
                 </Div>    
                 }
 

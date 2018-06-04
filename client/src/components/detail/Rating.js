@@ -77,8 +77,7 @@ class Rating extends Component {
         const token = localStorage.getItem('token')
         const form = {
             color_id: this.props.id,
-            reviewPhoto: `${this.props.id}_token`,
-            // reviewPhoto: `${__dirname}/public/${this.props.data}.jpg`, this.props로 받을게 아니고 이 사이트의 url 매치랑 들어온 유저정보 
+            reviewPhoto: this.props.image,
             reviewRating: this.state.rating,
             reviewMessage: this.input.value
         }
@@ -100,6 +99,7 @@ class Rating extends Component {
     }
 
     render() {
+        console.log('this.props.image :', this.props.image)
         console.log('this.props.info.success :', this.props.info.success)
         console.log('this.props.handleLogout :', this.props.handleLogout)
         console.log('this.props.loginState :', this.props.loginState)

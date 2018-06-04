@@ -1,18 +1,22 @@
 /* eslint-disable */
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import FileUpload from './FileUpload';
 import Rating from './Rating';
 import MyContent from '../review/MyContent';
 import axios from 'axios';
 import { url } from '../../config';
 
-const Div = styled.div`
-    width: 80vw;
-    height: 30vh;
+const Container = styled.div`
+    width: 100%;
+    height: 100%;
     display: flex;
-    background-color: #F4F5F9;
 `;
+const Div = styled.div`
+    width: 100%;
+    height: 100%;
+    display: flex;
+`;
+
 
 class Comment extends Component {
     constructor(props) {
@@ -23,11 +27,7 @@ class Comment extends Component {
         };
     }
 
-    _callback(params) {
-        this.setState({
-            data: params
-        })
-    }
+
 
 
             // .then(response =>{
@@ -54,10 +54,9 @@ class Comment extends Component {
         console.log(this.state.user?this.state.user:null)
         console.log(this.props.id)
         return (
-            <div>
-                {!this.props.isLogined ? 
+            <Container>
+                {!this.props.isLogined ?
                 <Div>
-                    <FileUpload callback={this._callback.bind(this)} id={this.props.id} />
                     <Rating loginState = {this.props.loginState} handleLogout={this.props.handleLogout} info={this.state.user} id={this.props.id} data={this.state.data} />
                 </Div> 
                 : this.props.isLogined === true && this.state.user.message === 'written' ?
@@ -66,12 +65,11 @@ class Comment extends Component {
                 </Div> 
                 :
                 <Div>
-                    <FileUpload callback={this._callback.bind(this)} id={this.props.id} />
                     <Rating loginState = {this.props.loginState} handleLogout={this.props.handleLogout} info={this.state.user} id={this.props.id} data={this.state.data} />
                 </Div>    
                 }
 
-            </div>
+            </Container>
         );
     }
 }

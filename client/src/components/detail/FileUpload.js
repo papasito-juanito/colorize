@@ -16,19 +16,24 @@ const customStyles = {
     }
 };
 
-const Div = styled.div`
-    width: 25%;
-    border: 1px solid #d9dee8;
+const Container = styled.div`
+    width: 20vw;
+    height: 100%;
+    border: 1px solid blue;
     display: flex;
     flex-direction: column;
-    background-color: white;
-    margin: 0 2% 0 0;
-    box-sizing: border-box; 
+`
+const FileButton = styled.input`
+    width: 100%;
+    height: 30px;
 `
 const ImgDiv = styled.div`
-    height: 80%;
+    height: 100%;
     width: 100%;
     cursor: pointer;
+    border: 2px solid red;
+    object-fit: scale-down;
+    margin-bottom: -30px;
 `
 
 Modal.setAppElement('#root');
@@ -119,19 +124,22 @@ class FileUpload extends Component {
         let popupImage = (<img src={imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
 
         this.state.imagepreviewUrl ? $imagePreview = (<img onClick={this._openPopup} src={imagepreviewUrl} style={{ height: '100%', width: '80%' }} alt='Yours' />) :
-            $imagePreview = (<div style={{textAlign:'center'}}> Please upload your Review Image </div>);
+            $imagePreview = (<div style={{textAlign:'center', marginTop: '40px'}}>리뷰 사진을 올려주세요</div>);
 
         return (
-            <Div>
-                <input style={{ width: '100%' }}
-                    type='file'
-                    ref={ref => { this.uploadInput = ref; }}
-                    onChange={(e) => { this._handleImageChange(e); this._fileUploadHandler(e) }} />
+            <Container>
+
                     {/* <div style = {{height:'150px', width:'150px', border: '1px solid black'}}> <img src={require('../../assets/reviews/1528079528165images.jpeg')}/></div> */}
                     {/* <div style = {{height:'150px', width:'150px', border: '1px solid black'}}> <img src={require('../../assets/reviews/1528079528165images.jpeg')}/></div> */}
+
                 <ImgDiv>
                     {$imagePreview}
                 </ImgDiv>
+                <FileButton
+                    type='file'
+                    style={{color: 'transparent'}}
+                    ref={ref => { this.uploadInput = ref; }}
+                    onChange={(e) => { this._handleImageChange(e); this._fileUploadHandler(e) }} />
                 <Modal
                     isOpen={this.state.popupIsOpen}
                     onAfterOpen={this._afterOpenPopup}
@@ -143,7 +151,7 @@ class FileUpload extends Component {
                     <div style={{ width: '50vh' }}>{popupImage}</div>
                     <button style={{ cursor: 'pointer' }} onClick={this._closePopup}>close</button>
                 </Modal>
-            </Div>
+            </Container>
         )
     }
 }

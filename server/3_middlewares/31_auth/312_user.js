@@ -20,6 +20,7 @@ module.exports = (req, res, next) => {
           if (error) {
             res.json({ success: false, message: 'invalid mail' });
           } else if (rows.length) {
+            req.user_id = decoded.user_id;
             next();
           }
         });

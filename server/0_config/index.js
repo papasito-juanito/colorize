@@ -1,7 +1,11 @@
 module.exports = {
-  multerAWS: {
-    accessKeyID: '',
-    secretAccessKey: '',
+  multerConfig: {
+    dest: 'uploads/',
+    filename: 'file',
+  },
+  multerS3Config: {
+    accessKeyID: 'AKIAJHAOFQZPM5DDGSQA',
+    secretAccessKey: '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',
   },
   express: {
     port: 8080,

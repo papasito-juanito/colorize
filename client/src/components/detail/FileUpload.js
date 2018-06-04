@@ -84,10 +84,9 @@ class FileUpload extends Component {
         const token = localStorage.getItem('token')
         const formData = new FormData();
         formData.append('file', this.uploadInput.files[0]);
-        formData.append('filename', `${this.props.id}_`);
-
+        formData.append('filename', `${this.props.id}`);
         
-        axios.post(`${url}/api/upload`, formData, { headers: { 'token': token } } )
+        axios.post(`${url}/api/review/post/upload`, formData, { headers: { 'token': token } } )
             // .then((response) => {
             // console.log(response);
             // })

@@ -1,6 +1,6 @@
 module.exports = {
   info: `
-SELECT id FROM reviews WHERE itemColors_id=? AND users_id=?;`,
+SELECT id FROM reviews WHERE reviewToggle='true' AND itemColors_id=? AND users_id=?;`,
   reviewLikes: `
 SELECT u.id user_id, r.id review_id, rl.likeToggle toggle 
 FROM reviewLikes rl, reviews r, users u

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Link, Route, Switch, Redirect, withRouter} from 'react-router-dom';
 import {injectGlobal} from 'styled-components'
-
+import styled from 'styled-components';
 import Nav from '../components/Nav'
 import Home from './home/Home'
 import ItemList from './itemList/ItemList'
@@ -27,12 +27,26 @@ injectGlobal`
     margin:0;
   }
 `
+const Loading = styled.div`
+    margin-top: 20%
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid black;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+`
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
     return (
      <Route {...rest} render={(props) => {
         const {isLoading, isLogined} = rest         
-        return isLoading ? <div>loading</div> : isLogined ?
+        return isLoading ? <Loading/> : isLogined ?
          <Component {...props} {...rest} />
          : <Redirect to ={{
              pathname: '/login',

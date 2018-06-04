@@ -1,5 +1,5 @@
 module.exports = `
-SELECT ic.id color_id, ic.itemHex hex, ic.itemPhoto photo, c.category2Name category,
+SELECT ic.id color_id, ic.itemHex hex, ic.itemPhoto item_photo, c.category2Name category,
   ic.itemColor color, b.brandName brand, i.itemName name, i.itemPrice price,
   i.itemVolume volume, ic.itemDate date, rate.total reviews, rate.avg avg 
 FROM itemColors ic, categories2 c, brands b, items i, wishLists w,

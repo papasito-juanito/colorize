@@ -8,6 +8,7 @@ import Login from '../user/Login'
 import {Redirect} from 'react-router-dom';
 import { Modal } from 'antd';
 import 'antd/dist/antd.css';
+import './WishList.css';
  
 import axios from 'axios';
 import { url } from '../../config';
@@ -52,7 +53,7 @@ const EmptyTitle = styled.div`
     @media (max-width: 510px) {
         font-size: 2.8rem
     }
-    @media (max-width: 375px) {
+    @media (max-width: 379px) {
         font-size: 2rem
     }
 `

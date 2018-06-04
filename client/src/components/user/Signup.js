@@ -5,6 +5,7 @@ import Dropdown from 'react-dropdown';
 // import 'react-dropdown/style.css';
 import { Modal, Button } from 'antd';
 import 'antd/dist/antd.css';
+import './Signup.css';
 
 import axios from 'axios';
 import { url } from '../../config';
@@ -24,6 +25,9 @@ const Container = styled.div`
     margin: 150px auto auto auto;
     @media (max-width: 768px) {
         margin-top: 100px;
+    }
+    @media (max-width: 414px) {
+        width: 90%;
     }
     @media (max-width: 375px) {
         margin-top: 100px;

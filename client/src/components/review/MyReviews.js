@@ -339,7 +339,8 @@ class MyReviews extends Component {
 
 
      const form = {
-       reviewPhoto : 3,
+      //  reviewPhoto : this.state.data.item_photo,
+      reviewPhoto : 3,
        reviewRating : this.state.rating,
        reviewMessage : this.modifyReview.value,
        review_id : this.state.data[e.target.id].review_id

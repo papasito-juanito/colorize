@@ -16,19 +16,30 @@ const customStyles = {
     }
 };
 
-const Div = styled.div`
-    width: 25%;
-    border: 1px solid #d9dee8;
+const Container = styled.div`
+    width: 20vw;
+    height: 100%;
+    border: 1px solid blue;
     display: flex;
     flex-direction: column;
-    background-color: white;
-    margin: 0 2% 0 0;
-    box-sizing: border-box; 
+`
+const FileButton = styled.input`
+    width: 100%;
+    color: transparent;
+    ::-webkit-file-upload-button {
+        background: black;
+        color: white;
+        height: 20px;
+        border: none;
+    }
 `
 const ImgDiv = styled.div`
-    height: 80%;
+    height: 100%;
     width: 100%;
     cursor: pointer;
+    border: 2px solid red;
+    object-fit: scale-down;
+    margin-bottom: -20px;
 `
 
 Modal.setAppElement('#root');
@@ -60,7 +71,8 @@ class FileUpload extends Component {
         reader.onload = () => {
             this.setState({
                 file: file,
-                imagepreviewUrl: reader.result
+                imagepreviewUrl: reader.result,
+                imageAddress : ''
             })
         }
 
@@ -81,15 +93,15 @@ class FileUpload extends Component {
 
     _fileUploadHandler(e) {
       //로그인 안되어있을때 사진올리는거 막기 
+
         const token = localStorage.getItem('token')
         const formData = new FormData();
-        formData.append('file', this.uploadInput.files[0]);
-        formData.append('filename', 123);
-        var mimeType = this.uploadInput.files[0].type.split('image/')[1];
+        formData.append('file', e.target.files[0]);
+        var mimeType = e.target.files[0].type.split('image/')[1];
         console.log(mimeType)
         
         mimeType === 'png' || mimeType === 'jpg' ?
-        axios.post(`${url}/api/review/post/upload`, formData, { headers: { 'token': token , color_id: 1} } )
+        axios.post(`${url}/api/review/post/upload`, formData, { headers: { 'token': token , id: this.props.id} } )
             // .then((response) => {
             // console.log(response);
             // })
@@ -118,27 +130,27 @@ class FileUpload extends Component {
 
 
     render() {
-        console.log(this.state.file)
-        console.log(this.state.imagepreviewUrl)
         let { imagepreviewUrl } = this.state;
         let $imagePreview = null;
         let popupImage = (<img src={imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
 
         this.state.imagepreviewUrl ? $imagePreview = (<img onClick={this._openPopup} src={imagepreviewUrl} style={{ height: '100%', width: '80%' }} alt='Yours' />) :
-            $imagePreview = (<div style={{textAlign:'center'}}> Please upload your Review Image </div>);
+            $imagePreview = (<div style={{textAlign:'center', position: 'relative', top: '50%', transform: 'translateY(-50%)'}}>리뷰 사진을 올려주세요</div>);
 
         return (
-            <Div>
-                <input style={{ width: '100%' }}
-                    type='file'
-                    ref={ref => { this.uploadInput = ref; }}
-                    accept = ".jpg, .png"
-                    onChange={(e) => { this._handleImageChange(e); this._fileUploadHandler(e) }} />
+            < Container >
+              
                     {/* <div style = {{height:'150px', width:'150px', border: '1px solid black'}}> <img src={require('../../assets/reviews/1528079528165images.jpeg')}/></div> */}
                     {/* <div style = {{height:'150px', width:'150px', border: '1px solid black'}}> <img src={require('../../assets/reviews/1528079528165images.jpeg')}/></div> */}
+
                 <ImgDiv>
                     {$imagePreview}
                 </ImgDiv>
+                <FileButton
+                    type='file'
+                    accept = ".jpg, .png"
+                    ref={ref => { this.uploadInput = ref; }}
+                    onChange={(e) => { this._handleImageChange(e); this._fileUploadHandler(e) }} />
                 <Modal
                     isOpen={this.state.popupIsOpen}
                     onAfterOpen={this._afterOpenPopup}
@@ -150,7 +162,7 @@ class FileUpload extends Component {
                     <div style={{ width: '50vh' }}>{popupImage}</div>
                     <button style={{ cursor: 'pointer' }} onClick={this._closePopup}>close</button>
                 </Modal>
-            </Div>
+            </Container>
         )
     }
 }

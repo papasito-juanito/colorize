@@ -95,7 +95,7 @@ const CancelButton = styled.button `
     text-align: center;
     opacity: 0.6;
     transition: 0.3s;
-    border: 1px solid #d9dee8;
+    border: n1px solid #d9dee8;
     &:hover {
         opacity: 1;
     }

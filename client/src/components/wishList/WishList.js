@@ -8,71 +8,13 @@ import Login from '../user/Login'
 import {Redirect} from 'react-router-dom';
 import { Modal } from 'antd';
 import 'antd/dist/antd.css';
-const confirm = Modal.confirm;
  
 import axios from 'axios';
 import { url } from '../../config';
 
 
-const PageWrapper = styled.div`
-    margin-top: 2%;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-`;
+const confirm = Modal.confirm;
 
-const ItemListContainer = styled.div` 
-    height: 100%;
-    width: 80%;
-    margin-top: 2%;
-    display: flex;
-    justify-content: center;
-`
-
-//가운데로 필요
-const Ul = styled.ul`
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    padding-left: 6%;
-    display: flex;
-    flex-wrap: wrap;
-`
-
-const Wrapper = styled.div`
-    position: relative;
-    margin: 1%;
-    width: 20%;
-    min-width: 15rem;
-    height: 25rem;
-    display:flex;
-    flex-direction: row;
-`
-
-const Li = styled.li`
-    background-color: #f1f1f1;
-    width: 100%;
-    margin-top: 15px
-    font-size: 30px;
-    list-style: none;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    &:hover {
-        box-shadow: 16px 16px 16px rgba(0,0,0,0.2);
-    }
-`
-
-const ItemTop = styled.div`
-    position: relative;
-    width: 100%;
-`
-const Img = styled.img`
-    height: 18rem;
-    width: 100%;
-    background-color: "white"
-`
 const Deletebtn = styled.button`
     position: absolute;
     border: none
@@ -82,53 +24,98 @@ const Deletebtn = styled.button`
     font-size: 1.5rem
     border-radius: 50%;
     transition: 0.5s;
-    &:hover {
-        background: black
-        cursor: pointer;
-        color:white
+    cursor: pointer
+`
+const Wrapper = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 70px;
+    @media (max-width: 768px) {
+        margin-top: 50px;
     }
-    &:active {
-        transform: translateY(4px);
+`;
+
+const Container = styled.ul`
+		width: 80%;
+    padding: 0;
+    // border: solid grey 1px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    margin: 0 -10px;
+`;
+
+const ItemLink = styled.div`
+    position: relative;
+    width: 17%;
+    max-width: 300px;
+    min-width: 225px;
+    max-height: 300px;
+    min-height: 300px;
+		margin: 0 10px;
+		margin-bottom: 20px;
+    @media (max-width: 250px) {
+				width: 90%;
+				min-width: 100px;
     }
-`
-
-const Color = styled.div`
-    position: absolute; 
-    top:10px
-    right: -5px;
-    border-style: solid;
-    border-width: 0 70px 70px 0;
-    border-color: transparent #${props=>props.color} transparent transparent;
-`
-
-const ItemBottom = styled(Link)`
-    marin:auto
-    height: 100px;
-    &:visited {
-        color: black;
-        text-decoration: none 
-    }  
-`
-const Brand = styled.div`
-    font-size:8px;
-    text-align: center
-`
+`;
+const Item = styled.li`
+    // border: solid red 1px;
+    width: 100%;
+    height: 100%;
+    font-size: 30px;
+    list-style: none;
+`;
+const Img = styled.img`
+    width: 100%;
+    height: 75%;
+		background-color: white;
+		object-fit: contain;
+		justify-content: center;
+		display: block;
+`;
+const Colorline = styled.div`
+		width: 100%;
+		height: 10px;
+		background-color: #${props => props.color};
+		margin-bottom: 5%;
+`;
+const ItemBottom = styled.div`
+		float: bottom;
+		width: 100%;
+		height: 25%;
+		display: block;
+`;
+const ItemDetails = styled.div`
+		width: 100%;
+		text-align: center;
+`;
 const ItemName = styled.div`
-    font-size:16px;
-    text-align: center
-`
-const Price = styled.div`
-    font-size: 14px;
-    text-align: center
-`
-
+	font-size: 43%;
+	text-overflow: scale;
+	color: black;
+	font-weight: bold;
+`;
+const Detail = styled.div`
+		font-size: 40%;
+		color: grey;
+`;
+const Brand = styled.span`
+		font-weight: bold;
+`;
 const Rating = styled.div`
-    font-size: 19px;
-    text-align: center
-`
+	font-size: 70%;
+`;
+const Stars = styled.span`
+	vertical-align: middle;
+`;
 const Review = styled.span`
-    font-size: 13px;
-`
+	font-size: 60%;
+	vertical-align: middle;
+	color: grey;
+	`;
 
 class WishList extends Component {
     constructor(props){
@@ -163,12 +150,14 @@ class WishList extends Component {
      showDeleteConfirm = (e) => {
         const form = {
             color_id: e.target.id
-        }        
+        }
+               
         confirm({
-          title: 'Are you sure delete this task?',
+          title: '선택한 아이템을 삭제 하시겠습니까?',
           okText: 'Yes',
           okType: 'danger',
           cancelText: 'No',
+
           onOk: ()=> {
             const token = localStorage.getItem('token') 
             axios.post(`${url}/api/wishlist/delete`, form, {headers: {'token': token}})
@@ -216,45 +205,80 @@ class WishList extends Component {
     render(){
         console.log('wishpropswishpropswishprops',this.props);
         return (
-            <PageWrapper>
-                <ItemListContainer >
-                <Ul>
-                    {this.state.items.map((item, i)=>{
-                        return (
-                            <Wrapper >
-                            <Li key={i}>
-                                <ItemTop >
-                                    <Link to={`/items/detail/${item.color_id}`} style={{ textDecoration: 'none' }}>
-                                    <Img src={item.photo}/>
-                                    </Link>
-                                   
-                                    {/* <Deletebtn onClick={this.deleteOne} id={item.color_id}>&times;</Deletebtn> */}
-                                    <Deletebtn id={item.color_id}  onClick={this.showDeleteConfirm} type="dashed">
-                                    &times;
-                                    </Deletebtn>
-                                </ItemTop >
-                                <ItemBottom to={`/items/detail/${item.color_id}`} style={{ textDecoration: 'none' }}>
-                                    <Brand>{item.brand}</Brand>
-                                    <ItemName>{item.name}, {item.volume}</ItemName>
-                                    <Price>{item.price}</Price>
-                                    <Rating>
-                                        <StarRatingComponent 
-                                            name="itemList" 
-                                            editing={false}
-                                            value={item.avg}
-                                        />, <Review>({item.reviews})</Review>
-                                    </Rating>
-                                </ItemBottom>
-                                </Li>
-                                <Color color={item.hex}/>
-                            </Wrapper>
-                        )
-                    })}
-                </Ul>
-              </ItemListContainer>
-            </PageWrapper>
+            <Wrapper>
+                Wishlist
+            <Container>
+            {this.state.items.map((item, i) => (
+              <ItemLink >
+                  <Item key={i}>
+                  <Link to={`/items/detail/${item.color_id}`} style={{ textDecoration: 'none' }}>
+                    <Img src={item.photo}/>
+                  </Link>  
+                    {/* <Deletebtn onClick={this.deleteOne} id={item.color_id}>&times;</Deletebtn> */}
+                        <Deletebtn id={item.color_id}  onClick={this.showDeleteConfirm} type="dashed">
+                         &times;
+                        </Deletebtn>
+                        <Colorline color={item.hex}/>
+                    <Link to={`/items/detail/${item.color_id}`} style={{ textDecoration: 'none' }}>
+                    <ItemBottom>
+                        <ItemDetails>
+                            <ItemName>{item.name}</ItemName>
+                            <Detail><Brand>{item.brand}</Brand> {item.volume} / {item.price}원</Detail>
+                            <Rating>
+                                    <Stars><StarRatingComponent
+                                    name="itemList"
+                                    editing={false}
+                                    value={item.avg}
+                                    /></Stars> <Review>({item.reviews})</Review>
+                            </Rating>
+                        </ItemDetails>
+                    </ItemBottom>
+                    </Link> 
+                    </Item>
+                </ItemLink>
+                ))}
+          </Container>
+          </Wrapper>
         );
     }
 };
 
 export default WishList;
+
+// <PageWrapper>
+// <ItemListContainer >
+// <Ul>
+//     {this.state.items.map((item, i)=>{
+//         return (
+//             <Wrapper >
+//             <Li key={i}>
+//                 <ItemTop >
+//                     <Link to={`/items/detail/${item.color_id}`} style={{ textDecoration: 'none' }}>
+//                     <Img src={item.photo}/>
+//                     </Link>
+                   
+//                     {/* <Deletebtn onClick={this.deleteOne} id={item.color_id}>&times;</Deletebtn> */}
+//                     <Deletebtn id={item.color_id}  onClick={this.showDeleteConfirm} type="dashed">
+//                     &times;
+//                     </Deletebtn>
+//                 </ItemTop >
+//                 <ItemBottom to={`/items/detail/${item.color_id}`} style={{ textDecoration: 'none' }}>
+//                     <Brand>{item.brand}</Brand>
+//                     <ItemName>{item.name}, {item.volume}</ItemName>
+//                     <Price>{item.price}</Price>
+//                     <Rating>
+//                         <StarRatingComponent 
+//                             name="itemList" 
+//                             editing={false}
+//                             value={item.avg}
+//                         />, <Review>({item.reviews})</Review>
+//                     </Rating>
+//                 </ItemBottom>
+//                 </Li>
+//                 <Color color={item.hex}/>
+//             </Wrapper>
+//         )
+//     })}
+// </Ul>
+// </ItemListContainer>
+// </PageWrapper>

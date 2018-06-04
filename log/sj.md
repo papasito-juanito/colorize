@@ -20,6 +20,7 @@ forever 설치함
 port 80으로 바꿈.
 
 git으로 변경사항 받을 때...
+***sudo su***
 1. forever stop 0
 2. git pull (colorize)
 3. rm -r static (colorize/client/build)

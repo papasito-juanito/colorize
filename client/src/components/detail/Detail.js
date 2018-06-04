@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React, {Component} from 'react';
-import DetailLeft from './DetailLeft';
-import DetailRight from './DetailRight';
+import Image from './Image';
+import ItemDetail from './ItemDetail';
 import AllReview from './AllReview';
 import styled, { ThemeProvider } from 'styled-components';
 import Comment from './Comment';
@@ -10,25 +10,38 @@ import TopReview from './TopReview';
 import axios from 'axios';
 import { url } from '../../config';
 
-
-
-const Wrapper = styled.div`
-    margin : 6% auto 2% auto;
-    width: 80vw;
-    height: 50vh;
-    display: flex;
-    background-color: #F4F5F9;
+const Container = styled.div`
+	@media (max-width: 768px) {
+			margin-top: 80px;
+			display: block;
+	}
+	margin: 100px 10% 0 10%;
+	align-items: center;
 `
-const Div = styled.div`
-    margin: auto auto 2% auto ;
-    width: 80vw;
-    height: 30vh;
+const TopDetail = styled.div`
+	height: 30vw;
+	display: flex;
+	background-color: #F4F5F9;
+	display: flex;
+	@media (max-width: 768px) {
+		flex-direction: column;
+	}
+`
+const Write = styled.div`
+    margin: 20px auto 2% auto ;
+    // height: 24vw;
+		border: solid lightblue 2px;
+		@media (max-width: 768px) {
+			display: none;
+	}
 `
 
 const ReviewDiv = styled.div`
      margin: auto auto 2% auto ;
-     heigth: 100%;
-     width: 80vw;
+		 heigth: 100%;
+		 @media (max-width: 768px) {
+			display: none;
+	}
 `
 
 const HomeButton = styled.button`
@@ -115,6 +128,7 @@ class Detail extends Component {
         .catch(err => console.log(err));
 
     }
+    
 
     
     componentDidMount(){
@@ -140,14 +154,14 @@ class Detail extends Component {
         const {handleLogout} = this.props
         console.log('login stsate :', this.props.isLogined)
         return (
-            <div style={{ backgroundColor:'#F4F5F9', padding:'1% 0 1% 0', fontFamily: "Nanum Gothic"}}>
-                <Wrapper>
-                    <DetailLeft data={this.state.data}  changeWish={this._clickToWish}/>
-                    <DetailRight data={this.state.data} id = {this.props.match.params.id}/>
-                </Wrapper>
-                <Div>
+            <Container>
+                <TopDetail>
+                    <Image data={this.state.data}  changeWish={this._clickToWish}/>
+                    <ItemDetail data={this.state.data} id = {this.props.match.params.id}/>
+                </TopDetail>
+                <Write>
                     <Comment isLogined={this.props.isLogined} handleLogout={this.props.handleLogout} loginState={loginState} id={this.props.match.params.id}/>
-                </Div>
+                </Write>
                 <ReviewDiv>
                     <TopReview id={this.props.match.params.id} />
                 </ReviewDiv>
@@ -155,7 +169,7 @@ class Detail extends Component {
                     {loginState ? <AllReview handleLogout={handleLogout} id={this.props.match.params.id}/> : <div><h2>리뷰를 보시려면 로그인 해주세요 </h2></div>}
                 </ReviewDiv>
                 <HomeButton onClick={this.scrollToTop}><Arrow/><br/> Top </HomeButton>
-        </div>
+        </Container>
         )
     }
 }

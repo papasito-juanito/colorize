@@ -1,12 +1,18 @@
+require('dotenv').load();
+
 module.exports = {
-  multerConfig: {
-    dest: 'client/src/assets/reviews',
-    filename: 'file',
+  multerReview: {
+    destination: 'client/src/assets/reviews',
+    filename: (req, file, cb) => {
+      cb(null, `${new Date().valueOf()}_${file.originalname}`);
+    },
   },
-  multerS3Config: {
-    accessKeyID: 'AKIAJHAOFQZPM5DDGSQA',
-    secretAccessKey: '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',
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    region: process.env.AWS_REGION,
   },
+  bucket: process.env.S3_BUCKET,
   express: {
     port: 8080,
   },

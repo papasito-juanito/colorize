@@ -127,7 +127,8 @@ class FileUpload extends Component {
                     type='file'
                     ref={ref => { this.uploadInput = ref; }}
                     onChange={(e) => { this._handleImageChange(e); this._fileUploadHandler(e) }} />
-                    <div style = {{height:'150px', width:'150px', border: '1px solid black'}}> <img src={require('../../assets/reviews/2214a465160945280f9d70ad975c9f59')}/></div>
+                    {/* <div style = {{height:'150px', width:'150px', border: '1px solid black'}}> <img src={require('../../assets/reviews/1528079528165images.jpeg')}/></div> */}
+                    {/* <div style = {{height:'150px', width:'150px', border: '1px solid black'}}> <img src={require('../../assets/reviews/1528079528165images.jpeg')}/></div> */}
                 <ImgDiv>
                     {$imagePreview}
                 </ImgDiv>

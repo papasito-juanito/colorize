@@ -342,7 +342,7 @@ class MyInfo extends Component {
     _submit(){
       const token = localStorage.getItem('token')
       const form = {
-        userPassword : this.newPassword.value || '', 
+        userPassword : this.newPassword.value || undefined, 
         userName : this.nickname.value, 
         userPhoto : 3,
         toneName : this.state.colorSelected || this.state.data.tone
@@ -427,8 +427,9 @@ class MyInfo extends Component {
                   <tr><td colspan='2'>비밀번호는 5-10자 이내로 설정해주세요.</td></tr>
                   <tr>
                     <InTH>현재 비밀번호</InTH>
-                    <td><input onBlur={this._passwordCompare} ref={ref => { this.password = ref; }}type='password'/></td>
-                    {this.state.confirmPassword  === false && this.password ? <div> 비밀번호를 확인해주세요</div> : !this.password ? null : <div>Ok</div>}
+                    <td><input onChange={this._passwordCompare} ref={ref => { this.password = ref; }}type='password'/></td>
+                    {this.state.confirmPassword  === true  ? <div>Ok</div> : this.state.confirmPassword === false && this.password.value ? <div>비밀번호 확인</div>:null}
+                    {/* {this.state.confirmPassword  === false && this.password ? <div> 비밀번호를 확인해주세요</div> : !this.password ? null : <div>Ok</div>} */}
                   </tr>
                   <tr>
                     <InTH>신규 비밀번호</InTH>

@@ -53,6 +53,7 @@ class DetailLeft extends Component {
     }
 
     render(){
+        
         return (
             <Div>
                 <ImageDiv >

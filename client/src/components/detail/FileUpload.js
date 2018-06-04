@@ -80,11 +80,12 @@ class FileUpload extends Component {
     }
 
     _fileUploadHandler(e) {
-      
+      //로그인 안되어있을때 사진올리는거 막기 
         const token = localStorage.getItem('token')
         const formData = new FormData();
         formData.append('file', this.uploadInput.files[0]);
-        formData.append('filename', `${this.props.id}_`);
+        // formData.append('filename', `${this.props.id}_`);
+        formData.append('filename', ``);
 
         
         axios.post(`${url}/api/upload`, formData, { headers: { 'token': token } } )

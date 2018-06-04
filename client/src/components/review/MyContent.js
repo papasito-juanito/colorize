@@ -10,7 +10,7 @@ import { url } from '../../config';
 import male from '../../assets/male.png';
 import female from '../../assets/female.png';
 
-const customStyles = {
+const customStyles = {  
     content: {
         top: '50%',
         left: '50%',
@@ -198,72 +198,72 @@ class MyContent extends Component {
     }
 
 
-    _reviewCancel(){
-        let reviewMessage = this.state.message
-        this.modifyReview.value = reviewMessage
-        this.setState({
-            editing: !this.state.editing
-        })
-    }
+        _reviewCancel(){
+            let reviewMessage = this.state.message
+            this.modifyReview.value = reviewMessage
+            this.setState({
+                editing: !this.state.editing
+            })
+        }
 
-    _openPopup(e) {
-        this.setState({
-            popupIsOpen: true,
-            imagepreviewUrl: e.target.src
-        })
-    }
+        _openPopup(e) {
+            this.setState({
+                popupIsOpen: true,
+                imagepreviewUrl: e.target.src
+            })
+        }
 
-    _afterOpenPopup() {
-        this.subtitle.style.color = '#f00';
-    }
+        _afterOpenPopup() {
+            this.subtitle.style.color = '#f00';
+        }
 
-    _closePopup() {
-        this.setState({ popupIsOpen: false });
-    }
+        _closePopup() {
+            this.setState({ popupIsOpen: false });
+        }
 
-    // componentDidMount() {
-    //     const token = localStorage.getItem('token')
-    //     console.log(1)
-    //     axios.get(`${url}/api/review/get/info?color_id=${this.props.id}`, { headers: { 'token': token } })
-    //         .then(response =>{
-    //           console.log(response)
-    //           this.setState({data: response})
-    //         }
-    //         )
-    //         .catch(err => console.log(err))
-    // }
+        // componentDidMount() {
+        //     const token = localStorage.getItem('token')
+        //     console.log(1)
+        //     axios.get(`${url}/api/review/get/info?color_id=${this.props.id}`, { headers: { 'token': token } })
+        //         .then(response =>{
+        //           console.log(response)
+        //           this.setState({data: response})
+        //         }
+        //         )
+        //         .catch(err => console.log(err))
+        // }
 
-    render() {
-        console.log(this.props.id)
+        render() {
+        console.log(this.props.user)
         let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
             return (
                 <div style={{width: '100%'}}> 
-                  <div style ={{width: '100%', height:'20%'}}>Your Review <div style={{width:'100%', border:'2px solid #ccc'}}></div></div>
+                  <div style ={{width: '100%', height:'20%z'}}>Your Review <div style={{width:'100%', border:'2px solid #ccc'}}></div></div>
                     <Container>
                         <ReviewImage onClick={this._openPopup} src={lip} />
                         <Info >
                             <UserDiv > <img alt='user' /></UserDiv>
                             <div style={{boxSizing:'border-box', margin:'8% 0 0 0'}}>
-                            <div>{this.props.user.rows[0].name} <img style={{width: '8%', height:'8%'}} src = {this.props.user.rows[0].gender === 'male'? male : female}/></div>
-                                <div>{this.props.user.rows[0].age}, {this.props.user.rows[0].tone}<br/></div>
+                            <div>{this.props.user.name} <img style={{width: '8%', height:'8%'}} src = {this.props.user.gender === 'male'? male : female}/></div>
+                                <div>{this.props.user.age}, {this.props.user.tone}<br/></div>
                             <div>
                                 <StarRatingComponent
                                     name="rate2"
                                     editing={false}
-                                    value={this.props.user.rows[0].rating}
-                                    // value = {this.props.user.rows[0].rating}
+                                    value={this.props.user.rating}
+                                    // value = {this.props.user.rating}
                                 />
                             </div>
                             </div>
                         </Info >
                         <ReviewContent >
                             <div style={{ textAlign: 'center' }}>
-                            <Bubble> <Message readOnly>{this.props.user.rows[0].message}</Message></Bubble>
+                            <Bubble> <Message readOnly>{this.props.user.message}</Message></Bubble>
                             </div>
                             <BottomContainer >
                                 <LikeCount>
                                     <Like src={like} />
-                                {this.props.user.rows[0].likes}
+                                {this.props.user.likes}
                                 </LikeCount>
                             </BottomContainer>
                         </ReviewContent >

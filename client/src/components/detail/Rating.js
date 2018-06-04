@@ -84,7 +84,7 @@ class Rating extends Component {
         }
 
         // console.log(form)
-        this.props.info.success === false ? alert('로그인이 필요한 서비스 입니다.') :
+        this.props.loginState === false ? (alert('로그인이 필요한 서비스 입니다.'), this.props.handleLogout()) :
             axios.post(`${url}/api/review/post/message`, form, { headers: { 'token': token } })
                 .then((response) => {
                 console.log(response);
@@ -96,10 +96,13 @@ class Rating extends Component {
     }
 
     _alertReview() {
-         this.props.info.success === true ? alert('후기가 등록되었습니다') : null;
+         this.props.loginState === true ? alert('후기가 등록되었습니다') : null;
     }
 
     render() {
+        console.log('this.props.info.success :', this.props.info.success)
+        console.log('this.props.handleLogout :', this.props.handleLogout)
+        console.log('this.props.loginState :', this.props.loginState)
         const { rating } = this.state;
         return (
             <Wrapper>

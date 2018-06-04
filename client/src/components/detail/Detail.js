@@ -101,11 +101,16 @@ class Detail extends Component {
 
     axios.post(`${url}/api/wishlist/update`, form, { headers: {'token': token}})
         .then((response) => {
+             if (response.data.success === true) {
             return axios.get(`${url}/api/item/get/detail?color_id=${this.props.match.params.id}`,{headers : {'token': token}})
                 .then(response => {
                     this.setState({data : response.data.rows})
                     })
                     .catch(err => console.log(err))
+                } else {
+                    alert('로그인 후 이용해 주세요 ')
+                      this.props.handleLogout()
+                }
         })
         .catch(err => console.log(err));
 
@@ -116,8 +121,12 @@ class Detail extends Component {
     const token = localStorage.getItem('token')
         axios.get(`${url}/api/item/get/detail?color_id=${this.props.match.params.id}`,{headers : {'token': token}})
           .then(response => {
+               if (response.data.success === true) {
               console.log(response.data.rows)
             this.setState({data : response.data.rows})
+               } else {
+                     this.props.handleLogout()
+               }
           })
           .catch(err => console.log(err))
     }    
@@ -137,7 +146,7 @@ class Detail extends Component {
                     <DetailRight data={this.state.data} id = {this.props.match.params.id}/>
                 </Wrapper>
                 <Div>
-                    <Comment loginState={loginState} id={this.props.match.params.id}/>
+                    <Comment isLogined={this.props.isLogined} handleLogout={this.props.handleLogout} loginState={loginState} id={this.props.match.params.id}/>
                 </Div>
                 <ReviewDiv>
                     <TopReview id={this.props.match.params.id} />

@@ -13,7 +13,9 @@ module.exports = (req, res) => {
   const upload = multer({
     storage: multerS3({
       s3,
-      bucket,
+      bucket: (req.headers.id)
+        ? `${bucket}/${req.originalUrl.split('/')[2]}/${req.headers.id}`
+        : `${bucket}/${req.originalUrl.split('/')[2]}/${req.user_id}`,
       acl: 'public-read',
       cacheControl: 'max-age=31536000',
       contentType: multerS3.AUTO_CONTENT_TYPE,

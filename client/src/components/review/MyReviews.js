@@ -339,7 +339,8 @@ class MyReviews extends Component {
 
 
      const form = {
-       reviewPhoto : 3,
+      //  reviewPhoto : this.state.data.item_photo,
+      reviewPhoto : 3,
        reviewRating : this.state.rating,
        reviewMessage : this.modifyReview.value,
        review_id : this.state.data[e.target.id].review_id
@@ -494,7 +495,7 @@ class MyReviews extends Component {
              <LinkDiv> <Link to={`/items/detail/${item.color_id}`} style={{ textDecoration: 'none' }}><ReviewImage src={item.item_photo} /> </Link></LinkDiv>
                 <MyImageDiv>
                 {/* <DeleteImage onClick={this._clickDelete}>X</DeleteImage> */}
-                <MyImage onClick={this._openPopup} src ={like}  />
+                <MyImage onClick={this._openPopup} src ={item.review_photo}  />
               </MyImageDiv>
               <Info >
                 <div>{item.brand}</div>

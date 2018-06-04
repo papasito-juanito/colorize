@@ -91,6 +91,21 @@ const UserDiv = styled.div`
     height: 30%;
     border-radius:50%;
 `
+
+const Loading = styled.div `
+    margin-top: 2%
+    border: 8px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 8px solid black;
+    width: 60px;
+    height: 60px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+`
 const Bubble = styled.div`
 position: relative;
 width: 98%;
@@ -165,10 +180,10 @@ class AllContent extends Component {
         axios.post(`${url}/api/review/update/like`,form, { headers: { 'token': token } })
             .then((res) => {
                 return axios.get(`${url}/api/review/get/list?color_id=${this.props.id}`, { headers: { 'token': token } })
-                .then(response => 
+                .then(response => {
                     // console.log(response)
                     this.setState({ data: response.data.rows })
-                )
+                })
                 .catch(err => console.log(err))
                 }
             )
@@ -233,6 +248,7 @@ class AllContent extends Component {
     }
 
     _loadMoreItems() {
+        console.log(3)
         this.state.items !== this.props.data.length ? this.setState({ loadingState: true }) : null;
             setTimeout( () => {
                 this.setState({items: this.state.items + 2, loadingState: false });
@@ -241,8 +257,13 @@ class AllContent extends Component {
 
      
     componentDidMount() {
+        console.log(1)
+        console.log('document.body.scrollTop :', document.body.scrollTop)
+        console.log('document.body.clientHeight :', document.body.clientHeight)
+        console.log('document.body.scrollHeight :', document.body.scrollHeight)
+
         this.state.items !== this.props.data.length ? window.addEventListener("scroll", () => {  
-            if (document.body.scrollTop + document.body.clientHeight >= document.body.scrollHeight ){
+            if (document.body.scrollTop + document.body.clientHeight <= document.body.scrollHeight ){
              this._loadMoreItems() 
             }
         }) : window.removeEventListener("scroll", this._loadMoreItems());
@@ -250,6 +271,7 @@ class AllContent extends Component {
     }
 
     componentWillUpdate(nextProps, nextState){
+        console.log(2)
         if(nextState.items> this.props.data.length)  {
             return nextState.items = this.props.data.length;
         }
@@ -257,6 +279,7 @@ class AllContent extends Component {
 
     render() {
         console.log(this.props.data)
+        console.log(this.state.items)
         // console.log('카운팅@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ :', count++)
         // console.log('after state :',this.state.data)
         let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
@@ -264,7 +287,7 @@ class AllContent extends Component {
         return (
             <div style={{ width: '100%'}} ref ='iScroll' >
                 {this._displayItems()}
-                {this.state.loadingState ? <p className="loading"> loading More Items..</p> : ""}
+                {this.state.loadingState ? <div style={{width:'100%',  display: 'flex', justifyContent: 'center'}}><Loading/></div>: ""}
 
                 <Modal
                     isOpen={this.state.popupIsOpen}

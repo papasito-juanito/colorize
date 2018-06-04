@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import Dropdown from 'react-dropdown';
 // import 'react-dropdown/style.css';
+import { Modal, Button } from 'antd';
+import 'antd/dist/antd.css';
 
 import axios from 'axios';
 import { url } from '../../config';
@@ -11,19 +13,26 @@ import validator from 'validator';
 import history from '../../utils/history'
 
 const Container = styled.div`
-    width : 60vw;
+    padding: 5% 0 5% 0
     display: flex;
     flex-direction: column
     align-item: stretch;
     margin: 10% auto;
     font-family: Nanum Gothic;
     border: 1px solid black;
+    width: 70%;
+    margin: 150px auto auto auto;
+    @media (max-width: 768px) {
+        margin-top: 100px;
+    }
+    @media (max-width: 375px) {
+        margin-top: 100px;
+    }
+    @media (max-width: 320px) {
+        margin-top: 100px;
+    }
 `
 const SignupContainer = styled.div`
-    width : 40vw;
-    margin: 0 auto;
-    position: relative;
-
     .Dropdown-control {
         margin: 5px 0 20px 0;
         font-size: 0.8rem;
@@ -33,6 +42,36 @@ const SignupContainer = styled.div`
         font-size: 0.8rem;
     }
 `
+
+const SignupTop = styled.div`
+    display:flex;
+    flex-direction: column
+    width: 100%
+`
+
+const SignupText = styled.div`
+
+    font-size: 3rem;
+    font-family: Roboto;
+    font-weight: 100
+    text-align: center;
+    @media (max-width: 570px) {
+        font-size: 2rem;
+    }
+    @media (max-width: 460px) {
+        font-size: 1.8rem;
+    }
+    @media (max-width: 418px) {
+        font-size: 1.6rem;
+    }
+`
+
+const SignupBottom = styled.div`
+    height: 80%;
+    width: 70%
+    margin:20px auto;
+`
+
 const BdayInput = styled.input`
     margin: 5px 0 20px 0;
     border: 0.5px solid black;
@@ -100,23 +139,14 @@ const Signupbtn = styled.div`
     font-size: 1.5em;
     font-family: 'Roboto';
     font-weight: 300;
+    @media (max-width: 519px) {
+        font-size: 1.3em;
+    }
     &:hover {
         text-shadow: 0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F;
         // text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0080, 0 0 30px #ff0080, 0 0 40px #ff0080, 0 0 55px #ff0080, 0 0 75px #ff0080;
       }  
       
-`
-
-const Bottom = styled.div`
-    bottom: 0px
-    height: auto
-    margin-bottom: 10%
-`
-
-const BttomImg = styled.img`
-    width: auto; 
-    height: auto;
-    max-width: 100%;
 `
 
 const Confirm = styled.span`
@@ -149,6 +179,13 @@ class Signup extends Component {
         }
     }
 
+     error() {
+        Modal.error({
+          title: '로그인 에러',
+          content: '모든 항목을 입력해 주세요',
+        });
+      }
+
     onSubmit = () => {
         const form = {
             userMail:  this.email.value,
@@ -163,7 +200,7 @@ class Signup extends Component {
         console.log('birthdate', birthDate.slice(0,4));
         
         if(!(userMail && userPassword && userName && birthDate && gender && toneName)){
-            alert("모든 항목을 입력 해 주세요")
+            this.error()
         } else {
             if(!validator.isEmail(userMail)){
                 document.getElementById('email').style.display = "inline-block"
@@ -290,14 +327,14 @@ class Signup extends Component {
         { value: '모르겠어요', label: '모르겠어요' },
         {
             type: 'group', items: [
-                { value: '쿨톤', label: '쿨톤' },
+                { value: 'Cool', label: 'Cool' },
                 { value: 'Summer', label: 'Summer' },
                 { value: 'Winter', label: 'Winter' }
             ]
         },
         {
             type: 'group', items: [
-                { value: '웜톤', label: '웜톤' },
+                { value: 'Warm', label: 'Warm' },
                 { value: 'Spring', label: 'Spring' },
                 { value: 'Fall', label: 'Fall' }
             ]
@@ -319,7 +356,10 @@ class Signup extends Component {
         return (
             <Container>
                 <SignupContainer>
-                    <div  style={{fontFamily: 'Roboto', fontSize: 50, fontWeight: 100, textAlign: 'center', margin: '30px 0 20px 0'}}>Sign Up</div>
+                    <SignupTop>
+                    <SignupText>Colorize yourself</SignupText>
+                    </SignupTop>
+                    <SignupBottom>
                     이메일 주소<span style={{display: 'none', marginLeft: '10px'}} id='email'>{this.state.isExist ? this.state.isExist : '이메일틀림'}</span><br/>
                     <Input 
                     onChange={this.onChangeEmail.bind(this)} innerRef={ref => { this.email = ref; }} placeholder="abc@email.com"/> 
@@ -345,12 +385,11 @@ class Signup extends Component {
                     {/* <input name="gender" onChange={this.onSelectedGender.bind(this)} type="radio" value="female"/> 여자 
                     <input name="gender" onChange={this.onSelectedGender.bind(this)} type="radio" value="male"/> 남자 */}
                     피부톤<br/>
-                    <Dropdown options={this.colorOptions} onChange={this.onColorSelect.bind(this)} placeholder="쿨톤, 웜톤, 혹은 세분화된 계절을 선택해주세요"
+                    <Dropdown options={this.colorOptions} onChange={this.onColorSelect.bind(this)} placeholder="피부톤을 선택해주세요"
                     value={this.state.colorSelected} />
-                        <Signupbtn onClick={this.onSubmit}>Colorize yourself</Signupbtn>
+                        <Signupbtn onClick={this.onSubmit}>Signup</Signupbtn>
+                    </SignupBottom>
                 </SignupContainer>
-                <Bottom>
-                </Bottom> 
             </Container>
         )
     }

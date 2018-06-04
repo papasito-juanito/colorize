@@ -7,6 +7,7 @@ import StarRatingComponent from 'react-star-rating-component';
 import like from '../../assets/reviewLike.png';
 import Modal from 'react-modal';
 import { Link } from 'react-router-dom';
+import 'antd/dist/antd.css';
 
 
 const Wrapper = styled.div`
@@ -244,6 +245,8 @@ const customStyles = {
     zIndex: 5
   }
 };
+
+const confirm = Modal.confirm;
 
 Modal.setAppElement('#root');
 const scrollStepInPx = 50;

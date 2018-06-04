@@ -491,7 +491,7 @@ class MyReviews extends Component {
         {this.state.data.length ? this.state.data.map((item, i) => {
           return (
             <Container key={i}>           
-             <LinkDiv> <Link to={`/items/detail/${item.color_id}`} style={{ textDecoration: 'none' }}><ReviewImage src={item.photo} /> </Link></LinkDiv>
+             <LinkDiv> <Link to={`/items/detail/${item.color_id}`} style={{ textDecoration: 'none' }}><ReviewImage src={item.item_photo} /> </Link></LinkDiv>
                 <MyImageDiv>
                 {/* <DeleteImage onClick={this._clickDelete}>X</DeleteImage> */}
                 <MyImage onClick={this._openPopup} src ={like}  />

@@ -28,11 +28,12 @@ injectGlobal`
   }
 `
 const Loading = styled.div`
-    margin-top: 20%
+    margin-top: 22%;
+    margin-left:46%;
     border: 16px solid #f3f3f3;
     border-radius: 50%;
     border-top: 16px solid black;
-    width: 120px;
+    width: 120px
     height: 120px;
     -webkit-animation: spin 2s linear infinite; /* Safari */
     animation: spin 2s linear infinite;

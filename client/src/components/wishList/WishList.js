@@ -6,9 +6,13 @@ import StarRatingComponent from 'react-star-rating-component';
 import { Link } from 'react-router-dom';
 import Login from '../user/Login'
 import {Redirect} from 'react-router-dom';
-
+import { Modal } from 'antd';
+import 'antd/dist/antd.css';
+const confirm = Modal.confirm;
+ 
 import axios from 'axios';
 import { url } from '../../config';
+
 
 const PageWrapper = styled.div`
     margin-top: 2%;
@@ -144,11 +148,9 @@ class WishList extends Component {
             .then((response) => {
                 console.log('delete', response);
                 console.log(token);
-                
                 axios.get(`${url}/api/wishlist/get/list`, {headers: {'token': token}})
                 .then((response) => {
                     console.log('rerererere', response);
-                    
                     this.setState({
                         items: response.data.rows
                     })
@@ -156,6 +158,40 @@ class WishList extends Component {
               })
         console.log(e.target.id);    
     }
+
+
+     showDeleteConfirm = (e) => {
+        const form = {
+            color_id: e.target.id
+        }        
+        confirm({
+          title: 'Are you sure delete this task?',
+          okText: 'Yes',
+          okType: 'danger',
+          cancelText: 'No',
+          onOk: ()=> {
+            const token = localStorage.getItem('token') 
+            axios.post(`${url}/api/wishlist/delete`, form, {headers: {'token': token}})
+                .then((response) => {
+                    console.log('delete', response);
+                    console.log(token);
+                    axios.get(`${url}/api/wishlist/get/list`, {headers: {'token': token}})
+                    .then((response) => {
+                        console.log('rerererere', response);
+                        this.setState({
+                            items: response.data.rows
+                        })
+                      })
+                  })
+            console.log('ok');
+            
+          },
+          onCancel() {
+            console.log('Cancel');
+          },
+        });
+      }
+      
 
     componentDidMount(){ 
         const token = localStorage.getItem('token')  
@@ -191,7 +227,11 @@ class WishList extends Component {
                                     <Link to={`/items/detail/${item.color_id}`} style={{ textDecoration: 'none' }}>
                                     <Img src={item.photo}/>
                                     </Link>
-                                    <Deletebtn onClick={this.deleteOne} id={item.color_id}>&times;</Deletebtn>
+                                   
+                                    {/* <Deletebtn onClick={this.deleteOne} id={item.color_id}>&times;</Deletebtn> */}
+                                    <Deletebtn id={item.color_id}  onClick={this.showDeleteConfirm} type="dashed">
+                                    &times;
+                                    </Deletebtn>
                                 </ItemTop >
                                 <ItemBottom to={`/items/detail/${item.color_id}`} style={{ textDecoration: 'none' }}>
                                     <Brand>{item.brand}</Brand>

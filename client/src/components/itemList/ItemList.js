@@ -204,7 +204,7 @@ class ItemList extends Component {
                 break;
         }
     }
-    // reviews_DESC
+ 
     render(){
         console.log(this.props.location);
         console.log('itemsitemsitemsitems', this.state.item);

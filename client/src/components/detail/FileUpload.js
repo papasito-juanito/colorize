@@ -25,7 +25,13 @@ const Container = styled.div`
 `
 const FileButton = styled.input`
     width: 100%;
-    height: 30px;
+    color: transparent;
+    ::-webkit-file-upload-button {
+        background: black;
+        color: white;
+        height: 20px;
+        border: none;
+    }
 `
 const ImgDiv = styled.div`
     height: 100%;
@@ -33,7 +39,7 @@ const ImgDiv = styled.div`
     cursor: pointer;
     border: 2px solid red;
     object-fit: scale-down;
-    margin-bottom: -30px;
+    margin-bottom: -20px;
 `
 
 Modal.setAppElement('#root');
@@ -86,16 +92,20 @@ class FileUpload extends Component {
 
     _fileUploadHandler(e) {
       //로그인 안되어있을때 사진올리는거 막기 
+
         const token = localStorage.getItem('token')
         const formData = new FormData();
-        formData.append('file', this.uploadInput.files[0]);
-        
+        // console.log(e.target.files[0])
+        formData.append('file', e.target.files[0]);
+ 
         axios.post(`${url}/api/review/post/upload`, formData, { headers: { 'token': token } } )
             // .then((response) => {
             // console.log(response);
             // })
-            .then(response => 
+            .then(response => {
                 console.log(response)
+                this.props.callback(response.data.message)
+            }
                 // this.setState({ imageURL: `${url}/${response.data.file}` })
             )
             .catch(err => console.log(err))
@@ -117,14 +127,13 @@ class FileUpload extends Component {
 
 
     render() {
-        console.log(this.state.file)
-        console.log(this.state.imagepreviewUrl)
+ 
         let { imagepreviewUrl } = this.state;
         let $imagePreview = null;
         let popupImage = (<img src={imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
 
         this.state.imagepreviewUrl ? $imagePreview = (<img onClick={this._openPopup} src={imagepreviewUrl} style={{ height: '100%', width: '80%' }} alt='Yours' />) :
-            $imagePreview = (<div style={{textAlign:'center', marginTop: '40px'}}>리뷰 사진을 올려주세요</div>);
+            $imagePreview = (<div style={{textAlign:'center', position: 'relative', top: '50%', transform: 'translateY(-50%)'}}>리뷰 사진을 올려주세요</div>);
 
         return (
             <Container>
@@ -137,7 +146,6 @@ class FileUpload extends Component {
                 </ImgDiv>
                 <FileButton
                     type='file'
-                    style={{color: 'transparent'}}
                     ref={ref => { this.uploadInput = ref; }}
                     onChange={(e) => { this._handleImageChange(e); this._fileUploadHandler(e) }} />
                 <Modal

@@ -1,6 +1,6 @@
 module.exports = {
-  price_DESC:`
-SELECT ic.id color_id, ic.itemHex hex, ic.itemPhoto photo, c.category2Name category,
+  price_DESC: `
+SELECT ic.id color_id, ic.itemHex hex, ic.itemPhoto item_photo, c.category2Name category,
   ic.itemColor color, b.brandName brand, i.itemName name, i.itemPrice price,
   i.itemVolume volume, ic.itemDate date, rate.total reviews, rate.avg avg 
 FROM itemColors ic, categories2 c, brands b, items i,
@@ -12,8 +12,8 @@ FROM itemColors ic, categories2 c, brands b, items i,
 WHERE i.itemToggle='true' AND ic.colorToggle='true' AND
   c.id=i.categories2_id AND b.id=i.brands_id AND i.id=ic.items_id AND
   ic.id=rate.color_id AND ic.id IN (?) ORDER BY price DESC;`,
-  price_ASC:`
-SELECT ic.id color_id, ic.itemHex hex, ic.itemPhoto photo, c.category2Name category,
+  price_ASC: `
+SELECT ic.id color_id, ic.itemHex hex, ic.itemPhoto item_photo, c.category2Name category,
   ic.itemColor color, b.brandName brand, i.itemName name, i.itemPrice price,
   i.itemVolume volume, ic.itemDate date, rate.total reviews, rate.avg avg 
 FROM itemColors ic, categories2 c, brands b, items i,
@@ -25,8 +25,8 @@ FROM itemColors ic, categories2 c, brands b, items i,
 WHERE i.itemToggle='true' AND ic.colorToggle='true' AND
   c.id=i.categories2_id AND b.id=i.brands_id AND i.id=ic.items_id AND
   ic.id=rate.color_id AND ic.id IN (?) ORDER BY price ASC;`,
-  avg_DESC:`
-SELECT ic.id color_id, ic.itemHex hex, ic.itemPhoto photo, c.category2Name category,
+  avg_DESC: `
+SELECT ic.id color_id, ic.itemHex hex, ic.itemPhoto item_photo, c.category2Name category,
   ic.itemColor color, b.brandName brand, i.itemName name, i.itemPrice price,
   i.itemVolume volume, ic.itemDate date, rate.total reviews, rate.avg avg 
 FROM itemColors ic, categories2 c, brands b, items i,
@@ -38,8 +38,8 @@ FROM itemColors ic, categories2 c, brands b, items i,
 WHERE i.itemToggle='true' AND ic.colorToggle='true' AND
   c.id=i.categories2_id AND b.id=i.brands_id AND i.id=ic.items_id AND
   ic.id=rate.color_id AND ic.id IN (?) ORDER BY avg DESC;`,
-  date_DESC:`
-SELECT ic.id color_id, ic.itemHex hex, ic.itemPhoto photo, c.category2Name category,
+  date_DESC: `
+SELECT ic.id color_id, ic.itemHex hex, ic.itemPhoto item_photo, c.category2Name category,
   ic.itemColor color, b.brandName brand, i.itemName name, i.itemPrice price,
   i.itemVolume volume, ic.itemDate date, rate.total reviews, rate.avg avg 
 FROM itemColors ic, categories2 c, brands b, items i,
@@ -51,8 +51,8 @@ FROM itemColors ic, categories2 c, brands b, items i,
 WHERE i.itemToggle='true' AND ic.colorToggle='true' AND
   c.id=i.categories2_id AND b.id=i.brands_id AND i.id=ic.items_id AND
   ic.id=rate.color_id AND ic.id IN (?) ORDER BY date DESC;`,
-  reviews_DESC:`
-SELECT ic.id color_id, ic.itemHex hex, ic.itemPhoto photo, c.category2Name category,
+  reviews_DESC: `
+SELECT ic.id color_id, ic.itemHex hex, ic.itemPhoto item_photo, c.category2Name category,
   ic.itemColor color, b.brandName brand, i.itemName name, i.itemPrice price,
   i.itemVolume volume, ic.itemDate date, rate.total reviews, rate.avg avg 
 FROM itemColors ic, categories2 c, brands b, items i,

@@ -25,7 +25,44 @@ const Deletebtn = styled.button`
     border-radius: 50%;
     transition: 0.5s;
     cursor: pointer
+    background: white
+    color: black
 `
+
+const Empty = styled.div`
+    border-bottom: 1px solid black
+    border-top: 1px solid black
+    width : 100%
+    min-height: 200px
+    text-align: center;
+    font-size: 4rem
+    font-family: 'Roboto';
+    font-weight: 300;
+    color: black
+    margin-top: 50px
+`
+const EmptyMessage = styled.div`
+    font-size: 2rem
+`
+const Emptybtn = styled.button`
+    width: 20%;
+    height: 20%
+    margin-bottom: 5px
+    border: none;
+    background-color: black;
+    color: white;
+    padding: 14px 28px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 1rem 
+    font-family: 'Roboto';
+    font-weight: 300;
+    &:hover {
+        text-shadow: 0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F;
+        // text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0080, 0 0 30px #ff0080, 0 0 40px #ff0080, 0 0 55px #ff0080, 0 0 75px #ff0080;
+    }  
+`
+
 const Wrapper = styled.div`
     width: 100%;
     display: flex;
@@ -35,10 +72,18 @@ const Wrapper = styled.div`
     @media (max-width: 768px) {
         margin-top: 50px;
     }
-`;
+`
+
+const Title = styled.div`
+    margin-top: 30px;
+    font-size: 3rem
+    font-family: 'Roboto';
+    font-weight: 300;
+    color: black
+`
 
 const Container = styled.ul`
-		width: 80%;
+	width: 80%;
     padding: 0;
     // border: solid grey 1px;
     display: flex;
@@ -122,7 +167,8 @@ class WishList extends Component {
         super()
         this.state = {
             items: [],
-            tokenVerified: true
+            tokenVerified: true,
+            isLoading: true
         }
     }
     
@@ -139,7 +185,8 @@ class WishList extends Component {
                 .then((response) => {
                     console.log('rerererere', response);
                     this.setState({
-                        items: response.data.rows
+                        items: response.data.rows,
+                        isLoading: false
                     })
                   })
               })
@@ -168,7 +215,8 @@ class WishList extends Component {
                     .then((response) => {
                         console.log('rerererere', response);
                         this.setState({
-                            items: response.data.rows
+                            items: response.data.rows,
+                            isLoading: false
                         })
                       })
                   })
@@ -187,10 +235,10 @@ class WishList extends Component {
         axios.get(`${url}/api/wishlist/get/list`, {headers: {'token': token}})
         .then((response) => {
             if(response.data.success===true){
-                console.log('wishSUCCESS', response.data);
-                
+                console.log('wishSUCCESS', response.data);      
                 this.setState({
-                    items: response.data.rows
+                    items: response.data.rows,
+                    isLoading: false
                 })
             }else {
                 console.log('wishFAil', response);
@@ -206,13 +254,13 @@ class WishList extends Component {
         console.log('wishpropswishpropswishprops',this.props);
         return (
             <Wrapper>
-                Wishlist
+                {this.state.items.length ? <Title>Wishlist</Title> : null}
             <Container>
-            {this.state.items.map((item, i) => (
+            {this.state.isLoading? <div style={{display:"none"}}>loading</div> : this.state.items.length ? this.state.items.map((item, i) => (
               <ItemLink >
                   <Item key={i}>
                   <Link to={`/items/detail/${item.color_id}`} style={{ textDecoration: 'none' }}>
-                    <Img src={item.photo}/>
+                    <Img src={item.item_photo}/>
                   </Link>  
                     {/* <Deletebtn onClick={this.deleteOne} id={item.color_id}>&times;</Deletebtn> */}
                         <Deletebtn id={item.color_id}  onClick={this.showDeleteConfirm} type="dashed">
@@ -236,7 +284,9 @@ class WishList extends Component {
                     </Link> 
                     </Item>
                 </ItemLink>
-                ))}
+                )) : <Empty>Wishlist is empty <br/>
+                 <EmptyMessage>Colorize에서 마음에 드는 리뷰 제품들을 구경하고 <br/>
+                  위시리스트에 담아보세요</EmptyMessage><Emptybtn>Colorize yourself</Emptybtn> </Empty>}
           </Container>
           </Wrapper>
         );
@@ -245,40 +295,3 @@ class WishList extends Component {
 
 export default WishList;
 
-// <PageWrapper>
-// <ItemListContainer >
-// <Ul>
-//     {this.state.items.map((item, i)=>{
-//         return (
-//             <Wrapper >
-//             <Li key={i}>
-//                 <ItemTop >
-//                     <Link to={`/items/detail/${item.color_id}`} style={{ textDecoration: 'none' }}>
-//                     <Img src={item.photo}/>
-//                     </Link>
-                   
-//                     {/* <Deletebtn onClick={this.deleteOne} id={item.color_id}>&times;</Deletebtn> */}
-//                     <Deletebtn id={item.color_id}  onClick={this.showDeleteConfirm} type="dashed">
-//                     &times;
-//                     </Deletebtn>
-//                 </ItemTop >
-//                 <ItemBottom to={`/items/detail/${item.color_id}`} style={{ textDecoration: 'none' }}>
-//                     <Brand>{item.brand}</Brand>
-//                     <ItemName>{item.name}, {item.volume}</ItemName>
-//                     <Price>{item.price}</Price>
-//                     <Rating>
-//                         <StarRatingComponent 
-//                             name="itemList" 
-//                             editing={false}
-//                             value={item.avg}
-//                         />, <Review>({item.reviews})</Review>
-//                     </Rating>
-//                 </ItemBottom>
-//                 </Li>
-//                 <Color color={item.hex}/>
-//             </Wrapper>
-//         )
-//     })}
-// </Ul>
-// </ItemListContainer>
-// </PageWrapper>

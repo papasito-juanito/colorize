@@ -53,6 +53,7 @@ class Comment extends Component {
     render() {
         console.log(this.state.user?this.state.user:null)
         console.log(this.props.id)
+        console.log(this.state.data)
         return (
             <Container>
                 {!this.props.isLogined ?

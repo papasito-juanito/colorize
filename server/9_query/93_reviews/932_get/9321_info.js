@@ -1,21 +1,23 @@
 module.exports = {
   zero: `
-SELECT u.id user_id, u.userPhoto photo, u.userName name, t.toneName tone,
+SELECT u.id user_id, u.userPhoto user_photo, u.userName name, t.toneName tone,
   YEAR(NOW())-YEAR(u.birthDate) age, u.gender gender, IFNULL(NULL, '') message,
   IFNULL(NULL, 0) rating, IFNULL(NULL, 0) likes
 FROM tones t, users u
 WHERE u.userToggle='true' AND t.id=u.tones_id AND u.id=?;`,
   one: `
-SELECT user_id, photo, name, tone, age, gender, message, rating, likes
-FROM (SELECT color_id, user_id, photo, name, tone, age, gender, IFNULL(message, '') message, 
-    IFNULL(rating, 0) rating, IFNULL(likes, 0) likes
-  FROM (SELECT color_id, t1.user_id, photo, name, tone, age, gender, message, rating,
-      review_id
-    FROM (SELECT u.id user_id, u.userPhoto photo, u.userName name, t.toneName tone,
-        YEAR(NOW())-YEAR(u.birthDate) age, u.gender gender
+SELECT user_id, review_photo, user_photo, name, tone, age, gender, message, 
+  rating, likes
+FROM (SELECT color_id, user_id, review_photo, user_photo, name, tone, age, gender, 
+    IFNULL(message, '') message, IFNULL(rating, 0) rating, IFNULL(likes, 0) likes
+  FROM (SELECT color_id, t1.user_id, review_photo, user_photo, name, tone, age, 
+      gender, message, rating, review_id
+    FROM (SELECT u.id user_id, u.userPhoto user_photo, u.userName name, 
+        t.toneName tone, YEAR(NOW())-YEAR(u.birthDate) age, u.gender gender
       FROM tones t, users u
       WHERE u.userToggle='true' AND t.id=u.tones_id) t1
-    LEFT JOIN (SELECT r.users_id user_id, r.itemColors_id color_id, r.id review_id,
+    LEFT JOIN (SELECT r.users_id user_id, r.reviewPhoto review_photo, 
+        r.itemColors_id color_id, r.id review_id,
         r.reviewMessage message, r.reviewRating rating
       FROM reviews r
       WHERE r.reviewToggle='true') t2

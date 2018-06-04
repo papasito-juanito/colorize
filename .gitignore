@@ -11,3 +11,4 @@ package-lock.json
 /server/0_config
 /server_old
 /uploads
+.env

@@ -28,11 +28,11 @@ const TopDetail = styled.div`
 	}
 `
 const Write = styled.div`
-    margin: 20px auto 2% auto ;
-    // height: 24vw;
-		border: solid lightblue 2px;
-		@media (max-width: 768px) {
-			display: none;
+	border: solid lightblue 2px;
+	margin-top: 10px;
+	height: 10vw;
+	@media (max-width: 768px) {
+		display: none;
 	}
 `
 

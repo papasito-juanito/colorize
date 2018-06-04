@@ -49,6 +49,7 @@ const Input = styled.input`
 `
 const InvalidId = styled.div`
     color:red
+    font-size: 0.9rem
 `
 const PasswordImage = styled.img`
     width: auto; 
@@ -57,6 +58,7 @@ const PasswordImage = styled.img`
 `
 const InvalidPassword = styled.div`
     color:red
+    font-size: 0.8rem;
 `
 
 const NicknameImageDiv = styled.div`
@@ -72,6 +74,7 @@ const NicknameImage = styled.img`
 `
 const InvalidNickname = styled.div`
     color:red
+    font-size: 0.8rem;
 `
 
 const BirthdateImageDiv = styled.div`
@@ -81,6 +84,7 @@ const BirthdateImageDiv = styled.div`
 `
 const InvalidBirthdate = styled.div`
     color:red
+    
 `
 const Signupbtn = styled.div`
     border: none;
@@ -92,7 +96,15 @@ const Signupbtn = styled.div`
     text-align: center;
     &:visited {
         text-decoration: none;
-    }  
+    }
+    font-size: 1.5em;
+    font-family: 'Roboto';
+    font-weight: 300;
+    &:hover {
+        text-shadow: 0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F;
+        // text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0080, 0 0 30px #ff0080, 0 0 40px #ff0080, 0 0 55px #ff0080, 0 0 75px #ff0080;
+      }  
+      
 `
 
 const Bottom = styled.div`
@@ -105,19 +117,6 @@ const BttomImg = styled.img`
     width: auto; 
     height: auto;
     max-width: 100%;
-`
-
-const Alert = styled.div`
-    padding: 20px;
-    background-color: green;
-    color: white;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    bottom: 10%;
-    right: 0;
-    background-color: #4CAF50;
-    transition: width 2s;
 `
 
 const Confirm = styled.span`
@@ -134,19 +133,6 @@ const Confirm = styled.span`
     }
 `
 
-const Failalert = styled.div`
-    display: block
-    background-color: green;
-    color: white;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    bottom: 10%;
-    right: 0;
-    background-color: #f44336;
-    transition: 1s;
-`
-
 class Signup extends Component {
     constructor(){
         super()
@@ -158,38 +144,94 @@ class Signup extends Component {
             genderSelected: '',
             colorSelected: '',
             signupSuccess: false,
-            isExist: ''
+            isExist: '',
+            isExistName: ''
         }
     }
 
     onSubmit = () => {
         const form = {
-            userMail: this.email.value,
+            userMail:  this.email.value,
             userPassword: this.password.value,
-            userName: this.nickname.value,
+            userName:  this.nickname.value,
             birthDate: this.state.birthdateSelected, 
             gender: this.state.genderSelected,
             toneName: this.state.colorSelected
         }
-        console.log(form)
-            axios.post(`${url}/api/user/post/signup`, form)
+        const {userMail, userPassword, userName, birthDate, gender, toneName} = form
+        const {isValidEmail, isValidPassword, isValidNickname, birthdateSelected, genderSelected, colorSelected} = this.state
+        console.log('birthdate', birthDate.slice(0,4));
+        
+        if(!(userMail && userPassword && userName && birthDate && gender && toneName)){
+            alert("모든 항목을 입력 해 주세요")
+        } else {
+            if(!validator.isEmail(userMail)){
+                document.getElementById('email').style.display = "inline-block"
+                document.getElementById('email').style.color = "red"
+                document.getElementById('email').style.fontSize = "0.8rem"
+                window.setTimeout(function() {
+                    document.getElementById('email').style.display='none'
+                 }, 3000);
+            } else if(!validator.isLength(userPassword, {min: 5, max: 10})){
+                document.getElementById('password').style.display = "inline-block"
+                document.getElementById('password').style.color = "red"
+                document.getElementById('password').style.fontSize = "0.8rem"
+                window.setTimeout(function() {
+                    document.getElementById('nickname').style.display='none'
+                 }, 3000);
+            } else if(!validator.isLength(userName, {min: 5, max: 10})){
+                document.getElementById('nickname').style.display = "inline-block"
+                document.getElementById('nickname').style.color = "red"
+                document.getElementById('nickname').style.fontSize = "0.8rem"
+                window.setTimeout(function() {
+                    document.getElementById('nickname').style.display='none'
+                 }, 3000);
+            } else if(birthDate.slice(0,4)>2018){
+                document.getElementById('birthdate').style.display = "inline-block"
+                document.getElementById('birthdate').style.color = "red"
+                document.getElementById('birthdate').style.fontSize = "0.8rem"
+                window.setTimeout(function() {
+                    document.getElementById('birthdate').style.display='none'
+                 }, 3000);
+            } else {
+                axios.post(`${url}/api/user/post/signup`, form)
                 .then(res => {
                     console.log(res);
                     if(res.data.success===true){
                         this.setState({
                             signupSuccess: true
                         })
-                        this.showSucces()
-                    }else if(res.data.success===false){
+                        const {history} = this.props
+                        const {pathname} = this.props.location.state.from
+                        const {search} = this.props.location.state.from
+                        history.push('/login', {from: {pathname: pathname, search: search}})  
+                    }else if(!res.data.success&&res.data.message==='invalid mail'){
                         this.setState({
-                            isExist: res.data.message
+                            isExist: "중복된 메일 주소입니다."
                         })
-                        this.showFailure();
+                        document.getElementById('email').style.display = "inline-block"
+                        document.getElementById('email').style.color = "red"
+                        document.getElementById('email').style.fontSize = "0.8rem"
+                        window.setTimeout(function() {
+                            document.getElementById('email').style.display='none'
+                         }, 3000);
+                    }else if(!res.data.success&&res.data.message==='invalid name'){
+                        this.setState({
+                            isExistName: "중복된 닉네임 입니다."
+                        })
+                        document.getElementById('nickname').style.display = "inline-block"
+                        document.getElementById('nickname').style.color = "red"
+                        document.getElementById('nickname').style.fontSize = "0.8rem"
+                        window.setTimeout(function() {
+                            document.getElementById('nickname').style.display='none'
+                         }, 3000);
                     }
                 })
                 .catch(error => console.log(error))
-
-    }
+            }
+            }
+        } 
+    
 
     onChangeEmail = () => {
         const email = this.email.value
@@ -237,18 +279,11 @@ class Signup extends Component {
     }
 
     showSucces = () => {
-        ReactDOM.findDOMNode(this.refs.success).style.right = '5%'
-        ReactDOM.findDOMNode(this.refs.success).style.width = '40%'
+
     }
 
     showFailure = () => {
-        document.getElementById('fail').style.display='block'
-        ReactDOM.findDOMNode(this.refs.fail).style.padding = '20px'
-        ReactDOM.findDOMNode(this.refs.fail).style.right = '5%'
-        ReactDOM.findDOMNode(this.refs.fail).style.width = '40%'
-        window.setTimeout(function() {
-           document.getElementById('fail').style.display='none'
-        }, 5000);
+
     }
 
      colorOptions = [
@@ -256,15 +291,15 @@ class Signup extends Component {
         {
             type: 'group', items: [
                 { value: '쿨톤', label: '쿨톤' },
-                { value: 'Summer', label: '여름쿨' },
-                { value: 'Winter', label: '겨울쿨' }
+                { value: 'Summer', label: 'Summer' },
+                { value: 'Winter', label: 'Winter' }
             ]
         },
         {
             type: 'group', items: [
                 { value: '웜톤', label: '웜톤' },
-                { value: 'Spring', label: '봄웜' },
-                { value: 'Fall', label: '가을웜' }
+                { value: 'Spring', label: 'Spring' },
+                { value: 'Fall', label: 'Fall' }
             ]
         }
     ]
@@ -275,30 +310,32 @@ class Signup extends Component {
     ]
 
     render() {
-        console.log('signup', this.props);
+        console.log('signup', this.state.isValidEmail);
         
         console.log(this.state.genderSelected);
         console.log(this.state.colorSelected);
+        console.log(this.state.signupSuccess);
+        
         return (
             <Container>
                 <SignupContainer>
-                    <div style={{fontFamily: 'Roboto', fontSize: 50, fontWeight: 100, textAlign: 'center', margin: '30px 0 20px 0'}}>Sign Up</div>
-                    이메일 주소<br/>
+                    <div  style={{fontFamily: 'Roboto', fontSize: 50, fontWeight: 100, textAlign: 'center', margin: '30px 0 20px 0'}}>Sign Up</div>
+                    이메일 주소<span style={{display: 'none', marginLeft: '10px'}} id='email'>{this.state.isExist ? this.state.isExist : '이메일틀림'}</span><br/>
                     <Input 
                     onChange={this.onChangeEmail.bind(this)} innerRef={ref => { this.email = ref; }} placeholder="abc@email.com"/> 
-                    {this.state.isValidEmail ? null : <InvalidId>Invalid Type</InvalidId>}
+                    {this.state.isValidEmail ? null : <InvalidId style={{fontSiz:'0.6rem'}}>Invalid Email Type</InvalidId>}
                     <br/>
-                    비밀번호<br/>
+                    비밀번호<span style={{display: 'none', marginLeft: '10px'}} id='password'>비밀번호 길이 틀림</span><br/>
                     <Input type="password"
                     onChange={this.onChangePassword.bind(this)} innerRef={ref => { this.password = ref; }} placeholder="Enter Your Password"/> 
-                    {this.state.isValidPassword ? null : <InvalidPassword>5~10 letters</InvalidPassword>}  
+                    {this.state.isValidPassword ? null : <InvalidPassword>5글자 이상 10글자 이하로 입력 해 주세요</InvalidPassword>}  
                     <br/>
-                    닉네임<br/>
+                    닉네임<span style={{display: 'none', marginLeft: '10px'}} id='nickname'>{this.state.isExistName ? this.state.isExistName : '닉네임 길이 틀림'}</span><br/>
                     <Input
                     onChange={this.onChangeNickname.bind(this)} innerRef={ref => { this.nickname = ref; }} placeholder="Enter Your Nickname"/> 
-                    {this.state.isValidNickname ? null : <InvalidNickname>5~10 letters</InvalidNickname>}
+                    {this.state.isValidNickname ? null : <InvalidNickname>5글자 이상 10글자 이하로 입력 해 주세요</InvalidNickname>}
                     <br/>
-                    생년월일<br/>
+                    생년월일<span style={{display: 'none', marginLeft: '10px'}} id='birthdate'>잘못 된 날짜 형식입니다</span><br/>
                     <BdayInput
                     onBlur = {this.onBirthdate.bind(this)}
                     required type='date'innerRef={ref => { this.date = ref; }}/>
@@ -313,13 +350,7 @@ class Signup extends Component {
                         <Signupbtn onClick={this.onSubmit}>Colorize yourself</Signupbtn>
                 </SignupContainer>
                 <Bottom>
-                    {this.state.signupSuccess ?
-                    <Alert ref="success">
-                    Signup Success
-                    <Confirm onClick={this.clickToLogin}>Click here to Login</Confirm>
-                    </Alert> : <Failalert ref='fail' id="fail"> Fail To SignUp {this.state.isExist}</Failalert>
-                    }
-                </Bottom>   
+                </Bottom> 
             </Container>
         )
     }

@@ -46,8 +46,6 @@ const LoginBottom= styled.div`
 `
 
 const IdWrapper = styled.div`
-    display: flex;
-    flex-direction: column
     height: 10%;
 `
 
@@ -61,8 +59,6 @@ const IdInput = styled.input`
 `
 
 const PasswordWrapper = styled.div`
-    display: flex;
-    flex-direction: column
     height: 10%;
 `
 
@@ -90,7 +86,6 @@ const Loginbtn = styled.button`
     background-color: black;
     color: white;
     padding: 14px 28px;
-    font-size: 1rem;
     cursor: pointer;
     text-align: center;
     font-size: 1em;
@@ -132,8 +127,24 @@ class Login extends Component {
     console.log('form', form);
     axios.post(`${url}/api/user/post/login`, form)
         .then(res => {
-            console.log('login', res);  
-            if(res.data.token){
+            console.log('login', res);
+            if(res.data.message==="invalid password"){
+                console.log('password');
+                document.getElementById('password').style.display = "inline-block"
+                document.getElementById('password').style.color = "red"
+                document.getElementById('password').style.fontSize = "0.8rem"
+                window.setTimeout(function() {
+                    document.getElementById('password').style.display='none'
+                 }, 3000);
+            } else if(res.data.message==='invalid mail'){
+                console.log('mail');
+                document.getElementById('email').style.display = "inline-block"
+                document.getElementById('email').style.color = "red"
+                document.getElementById('email').style.fontSize = "0.8rem"
+                window.setTimeout(function() {
+                    document.getElementById('email').style.display='none'
+                 }, 3000);
+            } else if(res.data.token) {
                 localStorage.setItem('token', res.data.token)
                 this.props.handleLoginUser()
                 const {history} = this.props
@@ -170,11 +181,11 @@ class Login extends Component {
                     </LoginTop>
                     <LoginBottom> 
                         <IdWrapper> 
-                            이메일 주소
+                            이메일 주소 <span id='email' style={{display: 'none', marginLeft: '10px'}}> 잘못된 이메일 주소입니다. </span>
                             <IdInput innerRef={ref => { this.email = ref; }} placeholder="abc@email.com"/> 
                         </IdWrapper>
                         <PasswordWrapper> 
-                            비밀번호
+                            비밀번호 <span id='password' style={{display: 'none', marginLeft: '10px'}}> 패스워드가 틀렸습니다. </span>
                             <PasswordInput innerRef={ref => { this.password = ref; }} placeholder="Enter Your Password"/> 
                         </PasswordWrapper>
                         <LoginSignupButtonWrapper> 

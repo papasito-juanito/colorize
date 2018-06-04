@@ -39,7 +39,6 @@ class Comment extends Component {
             // }
     componentDidMount(){
         const token = localStorage.getItem('token')
-
         axios.get(`${url}/api/review/get/info?color_id=${this.props.id}`, { headers: { 'token': token } })
             .then(response => {
                 console.log(response)
@@ -53,21 +52,22 @@ class Comment extends Component {
     
     render() {
         console.log(this.state.user?this.state.user:null)
+        console.log(this.props.id)
         return (
             <div>
-                {!this.state.user.success ? 
+                {!this.props.isLogined ? 
                 <Div>
                     <FileUpload callback={this._callback.bind(this)} id={this.props.id} />
-                    <Rating  info={this.state.user} id={this.props.id} data={this.state.data} />
+                    <Rating loginState = {this.props.loginState} handleLogout={this.props.handleLogout} info={this.state.user} id={this.props.id} data={this.state.data} />
                 </Div> 
-                : this.state.user.success===true && this.state.user.message === 'written' ?
+                : this.props.isLogined === true && this.state.user.message === 'written' ?
                 <Div>
-                    <MyContent id={this.props.id} user={this.state.user}/>
+                    <MyContent id={this.props.id} user={this.state.user ? this.state.user.rows[0] : null}/>
                 </Div> 
                 :
                 <Div>
                     <FileUpload callback={this._callback.bind(this)} id={this.props.id} />
-                    <Rating loginState={this.props.loginState} info={this.state.user} id={this.props.id} data={this.state.data} />
+                    <Rating loginState = {this.props.loginState} handleLogout={this.props.handleLogout} info={this.state.user} id={this.props.id} data={this.state.data} />
                 </Div>    
                 }
 

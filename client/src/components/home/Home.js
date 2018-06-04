@@ -10,10 +10,27 @@ const HomeContainer = styled.div`
   width:100%;
   display: flex;
   margin-top: 70px;
-
+  
   @media (max-width: 768px) {
     margin-top: 50px;
   }
+  align-items: center;
+  justify-content: center
+`
+const Loading = styled.div`
+    align-content: center
+    margin-top: 15%;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid black;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
 `
 
 class Home extends React.Component {
@@ -110,7 +127,7 @@ class Home extends React.Component {
             <HomeContainer>
               {this.state.isLoaded ?
               <HomeColor colorGroup={this.colorGroup}/>
-              :'Loading...'}
+              :<Loading />}
             </HomeContainer>     
         );
     }

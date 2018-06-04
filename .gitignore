@@ -2,12 +2,12 @@
 
 # dependencies
 /node_modules
-
-# confidential
-
-
-# configuration
-/.vscode
-
 package-lock.json
 
+# confidential
+/.vscode
+
+/client/src/config.js
+/server/0_config
+/server_old
+/uploads

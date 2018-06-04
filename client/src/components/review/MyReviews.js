@@ -360,6 +360,7 @@ class MyReviews extends Component {
 
   _reviewDelete(e){
     const reviewId = this.state.data[e.target.id].review_id
+    console.log(reviewId)
     const form = {
       review_id : reviewId
     }
@@ -373,35 +374,37 @@ class MyReviews extends Component {
   }
 
   _showDeleteConfirm(e) {
-  const reviewId = this.state.data[e.target.id].review_id
-  const form = {
-    review_id: reviewId
-  }
+    console.log(e.target.id)
+  // const reviewId = this.state.data[e.target.id].review_id
+  //     console.log(reviewId)
+  // const form = {
+  //   review_id: reviewId
+  // }
 
-    confirm({
-      title: '선택한 리뷰를 삭제 하시겠습니까?',
-      okText: 'Yes',
-      okType: 'danger',
-      cancelText: 'No',
+  //   confirm({
+  //     title: '선택한 리뷰를 삭제 하시겠습니까?',
+  //     okText: 'Yes',
+  //     okType: 'danger',
+  //     cancelText: 'No',
 
-      onOk: () => {
-        const token = localStorage.getItem('token')
-        axios.post(`${url}/api/review/delete`, form, {
-            headers: {
-              'token': token
-            }
-          })
-          .then((res) => {
-            console.log(res)
-              // window.location.reload();
-              })
-        console.log('ok');
+  //     onOk: () => {
+  //       const token = localStorage.getItem('token')
+  //       axios.post(`${url}/api/review/delete`, form, {
+  //           headers: {
+  //             'token': token
+  //           }
+  //         })
+  //         .then((res) => {
+  //           console.log(res)
+  //             // window.location.reload();
+  //             })
+  //       console.log('ok');
 
-      },
-      onCancel() {
-        console.log('Cancel');
-      },
-    });
+  //     },
+  //     onCancel() {
+  //       console.log('Cancel');
+  //     },
+  //   });
   }
 
 
@@ -451,7 +454,7 @@ class MyReviews extends Component {
   render(){
     console.log('myreview', this.props);
     
-    console.log(this.state.data)
+    console.log('review Detele@@@@@@@@@@@@@@:',this.state.data)
     let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
     
     return (

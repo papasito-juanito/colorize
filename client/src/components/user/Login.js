@@ -10,17 +10,27 @@ import { url } from '../../config';
 
 
 const LoginContainer = styled.div`
-    margin: 15% auto
-    display: flex;
-    flex-direction: column
-    width : 30vw;
-    padding: 5%
+    // display: flex;
+    // flex-direction: column
+    // width : 30vw;
+    padding: 5% 0 5% 0
     border: 1px solid black;
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
+    // display: -webkit-box;
+    // display: -moz-box;
+    // display: -ms-flexbox;
+    // display: -webkit-flex;
+    // display: relative;
+    width: 70%;
+    margin: 150px auto auto auto;
+    @media (max-width: 768px) {
+        margin-top: 200px;
+    }
+    @media (max-width: 375px) {
+        margin-top: 150px;
+    }
+    @media (max-width: 320px) {
+        margin-top: 100px;
+    }
 `
 
 const LoginTop = styled.div`
@@ -28,10 +38,20 @@ const LoginTop = styled.div`
     flex-direction: column
 `
 const Text = styled.div`
-    font-size: 2rem;
+    font-size: 3rem;
     margin: auto
     font-family: Roboto;
     font-weight: 100
+    
+    @media (max-width: 570px) {
+        font-size: 2rem;
+    }
+    @media (max-width: 460px) {
+        font-size: 1.8rem;
+    }
+    @media (max-width: 418px) {
+        font-size: 1.6rem;
+    }
 `
 
 const Img = styled.img`
@@ -103,9 +123,10 @@ const Signupbtn = styled.button`
     color: white;
     margin: 5px 0 10px 0;
     padding: 14px 28px;
-    font-size: 1rem;
     cursor: pointer;
     text-align: center;
+    font-size: 1em;
+    font-family: 'Roboto';
     font-weight: 300;
     &:hover {
         text-shadow: 0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F;
@@ -166,9 +187,13 @@ class Login extends Component {
     clickSighup = () => {
         console.log('clickSighup', this.props);
         const {history} = this.props
-        const {pathname} = this.props.location.state.from
-        const {search} = this.props.location.state.from
-        history.push('/signup', {from: {pathname: pathname, search: search}})        
+        if(this.props.location.state){
+            const {pathname} = this.props.location.state.from
+            const {search} = this.props.location.state.from
+            history.push('/signup', {from: {pathname: pathname, search: search}})
+        } else {
+            history.push('/signup', {from: {pathname: '/'}})
+        }     
     }
     
     render(){
@@ -193,6 +218,7 @@ class Login extends Component {
                             <Signupbtn onClick={this.clickSighup}> SignUp </Signupbtn>
                         </LoginSignupButtonWrapper>
                     </LoginBottom>
+                    
                 </LoginContainer>
             );
           }

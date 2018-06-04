@@ -494,7 +494,7 @@ class MyReviews extends Component {
              <LinkDiv> <Link to={`/items/detail/${item.color_id}`} style={{ textDecoration: 'none' }}><ReviewImage src={item.item_photo} /> </Link></LinkDiv>
                 <MyImageDiv>
                 {/* <DeleteImage onClick={this._clickDelete}>X</DeleteImage> */}
-                <MyImage onClick={this._openPopup} src ={like}  />
+                <MyImage onClick={this._openPopup} src ={item.review_photo}  />
               </MyImageDiv>
               <Info >
                 <div>{item.brand}</div>

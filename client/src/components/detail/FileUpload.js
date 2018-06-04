@@ -84,8 +84,12 @@ class FileUpload extends Component {
         const token = localStorage.getItem('token')
         const formData = new FormData();
         formData.append('file', this.uploadInput.files[0]);
+        formData.append('filename', 123);
+        var mimeType = this.uploadInput.files[0].type.split('image/')[1];
+        console.log(mimeType)
         
-        axios.post(`${url}/api/review/post/upload`, formData, { headers: { 'token': token } } )
+        mimeType === 'png' || mimeType === 'jpg' ?
+        axios.post(`${url}/api/review/post/upload`, formData, { headers: { 'token': token , color_id: 1} } )
             // .then((response) => {
             // console.log(response);
             // })
@@ -96,7 +100,7 @@ class FileUpload extends Component {
                 // this.setState({ imageURL: `${url}/${response.data.file}` })
             )
             .catch(err => console.log(err))
-
+            : (alert('jpg/png 파일만 올릴수있어요'), window.location.reload())
 
         // fetch(`${url}/upload`, {
         //     method: 'POST',
@@ -128,6 +132,7 @@ class FileUpload extends Component {
                 <input style={{ width: '100%' }}
                     type='file'
                     ref={ref => { this.uploadInput = ref; }}
+                    accept = ".jpg, .png"
                     onChange={(e) => { this._handleImageChange(e); this._fileUploadHandler(e) }} />
                     {/* <div style = {{height:'150px', width:'150px', border: '1px solid black'}}> <img src={require('../../assets/reviews/1528079528165images.jpeg')}/></div> */}
                     {/* <div style = {{height:'150px', width:'150px', border: '1px solid black'}}> <img src={require('../../assets/reviews/1528079528165images.jpeg')}/></div> */}

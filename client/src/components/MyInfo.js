@@ -409,7 +409,7 @@ class MyInfo extends Component {
                   {/* accept = "image/jpeg, image/png" */}
                   <div style={{width:'100%', height:'100%', textAlign:'center'}}>
                        <div> Drop some files here!</div>
-                       <div style= {{width: '100%', height:'90%'}}> {this.state.imagepreviewUrl ? <img style = {{ verticalAlign:'middle', width:'90%', height:'90%', borderRadius:'50%'}} src= {this.state.imagepreviewUrl} />:null}</div>
+                       <div style= {{width: '100%', height:'90%'}}> {this.state.imagepreviewUrl ? <img style = {{ verticalAlign:'middle', width:'90%', height:'90%', borderRadius:'50%'}} src= {this.state.user_photo} />:null}</div>
                            </div>
                                  {/* <AvatarEditor width={100} height={100} border={50} scale={1.2} image={this.state.imagepreviewUrl} /> */}
                            </Dropzone>

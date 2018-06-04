@@ -60,7 +60,7 @@ class DetailLeft extends Component {
         
         return (
             <Div>
-                <Image src={this.props.data ? this.props.data[0].photo : null} alt={'lip'} />
+                <Image src={this.props.data ? this.props.data[0].item_photo : null} alt={'lip'} />
                 <Wishlist>
                     <Heart onClick={this.props.changeWish} src={!this.props.data ? null : this.props.data[0].wish === 'true'  ? Wish : noWish} alt={'wishlist'} />  
                 </Wishlist>

@@ -94,7 +94,7 @@ const Items = ({ item }) => (
     {item.map((item, i) => (
       <ItemLink to={`/items/detail/${item.color_id}`} style={{ textDecoration: 'none' }} >
           <Item key={i}>
-            <Img src={item.photo}/>
+            <Img src={item.item_photo}/>
 						<Colorline color={item.hex}/>
             <ItemBottom>
 							<ItemDetails>

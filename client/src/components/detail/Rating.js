@@ -77,15 +77,16 @@ class Rating extends Component {
         const token = localStorage.getItem('token')
         const form = {
             color_id: this.props.id,
-            reviewPhoto: `${this.props.id}_token`,
-            // reviewPhoto: `${__dirname}/public/${this.props.data}.jpg`, this.props로 받을게 아니고 이 사이트의 url 매치랑 들어온 유저정보 
+            reviewPhoto: this.props.image,
+            // reviewPhoto: 3,
             reviewRating: this.state.rating,
             reviewMessage: this.input.value
         }
 
         // console.log(form)
         this.props.loginState === false ? (alert('로그인이 필요한 서비스 입니다.'), this.props.handleLogout()) :
-            axios.post(`${url}/api/review/post/message`, form, { headers: { 'token': token } })
+        !this.props.image ? alert('사진 등록은 필수입니다') :
+             axios.post(`${url}/api/review/post/message`, form, { headers: { 'token': token } })
                 .then((response) => {
                 console.log(response);
                 })
@@ -96,10 +97,11 @@ class Rating extends Component {
     }
 
     _alertReview() {
-         this.props.loginState === true ? alert('후기가 등록되었습니다') : null;
+         this.props.loginState === true && this.props.image ? alert('후기가 등록되었습니다') : null;
     }
 
     render() {
+        console.log('this.props.image :', this.props.image)
         console.log('this.props.info.success :', this.props.info.success)
         console.log('this.props.handleLogout :', this.props.handleLogout)
         console.log('this.props.loginState :', this.props.loginState)

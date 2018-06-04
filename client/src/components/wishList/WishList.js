@@ -268,7 +268,7 @@ class WishList extends Component {
               <ItemLink >
                   <Item key={i}>
                   <Link to={`/items/detail/${item.color_id}`} style={{ textDecoration: 'none' }}>
-                    <Img src={item.photo}/>
+                    <Img src={item.item_photo}/>
                   </Link>  
                     {/* <Deletebtn onClick={this.deleteOne} id={item.color_id}>&times;</Deletebtn> */}
                         <Deletebtn id={item.color_id}  onClick={this.showDeleteConfirm} type="dashed">

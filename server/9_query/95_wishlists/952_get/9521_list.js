@@ -1,6 +1,6 @@
 module.exports = `
-SELECT ic.id color_id, ic.itemHex hex, ic.itemPhoto photo, c.category2Name category,
-  ic.itemColor color, b.brandName brand, i.itemName name, i.itemPrice price,
+SELECT ic.id color_id, ic.itemHex hex, ic.itemPhoto item_photo, c.category2Name category,
+  ic.itemColor color, b.brandName brand, i.itemName item_name, i.itemPrice price,
   i.itemVolume volume, ic.itemDate date, rate.total reviews, rate.avg avg 
 FROM itemColors ic, categories2 c, brands b, items i, wishLists w,
   (SELECT ici.id color_id, IFNULL(AVG(rt.reviewRating),0) avg, COUNT(rt.id) total

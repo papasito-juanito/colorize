@@ -1,7 +1,7 @@
 module.exports = {
   member: `
 SELECT t1.*, IFNULL(t2.wish, 'false') wish
-FROM (SELECT ic1.id color_id, ic1.itemHex hex, ic1.itemPhoto photo, c.category2Name category,
+FROM (SELECT ic1.id color_id, ic1.itemHex hex, ic1.itemPhoto item_photo, c.category2Name category,
     ic1.itemColor color, b.brandName brand, i.itemName name, i.itemPrice price,
     i.itemVolume volume, ic1.itemDate date, i.itemDetail description
   FROM itemColors ic1, categories2 c, brands b, items i 
@@ -13,7 +13,7 @@ LEFT JOIN (SELECT ic.id color_id, w.wishToggle wish
     u.id=w.users_id AND ic.id=w.itemColors_id AND u.id=?) t2
 ON t1.color_id=t2.color_id;`,
   visitor: `
-SELECT ic.id color_id, ic.itemHex hex, ic.itemPhoto photo, c.category2Name category,
+SELECT ic.id color_id, ic.itemHex hex, ic.itemPhoto item_photo, c.category2Name category,
   ic.itemColor color, b.brandName brand, i.itemName name, i.itemPrice price,
   i.itemVolume volume, ic.itemDate date, i.itemDetail description
 FROM itemColors ic, categories2 c, brands b, items i 

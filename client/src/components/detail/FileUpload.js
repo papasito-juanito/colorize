@@ -89,8 +89,10 @@ class FileUpload extends Component {
             // .then((response) => {
             // console.log(response);
             // })
-            .then(response => 
+            .then(response => {
                 console.log(response)
+                this.props.callback(response.data.message)
+            }
                 // this.setState({ imageURL: `${url}/${response.data.file}` })
             )
             .catch(err => console.log(err))

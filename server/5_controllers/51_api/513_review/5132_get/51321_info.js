@@ -8,7 +8,6 @@ module.exports = async (req, res) => {
 
   const decoded = await verify(req.headers.token);
   const check = await model(query.check.info, [req.query.color_id, decoded.user_id]);
-
   switch (check.length) {
     case 0: {
       const rows = await model(query.info.zero, decoded.user_id);

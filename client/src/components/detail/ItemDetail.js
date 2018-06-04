@@ -26,6 +26,10 @@ const Wrapper = styled.div`
     background-color:#F4F5F9;
     border: solid red 3px;
     flex-direction: column;
+    @media (max-width: 768px) {
+      width: 100%;
+      height: auto;
+  	}
 `;
 const Top = styled.div`
     height: 70%;
@@ -34,6 +38,9 @@ const Top = styled.div`
     background-color:#F4F5F9;
     border: solid red 3px;
     flex-direction: row;
+    @media (max-width: 768px) {
+      flex-direction: column;
+  	}
 `;
 const DetailDiv = styled.div`
   width: 40%;
@@ -48,6 +55,13 @@ const DetailDiv = styled.div`
   font-size: 1rem;
   color: black;
   float: top;
+  @media (max-width: 768px) {
+    width: 100%;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+  }
 `;
 const Name = styled.div`
   font-size: 1.5rem;
@@ -61,6 +75,7 @@ const Category = styled.div`
 const ColorName = styled.div`
   font-weight: bold;
   display: inline-block;
+  color: #${props => props.color};
 `;
 const ColorBox = styled.div`
   background: #${props => props.color};
@@ -69,17 +84,34 @@ const ColorBox = styled.div`
 `;
 const VolPrice = styled.div`
   display: flex;
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
+`;
+const More = styled.button`
+  display: none;
+  @media (max-width: 768px) {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
 `;
 
-
 const ChartDiv = styled.div`
-    width: 60%;
-    height: 100%;
+  width: 60%;
+  height: 100%;
+  @media (max-width: 768px) {
+    width: 100%;
+    position: relative;
+  }
 `;
 const Description = styled.div`
   width: 100%;
   height: 30%;
   font-size : 1.5em;
+  @media (max-width: 768px) {
+      display: none;
+  }
 `;
 
 class DetailRight extends Component {
@@ -129,20 +161,18 @@ class DetailRight extends Component {
       <Wrapper>
         <Top>
         <DetailDiv>
-              <Name>{this.props.data ? this.props.data[0].name : null}</Name>
-              <Brand>{this.props.data ? this.props.data[0].brand : null}</Brand>
-              <Category>{this.props.data ? this.props.data[0].category : null}</Category>
-              <ColorName>{this.props.data ? this.props.data[0].color : null}
-                <ColorBox color={this.props.data? this.props.data[0].hex : null}/>
-              </ColorName>
-              <VolPrice>
-              <div>{this.props.data ? this.props.data[0].volume : null} /&nbsp; </div> 
-                <NumberFormat value={this.props.data ? this.props.data[0].price : 0} displayType="text" thousandSeparator suffix="원" />
-              </VolPrice>
-             <div> 
-
-            </div>
-            </DetailDiv>
+            <Name>{this.props.data ? this.props.data[0].name : null}</Name>
+            <Brand>{this.props.data ? this.props.data[0].brand : null}</Brand>
+            <Category>{this.props.data ? this.props.data[0].category : null}</Category>
+            <ColorName color={this.props.data? this.props.data[0].hex : null}>{this.props.data ? this.props.data[0].color : null}
+              <ColorBox color={this.props.data? this.props.data[0].hex : null}/>
+            </ColorName>
+            <VolPrice>
+            <div>{this.props.data ? this.props.data[0].volume : null} /&nbsp; </div> 
+              <NumberFormat value={this.props.data ? this.props.data[0].price : 0} displayType="text" thousandSeparator suffix="원" />
+            </VolPrice>
+            <More onClick={this._openPopup}>상세정보</More>
+        </DetailDiv>
         <ChartDiv>
               <Chart data={this.state.data} />
         </ChartDiv>
@@ -167,7 +197,7 @@ class DetailRight extends Component {
               <h2 ref={subtitle => this.subtitle = subtitle}>상세 정보</h2>
               <div ref={title => this.title = title} style={{ width: '50vh' }}>{this.props.data ? this.props.data[0].description : null}</div>
               <button style={{ cursor: 'pointer' }} onClick={this._closePopup}>close</button>
-            </Modal>
+        </Modal>
 
       </Wrapper>
     );

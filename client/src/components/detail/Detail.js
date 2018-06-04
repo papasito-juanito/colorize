@@ -13,6 +13,7 @@ import { url } from '../../config';
 const Container = styled.div`
 	@media (max-width: 768px) {
 			margin-top: 80px;
+			display: block;
 	}
 	margin: 100px 10% 0 10%;
 	align-items: center;
@@ -29,12 +30,18 @@ const TopDetail = styled.div`
 const Write = styled.div`
     margin: 20px auto 2% auto ;
     // height: 24vw;
-    border: solid lightblue 2px;
+		border: solid lightblue 2px;
+		@media (max-width: 768px) {
+			display: none;
+	}
 `
 
 const ReviewDiv = styled.div`
      margin: auto auto 2% auto ;
-     heigth: 100%;
+		 heigth: 100%;
+		 @media (max-width: 768px) {
+			display: none;
+	}
 `
 
 const HomeButton = styled.button`

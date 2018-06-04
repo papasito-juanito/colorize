@@ -16,6 +16,7 @@ const Div = styled.div`
     @media (max-width: 768px) {
       width: 100%;
 			justify-content:center;
+			min-height: 200px;
 	}
 `
 
@@ -27,7 +28,7 @@ const Image = styled.img`
     display: block;
     background: pink;
     @media (max-width: 768px) {
-		justify-content:center;
+
 	}
 `
 

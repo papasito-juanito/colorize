@@ -30,24 +30,51 @@ const Deletebtn = styled.button`
 `
 
 const Empty = styled.div`
+    display: flex;
+    flex-direction: column
+    justify-content: center;
     border-bottom: 1px solid black
     border-top: 1px solid black
     width : 100%
-    min-height: 200px
+    min-height: 300px
+    text-align: center;
+    margin-top: 80px
+`
+const EmptyTitle = styled.div`
     text-align: center;
     font-size: 4rem
     font-family: 'Roboto';
-    font-weight: 300;
+    font-weight: 100;
     color: black
-    margin-top: 50px
+    @media (max-width: 656px) {
+        font-size: 3.5rem
+    }
+    @media (max-width: 510px) {
+        font-size: 2.8rem
+    }
+    @media (max-width: 375px) {
+        font-size: 2rem
+    }
 `
+
 const EmptyMessage = styled.div`
     font-size: 2rem
+    font-family: 'Roboto';
+    font-weight: 100;
+    @media (max-width: 656px) {
+        font-size: 1.75rem
+    }
+    @media (max-width: 510px) {
+        font-size: 1.4rem
+    }
+    @media (max-width: 375px) {
+        font-size: 1rem
+    }
 `
 const Emptybtn = styled.button`
-    width: 20%;
-    height: 20%
-    margin-bottom: 5px
+    min-width: 20%;
+    max-height: 20%
+    margin: 20px auto
     border: none;
     background-color: black;
     color: white;
@@ -171,34 +198,15 @@ class WishList extends Component {
             isLoading: true
         }
     }
+
+     goHome = () => {
+         this.props.history.push('/')
+     }   
     
-    deleteOne = (e)=>{
-        const form = {
-            color_id: e.target.id
-        }
-        const token = localStorage.getItem('token') 
-        axios.post(`${url}/api/wishlist/delete`, form, {headers: {'token': token}})
-            .then((response) => {
-                console.log('delete', response);
-                console.log(token);
-                axios.get(`${url}/api/wishlist/get/list`, {headers: {'token': token}})
-                .then((response) => {
-                    console.log('rerererere', response);
-                    this.setState({
-                        items: response.data.rows,
-                        isLoading: false
-                    })
-                  })
-              })
-        console.log(e.target.id);    
-    }
-
-
      showDeleteConfirm = (e) => {
         const form = {
             color_id: e.target.id
-        }
-               
+        }     
         confirm({
           title: '선택한 아이템을 삭제 하시겠습니까?',
           okText: 'Yes',
@@ -284,9 +292,11 @@ class WishList extends Component {
                     </Link> 
                     </Item>
                 </ItemLink>
-                )) : <Empty>Wishlist is empty <br/>
-                 <EmptyMessage>Colorize에서 마음에 드는 리뷰 제품들을 구경하고 <br/>
-                  위시리스트에 담아보세요</EmptyMessage><Emptybtn>Colorize yourself</Emptybtn> </Empty>}
+                )) : <Empty>
+                        <EmptyTitle>Wishlist is empty</EmptyTitle> 
+                        <EmptyMessage>Colorize에서 마음에 드는 립스틱들의 <br/>리뷰를 구경하고 위시리스트에 담아보세요</EmptyMessage>
+                        <Emptybtn onClick={this.goHome}>Colorize yourself</Emptybtn>
+                     </Empty>}
           </Container>
           </Wrapper>
         );

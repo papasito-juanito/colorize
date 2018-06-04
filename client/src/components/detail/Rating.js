@@ -72,14 +72,14 @@ class Rating extends Component {
         // console.log(form)
         this.props.loginState === false ? (alert('로그인이 필요한 서비스 입니다.'), this.props.handleLogout()) :
         !this.props.image ? alert('사진 등록은 필수입니다') :
-             axios.post(`${url}/api/review/post/message`, form, { headers: { 'token': token } })
+             (axios.post(`${url}/api/review/post/message`, form, { headers: { 'token': token } })
                 .then((response) => {
                 console.log(response);
                 })
                 // .then(response => this.setState({ data: response.data }))
-                .catch(err => console.log(err))
-        this.input.value = '';
-        window.location.reload();
+                .catch(err => console.log(err)),
+        this.input.value = '',
+        window.location.reload())
     }
 
     _alertReview() {

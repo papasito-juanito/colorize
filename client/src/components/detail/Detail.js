@@ -37,10 +37,9 @@ const Write = styled.div`
 `
 
 const ReviewDiv = styled.div`
-     margin: auto auto 2% auto ;
-		 heigth: 100%;
-		 @media (max-width: 768px) {
-			display: none;
+	width: 100%;
+	@media (max-width: 768px) {
+		display: none;
 	}
 `
 

@@ -12,27 +12,35 @@ import { url } from '../../config';
 
 const Container = styled.div`
 	@media (max-width: 768px) {
-			margin-top: 80px;
-			display: block;
+            margin-top: 80px;
+            width:80vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: yellow;
 	}
 	margin: 100px 10% 0 10%;
-	align-items: center;
+    align-items: center;
+    
 `
 const TopDetail = styled.div`
-	height: 30vw;
-	display: flex;
-	background-color: #F4F5F9;
+    height: 30vw;
 	display: flex;
 	@media (max-width: 768px) {
-		flex-direction: column;
+        height: auto;
+        flex-direction:column;
+        background-color: blue;
 	}
 `
 const Write = styled.div`
 	border: solid lightblue 2px;
 	margin-top: 10px;
-	height: 10vw;
+    height: 10vw;
+    width:100%;
 	@media (max-width: 768px) {
-		display: none;
+        width:80%;
+    background-color: green;
+    border: 3px solid black
 	}
 `
 

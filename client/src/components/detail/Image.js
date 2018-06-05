@@ -26,7 +26,7 @@ const Image = styled.img`
     object-fit: contain;
     justify-content: center;
     display: block;
-    background: pink;
+    // background: pink;
     @media (max-width: 768px) {
 
 	}

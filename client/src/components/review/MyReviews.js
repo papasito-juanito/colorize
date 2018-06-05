@@ -552,7 +552,7 @@ class MyReviews extends Component {
               </ReviewContent >
             </Container>
           )
-            }): null}
+            }): <h2>리뷰없음</h2>}
         <HomeButton onClick={this.scrollToTop}><Arrow /><br /> Top </HomeButton>
         <RModal
           isOpen={this.state.popupIsOpen}

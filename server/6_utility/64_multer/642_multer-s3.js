@@ -21,7 +21,8 @@ module.exports = (req, res) => {
       contentType: multerS3.AUTO_CONTENT_TYPE,
       storageClass: 'REDUCED_REDUNDANCY',
       metadata(req, file, cb) {
-        cb(null, { originalName: file.originalname });
+        console.log('req.body', req.user_id);
+        cb(null, { fieldName: file.fieldname });
       },
       key(req, file, cb) {
         cb(null, `${Date.now().toString()}_${file.originalname}`);

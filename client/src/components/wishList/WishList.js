@@ -118,7 +118,7 @@ const Title = styled.div`
     margin-top: 30px;
     font-size: 3rem
     font-family: 'Roboto';
-    font-weight: 300;
+    font-weight: 100;
     color: black
 `
 

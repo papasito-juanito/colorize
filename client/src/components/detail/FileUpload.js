@@ -109,7 +109,6 @@ class FileUpload extends Component {
 
             )
             .catch(err => console.log(err))
-
     }
 
 
@@ -123,19 +122,11 @@ class FileUpload extends Component {
             $imagePreview = (<div style={{textAlign:'center', position: 'relative', top: '50%', transform: 'translateY(-50%)'}}>리뷰 사진을 올려주세요</div>);
 
         return (
-            < Container>
-              
-                    {/* <div style = {{height:'150px', width:'150px', border: '1px solid black'}}> <img src={require('../../assets/reviews/1528079528165images.jpeg')}/></div> */}
-                    {/* <div style = {{height:'150px', width:'150px', border: '1px solid black'}}> <img src={require('../../assets/reviews/1528079528165images.jpeg')}/></div> */}
-
-                {/* <ImgDiv>
-                    {$imagePreview}
-                </ImgDiv> */}
+            <Container>
                 <FileButton
                     type='file'
                     accept = "image/*"
                     onChange={(e) => { this._handleImageChange(e); this._fileUploadHandler(e) }} />
-              
                 <Modal
                     isOpen={this.state.popupIsOpen}
                     onAfterOpen={this._afterOpenPopup}

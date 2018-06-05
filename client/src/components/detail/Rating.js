@@ -9,6 +9,7 @@ import FileUpload from './FileUpload';
 
 const Wrapper = styled.div`
     width: 100%;
+    height: 100%;
     display: flex;
     background-color: white;
     border: solid red 2px;
@@ -23,7 +24,7 @@ const TopWrite = styled.div`
     display: flex;
     margin: 0;
     @media (max-width: 768px) {
-        width: 100%;
+        width: 1g00%;
         height: 15vh;
     }
 `
@@ -48,7 +49,7 @@ const ReviewDiv = styled.div`
     border: solid pink 2px;
     @media (max-width: 768px) {
         width: 100%;
-        height: 15vh;
+        height: 20vh;
     }
 `
 const TextArea = styled.textarea`
@@ -59,6 +60,7 @@ const TextArea = styled.textarea`
 `
 const Button = styled.button`
     position: relative;
+    height: 25px;
     cursor: pointer;
     border: none;
     color: white;
@@ -148,20 +150,15 @@ class Rating extends Component {
                     </RatingDiv>
                     <ImageDiv>
                         <img src = {this.state.imagepreviewUrl ? this.state.imagepreviewUrl: null} style = {{border: '1px solid black', width:'100%', height:'100%'}}/>
-
-                    </ImageDiv>
-                   
+                    </ImageDiv>                   
                 </TopWrite>
                 <ReviewDiv>
                     <TextArea placeholder='사용 후기를 입력해주세요.' innerRef={ref => { this.input = ref; }} /><br />
                     <div style={{display : 'flex',  justifyContent : 'flex-end'}}>
-                    {/* <Button onClick={document.getElementById('upload')}>등록</Button> */}
                      <FileUpload imagePreview = {this._imagePreview} callback={this._callback.bind(this)} id={this.props.id} />
-           
                     <Button onClick={() => { this._alertReview(); this._clickReview() }}>등록</Button>
                     </div>
                 </ReviewDiv>
-
             </Wrapper>
 
         )

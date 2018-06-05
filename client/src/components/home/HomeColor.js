@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import './HomeColor.css';
 import TableDragSelect from "react-table-drag-select";
 import styled from 'styled-components';
 
-const Button = styled.button`
+import { Modal, Button } from 'antd';
+import 'antd/dist/antd.css';
+import './HomeColor.css';
+
+const Buttons = styled.button`
   padding: 1% 2%;
   font-size: 1em;
   color: #fff;
@@ -59,6 +62,14 @@ class HomeColor extends Component {
     }
   }
 
+  error() {
+    Modal.info({
+      title: '색상을 먼저 선택해주세요.',
+      onOk() {},
+    });
+    
+  }
+
   getID = () => {
     var link = '';
     var elements = document.getElementsByClassName("undefined cell-enabled cell-selected");
@@ -67,7 +78,11 @@ class HomeColor extends Component {
     }
    link = link.slice(0, -1);
     // const encodeLink = encodeURIComponent(link);
-    window.location.href = `/items/${link}?sort=rating`;
+    if(link.length === 0){
+      this.error()
+    } else {
+      window.location.href = `/items/${link}?sort=rating`;
+    }
     // return <Link to ={`/items/${link}?sort=rating`}/>
   }
 
@@ -172,8 +187,8 @@ class HomeColor extends Component {
         </TableDragSelect>
         </div>
         <div style={{textAlign:'center'}}>
-          <Button onClick={this.handleClick}>Reset</Button>
-          <Button onClick={this.getID}>Search for these colors!</Button>
+          <Buttons onClick={this.handleClick}>Reset</Buttons>
+          <Buttons onClick={this.getID}>Search for these colors!</Buttons>
         </div>
       </div>
     );

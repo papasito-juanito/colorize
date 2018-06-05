@@ -25,6 +25,11 @@ const LoginContainer = styled.div`
     @media (max-width: 768px) {
         margin-top: 200px;
     }
+
+    @media (max-width: 500px) {
+        width: 90%;
+    }
+
     @media (max-width: 375px) {
         margin-top: 150px;
     }
@@ -76,6 +81,14 @@ const IdInput = styled.input`
     width: 100%;
     padding: 10px;
     font-size: 0.8rem
+`
+
+const Span = styled.span`
+    display: none;
+    margin-left: 10px;
+    @media (max-width: 337px) {
+        margin-left: 0
+    }
 `
 
 const PasswordWrapper = styled.div`
@@ -206,11 +219,11 @@ class Login extends Component {
                     </LoginTop>
                     <LoginBottom> 
                         <IdWrapper> 
-                            이메일 주소 <span id='email' style={{display: 'none', marginLeft: '10px'}}> 잘못된 이메일 주소입니다. </span>
+                            이메일 주소 <Span id='email' > 잘못된 이메일입니다. </Span>
                             <IdInput innerRef={ref => { this.email = ref; }} placeholder="abc@email.com"/> 
                         </IdWrapper>
                         <PasswordWrapper> 
-                            비밀번호 <span id='password' style={{display: 'none', marginLeft: '10px'}}> 패스워드가 틀렸습니다. </span>
+                            비밀번호 <Span id='password'> 패스워드가 틀렸습니다. </Span>
                             <PasswordInput innerRef={ref => { this.password = ref; }} placeholder="Enter Your Password"/> 
                         </PasswordWrapper>
                         <LoginSignupButtonWrapper> 

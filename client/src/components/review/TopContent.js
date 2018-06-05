@@ -84,10 +84,8 @@ const BottomContainer = styled.div`
 `
 
 const UserDiv = styled.div`
-    border: 1px solid black;
     width: 20%;
     height: 30%;
-    border-radius:50%;
 `
 
 const Bubble = styled.div`
@@ -183,7 +181,7 @@ class TopContent extends Component {
                     return (
                         <Container key={i}>
                             <Info >
-                                <UserDiv > <img alt='user' /></UserDiv>
+                                <UserDiv > <img alt='user'  src = {item.user_photo} style = {{ borderRadius:'50%',height:'100%', width:'100%'}} /></UserDiv>
                                 {/* 유저 이미지 여기서 받아와서 삽입 */}
                                 <div>{item.name}</div>
                                 <div>{item.age}세 · {item.tone}</div>

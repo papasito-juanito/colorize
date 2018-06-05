@@ -3,6 +3,7 @@
 # dependencies
 /node_modules
 package-lock.json
+yarn.lock
 
 # confidential
 /.vscode
@@ -12,3 +13,4 @@ package-lock.json
 /server_old
 /uploads
 .env
+.gitignore

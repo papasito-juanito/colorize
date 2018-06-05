@@ -181,10 +181,8 @@ const Cancel = styled.button`
 `
 
 const UserDiv = styled.div`
-    border: 1px solid black;
     width: 25%;
     height: 30%;
-    border-radius:50%;
 `
 
 
@@ -249,7 +247,7 @@ class MyContent extends Component {
                     <Container id='MyContentCONTAINER'>
                         <Top>
                         <Info >
-                            <UserDiv > <img alt='user' /></UserDiv>
+                            <UserDiv > <img alt='user' src = {this.props.user.user_photo} style = {{ borderRadius:'50%',height:'100%', width:'100%'}}/></UserDiv>
                             <div style={{boxSizing:'border-box', margin:'8% 0 0 0'}}>
                             <div>{this.props.user.name} <img style={{width: '8%', height:'8%'}} src = {this.props.user.gender === 'male'? male : female}/></div>
                                 <div>{this.props.user.age}, {this.props.user.tone}<br/></div>

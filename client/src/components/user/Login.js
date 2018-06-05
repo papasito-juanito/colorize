@@ -77,7 +77,7 @@ const IdWrapper = styled.div`
 
 const IdInput = styled.input`
     margin: 5px 0 20px 0;
-    border: 0.5px solid black;
+    border: 0.5px solid #ccc;
     width: 100%;
     padding: 10px;
     font-size: 0.8rem
@@ -99,7 +99,7 @@ const PasswordInput = styled.input.attrs({
     type: 'password'
 })`
     margin: 5px 0 20px 0;
-    border: 0.5px solid black;
+    border: 0.5px solid #ccc;
     width: 100%;
     padding: 10px;
     font-size: 0.8rem
@@ -190,9 +190,11 @@ class Login extends Component {
                         console.log('elselse', this.props);
                         pathname = '/'
                     }    
-                    console.log('pathname', pathname);
-                    console.log('search', search);
-                    search ? history.push(pathname + search) : history.push(pathname)       
+                    if(pathname === '/signup'){
+                        history.push('/')
+                    } else {
+                        search ? history.push(pathname + search) : history.push(pathname)       
+                    }
         }})
         .catch(error => console.log(error))
     }

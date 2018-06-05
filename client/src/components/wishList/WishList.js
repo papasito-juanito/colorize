@@ -50,8 +50,11 @@ const EmptyTitle = styled.div`
     @media (max-width: 656px) {
         font-size: 3.5rem
     }
-    @media (max-width: 510px) {
+    @media (max-width: 511px) {
         font-size: 2.8rem
+    }
+    @media (max-width: 511px) {
+        font-size: 2.4rem
     }
     @media (max-width: 379px) {
         font-size: 2rem
@@ -65,11 +68,20 @@ const EmptyMessage = styled.div`
     @media (max-width: 656px) {
         font-size: 1.75rem
     }
-    @media (max-width: 510px) {
+    @media (max-width: 573px) {
+        font-size: 1.6rem
+    }
+    @media (max-width: 519px) {
         font-size: 1.4rem
+    }
+    @media (max-width: 457px) {
+        font-size: 1.2rem
     }
     @media (max-width: 375px) {
         font-size: 1rem
+    }    
+    @media (max-width: 320px) {
+        font-size: 0.8rem
     }
 `
 const Emptybtn = styled.button`

@@ -86,11 +86,14 @@ const BdayInput = styled.input`
     font-size: 0.8rem
 `
 const Input = styled.input`
-    margin: 5px 0 20px 0;
-    border: 0.5px solid black;
+    margin: 5px 0 15px 0;
+    border: 0.5px solid #ccc;
     width: 100%;
     padding: 10px;
     font-size: 0.8rem
+    @media (max-width: 414px) {
+        margin: 5px 0 10px 0;
+    }
 `
 const InvalidId = styled.div`
     color:red
@@ -131,6 +134,14 @@ const InvalidBirthdate = styled.div`
     color:red
     
 `
+const Span = styled.span`
+    display: none;
+    margin-left: 10px;
+    @media (max-width: 320px) {
+        margin-left: 0
+    }
+`
+
 const Signupbtn = styled.div`
     border: none;
     background-color: black;
@@ -144,7 +155,7 @@ const Signupbtn = styled.div`
     }
     font-size: 1.5em;
     font-family: 'Roboto';
-    font-weight: 300;
+    font-weight: 100;
     @media (max-width: 519px) {
         font-size: 1.3em;
     }
@@ -176,7 +187,7 @@ class Signup extends Component {
             isValidEmail: true,
             isValidPassword: true,
             isValidNickname: true,
-            birthdateSelected: '',
+            birthdateSelected: true,
             genderSelected: '',
             colorSelected: '',
             signupSuccess: false,
@@ -197,7 +208,7 @@ class Signup extends Component {
             userMail:  this.email.value,
             userPassword: this.password.value,
             userName:  this.nickname.value,
-            birthDate: this.state.birthdateSelected, 
+            birthDate: this.date.value, 
             gender: this.state.genderSelected,
             toneName: this.state.colorSelected
         }
@@ -229,7 +240,7 @@ class Signup extends Component {
                 window.setTimeout(function() {
                     document.getElementById('nickname').style.display='none'
                  }, 3000);
-            } else if(birthDate.slice(0,4)>2018){
+            } else if(!this.state.birthdateSelected ||birthDate.slice(0,4)>2018 || birthDate.slice(0,4)<1900 ){
                 document.getElementById('birthdate').style.display = "inline-block"
                 document.getElementById('birthdate').style.color = "red"
                 document.getElementById('birthdate').style.fontSize = "0.8rem"
@@ -245,9 +256,13 @@ class Signup extends Component {
                             signupSuccess: true
                         })
                         const {history} = this.props
-                        const {pathname} = this.props.location.state.from
-                        const {search} = this.props.location.state.from
-                        history.push('/login', {from: {pathname: pathname, search: search}})  
+                        if(this.props.location.state){
+                            const {pathname} = this.props.location.state.from
+                            const {search} = this.props.location.state.from
+                            history.push('/login', {from: {pathname: pathname, search: search}}) 
+                        }else{
+                            history.push('/login')
+                        }
                     }else if(!res.data.success&&res.data.message==='invalid mail'){
                         this.setState({
                             isExist: "중복된 메일 주소입니다."
@@ -298,9 +313,9 @@ class Signup extends Component {
     }
 
     onBirthdate = () => {
-        const date = this.date.value
+        var date = this.date.value
         this.setState({
-            birthdateSelected: date
+            birthdateSelected: date.length === 8 ? true : false
         })
     }
 
@@ -366,30 +381,28 @@ class Signup extends Component {
                     <SignupText>Colorize yourself</SignupText>
                     </SignupTop>
                     <SignupBottom>
-                    이메일 주소<span style={{display: 'none', marginLeft: '10px'}} id='email'>{this.state.isExist ? this.state.isExist : '이메일틀림'}</span><br/>
+                    이메일 주소<Span id='email'>{this.state.isExist ? this.state.isExist : '이메일틀림'}</Span><br/>
                     <Input 
                     onChange={this.onChangeEmail.bind(this)} innerRef={ref => { this.email = ref; }} placeholder="abc@email.com"/> 
                     {this.state.isValidEmail ? null : <InvalidId style={{fontSiz:'0.6rem'}}>Invalid Email Type</InvalidId>}
                     <br/>
-                    비밀번호<span style={{display: 'none', marginLeft: '10px'}} id='password'>비밀번호 길이 틀림</span><br/>
+                    비밀번호<Span id='password'>비밀번호 길이 틀림</Span><br/>
                     <Input type="password"
                     onChange={this.onChangePassword.bind(this)} innerRef={ref => { this.password = ref; }} placeholder="Enter Your Password"/> 
                     {this.state.isValidPassword ? null : <InvalidPassword>5글자 이상 10글자 이하로 입력 해 주세요</InvalidPassword>}  
                     <br/>
-                    닉네임<span style={{display: 'none', marginLeft: '10px'}} id='nickname'>{this.state.isExistName ? this.state.isExistName : '닉네임 길이 틀림'}</span><br/>
+                    닉네임<Span id='nickname'>{this.state.isExistName ? this.state.isExistName : '닉네임 길이 틀림'}</Span><br/>
                     <Input
                     onChange={this.onChangeNickname.bind(this)} innerRef={ref => { this.nickname = ref; }} placeholder="Enter Your Nickname"/> 
                     {this.state.isValidNickname ? null : <InvalidNickname>5글자 이상 10글자 이하로 입력 해 주세요</InvalidNickname>}
                     <br/>
-                    생년월일<span style={{display: 'none', marginLeft: '10px'}} id='birthdate'>잘못 된 날짜 형식입니다</span><br/>
-                    <BdayInput
-                    onBlur = {this.onBirthdate.bind(this)}
-                    required type='date'innerRef={ref => { this.date = ref; }}/>
+                    생년월일<Span id='birthdate'>잘못 된 날짜 형식입니다</Span><br/>
+                    <Input
+                    onChange={this.onBirthdate.bind(this)} innerRef={ref => { this.date = ref; }} placeholder="YYYYMMDD"/> 
+                    {this.state.birthdateSelected ? null : <InvalidNickname>YYYYMMDD</InvalidNickname>}
                     성별<br/>
                     <Dropdown options={this.genderOptions} onChange={this.onSelectedGender.bind(this)} placeholder="여자/남자"
                     value={this.state.genderSelected}/>
-                    {/* <input name="gender" onChange={this.onSelectedGender.bind(this)} type="radio" value="female"/> 여자 
-                    <input name="gender" onChange={this.onSelectedGender.bind(this)} type="radio" value="male"/> 남자 */}
                     피부톤<br/>
                     <Dropdown options={this.colorOptions} onChange={this.onColorSelect.bind(this)} placeholder="계절별 피부톤"
                     value={this.state.colorSelected} />

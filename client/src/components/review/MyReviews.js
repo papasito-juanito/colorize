@@ -315,6 +315,27 @@ const Arrow = styled.i`
     padding: 6%;
 `
 
+const Loading = styled.div`
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid black;
+    margin-top: 250px;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+      @media (max-width: 414px) {
+        margin-top: 200px;
+      }
+      @media (max-width: 375px) {
+        margin-top: 125px;
+      }
+`
+
 const customStyles = {
   content: {
     top: '50%',
@@ -354,7 +375,8 @@ class MyReviews extends Component {
       filetype:'',
       imageAddress : '',
       imagepreviewUrl: '',
-      isLoading: true
+      isLoading: true,
+      isUploaded: false
     }
 
     this.scrollStep = this.scrollStep.bind(this);
@@ -428,16 +450,14 @@ class MyReviews extends Component {
      })
      const form = {
       //  reviewPhoto : this.state.data.item_photo,
-      reviewPhoto : this.state.imageAddress,
+        reviewPhoto : this.state.imageAddress,
        reviewRating : this.state.rating,
        reviewMessage : this.modifyReview.value,
        review_id : this.state.data[e.target.id].review_id
      }
         axios.post(`${url}/api/review/update/message`, form,  { headers: { 'token': token } })
           .then((response) => {
-            console.log('updateres');
-            alert('리뷰가 수정되었습니다')  
-            window.location.reload();
+            console.log('updateres', response);
           })
           .catch(err => console.log(err));
   }
@@ -554,19 +574,20 @@ class MyReviews extends Component {
     console.log('file@@@@@@@@@@@@@@ :', file)
     const formData = new FormData();
     formData.append('file', file);
-    var mimeType = file.type.split('image/')[1];
-      mimeType === 'png' || mimeType === 'jpg' || mimeType === 'jpeg' ?
-      axios.post(`${url}/api/user/post/upload`, formData, { headers: { 'token': token} } )
-          .then(response => {
-              console.log(response)
-              this.setState({filetype : true, imageAddress : response.data.message})
-          }
-
-          )
-          .catch(err => console.log(err))
-          : (alert('jpg/png 파일만 올릴수있어요'), this.setState({filetype : false}))
-
+    var mimeType = file.type.split('/')[0];
+    mimeType === 'image' ?
+    axios.post(`${url}/api/user/post/upload`, formData, { headers: { 'token': token} } )
+        .then(response => {
+            console.log(response)
+            this.setState({
+              imageAddress : response.data.message,
+              isUploaded: true
+            })
         }
+      )
+      .catch(err => console.log(err))
+      : (alert('이미지 파일만 올릴수있어요'))
+    }
 
   componentDidMount(){
 //여기서 내가쓴 리뷰 전체모아오기
@@ -589,14 +610,9 @@ class MyReviews extends Component {
   }
 
   render(){
-    console.log('myreview', this.props);
-    console.log('review Detele@@@@@@@@@@@@@@:',this.state.data)
     console.log('filefilefilefile', this.state.file);
     console.log('filefilefilefile', this.state.filetype);
-    console.log('loadingloading', this.state.isLoading);
-    console.log('length', this.state.data.length);
-    
-    console.log(this.state.data);
+    console.log('@@@@@WEFEWFWEFEWFEWFWEFW',this.state.imageAddress);
     
     
     let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
@@ -615,10 +631,13 @@ class MyReviews extends Component {
                 <MyImage onClick={this._openPopup} src ={item.review_photo}  />
                 : this.state.isReply && this.state.clickedComment === item.review_id  ?
                 <Dropzone onDrop={ this._onDrop.bind(this) } size={ 50 }  accept = "image/jpeg, image/png, image/jpg" style={{width: '100%', height: '100%'}}    >
+                
                   <div style={{width:'100%', height:'100%', textAlign:'center'}}>
                        <div> click here </div>
-                       <div style= {{width: '100%', height:'90%'}}> {this.state.file && this.state.filetype === true ? <img style = {{ verticalAlign:'middle', width:'90%', height:'90%', borderRadius:'50%'}} src= {this.state.file.preview} />:null}</div>
-                  </div>        
+                       <div style= {{width: '100%', height:'90%'}}>
+                        {this.state.file ?  <img style = {{ verticalAlign:'middle', width:'90%', height:'90%', borderRadius:'50%'}} src= {this.state.file.preview} />:null}
+                      </div>
+                  </div>      
                 </Dropzone>
                 : 
                 <MyImage onClick={this._openPopup} src ={item.review_photo}  />}

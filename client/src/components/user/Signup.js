@@ -97,7 +97,10 @@ const Input = styled.input`
 `
 const InvalidId = styled.div`
     color:red
-    font-size: 0.9rem
+    font-size: 0.8rem
+    @media (max-width: 414px) {
+        font-size: 0.7rem
+    }
 `
 const PasswordImage = styled.img`
     width: auto; 
@@ -107,6 +110,9 @@ const PasswordImage = styled.img`
 const InvalidPassword = styled.div`
     color:red
     font-size: 0.8rem;
+    @media (max-width: 414px) {
+        font-size: 0.7rem
+    }
 `
 
 const NicknameImageDiv = styled.div`
@@ -123,6 +129,9 @@ const NicknameImage = styled.img`
 const InvalidNickname = styled.div`
     color:red
     font-size: 0.8rem;
+    @media (max-width: 414px) {
+        font-size: 0.7rem
+    }
 `
 
 const BirthdateImageDiv = styled.div`
@@ -132,13 +141,19 @@ const BirthdateImageDiv = styled.div`
 `
 const InvalidBirthdate = styled.div`
     color:red
-    
+    font-size: 0.8rem;
+    @media (max-width: 414px) {
+        font-size: 0.7rem
+    }
 `
 const Span = styled.span`
     display: none;
     margin-left: 10px;
     @media (max-width: 320px) {
         margin-left: 0
+    }
+    @media (max-width: 414px) {
+        font-size: 0.7rem
     }
 `
 
@@ -381,17 +396,17 @@ class Signup extends Component {
                     <SignupText>Colorize yourself</SignupText>
                     </SignupTop>
                     <SignupBottom>
-                    이메일 주소<Span id='email'>{this.state.isExist ? this.state.isExist : '이메일틀림'}</Span><br/>
+                    이메일 주소<Span id='email'>{this.state.isExist ? this.state.isExist : '이메일 형식이 아닙니다.'}</Span><br/>
                     <Input 
                     onChange={this.onChangeEmail.bind(this)} innerRef={ref => { this.email = ref; }} placeholder="abc@email.com"/> 
                     {this.state.isValidEmail ? null : <InvalidId style={{fontSiz:'0.6rem'}}>Invalid Email Type</InvalidId>}
                     <br/>
-                    비밀번호<Span id='password'>비밀번호 길이 틀림</Span><br/>
+                    비밀번호<Span id='password'>5~10 글자로 입력해주세요</Span><br/>
                     <Input type="password"
                     onChange={this.onChangePassword.bind(this)} innerRef={ref => { this.password = ref; }} placeholder="Enter Your Password"/> 
                     {this.state.isValidPassword ? null : <InvalidPassword>5글자 이상 10글자 이하로 입력 해 주세요</InvalidPassword>}  
                     <br/>
-                    닉네임<Span id='nickname'>{this.state.isExistName ? this.state.isExistName : '닉네임 길이 틀림'}</Span><br/>
+                    닉네임<Span id='nickname'>{this.state.isExistName ? this.state.isExistName : '닉네임 형식이 아닙니다'}</Span><br/>
                     <Input
                     onChange={this.onChangeNickname.bind(this)} innerRef={ref => { this.nickname = ref; }} placeholder="Enter Your Nickname"/> 
                     {this.state.isValidNickname ? null : <InvalidNickname>5글자 이상 10글자 이하로 입력 해 주세요</InvalidNickname>}
@@ -399,7 +414,7 @@ class Signup extends Component {
                     생년월일<Span id='birthdate'>잘못 된 날짜 형식입니다</Span><br/>
                     <Input
                     onChange={this.onBirthdate.bind(this)} innerRef={ref => { this.date = ref; }} placeholder="YYYYMMDD"/> 
-                    {this.state.birthdateSelected ? null : <InvalidNickname>YYYYMMDD</InvalidNickname>}
+                    {this.state.birthdateSelected ? null : <InvalidNickname>올바른 날짜 형식이 아닙니다.</InvalidNickname>}
                     성별<br/>
                     <Dropdown options={this.genderOptions} onChange={this.onSelectedGender.bind(this)} placeholder="여자/남자"
                     value={this.state.genderSelected}/>

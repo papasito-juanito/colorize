@@ -200,7 +200,8 @@ const Review = styled.span`
 	font-size: 60%;
 	vertical-align: middle;
 	color: grey;
-	`;
+    `;
+
 
 class WishList extends Component {
     constructor(props){

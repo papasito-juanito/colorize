@@ -31,14 +31,14 @@ const ItemLink = styled(Link)`
     @media (max-width: 250px) {
 				width: 90%;
 				min-width: 100px;
-    }
+	}
 `;
 const Item = styled.li`
     // border: solid red 1px;
     width: 100%;
     height: 100%;
     font-size: 30px;
-    list-style: none;
+	list-style: none;
 `;
 const Img = styled.img`
     width: 100%;

@@ -1,3 +1,6 @@
+// Local import
+const { url } = require('../../client/src/config');
+
 module.exports = {
   multerReview: {
     destination: 'client/src/assets/reviews',
@@ -12,7 +15,7 @@ module.exports = {
   },
   bucket: 'colorize.io',
   express: {
-    port: 8080,
+    port: url.split(':')[2],
   },
   jwt: {
     secret: 'sBl2',

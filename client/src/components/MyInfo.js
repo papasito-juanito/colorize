@@ -116,7 +116,7 @@ class MyInfo extends Component {
           imagepreviewUrl: '',
           photos:'',
           confirmPassword : '',
-          confirmNickname :false,
+          confirmNickname :'',
           minNum : '',
           filetype:'',
           imageAddress : ''
@@ -131,12 +131,11 @@ class MyInfo extends Component {
         this._submit = this._submit.bind(this);
         this._onColorSelect = this._onColorSelect.bind(this);
         this._onDrop = this._onDrop.bind(this);
-        // this._submitImg = this._submitImg.bind(this);
-        this.insta = this.insta.bind(this);
         this._passwordConfirm = this._passwordConfirm.bind(this);
         this._passwordCompare = this._passwordCompare.bind(this);
         this._confirmNickname = this._confirmNickname.bind(this);
         this._minNumber = this._minNumber.bind(this);
+        this._nicknameOnchange = this._nicknameOnchange.bind(this);
     }
 
     componentDidMount(){
@@ -178,10 +177,17 @@ class MyInfo extends Component {
         })
             .then(response => {
               console.log(response.data.success)
-              this.nickname.value.length < 5 ? alert('닉네임은 5자 이상이어야 합니다') : response.data.success === true ? (this.setState({confirmNickname : true}), alert('사용가능한 닉네임입니다.')) : (this.setState({confirmNickname : false}), alert('중복된 닉네임입니다.') )
+             
+            
+              this.nickname.value.length < 5 ? (this.setState({confirmNickname : false}),alert('닉네임은 5자 이상이어야 합니다')) : response.data.success === false ? (this.setState({confirmNickname : false}), alert('중복된 닉네임입니다.')) : (this.setState({confirmNickname : true}), alert('사용가능한 닉네임입니다.'))  
             }
             )
             .catch(err => console.log(err));
+    }
+
+    _nicknameOnchange(){
+     console.log(this.nickname.value)
+     this.nickname.value.length <5 ? this.setState({confirmNickname : false}) : null;
     }
 
     _photoChange(){
@@ -193,25 +199,12 @@ class MyInfo extends Component {
       this.setState({nickName : !this.state.nickName})
     }
 
-    insta(){
-      var token = "1999393974.aeb3e70.9d79c6af391944e690362b4aacb9516f";
-      var count = "10";
-      // axios.get("https://api.instagram.com/v1/users/self/media/recent/?access_token=" + token + "&count=" + count)
-      axios.get(`https://www.instagram.com/explore/tags/제주/?__a=1`)
-      // .then(res => console.log(res))
-        // .then(res => res.json())
-        .then(res =>
-        //   //  console.log(res.graphql.hashtag.edge_hashtag_to_top_posts.edges[0].node.display_url)
-          this.setState({photos : res.data.graphql.hashtag.edge_hashtag_to_top_posts.edges[1].node.display_url})
-        )
-        // )
-        .catch(err=>console.log(err))
 
-    }
 
     _comparePassword(){
       console.log(this.newPassword.value)
       console.log(this.confirmPassword.value)
+      // !this.password.value ? this.setState({validate : false}) :
       this.newPassword.value !== this.confirmPassword.value ? 
        this.setState({validate : false})
         // alert('입력한 비밀번호가 일치하지 않습니다') 
@@ -233,41 +226,41 @@ class MyInfo extends Component {
     _onDrop(files){
       const token = localStorage.getItem('token')
       const file = files[0];
+      this.setState({file:file})
+      console.log('file@@@@@@@@@@@@@@ :', file)
       const formData = new FormData();
       formData.append('file', file);
       var mimeType = file.type.split('image/')[1];
         mimeType === 'png' || mimeType === 'jpg' || mimeType === 'jpeg' ?
         axios.post(`${url}/api/user/post/upload`, formData, { headers: { 'token': token} } )
-            // .then((response) => {
-            // console.log(response);
-            // })
+
             .then(response => {
                 console.log(response)
                 this.setState({filetype : true, imageAddress : response.data.message})
               
-                // this.props.callback(response.data.message)
+
             }
-                // this.setState({ imageURL: `${url}/${response.data.file}` })
+
             )
             .catch(err => console.log(err))
             : (alert('jpg/png 파일만 올릴수있어요'), this.setState({filetype : false}))
 
-
-      console.log(mimeType)
-      console.log(files)
-      console.log(file)
-      console.log('file.preview@@@@@@@@@@@@@@@@ :', file.preview)
-      console.log(typeof file)
-       let reader = new FileReader();
+          
+      // console.log(mimeType)
+      // console.log(files)
+      // console.log(file)
+      // console.log('file.preview@@@@@@@@@@@@@@@@ :', file.preview)
+      // console.log(typeof file)
+      //  let reader = new FileReader();
 
       // typeof file === 'string'||'object' ? reader.readAsDataURL(file) :alert('적당한형식이 아닙니당')
-          reader.readAsDataURL(file)
-             reader.onload = () => {
-               this.setState({
-                 file:file,
-                 imagepreviewUrl: reader.result
-               })
-             }
+          // reader.readAsDataURL(file)
+          //    reader.onload = () => {
+          //      this.setState({
+          //        file:file,
+          //        imagepreviewUrl: reader.result
+          //      })
+          //    }
             //  console.log(this.state.imagepreviewUrl)
       
 
@@ -363,7 +356,7 @@ class MyInfo extends Component {
       }
         // /confirmNickname true
 
-        this.state.validate === true && this.state.confirmNickname !== false && this.state.confirmPassword !== false && this.state.minNum !== false ?  
+        this.state.validate === true && this.state.confirmNickname !== false && this.state.confirmPassword !== false && this.state.minNum !== false  ?  
           axios.post(`${url}/api/user/update/info`, form,  { headers: { 'token': token } })
           .then(response => 
               // this.setState({ user: response.data })
@@ -395,6 +388,7 @@ class MyInfo extends Component {
   ]
 
     render() {
+      console.log('this.state.file@@@@@@@@@@@@@ : ',this.state.file)
       console.log('닉네임 유효 :', this.state.confirmNickname)
       console.log('현재비번 유효 :', this.state.confirmPassword)
       console.log('비번 대조 :', this.state.validate)
@@ -418,12 +412,10 @@ class MyInfo extends Component {
                        <div> Drop some files here!</div>
                        <div style= {{width: '100%', height:'90%'}}> {this.state.file && this.state.filetype === true ? <img style = {{ verticalAlign:'middle', width:'90%', height:'90%', borderRadius:'50%'}} src= {this.state.file.preview} />:null}</div>
                            </div>
-                                 {/* <AvatarEditor width={100} height={100} border={50} scale={1.2} image={this.state.imagepreviewUrl} /> */}
                            </Dropzone>
                            
                            
                           <button onClick={this._photoChange}> 취소</button></div>}
-                                 {/* : <div><input type="file"/><button onClick={this._photoChange}>취소</button></div>} */}
                 </Data>
               </Row>
               <Row>
@@ -434,7 +426,7 @@ class MyInfo extends Component {
                 <Column>닉네임</Column>
                 <Data>
                     {this.state.nickName === false ? <div><input value = {this.state.data ? this.state.data.name : null} ref={ref => { this.nickname = ref; }}  readOnly/> <button onClick = {this._nickNameChange} style={{'margin-left': '15px'}}>닉네임 변경</button></div>
-                    : <div><input onBlur={this._} ref={ref => { this.nickname = ref; }} /><button onClick = {this._confirmNickname}> 중복확인 </button><button onClick={this._nickNameChange}>변경취소</button></div>}
+                    : <div><input onBlur={this._nicknameOnchange} ref={ref => { this.nickname = ref; }} /><button onClick = {this._confirmNickname}> 중복확인 </button><button onClick={this._nickNameChange}>변경취소</button></div>}
                 </Data>
               </Row>
               <Row>
@@ -473,7 +465,7 @@ class MyInfo extends Component {
                   </tr>
                   <tr>
                     <InTH>비밀번호 재입력</InTH>
-                    <td> <input onClick={this._passwordInput} onChange = {this._comparePassword} ref={ref => { this.confirmPassword = ref; }}type='password'/></td>
+                    <td> <input onClick={this._passwordInput} onChange = {this._comparePassword} ref={ref => { this.confirmPassword = ref; }} type='password'/></td>
                      {!this.confirmPassword && !this.newPassword ?  null : this.confirmPassword.value && this.newPassword.value ? <div>{this.state.validate === true ? '비밀번호가 일치합니다' : '입력한 비밀번호가 일치하지 않습니다'}</div>:null}
                   </tr>
                  

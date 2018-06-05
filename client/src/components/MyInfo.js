@@ -116,8 +116,10 @@ class MyInfo extends Component {
           imagepreviewUrl: '',
           photos:'',
           confirmPassword : '',
-          confirmNickname :'',
-          minNum : ''
+          confirmNickname :false,
+          minNum : '',
+          filetype:'',
+          imageAddress : ''
           
         }
 
@@ -176,7 +178,7 @@ class MyInfo extends Component {
         })
             .then(response => {
               console.log(response.data.success)
-              response.data.success === true ? (this.setState({confirmNickname : true}), alert('사용가능한 닉네임입니다.')) : (this.setState({confirmNickname : false}), alert('중복된 닉네임입니다.') )
+              this.nickname.value.length < 5 ? alert('닉네임은 5자 이상이어야 합니다') : response.data.success === true ? (this.setState({confirmNickname : true}), alert('사용가능한 닉네임입니다.')) : (this.setState({confirmNickname : false}), alert('중복된 닉네임입니다.') )
             }
             )
             .catch(err => console.log(err));
@@ -204,24 +206,6 @@ class MyInfo extends Component {
         )
         // )
         .catch(err=>console.log(err))
-      //     if (response.data.length > 0) {
-      //       for (var i = 0; i < response.data.length; i++) {
-      //         insta = '<div class="insta-box">';
-      //         insta += "<a target='_blank' href='" + response.data[i].link + "'>";
-      //         insta += "<div class='image-layer'>";
-      //         insta += '<img src="' + response.data[i].images.low_resolution.url + '">';
-      //         insta += "</div>";
-      //         //insta += "<div class='caption-layer'>";  
-      //         //insta += "<span class='insta-likes'>" + response.data[i].likes.count + " Likes</span>";  
-      //         //insta += "</div>";  
-      //         insta += "</a>";
-      //         insta += "</div>";
-      //         $("#instaPics").append(insta);
-      //       }
-      //     }
-      //   }
-      // });
-      // [출처] 인스타그램 api | 작성자 jhee_608
 
     }
 
@@ -247,15 +231,37 @@ class MyInfo extends Component {
     }
 
     _onDrop(files){
+      const token = localStorage.getItem('token')
+      const file = files[0];
+      const formData = new FormData();
+      formData.append('file', file);
+      var mimeType = file.type.split('image/')[1];
+        mimeType === 'png' || mimeType === 'jpg' || mimeType === 'jpeg' ?
+        axios.post(`${url}/api/user/post/upload`, formData, { headers: { 'token': token} } )
+            // .then((response) => {
+            // console.log(response);
+            // })
+            .then(response => {
+                console.log(response)
+                this.setState({filetype : true, imageAddress : response.data.message})
+              
+                // this.props.callback(response.data.message)
+            }
+                // this.setState({ imageURL: `${url}/${response.data.file}` })
+            )
+            .catch(err => console.log(err))
+            : (alert('jpg/png 파일만 올릴수있어요'), this.setState({filetype : false}))
 
-      var file = files[0];
+
+      console.log(mimeType)
       console.log(files)
       console.log(file)
+      console.log('file.preview@@@@@@@@@@@@@@@@ :', file.preview)
       console.log(typeof file)
        let reader = new FileReader();
 
       // typeof file === 'string'||'object' ? reader.readAsDataURL(file) :alert('적당한형식이 아닙니당')
- reader.readAsDataURL(file)
+          reader.readAsDataURL(file)
              reader.onload = () => {
                this.setState({
                  file:file,
@@ -351,7 +357,7 @@ class MyInfo extends Component {
       const form = {
         userPassword : this.newPassword.value || undefined, 
         userName : this.nickname.value, 
-        userPhoto : 3,
+        userPhoto: this.state.imageAddress || this.state.data.user_photo,
         toneName : this.state.colorSelected || this.state.data.tone
 
       }
@@ -404,17 +410,17 @@ class MyInfo extends Component {
             <Table>
               <Row>
                 <Column>사진</Column>
-                <Data>{this.state.hasPhoto ? <div><img style = {{ verticalAlign:'middle',width:'10%', borderRadius:'50%'}} src= {avatar} /><button onClick={this._photoChange}> 사진 변경</button></div> 
-                  : <div><Dropzone onDrop={ this._onDrop } size={ 50 }     >
-                  {/* accept = "image/jpeg, image/png" */}
+                <Data>{this.state.hasPhoto ? <div><img style = {{ verticalAlign:'middle',width:'10%', borderRadius:'50%'}} src= {this.state.data.user_photo} /><button onClick={this._photoChange}> 사진 변경</button></div> 
+                  : <div><Dropzone onDrop={ this._onDrop } size={ 50 }  accept = "image/jpeg, image/png, image/jpg"    >
+                 
                   <div style={{width:'100%', height:'100%', textAlign:'center'}}>
                        <div> Drop some files here!</div>
-                       <div style= {{width: '100%', height:'90%'}}> {this.state.imagepreviewUrl ? <img style = {{ verticalAlign:'middle', width:'90%', height:'90%', borderRadius:'50%'}} src= {this.state.user_photo} />:null}</div>
+                       <div style= {{width: '100%', height:'90%'}}> {this.state.file && this.state.filetype === true ? <img style = {{ verticalAlign:'middle', width:'90%', height:'90%', borderRadius:'50%'}} src= {this.state.file.preview} />:null}</div>
                            </div>
                                  {/* <AvatarEditor width={100} height={100} border={50} scale={1.2} image={this.state.imagepreviewUrl} /> */}
                            </Dropzone>
                            
-                           <button onClick={this._submitImg}> 변경</button>
+                           
                           <button onClick={this._photoChange}> 취소</button></div>}
                                  {/* : <div><input type="file"/><button onClick={this._photoChange}>취소</button></div>} */}
                 </Data>
@@ -427,7 +433,7 @@ class MyInfo extends Component {
                 <Column>닉네임</Column>
                 <Data>
                     {this.state.nickName === false ? <div><input value = {this.state.data ? this.state.data.name : null} ref={ref => { this.nickname = ref; }}  readOnly/> <button onClick = {this._nickNameChange} style={{'margin-left': '15px'}}>닉네임 변경</button></div>
-                    : <div><input ref={ref => { this.nickname = ref; }} /><button onClick = {this._confirmNickname}> 중복확인 </button><button onClick={this._nickNameChange}>변경취소</button></div>}
+                    : <div><input onBlur={this._} ref={ref => { this.nickname = ref; }} /><button onClick = {this._confirmNickname}> 중복확인 </button><button onClick={this._nickNameChange}>변경취소</button></div>}
                 </Data>
               </Row>
               <Row>
@@ -447,7 +453,7 @@ class MyInfo extends Component {
                   <tr>
                     <InTH>현재 비밀번호</InTH>
                     <td><input onChange={this._passwordCompare} ref={ref => { this.password = ref; }}type='password'/></td>
-                      {!this.password ? null : this.state.confirmPassword === true ? < div > Ok </div> :  this.state.confirmPassword === false ? <div>비밀번호 확인해주세요</div > : null}
+                      {!this.password ? null : !this.password.value.length ? null : this.state.confirmPassword === true ? < div > Ok </div> :  this.state.confirmPassword === false ? <div>비밀번호 확인해주세요</div > : null}
 
 
                     {/* {this.state.confirmPassword  === true  ? <div>Ok</div> : this.state.confirmPassword === false && this.password.value ? <div>비밀번호 확인해주세요</div>:null} */}
@@ -462,7 +468,7 @@ class MyInfo extends Component {
                   <tr>
                     <InTH>신규 비밀번호</InTH>
                     <td><input onChange ={this._minNumber} ref={ref => { this.newPassword = ref; }} type='password'/></td>
-                    {!this.newPassword ? null: !this.state.minNum ? <div>비밀번호는 5글자 이상 입력하셔야 합니다.</div> : <div>Ok</div>}
+                    {!this.newPassword ? null: !this.newPassword.value.length ? null : !this.state.minNum ? <div>비밀번호는 5글자 이상 입력하셔야 합니다.</div> : <div>Ok</div>}
                   </tr>
                   <tr>
                     <InTH>비밀번호 재입력</InTH>

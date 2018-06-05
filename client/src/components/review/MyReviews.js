@@ -488,8 +488,10 @@ class MyReviews extends Component {
     return (
       <div style={{ padding: '1% 0 1% 0', fontFamily: "Nanum Gothic" }}>
       <Wrapper>
-        <h2> My Reviews </h2>
-        {this.state.data.length ? this.state.data.map((item, i) => {
+        {this.state.data.length ? <h2> My Reviews </h2> : null}
+         {this.state.isLoading? <div style={{display:"none"}}>loading</div> : this.state.data.length ?
+         this.state.data.map((item, i) => {
+        // {this.state.data.length ? this.state.data.map((item, i) => {
           return (
             <Container key={i}>           
              <LinkDiv> <Link to={`/items/detail/${item.color_id}`} style={{ textDecoration: 'none' }}><ReviewImage src={item.item_photo} /> </Link></LinkDiv>
@@ -550,7 +552,7 @@ class MyReviews extends Component {
               </ReviewContent >
             </Container>
           )
-        }) : <div><h2> 등록된 리뷰가 없습니다 </h2></div>}
+            }): <h2>리뷰없음</h2>}
         <HomeButton onClick={this.scrollToTop}><Arrow /><br /> Top </HomeButton>
         <RModal
           isOpen={this.state.popupIsOpen}

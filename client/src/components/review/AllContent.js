@@ -30,7 +30,7 @@ const Container = styled.div`
     background-color: white;
     border-radius: 5px;
     display:flex;
-    width:95%;
+    width: 100%;
     height: 20vh;
     margin: 1% auto;
 
@@ -106,39 +106,34 @@ const Loading = styled.div `
 `
 const Bubble = styled.div`
 position: relative;
-width: 98%;
-height: 14vh;
-padding: 0px;
-background: #FFFFFF;
--webkit-border-radius: 17px;
--moz-border-radius: 17px;
-border-radius: 17px;
-border: #7F7F7F solid 3px;
+width: 100%;
+height: 80%;
+border: #7F7F7F solid 2px;
 
-    &::before {
-content: '';
-position: absolute;
-border-style: solid;
-border-width: 17px 17px 17px 0;
-border-color: transparent #7F7F7F;
-display: block;
-width: 0;
-z-index: 2;
-left: -20px;
-top: 19px;
-    }
-    &::after {
-content: '';
-position: absolute;
-border-style: solid;
-border-width: 15px 15px 15px 0;
-border-color: transparent #FFFFFF;
-display: block;
-width: 0;
-z-index: 3;
-left: -15px;
-top: 21px;
-    }
+//     &::before {
+// content: '';
+// position: absolute;
+// border-style: solid;
+// border-width: 17px 17px 17px 0;
+// border-color: transparent #7F7F7F;
+// display: block;
+// width: 0;
+// z-index: 2;
+// left: -20px;
+// top: 19px;
+//     }
+//     &::after {
+// content: '';
+// position: absolute;
+// border-style: solid;
+// border-width: 15px 15px 15px 0;
+// border-color: transparent #FFFFFF;
+// display: block;
+// width: 0;
+// z-index: 3;
+// left: -15px;
+// top: 21px;
+//     }
 `
 
 const token = localStorage.getItem('token')
@@ -211,9 +206,6 @@ class AllContent extends Component {
 
            data.length ? items.push(
                 <Container key={i}>
-                   <ReviewImage onClick={this._openPopup} src = {data[i].review_photo}/>
-                   {/* <ReviewImage src={ require(`../../../src/assets/reviews/${this.props.id}_.jpg`) } onClick={this._openPopup} /> */}
-                    {/* <ReviewImage onClick={this._openPopup} src={require(`../public/user/${this.props.파람스매치랑 유저아이디이용}.jpg`)} /> */}
                     <Info >
                        <UserDiv > <img alt='user' src = {data[i].user_photo} style = {{ borderRadius:'50%',height:'100%', width:'100%'}}/></UserDiv>
                         {/* 유저 이미지 여기서 받아와서 삽입 */}
@@ -228,6 +220,10 @@ class AllContent extends Component {
                         </div>
                         <div style={{ fontSize: '0.8rem'}}> {data[i].writeAt.split('T')[0]} </div>
                     </Info >
+                    <ReviewImage onClick={this._openPopup} src = {data[i].review_photo}/>
+                   {/* <ReviewImage src={ require(`../../../src/assets/reviews/${this.props.id}_.jpg`) } onClick={this._openPopup} /> */}
+                    {/* <ReviewImage onClick={this._openPopup} src={require(`../public/user/${this.props.파람스매치랑 유저아이디이용}.jpg`)} /> */}
+
                     <ReviewContent >
                         <div style={{ textAlign: 'center' }}>
                             <Bubble><Message readOnly>{data[i].message}</Message> </Bubble>

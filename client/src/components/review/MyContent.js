@@ -139,42 +139,36 @@ const UserDiv = styled.div`
     width: 25%;
     height: 30%;
 `
-
 const Bubble = styled.div`
 position: relative;
-width: 98%;
-height: 15vh;
-padding: 0px;
-background: #FFFFFF;
--webkit-border-radius: 17px;
--moz-border-radius: 17px;
-border-radius: 17px;
-border: #7F7F7F solid 3px;
+width: 100%;
+height: 80%;
+border: #7F7F7F solid 2px;
 
-    &::before {
-content: '';
-position: absolute;
-border-style: solid;
-border-width: 17px 17px 17px 0;
-border-color: transparent #7F7F7F;
-display: block;
-width: 0;
-z-index: 2;
-left: -20px;
-top: 19px;
-    }
-    &::after {
-content: '';
-position: absolute;
-border-style: solid;
-border-width: 15px 15px 15px 0;
-border-color: transparent #FFFFFF;
-display: block;
-width: 0;
-z-index: 3;
-left: -15px;
-top: 21px;
-    }
+//     &::before {
+// content: '';
+// position: absolute;
+// border-style: solid;
+// border-width: 17px 17px 17px 0;
+// border-color: transparent #7F7F7F;
+// display: block;
+// width: 0;
+// z-index: 2;
+// left: -20px;
+// top: 19px;
+//     }
+//     &::after {
+// content: '';
+// position: absolute;
+// border-style: solid;
+// border-width: 15px 15px 15px 0;
+// border-color: transparent #FFFFFF;
+// display: block;
+// width: 0;
+// z-index: 3;
+// left: -15px;
+// top: 21px;
+//     }
 `
 
 
@@ -238,8 +232,6 @@ class MyContent extends Component {
                 <div style={{width: '100%'}}> 
                   <div style ={{width: '100%', height:'20%z'}}>Your Review <div style={{width:'100%', border:'2px solid #ccc'}}></div></div>
                     <Container>
-                        <ReviewImage onClick={this._openPopup} src={this.props.user.review_photo} />
-                        {/* <ReviewImage onClick={this._openPopup} src={this.props.user.review_photo} /> */}
                         <Info >
                             <UserDiv > <img alt='user' src = {this.props.user.user_photo} style = {{ borderRadius:'50%',height:'100%', width:'100%'}}/></UserDiv>
                             <div style={{boxSizing:'border-box', margin:'8% 0 0 0'}}>
@@ -255,6 +247,9 @@ class MyContent extends Component {
                             </div>
                             </div>
                         </Info >
+                        <ReviewImage onClick={this._openPopup} src={this.props.user.review_photo} />
+                        {/* <ReviewImage onClick={this._openPopup} src={this.props.user.review_photo} /> */}
+
                         <ReviewContent >
                             <div style={{ textAlign: 'center' }}>
                             <Bubble> <Message readOnly>{this.props.user.message}</Message></Bubble>

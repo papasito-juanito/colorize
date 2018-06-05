@@ -5,6 +5,7 @@ import Dropdown from 'react-dropdown';
 // import 'react-dropdown/style.css';
 import { Modal, Button } from 'antd';
 import 'antd/dist/antd.css';
+import './Signup.css';
 
 import axios from 'axios';
 import { url } from '../../config';
@@ -25,6 +26,9 @@ const Container = styled.div`
     @media (max-width: 768px) {
         margin-top: 100px;
     }
+    @media (max-width: 414px) {
+        width: 90%;
+    }
     @media (max-width: 375px) {
         margin-top: 100px;
     }
@@ -32,6 +36,8 @@ const Container = styled.div`
         margin-top: 100px;
     }
 `
+
+
 const SignupContainer = styled.div`
     .Dropdown-control {
         margin: 5px 0 20px 0;
@@ -380,12 +386,12 @@ class Signup extends Component {
                     onBlur = {this.onBirthdate.bind(this)}
                     required type='date'innerRef={ref => { this.date = ref; }}/>
                     성별<br/>
-                    <Dropdown options={this.genderOptions} onChange={this.onSelectedGender.bind(this)} placeholder="성별을 선택해주세요"
+                    <Dropdown options={this.genderOptions} onChange={this.onSelectedGender.bind(this)} placeholder="여자/남자"
                     value={this.state.genderSelected}/>
                     {/* <input name="gender" onChange={this.onSelectedGender.bind(this)} type="radio" value="female"/> 여자 
                     <input name="gender" onChange={this.onSelectedGender.bind(this)} type="radio" value="male"/> 남자 */}
                     피부톤<br/>
-                    <Dropdown options={this.colorOptions} onChange={this.onColorSelect.bind(this)} placeholder="피부톤을 선택해주세요"
+                    <Dropdown options={this.colorOptions} onChange={this.onColorSelect.bind(this)} placeholder="계절별 피부톤"
                     value={this.state.colorSelected} />
                         <Signupbtn onClick={this.onSubmit}>Signup</Signupbtn>
                     </SignupBottom>

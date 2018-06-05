@@ -45,7 +45,8 @@ const Btn = styled(Link)`
     &:visited {
         color: white;
     }
-    &: hover {
+    &:hover {
+        color: white
         text-shadow: 0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F;
     }
     @media (max-width: 426px) {

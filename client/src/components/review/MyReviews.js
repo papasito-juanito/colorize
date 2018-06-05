@@ -9,7 +9,7 @@ import RModal from 'react-modal';
 import { Modal } from 'antd';
 import { Link } from 'react-router-dom';
 import 'antd/dist/antd.css';
-
+import Dropzone from 'react-dropzone';
 
 const Wrapper = styled.div`
     margin : 7% auto 2% auto;
@@ -54,7 +54,7 @@ const MyImageDiv = styled.div`
 `
 const MyImage = styled.img`
     width: 100%;
-    height: 90%;
+    height: 100%;
     background-color: white;
 `
 
@@ -265,7 +265,12 @@ class MyReviews extends Component {
       imagepreviewUrl : '',
       clickedComment:'',
       isReply: false,
-      rating : ''
+      rating : '',
+      files:'',
+      image:'',
+      filetype:'',
+      imageAddress : '',
+      imagepreviewUrl: '',
     }
 
     this.scrollStep = this.scrollStep.bind(this);
@@ -325,8 +330,9 @@ class MyReviews extends Component {
   _changeReply(e){
     var reviewId = this.state.data[e.target.id].review_id
     var rating = this.state.data[e.target.id].rating
+    var image = this.state.data[e.target.id]
     this.setState({
-      isReply: !this.state.isReply, clickedComment: reviewId, rating:rating
+      isReply: !this.state.isReply, clickedComment: reviewId, rating:rating, image
     })
   }
 
@@ -464,6 +470,27 @@ class MyReviews extends Component {
     
   }
 
+  _onDrop(files){
+    const token = localStorage.getItem('token')
+    const file = files[0];
+    this.setState({file:file})
+    console.log('file@@@@@@@@@@@@@@ :', file)
+    const formData = new FormData();
+    formData.append('file', file);
+    var mimeType = file.type.split('image/')[1];
+      mimeType === 'png' || mimeType === 'jpg' || mimeType === 'jpeg' ?
+      axios.post(`${url}/api/user/post/upload`, formData, { headers: { 'token': token} } )
+          .then(response => {
+              console.log(response)
+              this.setState({filetype : true, imageAddress : response.data.message})
+          }
+
+          )
+          .catch(err => console.log(err))
+          : (alert('jpg/png 파일만 올릴수있어요'), this.setState({filetype : false}))
+
+        }
+
   componentDidMount(){
 //여기서 내가쓴 리뷰 전체모아오기
     const token = localStorage.getItem('token')
@@ -481,8 +508,11 @@ class MyReviews extends Component {
 
   render(){
     console.log('myreview', this.props);
-    
     console.log('review Detele@@@@@@@@@@@@@@:',this.state.data)
+    console.log('filefilefilefile', this.state.file);
+    console.log('filefilefilefile', this.state.filetype);
+    
+    
     let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
     
     return (
@@ -494,10 +524,20 @@ class MyReviews extends Component {
         // {this.state.data.length ? this.state.data.map((item, i) => {
           return (
             <Container key={i}>           
-             <LinkDiv> <Link to={`/items/detail/${item.color_id}`} style={{ textDecoration: 'none' }}><ReviewImage src={item.item_photo} /> </Link></LinkDiv>
+             <LinkDiv> <Link to={`/items/detail/${item.color_id}`} style={{ textDecoration: 'none' }}><ReviewImage src={item.item_photo} /> </Link></LinkDiv>  
                 <MyImageDiv>
-                {/* <DeleteImage onClick={this._clickDelete}>X</DeleteImage> */}
+                {!this.state.isReply ?
+                // {/* <DeleteImage onClick={this._clickDelete}>X</DeleteImage> */}
                 <MyImage onClick={this._openPopup} src ={item.review_photo}  />
+                : this.state.isReply && this.state.clickedComment === item.review_id  ?
+                <Dropzone onDrop={ this._onDrop } size={ 50 }  accept = "image/jpeg, image/png, image/jpg" style={{width: '100%', height: '100%'}}    >
+                  <div style={{width:'100%', height:'100%', textAlign:'center'}}>
+                       <div> click here </div>
+                       <div style= {{width: '100%', height:'90%'}}> {this.state.file && this.state.filetype === true ? <img style = {{ verticalAlign:'middle', width:'90%', height:'90%', borderRadius:'50%'}} src= {this.state.file.preview} />:null}</div>
+                  </div>        
+                </Dropzone>
+                : 
+                <MyImage onClick={this._openPopup} src ={item.review_photo}  />}
               </MyImageDiv>
               <Info >
                 <div>{item.brand}</div>

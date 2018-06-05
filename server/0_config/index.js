@@ -1,4 +1,5 @@
-require('dotenv').load();
+// Local import
+const { url } = require('../../client/src/config');
 
 module.exports = {
   multerReview: {
@@ -8,13 +9,13 @@ module.exports = {
     },
   },
   credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    region: process.env.AWS_REGION,
+    accessKeyId: 'AKIAJHAOFQZPM5DDGSQA',
+    secretAccessKey: '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',
+    region: 'us-west-2',
   },
-  bucket: process.env.S3_BUCKET,
+  bucket: 'colorize.io',
   express: {
-    port: 8080,
+    port: url.split(':')[2],
   },
   jwt: {
     secret: 'sBl2',

@@ -23,60 +23,86 @@ const customStyles = {
 Modal.setAppElement('#root');
 
 const Container = styled.div`
-    border: 1px solid #d9dee8;
-    background-color: white;
-    border-radius: 5px;
-    display:flex;
-    width: 100%;
-    height: 20vh;
-    margin: 1% auto;
-
+border: 1px solid #d9dee8;
+background-color: white;
+border-radius: 5px;
+display:flex;
+width:100%;
+height: 100%;
+@media (max-width: 768px) {
+    flex-direction: column;
+    height: 40vh;
+}
 `
-
+const Top = styled.div`
+    border: solid pink 2px;
+    height: 100%;
+    width: 40%;
+    @media (max-width: 768px) {
+        width: 100%;
+        height: 50%;
+    }
+`
 const ReviewImage = styled.img`
-    margin: 1vh 0 1vh 1vw;
-    width: 20%;
-    height: 90%;
-    cursor: pointer;
+width: 60%;
+height: 80%;
+cursor: pointer;
+float: right;
+object-fit: scale-down;
+border: solid blue 1px;
 `
 
 const Info = styled.div`
-    margin: 1vh 0 1vh 1vw;
-    width: 20%;
-    height: 90%;
+width: 40%;
+height: 100%;
+float: left;
+background-color: lightblue;
+display:flex;
+flex-direction: column;
+justify-content:center;
+
 `
 
 const ReviewContent = styled.div`
-    margin: 1vh 1vw 1vh 0;
-    width: 60%;
-    height: 70%;
-    position: relative;
+width: 70%;
+height: 100%;
+position: relative;
+background-color: yellow;
+@media (max-width: 768px) {
+    width: 100%;
+    height: 50%;
+}
 `
-
+const Bubble = styled.div`
+position: relative;
+width: 100%;
+height: 70%;
+border: #7F7F7F solid 2px;
+text-align: center;
+`
 const Message = styled.textarea`
-    border: none;
-    resize: none;
-    width: 95%;
-    height: 12vh;
-    margin: 1% auto auto auto;
-    border-radius: 10px;
-    &: focus {
-        outline: none;
-    }
+border: none;
+resize: none;
+width: 95%;
+height: 100%;
+&: focus {
+    outline: none;
+}
 `
 
 const LikeCount = styled.div`
     width: 20%
-    height: 70%
-    top: 10%;
-    left: 90%;
+    height: 60%
+    top: 7%;
+    left:85%;
     position: absolute;
+    align-content: center;
 `
 
 const Like = styled.img`
-    width: 1.5rem;
-    height: 1.5rem;
-    cursor: pointer;
+width: 30%;
+height: 100%;
+cursor: pointer;
 `
 const BottomContainer = styled.div`
     position: relative;
@@ -84,41 +110,10 @@ const BottomContainer = styled.div`
 `
 
 const UserDiv = styled.div`
-    width: 20%;
+    width: 25%;
     height: 30%;
 `
 
-const Bubble = styled.div`
-position: relative;
-width: 100%;
-height: 80%;
-border: #7F7F7F solid 2px;
-
-//     &::before {
-// content: '';
-// position: absolute;
-// border-style: solid;
-// border-width: 17px 17px 17px 0;
-// border-color: transparent #7F7F7F;
-// display: block;
-// width: 0;
-// z-index: 2;
-// left: -20px;
-// top: 19px;
-//     }
-//     &::after {
-// content: '';
-// position: absolute;
-// border-style: solid;
-// border-width: 15px 15px 15px 0;
-// border-color: transparent #FFFFFF;
-// display: block;
-// width: 0;
-// z-index: 3;
-// left: -15px;
-// top: 21px;
-//     }
-`
 
 
 
@@ -180,29 +175,29 @@ class TopContent extends Component {
                 {this.props.data ? this.props.data.map((item, i) => {
                     return (
                         <Container key={i}>
+                        <Top>
                             <Info >
                                 <UserDiv > <img alt='user'  src = {item.user_photo} style = {{ borderRadius:'50%',height:'100%', width:'100%'}} /></UserDiv>
                                 {/* 유저 이미지 여기서 받아와서 삽입 */}
                                 <div>{item.name}</div>
                                 <div>{item.age}세 · {item.tone}</div>
-                                <div>
+
+                                <div style={{ fontSize: '0.8rem'}}> {item.writeAt.split('T')[0]} </div>
+                            </Info >
+                            <ReviewImage onClick={this._openPopup} src = {item.review_photo}/>
+                            <div style={{textAlign:'center'}}>
                                     <StarRatingComponent
                                         name="rate2"
                                         editing={false}
                                         value={item.rating}
                                     />
                                 </div>
-                                <div style={{ fontSize: '0.8rem'}}> {item.writeAt.split('T')[0]} </div>
-                            </Info >
-                            <ReviewImage onClick={this._openPopup} src = {item.review_photo}/>
                             {/* <ReviewImage onClick={this._openPopup} src={require(`../public/user/${this.props.파람스매치랑 유저아이디이용}.jpg`)} /> */}
-
+                        </Top>
                             <ReviewContent >
-                                <div style={{ textAlign: 'center' }}>
                                     <Bubble><Message readOnly>{item.message}</Message> </Bubble>
                                     {/* {this.state.editing ? <Message readOnly>{data[i].message}</Message> : <Message>{data[i].message}</Message>} */}
                                     {/* 윗코드는 내 리뷰 할때만 필요 */}
-                                </div>
                                 <BottomContainer >
                                     <LikeCount>
                                         <Like onClick={this._reviewLike} src={item.toggle === 'true' ? like : hate} />

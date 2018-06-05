@@ -11,17 +11,44 @@ const Wrapper = styled.div`
     display: flex;
     background-color: white;
     border: solid red 2px;
+    @media (max-width: 768px) {
+        flex-direction: column;
+        height: 30vh;
+    }
+`
+const TopWrite = styled.div`
+    border: solid orange 2px;
+    width: 35vw;
+    display: flex;
+    margin: 0;
+    @media (max-width: 768px) {
+        width: 100%;
+        height: 15vh;
+    }
 `
 const RatingDiv = styled.div`
-    width: 15vw;
+    width: 45%;
+    height: 100%;
     text-align: center;
     padding: 4% 0 0 0;
     box-sizing: border-box; 
+    float: left;
+    border: 1px solid green;
+`
+
+const ImageDiv = styled.div `
+    width: 55%;
+    border: 1px solid black
+
 `
 
 const ReviewDiv = styled.div`
-    width: 65vw;
+    width: 45vw;
     border: solid pink 2px;
+    @media (max-width: 768px) {
+        width: 100%;
+        height: 15vh;
+    }
 `
 const TextArea = styled.textarea`
     width: 100%;
@@ -95,18 +122,25 @@ class Rating extends Component {
         const { rating } = this.state;
         return (
             <Wrapper>
-                <RatingDiv>
-                    <h6>평점을 입력해주세요</h6>
-                    <StarRatingComponent
-                        name="평점"
-                        value={rating}
-                        onStarClick={this._onStarClick}
-                    />
-                </RatingDiv>
-                <FileUpload callback={this._callback.bind(this)} id={this.props.id} />
+                <TopWrite id="TOPWRITE">
+                    <RatingDiv>
+                        <h6>평점을 입력해주세요</h6>
+                        <StarRatingComponent
+                            name="평점"
+                            value={rating}
+                            onStarClick={this._onStarClick}
+                        />
+                    </RatingDiv>
+                    <ImageDiv>
+                    </ImageDiv>
+                   
+                </TopWrite>
                 <ReviewDiv>
                     <TextArea placeholder='사용 후기를 입력해주세요.' innerRef={ref => { this.input = ref; }} /><br />
+                    <div style={{display : 'flex',  justifyContent : 'flex-end'}}>
+                     <FileUpload callback={this._callback.bind(this)} id={this.props.id} />
                     <Button onClick={() => { this._alertReview(); this._clickReview() }}>등록</Button>
+                    </div>
                 </ReviewDiv>
 
             </Wrapper>

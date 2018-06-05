@@ -33,36 +33,60 @@ const Container = styled.div`
     border-radius: 5px;
     display:flex;
     width:100%;
-    height: 80%;
+    height: 100%;
+    @media (max-width: 768px) {
+        flex-direction: column;
+        height: 40vh;
+    }
 `
-
-const ReviewImage = styled.img`
-    margin: 1vh 1vw 1vh 1vw;
-    width: 20%;
-    height: 90%;
-    cursor: pointer;
+const Top = styled.div`
+    border: solid pink 2px;
+    height: 100%;
+    width: 40%;
+    @media (max-width: 768px) {
+        width: 100%;
+        height: 50%;
+    }
 `
-
 const Info = styled.div`
-    margin: 1vh 0 1vh 0;
-    width: 20%;
-    height: 90%;
-    background-color:white;
+    width: 40%;
+    height: 100%;
+    float: left;
+    background-color: lightblue;
+    display:flex;
+    flex-direction: column;
+    justify-content:center;
 `
-
-const ReviewContent = styled.div`
-    margin: 1vh 1vw 1vh 0;
+const ReviewImage = styled.img`
     width: 60%;
-    height: 90%;
-    position: relative;
-  
+    height: 80%;
+    cursor: pointer;
+    float: right;
+    object-fit: scale-down;
+    border: solid blue 1px;
 `
-
+const ReviewContent = styled.div`
+    width: 70%;
+    height: 100%;
+    position: relative;
+    background-color: yellow;
+    @media (max-width: 768px) {
+        width: 100%;
+        height: 50%;
+    }
+`
+const Bubble = styled.div`
+position: relative;
+width: 100%;
+height: 70%;
+border: #7F7F7F solid 2px;
+text-align: center;
+`
 const Message = styled.textarea`
     border: none;
     resize: none;
     width: 95%;
-    height: 14vh;
+    height: 100%;
     &: focus {
         outline: none;
     }
@@ -139,37 +163,7 @@ const UserDiv = styled.div`
     width: 25%;
     height: 30%;
 `
-const Bubble = styled.div`
-position: relative;
-width: 100%;
-height: 80%;
-border: #7F7F7F solid 2px;
 
-//     &::before {
-// content: '';
-// position: absolute;
-// border-style: solid;
-// border-width: 17px 17px 17px 0;
-// border-color: transparent #7F7F7F;
-// display: block;
-// width: 0;
-// z-index: 2;
-// left: -20px;
-// top: 19px;
-//     }
-//     &::after {
-// content: '';
-// position: absolute;
-// border-style: solid;
-// border-width: 15px 15px 15px 0;
-// border-color: transparent #FFFFFF;
-// display: block;
-// width: 0;
-// z-index: 3;
-// left: -15px;
-// top: 21px;
-//     }
-`
 
 
 class MyContent extends Component {
@@ -229,15 +223,16 @@ class MyContent extends Component {
         console.log(this.props.user)
         let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
             return (
-                <div style={{width: '100%'}}> 
-                  <div style ={{width: '100%', height:'20%z'}}>Your Review <div style={{width:'100%', border:'2px solid #ccc'}}></div></div>
-                    <Container>
+                    <Container id='MyContentCONTAINER'>
+                        <Top>
                         <Info >
                             <UserDiv > <img alt='user' src = {this.props.user.user_photo} style = {{ borderRadius:'50%',height:'100%', width:'100%'}}/></UserDiv>
-                            <div style={{boxSizing:'border-box', margin:'8% 0 0 0'}}>
+                               
                             <div>{this.props.user.name} <img style={{width: '8%', height:'8%'}} src = {this.props.user.gender === 'male'? male : female}/></div>
                                 <div>{this.props.user.age}, {this.props.user.tone}<br/></div>
-                            <div>
+                        </Info>
+                        <ReviewImage onClick={this._openPopup} src={this.props.user.review_photo} />
+                          <div style={{textAlign:'center'}}>
                                 <StarRatingComponent
                                     name="rate2"
                                     editing={false}
@@ -245,15 +240,11 @@ class MyContent extends Component {
                                     // value = {this.props.user.rating}
                                 />
                             </div>
-                            </div>
-                        </Info >
-                        <ReviewImage onClick={this._openPopup} src={this.props.user.review_photo} />
+                      
                         {/* <ReviewImage onClick={this._openPopup} src={this.props.user.review_photo} /> */}
-
-                        <ReviewContent >
-                            <div style={{ textAlign: 'center' }}>
-                            <Bubble> <Message readOnly>{this.props.user.message}</Message></Bubble>
-                            </div>
+                        </Top>
+                        <ReviewContent id="REVIEWCONTENT">
+                            <Bubble> <Message readOnly id="MESSAGE">{this.props.user.message}</Message></Bubble>
                             <BottomContainer >
                                 <LikeCount>
                                     <Like src={like} />
@@ -275,7 +266,6 @@ class MyContent extends Component {
                             <button style={{ cursor: 'pointer' }} onClick={this._closePopup}>close</button>
                         </Modal>
                     </Container>
-                </div>
         );
     }
 };

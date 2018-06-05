@@ -21,17 +21,7 @@
   color: black
 }
 
-@media only screen and (max-width: 768px) {
-  tr {
-    display: block;
-    float: left;
-   }
-  th, td {
-    display: block;
-    width: 10vw !important;
-    height: 4vh !important;
-  }
-}
+
 
 
 .table-drag-select {
@@ -97,3 +87,19 @@
   /* Consume less whitespace */
 }
 
+@media only screen and (max-width: 768px) {
+  tr {
+    display: block;
+    float: left;
+   }
+  th, td {
+    display: block;
+    width: 10vw !important;
+    height: 4vh !important;
+  }
+  .table-drag-select td.cell-selected {
+    -webkit-box-shadow:inset 0px 0px 0px 1px black;
+    -moz-box-shadow:inset 0px 0px 0px 1px black;
+    box-shadow:inset 0px 0px 0px 1px black;
+  }
+}

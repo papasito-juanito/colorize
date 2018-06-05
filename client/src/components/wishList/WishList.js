@@ -50,8 +50,11 @@ const EmptyTitle = styled.div`
     @media (max-width: 656px) {
         font-size: 3.5rem
     }
-    @media (max-width: 510px) {
+    @media (max-width: 511px) {
         font-size: 2.8rem
+    }
+    @media (max-width: 511px) {
+        font-size: 2.4rem
     }
     @media (max-width: 379px) {
         font-size: 2rem
@@ -65,11 +68,20 @@ const EmptyMessage = styled.div`
     @media (max-width: 656px) {
         font-size: 1.75rem
     }
-    @media (max-width: 510px) {
+    @media (max-width: 573px) {
+        font-size: 1.6rem
+    }
+    @media (max-width: 519px) {
         font-size: 1.4rem
+    }
+    @media (max-width: 457px) {
+        font-size: 1.2rem
     }
     @media (max-width: 375px) {
         font-size: 1rem
+    }    
+    @media (max-width: 320px) {
+        font-size: 0.8rem
     }
 `
 const Emptybtn = styled.button`
@@ -95,29 +107,30 @@ const Wrapper = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin-top: 70px;
+    margin: 70px auto;
     @media (max-width: 768px) {
         margin-top: 50px;
     }
 `
 
 const Title = styled.div`
-    margin-top: 30px;
+    margin: 20px auto auto auto
     font-size: 3rem
     font-family: 'Roboto';
-    font-weight: 300;
+    font-weight: 100;
     color: black
+    width: 80%;
+    border-bottom: 1px solid black
 `
 
 const Container = styled.ul`
 	width: 80%;
-    padding: 0;
+    padding-top: 5px;
     // border: solid grey 1px;
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-evenly;
-    margin: 0 -10px;
+    margin: 0 auto;
+    justify-content:space-evenly;
 `;
 
 const ItemLink = styled.div`
@@ -140,6 +153,11 @@ const Item = styled.li`
     height: 100%;
     font-size: 30px;
     list-style: none;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    &:hover {
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    }
 `;
 const Img = styled.img`
     width: 100%;
@@ -188,7 +206,8 @@ const Review = styled.span`
 	font-size: 60%;
 	vertical-align: middle;
 	color: grey;
-	`;
+    `;
+
 
 class WishList extends Component {
     constructor(props){

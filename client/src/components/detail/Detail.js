@@ -24,15 +24,16 @@ const TopDetail = styled.div`
 	background-color: #F4F5F9;
 	display: flex;
 	@media (max-width: 768px) {
-		flex-direction: column;
+        flex-direction: column;
+        height: auto;
 	}
 `
 const Write = styled.div`
 	border: solid lightblue 2px;
 	margin-top: 10px;
-	height: 10vw;
+	height: 15vh;
 	@media (max-width: 768px) {
-		display: none;
+        height: 30vh;
 	}
 `
 

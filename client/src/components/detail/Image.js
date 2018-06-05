@@ -14,9 +14,9 @@ const Div = styled.div`
     box-sizing: border-box; 
     background-color:white;
     @media (max-width: 768px) {
-      width: 100%;
-			justify-content:center;
-			min-height: 200px;
+        width: 100%;
+	    justify-content:center;
+	    height: 200px;
 	}
 `
 

@@ -17,7 +17,7 @@ const customStyles = {
 };
 
 const Container = styled.div`
-    width: 20vw;
+    width: 55%;
     height: 100%;
     border: 1px solid blue;
     display: flex;

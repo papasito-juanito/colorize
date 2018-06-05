@@ -6,6 +6,7 @@ import axios from 'axios';
 import { url } from '../../config';
 import FileUpload from './FileUpload';
 
+
 const Wrapper = styled.div`
     width: 100%;
     display: flex;
@@ -65,21 +66,34 @@ const Button = styled.button`
     text-align: center;
 `
 
+
 class Rating extends Component {
     constructor(props) {
         super(props);
         this.state = {
             rating: 5,
-            imageAddress : ''
+            imageAddress : '',
+            file : '',
+            imagepreviewUrl: '',
+            popupIsOpen : false,
+            data : ''
         }
         this._onStarClick = this._onStarClick.bind(this);
         this._clickReview = this._clickReview.bind(this);
         this._alertReview = this._alertReview.bind(this);
+        this._imagePreview = this._imagePreview.bind(this);
     }
 
     _callback(params) {
         this.setState({
             imageAddress: params
+        })
+    }
+
+    _imagePreview(file, imagepreviewUrl ) {
+        this.setState({
+            file : file,
+            imagepreviewUrl: imagepreviewUrl
         })
     }
 
@@ -119,6 +133,7 @@ class Rating extends Component {
         console.log('this.props.handleLogout :', this.props.handleLogout)
         console.log('this.props.loginState :', this.props.loginState)
         console.log('address : ', this.state.imageAddress)
+
         const { rating } = this.state;
         return (
             <Wrapper>
@@ -132,13 +147,17 @@ class Rating extends Component {
                         />
                     </RatingDiv>
                     <ImageDiv>
+                        <img src = {this.state.imagepreviewUrl ? this.state.imagepreviewUrl: null} style = {{border: '1px solid black', width:'100%', height:'100%'}}/>
+
                     </ImageDiv>
                    
                 </TopWrite>
                 <ReviewDiv>
                     <TextArea placeholder='사용 후기를 입력해주세요.' innerRef={ref => { this.input = ref; }} /><br />
                     <div style={{display : 'flex',  justifyContent : 'flex-end'}}>
-                     <FileUpload callback={this._callback.bind(this)} id={this.props.id} />
+                    {/* <Button onClick={document.getElementById('upload')}>등록</Button> */}
+                     <FileUpload imagePreview = {this._imagePreview} callback={this._callback.bind(this)} id={this.props.id} />
+           
                     <Button onClick={() => { this._alertReview(); this._clickReview() }}>등록</Button>
                     </div>
                 </ReviewDiv>

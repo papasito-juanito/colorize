@@ -38,10 +38,15 @@ const Top = styled.div`
     border: solid pink 2px;
     height: 100%;
     width: 40%;
+    display : flex;
     @media (max-width: 768px) {
         width: 100%;
         height: 50%;
     }
+`
+
+const UserRating = styled.div`
+   flex-direction : column;
 `
 const ReviewImage = styled.img`
 width: 60%;
@@ -176,15 +181,14 @@ class TopContent extends Component {
                     return (
                         <Container key={i}>
                         <Top>
-                            <Info >
+                            <UserRating>
+                            <Info>
                                 <UserDiv > <img alt='user'  src = {item.user_photo} style = {{ borderRadius:'50%',height:'100%', width:'100%'}} /></UserDiv>
                                 {/* 유저 이미지 여기서 받아와서 삽입 */}
                                 <div>{item.name}</div>
                                 <div>{item.age}세 · {item.tone}</div>
-
                                 <div style={{ fontSize: '0.8rem'}}> {item.writeAt.split('T')[0]} </div>
                             </Info >
-                            <ReviewImage onClick={this._openPopup} src = {item.review_photo}/>
                             <div style={{textAlign:'center'}}>
                                     <StarRatingComponent
                                         name="rate2"
@@ -192,6 +196,9 @@ class TopContent extends Component {
                                         value={item.rating}
                                     />
                                 </div>
+                            </UserRating>
+                                 <ReviewImage onClick={this._openPopup} src = {item.review_photo}/>
+                            
                             {/* <ReviewImage onClick={this._openPopup} src={require(`../public/user/${this.props.파람스매치랑 유저아이디이용}.jpg`)} /> */}
                         </Top>
                             <ReviewContent >

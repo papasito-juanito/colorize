@@ -213,7 +213,7 @@ class AllContent extends Component {
 
            data.length ? items.push(
                 <Container key={i}>
-                   <ReviewImage onClick={this._openPopup} />
+                   <ReviewImage onClick={this._openPopup} src = {data[i].review_photo}/>
                    {/* <ReviewImage src={ require(`../../../src/assets/reviews/${this.props.id}_.jpg`) } onClick={this._openPopup} /> */}
                     {/* <ReviewImage onClick={this._openPopup} src={require(`../public/user/${this.props.파람스매치랑 유저아이디이용}.jpg`)} /> */}
                     <Info >
@@ -281,7 +281,7 @@ class AllContent extends Component {
         console.log(this.props.data)
         console.log(this.state.items)
         // console.log('카운팅@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ :', count++)
-        // console.log('after state :',this.state.data)
+        console.log('after state :',this.state.data)
         let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
 
         return (

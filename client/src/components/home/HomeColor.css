@@ -6,6 +6,21 @@
 .table-drag-select td.cell-enabled {
 }
 
+.ant-btn.ant-btn-primary {
+  color: white;
+  background-color: black;
+  border-color: black;
+}
+
+.ant-btn.ant-btn-primary:hover { 
+  text-shadow: 0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F;;
+}
+
+
+.ant-confirm-info .ant-confirm-body > .anticon{
+  color: black
+}
+
 @media only screen and (max-width: 768px) {
   tr {
     display: block;

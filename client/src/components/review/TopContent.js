@@ -187,7 +187,7 @@ class TopContent extends Component {
                 {this.props.data ? this.props.data.map((item, i) => {
                     return (
                         <Container key={i}>
-                            <ReviewImage onClick={this._openPopup} />
+                            <ReviewImage onClick={this._openPopup} src = {item.review_photo}/>
                             {/* <ReviewImage onClick={this._openPopup} src={require(`../public/user/${this.props.파람스매치랑 유저아이디이용}.jpg`)} /> */}
                             <Info >
                                 <UserDiv > <img alt='user' /></UserDiv>

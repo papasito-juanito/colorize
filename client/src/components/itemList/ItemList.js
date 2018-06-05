@@ -33,11 +33,13 @@ const Btn = styled(Link)`
     border: none;
     color:white
     outline: none;
-    padding: 12px 16px;
+    padding: 8px 8px;
+    min-width:77px;
+    text-align: center;
     background-color: black;
     cursor: pointer;
     text-decoration: none;
-    font-size: 1em;
+    font-size: 0.9rem;
     font-family: 'Roboto';
     font-weight: 300;
     &:visited {
@@ -46,13 +48,32 @@ const Btn = styled(Link)`
     &: hover {
         text-shadow: 0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F;
     }
+    @media (max-width: 426px) {
+        font-size: 0.8rem;
+        min-width:70px;
+    }
+    @media (max-width: 392px) {
+        font-size: 0.8rem;
+        min-width:68px;
+        padding: 6px 6px;
+    }
+    @media (max-width: 364px) {
+        font-size: 0.8rem;
+        min-width:50px;
+        padding: 2px 2px;
+    }
+    @media (max-width: 320px) {
+        font-size: 0.8rem;
+        min-width:50px;
+        padding: 2px 2px;
+    }
 `;
 
 const Loading = styled.div`
-    margin-top: 15%
     border: 16px solid #f3f3f3;
     border-radius: 50%;
     border-top: 16px solid black;
+    margin-top: 250px;
     width: 120px;
     height: 120px;
     -webkit-animation: spin 2s linear infinite; /* Safari */
@@ -61,6 +82,12 @@ const Loading = styled.div`
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
     }
+      @media (max-width: 414px) {
+        margin-top: 200px;
+      }
+      @media (max-width: 375px) {
+        margin-top: 125px;
+      }
 `
 const HomeButton = styled.button`
     position: fixed;
@@ -82,6 +109,18 @@ const HomeButton = styled.button`
   &:active {
       border:none
   }
+    @media (max-width: 320px) {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+    @media (max-width: 375px) {
+        width: 3.5rem;
+        height: 3.5rem;
+    }
+    @media (max-width: 415px) {
+        width: 3.5rem;
+        height: 3.5rem;
+    }
 `
 
 const Arrow = styled.i`

@@ -71,7 +71,8 @@ class FileUpload extends Component {
         reader.onload = () => {
             this.setState({
                 file: file,
-                imagepreviewUrl: reader.result
+                imagepreviewUrl: reader.result,
+                imageAddress : ''
             })
         }
 
@@ -95,10 +96,12 @@ class FileUpload extends Component {
 
         const token = localStorage.getItem('token')
         const formData = new FormData();
-        // console.log(e.target.files[0])
         formData.append('file', e.target.files[0]);
- 
-        axios.post(`${url}/api/review/post/upload`, formData, { headers: { 'token': token } } )
+        var mimeType = e.target.files[0].type.split('image/')[1];
+        console.log(mimeType)
+        
+        mimeType === 'png' || mimeType === 'jpg' ?
+        axios.post(`${url}/api/review/post/upload`, formData, { headers: { 'token': token , id: this.props.id} } )
             // .then((response) => {
             // console.log(response);
             // })
@@ -109,7 +112,7 @@ class FileUpload extends Component {
                 // this.setState({ imageURL: `${url}/${response.data.file}` })
             )
             .catch(err => console.log(err))
-
+            : (alert('jpg/png 파일만 올릴수있어요'), window.location.reload())
 
         // fetch(`${url}/upload`, {
         //     method: 'POST',
@@ -127,7 +130,6 @@ class FileUpload extends Component {
 
 
     render() {
- 
         let { imagepreviewUrl } = this.state;
         let $imagePreview = null;
         let popupImage = (<img src={imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
@@ -136,8 +138,8 @@ class FileUpload extends Component {
             $imagePreview = (<div style={{textAlign:'center', position: 'relative', top: '50%', transform: 'translateY(-50%)'}}>리뷰 사진을 올려주세요</div>);
 
         return (
-            <Container>
-
+            < Container >
+              
                     {/* <div style = {{height:'150px', width:'150px', border: '1px solid black'}}> <img src={require('../../assets/reviews/1528079528165images.jpeg')}/></div> */}
                     {/* <div style = {{height:'150px', width:'150px', border: '1px solid black'}}> <img src={require('../../assets/reviews/1528079528165images.jpeg')}/></div> */}
 
@@ -146,6 +148,7 @@ class FileUpload extends Component {
                 </ImgDiv>
                 <FileButton
                     type='file'
+                    accept = ".jpg, .png"
                     ref={ref => { this.uploadInput = ref; }}
                     onChange={(e) => { this._handleImageChange(e); this._fileUploadHandler(e) }} />
                 <Modal

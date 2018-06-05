@@ -19,7 +19,7 @@ const HomeContainer = styled.div`
 `
 const Loading = styled.div`
     align-content: center
-    margin-top: 15%;
+    margin-top: 250px;
     border: 16px solid #f3f3f3;
     border-radius: 50%;
     border-top: 16px solid black;
@@ -30,6 +30,15 @@ const Loading = styled.div`
     @keyframes spin {
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
+    }
+    @media (max-width: 320px) {
+      margin-top: 150px;
+    }
+    @media (max-width: 375px) {
+      margin-top: 125px;
+    }
+    @media (max-width: 414px) {
+      margin-top: 120px;
     }
 `
 

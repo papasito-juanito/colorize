@@ -196,7 +196,7 @@ class TopContent extends Component {
                                 </div>
                                 <div style={{ fontSize: '0.8rem'}}> {item.writeAt.split('T')[0]} </div>
                             </Info >
-                            <ReviewImage onClick={this._openPopup} />
+                            <ReviewImage onClick={this._openPopup} src = {item.review_photo}/>
                             {/* <ReviewImage onClick={this._openPopup} src={require(`../public/user/${this.props.파람스매치랑 유저아이디이용}.jpg`)} /> */}
 
                             <ReviewContent >

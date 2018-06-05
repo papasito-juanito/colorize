@@ -5,6 +5,8 @@ import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import Autocomplete from 'react-autocomplete';
 import axios from 'axios';
+import { Button } from 'antd';
+
 // Local import
 import { url } from '../config';
 import history from '../utils/history';
@@ -13,6 +15,9 @@ import lipImage from '../assets/lipImage.png';
 import neon from '../assets/neon.png';
 import profile from '../assets/profile.png';
 import './Nav.css';
+
+
+
 
 const NavContainer = styled.header`
   background-color: black;
@@ -24,6 +29,7 @@ const NavContainer = styled.header`
   display: flex;
   flex-direction: row;
   transition: top 0.3s;
+  align-items: center;
 
   @media (max-width: 768px) {
       height: 50px;
@@ -120,8 +126,8 @@ const Overlay = styled.div`
   transition: 0.5s;
 `
 
-const Button = styled(Link)`
-`
+// const Button = styled(Link)`
+// `
 
 class Nav extends Component {
   constructor(props){
@@ -210,30 +216,30 @@ class Nav extends Component {
         
 
 
-          {/* <input type="search" placeholder="Search" */}
+          {/* <input type="search" placeholder="Search" /> */}
 
-
-          <Autocomplete
-            items={this.state.item}
-
-            shouldItemRender={(item, value) => item.label.toLowerCase().indexOf(value.toLowerCase()) > -1}
-            getItemValue={item => item.label}
-            renderItem={(item, highlighted) => {
-              return (<div
-                key={item.id}
-                style={{ backgroundColor: highlighted ? '#eee' : 'transparent'}}
-              >
-                {item.label}
-              </div>)       
-            }
-            } 
-            value={this.state.value}
-            onChange={e => this.setState({ value: e.target.value })}
-            onSelect={value => this.setState({ value })}
-          />
-          <button onClick={this.handleSearch}>Search for these colors!</button>
-          
-
+          <div className="search-container">
+            <Autocomplete
+              items={this.state.item}
+              className="search-bar"
+              shouldItemRender={(item, value) => item.label.toLowerCase().indexOf(value.toLowerCase()) > -1}
+              getItemValue={item => item.label}
+              type="search"
+              renderItem={(item, highlighted) => {
+                return (<div
+                  key={item.id}
+                  style={{ backgroundColor: highlighted ? '#eee' : 'transparent'}}
+                >
+                  {item.label}
+                </div>)       
+              }
+              } 
+              value={this.state.value}
+              onChange={e => this.setState({ value: e.target.value })}
+              onSelect={value => this.setState({ value })}
+            />
+            <Button onClick={this.handleSearch} className="search-button" shape="circle" icon="search" />
+          </div>
           <NavRightContainer>
             <Menu src={profile} alt={'#'} onClick={this.openNav} >
             </Menu>

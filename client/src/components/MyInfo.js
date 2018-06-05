@@ -401,6 +401,7 @@ class MyInfo extends Component {
       console.log('최소 비번숫자 :', this.state.minNum)
       console.log('datadatadtata', this.state.data)
       console.log('myinfomyinfomyinfo', this.props);
+      console.log('filefilefile', this.state.file);
 
         // console.log(this.state.imagepreviewUrl)
         return (

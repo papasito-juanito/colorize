@@ -12,42 +12,35 @@ import { url } from '../../config';
 
 const Container = styled.div`
 	@media (max-width: 768px) {
-            margin-top: 80px;
-            width:80vw;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            background-color: yellow;
+			margin-top: 80px;
+			display: block;
 	}
 	margin: 100px 10% 0 10%;
-    align-items: center;
-    
+	align-items: center;
 `
 const TopDetail = styled.div`
-    height: 30vw;
+	height: 30vw;
+	display: flex;
+	background-color: #F4F5F9;
 	display: flex;
 	@media (max-width: 768px) {
+        flex-direction: column;
         height: auto;
-        flex-direction:column;
-        background-color: blue;
 	}
 `
 const Write = styled.div`
 	border: solid lightblue 2px;
 	margin-top: 10px;
-    height: 10vw;
-    width:100%;
+	height: 25vh;
 	@media (max-width: 768px) {
-        width:80%;
-    background-color: green;
-    border: 3px solid black
+        height: 40vh;
 	}
 `
 
 const ReviewDiv = styled.div`
 	width: 100%;
 	@media (max-width: 768px) {
-		display: none;
+		// display: none;
 	}
 `
 

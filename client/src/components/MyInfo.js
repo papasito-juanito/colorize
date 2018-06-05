@@ -226,41 +226,41 @@ class MyInfo extends Component {
     _onDrop(files){
       const token = localStorage.getItem('token')
       const file = files[0];
+      this.setState({file:file})
+      console.log('file@@@@@@@@@@@@@@ :', file)
       const formData = new FormData();
       formData.append('file', file);
       var mimeType = file.type.split('image/')[1];
         mimeType === 'png' || mimeType === 'jpg' || mimeType === 'jpeg' ?
         axios.post(`${url}/api/user/post/upload`, formData, { headers: { 'token': token} } )
-            // .then((response) => {
-            // console.log(response);
-            // })
+
             .then(response => {
                 console.log(response)
                 this.setState({filetype : true, imageAddress : response.data.message})
               
-                // this.props.callback(response.data.message)
+
             }
-                // this.setState({ imageURL: `${url}/${response.data.file}` })
+
             )
             .catch(err => console.log(err))
             : (alert('jpg/png 파일만 올릴수있어요'), this.setState({filetype : false}))
 
-
-      console.log(mimeType)
-      console.log(files)
-      console.log(file)
-      console.log('file.preview@@@@@@@@@@@@@@@@ :', file.preview)
-      console.log(typeof file)
-       let reader = new FileReader();
+          
+      // console.log(mimeType)
+      // console.log(files)
+      // console.log(file)
+      // console.log('file.preview@@@@@@@@@@@@@@@@ :', file.preview)
+      // console.log(typeof file)
+      //  let reader = new FileReader();
 
       // typeof file === 'string'||'object' ? reader.readAsDataURL(file) :alert('적당한형식이 아닙니당')
-          reader.readAsDataURL(file)
-             reader.onload = () => {
-               this.setState({
-                 file:file,
-                 imagepreviewUrl: reader.result
-               })
-             }
+          // reader.readAsDataURL(file)
+          //    reader.onload = () => {
+          //      this.setState({
+          //        file:file,
+          //        imagepreviewUrl: reader.result
+          //      })
+          //    }
             //  console.log(this.state.imagepreviewUrl)
       
 
@@ -388,6 +388,7 @@ class MyInfo extends Component {
   ]
 
     render() {
+      console.log('this.state.file@@@@@@@@@@@@@ : ',this.state.file)
       console.log('닉네임 유효 :', this.state.confirmNickname)
       console.log('현재비번 유효 :', this.state.confirmPassword)
       console.log('비번 대조 :', this.state.validate)
@@ -410,12 +411,10 @@ class MyInfo extends Component {
                        <div> Drop some files here!</div>
                        <div style= {{width: '100%', height:'90%'}}> {this.state.file && this.state.filetype === true ? <img style = {{ verticalAlign:'middle', width:'90%', height:'90%', borderRadius:'50%'}} src= {this.state.file.preview} />:null}</div>
                            </div>
-                                 {/* <AvatarEditor width={100} height={100} border={50} scale={1.2} image={this.state.imagepreviewUrl} /> */}
                            </Dropzone>
                            
                            
                           <button onClick={this._photoChange}> 취소</button></div>}
-                                 {/* : <div><input type="file"/><button onClick={this._photoChange}>취소</button></div>} */}
                 </Data>
               </Row>
               <Row>

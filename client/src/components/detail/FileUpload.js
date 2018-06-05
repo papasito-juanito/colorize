@@ -17,19 +17,23 @@ const customStyles = {
 };
 
 const Container = styled.div`
-    width: 20vw;
-    height: 100%;
-    border: 1px solid blue;
+    // width: 55%;
+    // height: 100%;
+    // width: 10vw;
     display: flex;
     flex-direction: column;
+    position : relative;
 `
 const FileButton = styled.input`
-    width: 100%;
+    // width: 100%;
+    position: absolute;
+    right: 2%;
     color: transparent;
+    // opacity : 0;
     ::-webkit-file-upload-button {
         background: black;
         color: white;
-        height: 20px;
+        height: 25px;
         border: none;
     }
 `
@@ -139,14 +143,14 @@ class FileUpload extends Component {
             $imagePreview = (<div style={{textAlign:'center', position: 'relative', top: '50%', transform: 'translateY(-50%)'}}>리뷰 사진을 올려주세요</div>);
 
         return (
-            < Container >
+            < Container>
               
                     {/* <div style = {{height:'150px', width:'150px', border: '1px solid black'}}> <img src={require('../../assets/reviews/1528079528165images.jpeg')}/></div> */}
                     {/* <div style = {{height:'150px', width:'150px', border: '1px solid black'}}> <img src={require('../../assets/reviews/1528079528165images.jpeg')}/></div> */}
 
-                <ImgDiv>
+                {/* <ImgDiv>
                     {$imagePreview}
-                </ImgDiv>
+                </ImgDiv> */}
                 <FileButton
                     type='file'
                     accept = ".jpg, .png, .jpeg"

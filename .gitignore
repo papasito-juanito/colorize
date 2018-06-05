@@ -14,3 +14,4 @@ yarn.lock
 /uploads
 .env
 .gitignore
+.eslintrc.js

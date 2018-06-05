@@ -31,16 +31,16 @@ const TopDetail = styled.div`
 const Write = styled.div`
 	border: solid lightblue 2px;
 	margin-top: 10px;
-	height: 15vh;
+	height: 25vh;
 	@media (max-width: 768px) {
-        height: 30vh;
+        height: 40vh;
 	}
 `
 
 const ReviewDiv = styled.div`
 	width: 100%;
 	@media (max-width: 768px) {
-		display: none;
+		// display: none;
 	}
 `
 

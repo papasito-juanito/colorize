@@ -36,72 +36,51 @@ const Container = styled.div`
     height: 100%;
     @media (max-width: 768px) {
         flex-direction: column;
-        height: 30vh;
+        height: 40vh;
     }
 `
 const Top = styled.div`
     border: solid pink 2px;
     height: 100%;
+    width: 40%;
     @media (max-width: 768px) {
         width: 100%;
+        height: 50%;
     }
 `
 const Info = styled.div`
-    width: 50%;
-    height: 90%;
-    background-color:white;
+    width: 40%;
+    height: 100%;
     float: left;
-    border: solid blue 1px;
+    background-color: lightblue;
+    display:flex;
+    flex-direction: column;
+    justify-content:center;
 `
 const ReviewImage = styled.img`
-    width: 50%;
-    height: 90%;
+    width: 60%;
+    height: 80%;
     cursor: pointer;
     float: right;
     object-fit: scale-down;
     border: solid blue 1px;
 `
 const ReviewContent = styled.div`
-    margin: 1vh 1vw 1vh 0;
-    width: 60%;
+    width: 70%;
     height: 100%;
     position: relative;
-    border: solid red 2px;
+    background-color: yellow;
     @media (max-width: 768px) {
         width: 100%;
-        height: 15vh;
+        height: 50%;
     }
 `
 const Bubble = styled.div`
 position: relative;
 width: 100%;
-height: 50%;
+height: 70%;
 border: #7F7F7F solid 2px;
 text-align: center;
-//     &::before {
-// content: '';
-// position: absolute;
-// border-style: solid;
-// border-width: 17px 17px 17px 0;
-// border-color: transparent #7F7F7F;
-// display: block;
-// width: 0;
-// z-index: 2;
-// left: -20px;
-// top: 19px;
-//     }
-//     &::after {
-// content: '';
-// position: absolute;
-// border-style: solid;
-// border-width: 15px 15px 15px 0;
-// border-color: transparent #FFFFFF;
-// display: block;
-// width: 0;
-// z-index: 3;
-// left: -15px;
-// top: 21px;
-//     }
 `
 const Message = styled.textarea`
     border: none;
@@ -248,10 +227,12 @@ class MyContent extends Component {
                         <Top>
                         <Info >
                             <UserDiv > <img alt='user' src = {this.props.user.user_photo} style = {{ borderRadius:'50%',height:'100%', width:'100%'}}/></UserDiv>
-                            <div style={{boxSizing:'border-box', margin:'8% 0 0 0'}}>
+                               
                             <div>{this.props.user.name} <img style={{width: '8%', height:'8%'}} src = {this.props.user.gender === 'male'? male : female}/></div>
                                 <div>{this.props.user.age}, {this.props.user.tone}<br/></div>
-                            <div>
+                        </Info>
+                        <ReviewImage onClick={this._openPopup} src={this.props.user.review_photo} />
+                          <div style={{textAlign:'center'}}>
                                 <StarRatingComponent
                                     name="rate2"
                                     editing={false}
@@ -259,9 +240,7 @@ class MyContent extends Component {
                                     // value = {this.props.user.rating}
                                 />
                             </div>
-                            </div>
-                        </Info >
-                        <ReviewImage onClick={this._openPopup} src={this.props.user.review_photo} />
+                      
                         {/* <ReviewImage onClick={this._openPopup} src={this.props.user.review_photo} /> */}
                         </Top>
                         <ReviewContent id="REVIEWCONTENT">

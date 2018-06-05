@@ -55,3 +55,19 @@ input[type=search]:focus {
 #demo-2 input::-webkit-input-placeholder {
 	color: transparent;
 }
+
+input {
+  border-radius: 20px !important;
+  height: 32px;
+}
+.search-button {
+}
+.search-container {
+  /* position: relative; */
+  margin-left: 4%;
+  display: flex;
+  flex-direction: row;
+  width: 16.78%;
+  justify-content: space-between;
+  height: auto;
+}

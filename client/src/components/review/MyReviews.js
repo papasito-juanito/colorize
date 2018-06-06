@@ -438,16 +438,14 @@ class MyReviews extends Component {
     var rating = this.state.data[e.target.id].rating
     var image = this.state.data[e.target.id]
     this.setState({
-      isReply: !this.state.isReply, clickedComment: reviewId, rating:rating, image
+      isReply: !this.state.isReply, 
+      clickedComment: reviewId, rating:rating, image,
     })
   }
 
   _updateReply(e){
     console.log(e.target.id)
     const previousMessage = this.state.data[e.target.id].message;
-     this.setState({
-           isReply: !this.state.isReply
-     })
      const form = {
       //  reviewPhoto : this.state.data.item_photo,
         reviewPhoto : this.state.imageAddress,
@@ -458,6 +456,10 @@ class MyReviews extends Component {
         axios.post(`${url}/api/review/update/message`, form,  { headers: { 'token': token } })
           .then((response) => {
             console.log('updateres', response);
+            if(response.data.success){
+              isReply: !this.state.isReply
+              window.location.reload()
+            }
           })
           .catch(err => console.log(err));
   }
@@ -563,7 +565,7 @@ class MyReviews extends Component {
           // .then(response => this.setState({
           //   data: response.data
           // }))
-          // .catch(err => console.log(err));
+          // .catch(err => console.log(err))
     
   }
 
@@ -578,11 +580,10 @@ class MyReviews extends Component {
     mimeType === 'image' ?
     axios.post(`${url}/api/user/post/upload`, formData, { headers: { 'token': token} } )
         .then(response => {
-            console.log(response)
             this.setState({
               imageAddress : response.data.message,
-              isUploaded: true
             })
+            document.getElementById('imgloading').style.display = 'inline-block'
         }
       )
       .catch(err => console.log(err))
@@ -611,7 +612,6 @@ class MyReviews extends Component {
 
   render(){
     console.log('filefilefilefile', this.state.file);
-    console.log('filefilefilefile', this.state.filetype);
     console.log('@@@@@WEFEWFWEFEWFEWFWEFW',this.state.imageAddress);
     
     
@@ -629,13 +629,15 @@ class MyReviews extends Component {
                 <MyImageDiv>
                 {!this.state.isReply ?
                 <MyImage onClick={this._openPopup} src ={item.review_photo}  />
-                : this.state.isReply && this.state.clickedComment === item.review_id  ?
-                <Dropzone onDrop={ this._onDrop.bind(this) } size={ 50 }  accept = "image/jpeg, image/png, image/jpg" style={{width: '100%', height: '100%'}}    >
                 
+                : this.state.isReply && this.state.clickedComment === item.review_id  ?
+                <Dropzone onDrop={ this._onDrop.bind(this) } size={ 50 }  accept = "image/jpeg, image/png, image/jpg" style={{width: '100%', height: '100%'}}>
                   <div style={{width:'100%', height:'100%', textAlign:'center'}}>
                        <div> click here </div>
                        <div style= {{width: '100%', height:'90%'}}>
-                        {this.state.file ?  <img style = {{ verticalAlign:'middle', width:'90%', height:'90%', borderRadius:'50%'}} src= {this.state.file.preview} />:null}
+                        {this.state.file ? 
+                        <img id='imgloading' style = {{ verticalAlign:'middle', width:'90%', height:'90%', borderRadius:'50%'}} 
+                        src= {this.state.imageAddress ? this.state.file.preview : 'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'} />:null}
                       </div>
                   </div>      
                 </Dropzone>

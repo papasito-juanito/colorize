@@ -261,14 +261,14 @@ class MyInfo extends Component {
 
             .then(response => {
                 console.log(response)
-                this.setState({filetype : true, imageAddress : response.data.message})
+                this.setState({imageAddress : response.data.message})
               
 
             }
 
             )
             .catch(err => console.log(err))
-            : (alert('Image 파일만 올릴수있어요'), this.setState({filetype : false}))
+            : (alert('Image 파일만 올릴수있어요'))
 
           
       // console.log(mimeType)
@@ -431,11 +431,10 @@ class MyInfo extends Component {
               <Row>
                 <Column>사진</Column>
                 <Data>{this.state.hasPhoto ? <div><img style = {{ verticalAlign:'middle',width:'10%', borderRadius:'50%'}} src= {this.state.data.user_photo} /><Button onClick={this._photoChange}> 사진 변경</Button></div> 
-                  : <div><Dropzone onDrop={ this._onDrop } size={ 50 }  accept = "image/*"    >
-                 
+                  : <div><Dropzone onDrop={ this._onDrop } size={ 50 }  accept = "image/*">
                   <div style={{width:'100%', height:'100%', textAlign:'center'}}>
-                       <div> Drop some files here!</div>
-                       <div style= {{width: '100%', height:'90%'}}> {this.state.file && this.state.filetype === true ? <img style = {{ verticalAlign:'middle', width:'90%', height:'90%', borderRadius:'50%'}} src= {this.state.file.preview} />:null}</div>
+                       <div style={{color: 'black' ,fontWeight: 'bold'}}> 이미지 변경 클릭 </div>
+                       <div style= {{width: '100%', height:'90%'}}> {this.state.file ? <img style = {{ verticalAlign:'middle', width:'90%', height:'90%', borderRadius:'50%'}} src= {this.state.imageAddress ? this.state.file.preview : 'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'}  />:null}</div>
                            </div>
                            </Dropzone>
                            

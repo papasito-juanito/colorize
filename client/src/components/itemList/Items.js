@@ -43,10 +43,10 @@ const Item = styled.li`
 const Img = styled.img`
     width: 100%;
     height: 75%;
-		background-color: white;
-		object-fit: contain;
-		justify-content: center;
-		display: block;
+	background-color: white;
+	object-fit: contain;
+	justify-content: center;
+	display: block;
 `;
 const Colorline = styled.div`
 		width: 100%;

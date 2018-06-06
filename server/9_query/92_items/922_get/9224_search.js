@@ -11,7 +11,7 @@ FROM (SELECT ic.id color_id, c.category2Name category, b.brandName brand,
 //   price_DESC: `
 // SELECT ic.id color_id, ic.itemHex hex, ic.itemPhoto item_photo, c.category2Name category,
 //   ic.itemColor color, b.brandName brand, i.itemName name, i.itemPrice price,
-//   i.itemVolume volume, ic.itemDate date, rate.total reviews, rate.avg avg 
+//   i.itemVolume volume, ic.itemDate date, rate.total reviews, rate.avg avg
 // FROM itemColors ic, categories2 c, brands b, items i,
 //   (SELECT ici.id color_id, IFNULL(AVG(rt.reviewRating),0) avg, COUNT(rt.id) total
 //   FROM itemColors ici
@@ -31,7 +31,7 @@ FROM (SELECT ic.id color_id, c.category2Name category, b.brandName brand,
 //   price_ASC: `
 // SELECT ic.id color_id, ic.itemHex hex, ic.itemPhoto item_photo, c.category2Name category,
 //   ic.itemColor color, b.brandName brand, i.itemName name, i.itemPrice price,
-//   i.itemVolume volume, ic.itemDate date, rate.total reviews, rate.avg avg 
+//   i.itemVolume volume, ic.itemDate date, rate.total reviews, rate.avg avg
 // FROM itemColors ic, categories2 c, brands b, items i,
 //   (SELECT ici.id color_id, IFNULL(AVG(rt.reviewRating),0) avg, COUNT(rt.id) total
 //   FROM itemColors ici
@@ -51,7 +51,7 @@ FROM (SELECT ic.id color_id, c.category2Name category, b.brandName brand,
 //   avg_DESC: `
 // SELECT ic.id color_id, ic.itemHex hex, ic.itemPhoto item_photo, c.category2Name category,
 //   ic.itemColor color, b.brandName brand, i.itemName name, i.itemPrice price,
-//   i.itemVolume volume, ic.itemDate date, rate.total reviews, rate.avg avg 
+//   i.itemVolume volume, ic.itemDate date, rate.total reviews, rate.avg avg
 // FROM itemColors ic, categories2 c, brands b, items i,
 //   (SELECT ici.id color_id, IFNULL(AVG(rt.reviewRating),0) avg, COUNT(rt.id) total
 //   FROM itemColors ici
@@ -71,7 +71,7 @@ FROM (SELECT ic.id color_id, c.category2Name category, b.brandName brand,
 //   date_DESC: `
 // SELECT ic.id color_id, ic.itemHex hex, ic.itemPhoto item_photo, c.category2Name category,
 //   ic.itemColor color, b.brandName brand, i.itemName name, i.itemPrice price,
-//   i.itemVolume volume, ic.itemDate date, rate.total reviews, rate.avg avg 
+//   i.itemVolume volume, ic.itemDate date, rate.total reviews, rate.avg avg
 // FROM itemColors ic, categories2 c, brands b, items i,
 //   (SELECT ici.id color_id, IFNULL(AVG(rt.reviewRating),0) avg, COUNT(rt.id) total
 //   FROM itemColors ici
@@ -91,7 +91,7 @@ FROM (SELECT ic.id color_id, c.category2Name category, b.brandName brand,
 //   reviews_DESC: `
 // SELECT ic.id color_id, ic.itemHex hex, ic.itemPhoto item_photo, c.category2Name category,
 //   ic.itemColor color, b.brandName brand, i.itemName name, i.itemPrice price,
-//   i.itemVolume volume, ic.itemDate date, rate.total reviews, rate.avg avg 
+//   i.itemVolume volume, ic.itemDate date, rate.total reviews, rate.avg avg
 // FROM itemColors ic, categories2 c, brands b, items i,
 //   (SELECT ici.id color_id, IFNULL(AVG(rt.reviewRating),0) avg, COUNT(rt.id) total
 //   FROM itemColors ici

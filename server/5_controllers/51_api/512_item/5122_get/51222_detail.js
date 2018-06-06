@@ -1,17 +1,16 @@
 // Local import
-const verify = require('../../../../6_utility/62_jsonwebtoken/622_verify');
 const model = require('../../../../7_models');
 const query = require('../../../../9_query/92_items/922_get/9222_detail');
 
 module.exports = async (req, res) => {
-  console.log(`[5_control ] activated query: ${query.visitor}`);
+  if (process.env.NODE_ENV === 'development') {
+    console.log(`[51222_cont] activated detail query: ${query.visitor}`);
+  }
 
-  const decoded = await verify(req.headers.token);
-
-  switch (decoded.success) {
+  switch (req.user_id) {
     case true: {
-      const rows = await model(query.member, [req.query.color_id, decoded.user_id]);
-      res.json({ success: true, message: decoded.userMail, rows });
+      const rows = await model(query.member, [req.query.color_id, req.user_id]);
+      res.json({ success: true, message: req.user_id, rows });
       break;
     }
     case false: {

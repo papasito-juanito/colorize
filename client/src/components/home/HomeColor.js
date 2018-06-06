@@ -16,6 +16,7 @@ const Buttons = styled.button`
   background-color: #000000;
   margin: 1%;
   border: 0;
+  outline:0;
   font-family: 'Roboto';
   font-weight: 300;
   &:hover {

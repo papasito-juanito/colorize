@@ -23,13 +23,17 @@ const Empty = styled.div`
     margin-top: 80px
 `
 const Title = styled.div`
-    margin: 20px auto auto auto
+    margin: 20px auto
     font-size: 3rem
     font-family: 'Roboto';
     font-weight: 100;
     color: black
     width: 100%;
     border-bottom: 1px solid black
+    @media (max-width: 1024px) {
+      text-align: center
+  }
+
 `
 
 const EmptyTitle = styled.div`
@@ -38,17 +42,17 @@ const EmptyTitle = styled.div`
     font-family: 'Roboto';
     font-weight: 100;
     color: black
-    @media (max-width: 656px) {
+    @media (max-width: 660px) {
         font-size: 3.5rem
     }
     @media (max-width: 511px) {
         font-size: 2.8rem
     }
     @media (max-width: 511px) {
-        font-size: 2.4rem
+        font-size: 2.8rem
     }
     @media (max-width: 379px) {
-        font-size: 2rem
+        font-size: 2.1rem
     }
 `
 
@@ -88,6 +92,8 @@ const Emptybtn = styled.button`
     font-size: 1rem 
     font-family: 'Roboto';
     font-weight: 300;
+    border:0
+    outline:0
     &:hover {
         text-shadow: 0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F;
         // text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0080, 0 0 30px #ff0080, 0 0 40px #ff0080, 0 0 55px #ff0080, 0 0 75px #ff0080;
@@ -95,10 +101,13 @@ const Emptybtn = styled.button`
 `
 
 const Wrapper = styled.div`
-    margin : 7% auto 2% auto;
-    width: 80vw;
-    height: 100%;
-    box-sizing:border-box;
+  width: 80%;
+  margin: 70px auto;
+  display: flex;
+  flex-direction: column;
+  @media (max-width: 768px) {
+      margin-top: 50px;
+  }
 `
 
 const Container = styled.div`
@@ -589,6 +598,9 @@ class MyReviews extends Component {
       .catch(err => console.log(err))
       : (alert('이미지 파일만 올릴수있어요'))
     }
+  goHome = () => {
+      this.props.history.push('/')
+  }     
 
   componentDidMount(){
 //여기서 내가쓴 리뷰 전체모아오기
@@ -618,7 +630,7 @@ class MyReviews extends Component {
     let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
     
     return (
-      <div style={{ padding: '1% 0 1% 0', fontFamily: "Nanum Gothic" }}>
+      <div style={{fontFamily: "Nanum Gothic" }}>
       <Wrapper>
         {this.state.data.length ? <Title> My Reviews </Title> : null}
          {this.state.isLoading? <div style={{display:"none"}}>loading</div> : this.state.data.length ?
@@ -633,7 +645,7 @@ class MyReviews extends Component {
                 : this.state.isReply && this.state.clickedComment === item.review_id  ?
                 <Dropzone onDrop={ this._onDrop.bind(this) } size={ 50 }  accept = "image/jpeg, image/png, image/jpg" style={{width: '100%', height: '100%'}}>
                   <div style={{width:'100%', height:'100%', textAlign:'center'}}>
-                       <div> click here </div>
+                       <div> 이미지 변경 Click </div>
                        <div style= {{width: '100%', height:'90%'}}>
                         {this.state.file ? 
                         <img id='imgloading' style = {{ verticalAlign:'middle', width:'90%', height:'90%', borderRadius:'50%'}} 

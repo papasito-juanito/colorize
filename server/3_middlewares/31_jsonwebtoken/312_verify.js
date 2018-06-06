@@ -16,7 +16,8 @@ module.exports = token => new Promise((resolve) => {
       if (err) {
         resolve({ success: false, message: err.message });
       } else {
-        resolve({ success: true, user_id: decoded.user_id });
+        const { user_id, userMail } = decoded;
+        resolve({ success: true, user_id, userMail });
       }
     });
   }

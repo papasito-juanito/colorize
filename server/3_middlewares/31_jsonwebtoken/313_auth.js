@@ -12,6 +12,7 @@ module.exports = async (req, res, next) => {
     res.json({ success: false, message: 'provide token' });
   } else {
     const decoded = await verify(req.headers.token);
+    console.log('decoded', decoded);
     mysql.query(query.userMail, decoded.userMail, (err, rows) => {
       if (err) {
         res.json({ success: false, message: 'invalid mail' });

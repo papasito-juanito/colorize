@@ -136,7 +136,7 @@ const Title = styled.div`
 
 const Container = styled.ul`
 	width: 80%;
-    padding-top: 5px;
+    padding: 5px 0 0 0
     // border: solid grey 1px;
     display: flex;
     flex-flow: row wrap;
@@ -168,16 +168,16 @@ const Item = styled.li`
 const Img = styled.img`
     width: 100%;
     height: 75%;
-		background-color: white;
-		object-fit: contain;
-		justify-content: center;
-		display: block;
+    background-color: white;
+    object-fit: contain;
+    justify-content: center;
+    display: block;
 `;
 const Colorline = styled.div`
-		width: 100%;
-		height: 10px;
-		background-color: #${props => props.color};
-		margin-bottom: 5%;
+    width: 100%;
+    height: 10px;
+    background-color: #${props => props.color};
+    margin-bottom: 5%;
 `;
 const ItemBottom = styled.div`
 		float: bottom;

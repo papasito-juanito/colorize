@@ -88,11 +88,11 @@
 }
 
 @media only screen and (max-width: 768px) {
-  tr {
+  .table-drag-select tr {
     display: block;
     float: left;
    }
-  th, td {
+  .table-drag-select th, .table-drag-select td {
     display: block;
     width: 10vw !important;
     height: 4vh !important;

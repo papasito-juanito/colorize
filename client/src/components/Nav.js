@@ -90,6 +90,7 @@ const SideAnchor = styled(Link)`
   color: white;
   display: block;
   transition: 0.3s;
+  white-space: nowrap !important
   &:hover {
       color: white;
       text-shadow: 0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F;
@@ -162,7 +163,7 @@ class Nav extends Component {
   // }
 
   openNav = () => {
-    ReactDOM.findDOMNode(this.refs.mySidenav).style.width = '25vw' 
+    ReactDOM.findDOMNode(this.refs.mySidenav).style.width = '22vw' 
     ReactDOM.findDOMNode(this.refs.overlay).style.display = 'block'
     if(document.body.clientWidth<='1024'){
       ReactDOM.findDOMNode(this.refs.mySidenav).style.width = '30vw' 

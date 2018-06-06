@@ -645,7 +645,7 @@ class MyReviews extends Component {
                 : this.state.isReply && this.state.clickedComment === item.review_id  ?
                 <Dropzone onDrop={ this._onDrop.bind(this) } size={ 50 }  accept = "image/jpeg, image/png, image/jpg" style={{width: '100%', height: '100%'}}>
                   <div style={{width:'100%', height:'100%', textAlign:'center'}}>
-                       <div> 이미지 변경 Click </div>
+                       <div style={{color: 'black' ,fontWeight: 'bold'}}> 이미지 변경 클릭 </div>
                        <div style= {{width: '100%', height:'90%'}}>
                         {this.state.file ? 
                         <img id='imgloading' style = {{ verticalAlign:'middle', width:'90%', height:'90%', borderRadius:'50%'}} 

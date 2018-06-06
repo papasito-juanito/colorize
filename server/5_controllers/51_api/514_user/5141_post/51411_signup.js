@@ -1,11 +1,13 @@
 // Local import
 const hash = require('../../../../6_utility/61_bcrypt/611_hash');
-const check = require('../../../../6_utility/63_isDuplicate');
+const check = require('../../../../6_utility/60_check');
 const model = require('../../../../7_models');
 const query = require('../../../../9_query/94_users/941_post/9411_signup');
 
 module.exports = async (req, res) => {
-  console.log(`[5_control ] activated query: ${query}`);
+  if (process.env.NODE_ENV === 'development') {
+    console.log(`[51411_cont] activated signup query: ${query}`);
+  }
 
   const userPassword = await hash(req.body.userPassword);
   const { userMail, userName, toneName, birthDate, gender } = req.body;

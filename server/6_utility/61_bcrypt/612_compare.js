@@ -2,8 +2,9 @@
 const bcrypt = require('bcrypt');
 
 module.exports = async (password, hash) => {
-  console.log(`[6_utility ] activated password: ${password}`);
-
+  if (process.env.NODE_ENV === 'development') {
+    console.log(`[612_util  ] activated campare password: ${password}`);
+  }
   const boolean = await bcrypt.compare(password, hash);
   return boolean;
 };

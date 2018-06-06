@@ -110,6 +110,34 @@ const Button = styled.button `
 const Input = styled.input`
     padding-left: 5px;
 `
+const ProfPic = styled.img`
+  vertical-align:middle;
+  width:10vw;
+  height:10vw;
+  border-radius:50%;
+  margin-right: 8px;
+  object-fit: cover
+  @media (max-width: 768px) {
+    width:30vw;
+    height:30vw;
+  }
+`
+const ChangePic = styled.img`
+  vertical-align: middle;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  // @media (max-width: 700px) {
+  //   width: 25vw;
+  //   height: 25vw;
+  // }
+  // @media (max-width: 500px) {
+  //   width: 35vw;
+  //   height: 35vw;
+  // }
+`
 const CancelButton = styled.button `
     cursor: pointer;
     width: 10%;
@@ -430,11 +458,10 @@ class MyInfo extends Component {
             <Table>
               <Row>
                 <Column>사진</Column>
-                <Data>{this.state.hasPhoto ? <div><img style = {{ verticalAlign:'middle',width:'10%', borderRadius:'50%'}} src= {this.state.data.user_photo} /><Button onClick={this._photoChange}> 사진 변경</Button></div> 
-                  : <div><Dropzone onDrop={ this._onDrop } size={ 50 }  accept = "image/*">
+                <Data>{this.state.hasPhoto ? <div><ProfPic src= {this.state.data.user_photo} /><Button onClick={this._photoChange}> 사진 변경</Button></div> 
+                  : <div><Dropzone onDrop={ this._onDrop } size={ 30 }  accept = "image/*">
                   <div style={{width:'100%', height:'100%', textAlign:'center'}}>
-                       <div style={{color: 'black' ,fontWeight: 'bold'}}> 이미지 변경 클릭 </div>
-                       <div style= {{width: '100%', height:'90%'}}> {this.state.file ? <img style = {{ verticalAlign:'middle', width:'90%', height:'90%', borderRadius:'50%'}} src= {this.state.imageAddress ? this.state.file.preview : 'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'}  />:null}</div>
+                       <div style={{width:'100%', height:'100%', textAlign:'center'}}>{this.state.file ? <ChangePic src= {this.state.imageAddress ? this.state.file.preview : 'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'}  />:null}</div>
                            </div>
                            </Dropzone>
                            

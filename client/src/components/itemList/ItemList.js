@@ -36,9 +36,9 @@ const Btn = styled(Link)`
     padding: 8px 8px;
     min-width:77px;
     text-align: center;
+    text-decoration: none
     background-color: black;
     cursor: pointer;
-    text-decoration: none;
     font-size: 0.9rem;
     font-family: 'Roboto';
     font-weight: 300;
@@ -49,24 +49,27 @@ const Btn = styled(Link)`
         color: white
         text-shadow: 0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F;
     }
-    @media (max-width: 426px) {
+    @media (max-width: 430px) {
         font-size: 0.8rem;
         min-width:70px;
-    }
-    @media (max-width: 392px) {
-        font-size: 0.8rem;
-        min-width:68px;
         padding: 6px 6px;
     }
-    @media (max-width: 364px) {
+    @media (max-width: 420px) {
+        font-size: 0.8rem;
+        min-width:68px;
+        padding: 4px 4px;
+    }
+    @media (max-width: 375px) {
         font-size: 0.8rem;
         min-width:50px;
-        padding: 2px 2px;
+        padding: 5px 5px;
+        margin-left: 7px
     }
     @media (max-width: 320px) {
         font-size: 0.8rem;
         min-width:50px;
-        padding: 2px 2px;
+        padding: 3px 3px;
+        margin-left: 2px
     }
 `;
 
@@ -251,11 +254,11 @@ class ItemList extends Component {
         return (
             <Wrapper>
                     <SortContainer>
-                        <Btn to={`?sort=rating`} onClick={this.handleRating} id='rating'>별점순</Btn>
-                        <Btn to={`?sort=reviews_desc`} style={{marginLeft: '10px'}} onClick={this.handleReview} id='review'>리뷰순</Btn>
-                        <Btn to={`?sort=price_desc`} style={{marginLeft: '10px'}} onClick={this.handeHighPrice} id='desc'>높은가격순</Btn>
-                        <Btn to={`?sort=price_asc`} style={{marginLeft: '10px'}} onClick={this.handleLowPrice} id='asc'>낮은가격순</Btn>
-                        <Btn to={`?sort=latest`} style={{marginLeft: '10px'}} onClick={this.handleLatest} id='latest'>최신순</Btn>
+                        <Btn to={`?sort=rating`} style={{textDecoration: 'none'}} onClick={this.handleRating} id='rating'>별점순</Btn>
+                        <Btn to={`?sort=reviews_desc`} style={{marginLeft: '10px', textDecoration: 'none'}} onClick={this.handleReview} id='review'>리뷰순</Btn>
+                        <Btn to={`?sort=price_desc`} style={{marginLeft: '10px', textDecoration: 'none'}} onClick={this.handeHighPrice} id='desc'>높은가격순</Btn>
+                        <Btn to={`?sort=price_asc`} style={{marginLeft: '10px', textDecoration: 'none'}} onClick={this.handleLowPrice} id='asc'>낮은가격순</Btn>
+                        <Btn to={`?sort=latest`} style={{marginLeft: '10px', textDecoration: 'none'}} onClick={this.handleLatest} id='latest'>최신순</Btn>
                     </SortContainer>
                     {this.state.isLoading ?   
                 <Loading />:<Items item={this.state.item}/> }

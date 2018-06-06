@@ -1,15 +1,16 @@
 // Local import
-const verify = require('../../../../6_utility/62_jsonwebtoken/622_verify');
-const check = require('../../../../6_utility/63_isDuplicate/632_userName');
+const verify = require('../../../../3_middlewares/31_jsonwebtoken/312_verify');
+const check = require('../../../../6_utility/60_check/602_userName');
 
 module.exports = async (req, res) => {
-  console.log(`[5_control ] activated name: ${req.body.userName}`);
+  if (process.env.NODE_ENV === 'development') {
+    console.log(`[51431_cont] activated check username query: ${check}`);
+  }
 
   const decoded = await verify(req.headers.token);
   if (!decoded.success) res.json({ success: false, message: decoded.message });
   else {
     const userName = await check(req.body.userName);
-    console.log('username', userName);
     switch (userName.length) {
       case 0: {
         res.json({ success: true, message: 'valid username' });

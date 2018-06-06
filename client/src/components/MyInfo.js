@@ -17,8 +17,11 @@ const Container = styled.div`
   font-size: 12px;
   line-height: 1.6;
   color: #666;
-  width: 70%;
+  width: 80%;
   margin: 0px auto;
+  @media (max-width: 768px) {
+    width: 90%;
+  }
   `
 const Header = styled.h1`
   font-weight: bold;
@@ -29,28 +32,33 @@ const Header = styled.h1`
 // font-family:;
 const Table = styled.table`
   width: 100%;
-  border-top: 2px solid #969696;
+  border-top: 2px solid black;
   border-collapse: collapse;
-  background: #f5f5f5;
+  vertical-align: center;
 `
 const Row = styled.tr`
   display: table-row;
-  vertical-align: inherit;
+  vertical-align: center;
   border-color: inherit;
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 8vh !important;
+  }
 `
 const Column = styled.th`
-  width: 100px;
-  background-color: #eef1f8;
+  width: 20vw;
   text-align: center;
-  white-space: nowrap;
-  padding: 14px 30px;
   border-bottom: 1px solid #ddd;
   display: table-cell;
-  vertical-align: inherit;
-  line-height: 1.6;
+  vertical-align: center;
   color: #666;
+  @media (max-width: 768px) {
+    width: 30% !important;
+    padding: 0;
+  }
 `
 const Data = styled.td`
+  width: 60vw;
   border-left: 1px solid #ddd;
   padding: 14px 30px;
   border-bottom: 1px solid #ddd;
@@ -58,32 +66,77 @@ const Data = styled.td`
   vertical-algin: inherit;
   line-height: 1.6;
   color: #666;
+  @media (max-width: 768px) {
+    width: 70% !important;
+    padding: 5px 5px 5px 10px;
+    line-height: 1.6;
+  }
 `
 const Intable = styled.table`
   border-collapse: collapse;
   line-height: 2;
+  width: 100%;
 `
 const InTH = styled.th`
   font-weight: normal;
   text-align: left;
   padding-left: 8px;
+  width: 100%;
+  @media (max-width: 768px) {
+
+  }
 `
 
 const Button = styled.button `
     cursor: pointer;
-    width: 10%;
-    height: 5vh;
+    min-width: 70px;
+    min-height: 25px;
     border: none;
     color: white;
     background-color: black;
     text-align: center;
-    opacity: 0.6;
     transition: 0.3s;
-    border: 1px solid #d9dee8;
+    border: 0;
+    outline: 0;
     margin-right: 5%
     &:hover {
-        opacity: 1;
+      text-shadow: 0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F;
     }
+    @media (max-width: 768px) {
+      padding: 5px;
+      margin: 5px;
+    }
+`
+const Input = styled.input`
+    padding-left: 5px;
+`
+const ProfPic = styled.img`
+  vertical-align:middle;
+  width:10vw;
+  height:10vw;
+  border-radius:50%;
+  margin-right: 8px;
+  object-fit: cover
+  @media (max-width: 768px) {
+    width:30vw;
+    height:30vw;
+  }
+`
+const ChangePic = styled.img`
+  vertical-align: middle;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  // @media (max-width: 700px) {
+  //   width: 25vw;
+  //   height: 25vw;
+  // }
+  // @media (max-width: 500px) {
+  //   width: 35vw;
+  //   height: 35vw;
+  // }
 `
 const CancelButton = styled.button `
     cursor: pointer;
@@ -236,14 +289,14 @@ class MyInfo extends Component {
 
             .then(response => {
                 console.log(response)
-                this.setState({filetype : true, imageAddress : response.data.message})
+                this.setState({imageAddress : response.data.message})
               
 
             }
 
             )
             .catch(err => console.log(err))
-            : (alert('Image 파일만 올릴수있어요'), this.setState({filetype : false}))
+            : (alert('Image 파일만 올릴수있어요'))
 
           
       // console.log(mimeType)
@@ -405,17 +458,15 @@ class MyInfo extends Component {
             <Table>
               <Row>
                 <Column>사진</Column>
-                <Data>{this.state.hasPhoto ? <div><img style = {{ verticalAlign:'middle',width:'10%', borderRadius:'50%'}} src= {this.state.data.user_photo} /><button onClick={this._photoChange}> 사진 변경</button></div> 
-                  : <div><Dropzone onDrop={ this._onDrop } size={ 50 }  accept = "image/*"    >
-                 
+                <Data>{this.state.hasPhoto ? <div><ProfPic src= {this.state.data.user_photo} /><Button onClick={this._photoChange}> 사진 변경</Button></div> 
+                  : <div><Dropzone onDrop={ this._onDrop } size={ 30 }  accept = "image/*">
                   <div style={{width:'100%', height:'100%', textAlign:'center'}}>
-                       <div> Drop some files here!</div>
-                       <div style= {{width: '100%', height:'90%'}}> {this.state.file && this.state.filetype === true ? <img style = {{ verticalAlign:'middle', width:'90%', height:'90%', borderRadius:'50%'}} src= {this.state.file.preview} />:null}</div>
+                       <div style={{width:'100%', height:'100%', textAlign:'center'}}>{this.state.file ? <ChangePic src= {this.state.imageAddress ? this.state.file.preview : 'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'}  />:null}</div>
                            </div>
                            </Dropzone>
                            
                            
-                          <button onClick={this._photoChange}> 취소</button></div>}
+                          <Button onClick={this._photoChange}> 취소</Button></div>}
                 </Data>
               </Row>
               <Row>
@@ -425,60 +476,34 @@ class MyInfo extends Component {
               <Row>
                 <Column>닉네임</Column>
                 <Data>
-                    {this.state.nickName === false ? <div><input value = {this.state.data ? this.state.data.name : null} ref={ref => { this.nickname = ref; }}  readOnly/> <button onClick = {this._nickNameChange} style={{'margin-left': '15px'}}>닉네임 변경</button></div>
-                    : <div><input onBlur={this._nicknameOnchange} ref={ref => { this.nickname = ref; }} /><button onClick = {this._confirmNickname}> 중복확인 </button><button onClick={this._nickNameChange}>변경취소</button></div>}
+                    {this.state.nickName === false ? <div><Input value = {this.state.data ? this.state.data.name : null} ref={ref => { this.nickname = ref; }}  readOnly/> <Button onClick = {this._nickNameChange}>닉네임 변경</Button></div>
+                    : <div><input onBlur={this._nicknameOnchange} ref={ref => { this.nickname = ref; }} /><Button onClick = {this._confirmNickname}> 중복확인 </Button><Button onClick={this._nickNameChange}>변경취소</Button></div>}
                 </Data>
               </Row>
               <Row>
                 <Column>피부타입</Column>
                 <Data>
                   {!this.state.data ? null : this.state.tone === false ? this.state.data.tone : null}
-                   {this.state.tone === false ? <button onClick = {this._toneChange}style={{'margin-left': '15px'}}>피부타입 변경</button> : null }
+                   {this.state.tone === false ? <Button onClick = {this._toneChange}style={{'margin-left': '15px'}}>피부타입 변경</Button> : null }
                   {this.state.tone === true ? 
-                    <div><Dropdown options={this.colorOptions} placeholder="USER'S PERSONAL COLOR" onChange={this._onColorSelect} value = {this.state.colorSelected} /> <button onClick={this._toneChange}>변경취소</button></div> 
+                    <div><Dropdown options={this.colorOptions} placeholder="USER'S PERSONAL COLOR" onChange={this._onColorSelect} value = {this.state.colorSelected} /> <Button onClick={this._toneChange}>변경취소</Button></div> 
                   : null}
                 </Data>
               </Row>              
               <Row>
                 <Column>비밀번호</Column>
-                <Data><Intable>
-                  <tr><td colspan='2'>비밀번호는 5-10자 이내로 설정해주세요.</td></tr>
-                  <tr>
-                    <InTH>현재 비밀번호</InTH>
-                    <td><input onChange={this._passwordCompare} ref={ref => { this.password = ref; }}type='password'/></td>
+                <Data style={{height: 'auto !important'}}>
+                <div>비밀번호는 5-10자 이내로 설정해주세요.</div>
+                    <div>현재 비밀번호</div>
+                    <input onChange={this._passwordCompare} ref={ref => { this.password = ref; }}type='password'/>
                       {!this.password ? null : !this.password.value.length ? null : this.state.confirmPassword === true ? < div > Ok </div> :  this.state.confirmPassword === false ? <div>비밀번호 확인해주세요</div > : null}
-
-
-                    {/* {this.state.confirmPassword  === true  ? <div>Ok</div> : this.state.confirmPassword === false && this.password.value ? <div>비밀번호 확인해주세요</div>:null} */}
-
-
-
-
-
-
-                    {/* {this.state.confirmPassword  === false && this.password ? <div> 비밀번호를 확인해주세요</div> : !this.password ? null : <div>Ok</div>} */}
-                  </tr>
-                  <tr>
-                    <InTH>신규 비밀번호</InTH>
-                    <td><input onChange ={this._minNumber} ref={ref => { this.newPassword = ref; }} type='password'/></td>
+                    <div>신규 비밀번호</div>
+                    <input onChange ={this._minNumber} ref={ref => { this.newPassword = ref; }} type='password'/>
                     {!this.newPassword ? null: !this.newPassword.value.length ? null : !this.state.minNum ? <div>비밀번호는 5글자 이상 입력하셔야 합니다.</div> : <div>Ok</div>}
-                  </tr>
-                  <tr>
-                    <InTH>비밀번호 재입력</InTH>
-                    <td> <input onClick={this._passwordInput} onChange = {this._comparePassword} ref={ref => { this.confirmPassword = ref; }} type='password'/></td>
+                    <div>비밀번호 재입력</div>
+                    <input onClick={this._passwordInput} onChange = {this._comparePassword} ref={ref => { this.confirmPassword = ref; }} type='password'/>
                      {!this.confirmPassword && !this.newPassword ?  null : this.confirmPassword.value && this.newPassword.value ? <div>{this.state.validate === true ? '비밀번호가 일치합니다' : '입력한 비밀번호가 일치하지 않습니다'}</div>:null}
-                  </tr>
-                 
-                  <tr>
-                    <td>
-                  
-                      {/* <button type='button'>비밀번호 확인</button> */}
-                      </td>
-                  </tr>                  
-                </Intable>
-                      
-                      
-                      </Data>
+                </Data>
               </Row>
               <Row>
                 <Column>성별</Column>
@@ -493,7 +518,7 @@ class MyInfo extends Component {
               <Button onClick={this._submit}> 
                   변경 
               </Button>
-                <Link to='/' style={{ textDecoration: 'none' }}> <CancelButton>취소</CancelButton> </Link>
+                <Link to='/' style={{ textDecoration: 'none' }}> <Button>취소</Button> </Link>
             </div>
             {/* <button onClick={this.insta}> 검색 </button> */}
             {/* < img style = {{width:'100px', height:'100px'}} src = {this.state.photos ? this.state.photos : null} */}

@@ -124,6 +124,8 @@ const Loginbtn = styled.button`
     font-size: 1em;
     font-family: 'Roboto';
     font-weight: 300;
+    border:0
+    outline:0
     &:hover {
         text-shadow: 0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F;
         // text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0080, 0 0 30px #ff0080, 0 0 40px #ff0080, 0 0 55px #ff0080, 0 0 75px #ff0080;
@@ -141,6 +143,8 @@ const Signupbtn = styled.button`
     font-size: 1em;
     font-family: 'Roboto';
     font-weight: 300;
+    border:0
+    outline:0
     &:hover {
         text-shadow: 0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F;
         // text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0080, 0 0 30px #ff0080, 0 0 40px #ff0080, 0 0 55px #ff0080, 0 0 75px #ff0080;
@@ -169,7 +173,7 @@ class Login extends Component {
                 document.getElementById('password').style.fontSize = "0.8rem"
                 window.setTimeout(function() {
                     document.getElementById('password').style.display='none'
-                 }, 3000);
+                 }, 1000);
             } else if(res.data.message==='invalid mail'){
                 console.log('mail');
                 document.getElementById('email').style.display = "inline-block"
@@ -177,7 +181,7 @@ class Login extends Component {
                 document.getElementById('email').style.fontSize = "0.8rem"
                 window.setTimeout(function() {
                     document.getElementById('email').style.display='none'
-                 }, 3000);
+                 }, 1000);
             } else if(res.data.token) {
                 localStorage.setItem('token', res.data.token)
                 this.props.handleLoginUser()

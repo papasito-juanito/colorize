@@ -1,9 +1,14 @@
 // Global import
 const bcrypt = require('bcrypt');
 
-module.exports = async (userPassword) => {
-  console.log(`[6_utility ] activated password: ${userPassword}`);
+// Local import
+const { saltRounds } = require('../../0_config');
 
-  const hash = await bcrypt.hash(userPassword, 10);
+module.exports = async (userPassword) => {
+  if (process.env.NODE_ENV === 'development') {
+    console.log(`[611_util  ] activated hash password: ${userPassword}`);
+  }
+
+  const hash = await bcrypt.hash(userPassword, saltRounds);
   return hash;
 };

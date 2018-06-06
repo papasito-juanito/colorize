@@ -3,11 +3,12 @@ const model = require('../../../../7_models');
 const query = require('../../../../9_query/92_items/922_get/9221_list');
 
 module.exports = async (req, res) => {
-  console.log(`[5_control ] activated query: ${query.avg_DESC}`);
+  if (process.env.NODE_ENV === 'development') {
+    console.log(`[51221_cont] activated list query: ${query.avg_DESC}`);
+  }
 
   const colors = await JSON.parse(req.query.color_id);
   const params = [colors];
-
   switch (req.query.order_by) {
     case 'price DESC': {
       const rows = await model(query.price_DESC, params);

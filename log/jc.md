@@ -82,7 +82,7 @@ aws setting:
     $ sudo su - 관리자 권한 획득
     $ apt-get update - apt-get 의 패키지 업데이
     $ apt-cache search mysql-server - mysql 패키지가 존재하는지 확인
-    $ apt-get install mysql-server-5.6 - mysql 설치 -> 비밀번호 설정하는 페이지로 이동
+    $ apt-get install mysql-server-5.7 - mysql 설치 -> 비밀번호 설정하는 페이지로 이동
 
 ***
 git folder:
@@ -153,6 +153,22 @@ process.env:
 #2018-06-03
 ***
 s3:
-웹 서버에서 파일 업로드 버퍼를 처리하되 물리적으로 파일을 저장하지 않기 위해 메모리 스토리지 타입의 객체를 생성
-웹 서버에 물리적으로 저장하는 것보다 아마존 S3 등을 이용하는 것이 좋은 이유는,
-로드 밸런서 등을 활용하여 여러 웹 서버가 같은 Node.js 웹 서비스를 제공할 때 특정 서버만 파일을 보유하게 되는 현상 등이 생기는 것을 미연에 방지
+    웹 서버에서 파일 업로드 버퍼를 처리하되 물리적으로 파일을 저장하지 않기 위해 메모리 스토리지 타입의 객체를 생성
+    웹 서버에 물리적으로 저장하는 것보다 아마존 S3 등을 이용하는 것이 좋은 이유는,
+    로드 밸런서 등을 활용하여 여러 웹 서버가 같은 Node.js 웹 서비스를 제공할 때 특정 서버만 파일을 보유하게 되는 현상 등이 생기는 것을 미연에 방지
+
+#2018-06-06
+***
+RDS:
+    mysql -h colorize.clfod2la3omk.ap-northeast-2.rds.amazonaws.com -p colorize -u colorize
+    mysql -h colorize.clfod2la3omk.ap-northeast-2.rds.amazonaws.com -p colorize -u colorize < server/8_mysql/schema.sql
+    set time_zone = 'Asia/Seoul';
+
+EC3:'ec2-13-125-176-32.ap-northeast-2.compute.amazonaws.com
+    chmod 400 colorize.pem
+    ssh -i "colorize.pem" ubuntu@ec2-13-125-176-32.ap-northeast-2.compute.amazonaws.com
+
+node.js update:
+    sudo apt-get purge --auto-remove nodejs
+    curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+    sudo apt-get install -y nodejs

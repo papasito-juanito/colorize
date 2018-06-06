@@ -27,9 +27,21 @@ injectGlobal`
     margin:0;
   }
 `
+const Wrapper = styled.div`
+    position: relative
+    width: 100vw
+    height: 100vh
+`
+
 const Loading = styled.div`
-    margin-top: 22%;
-    margin-left:46%;
+    // position: absolute
+    // top: 50%;
+    // left: 50%;
+    // transform: translate(-50%, -50%);
+    // margin: 0 auto;
+    width: 60vw;
+    height: 60vh;
+    margin: 35vh auto;
     border: 16px solid #f3f3f3;
     border-radius: 50%;
     border-top: 16px solid black;
@@ -41,18 +53,24 @@ const Loading = styled.div`
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
     }
+    @media (max-width: 768px) {
+        margin: 35vh auto;
+        width: 60px
+        height: 60px;
+    }
 `
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
     return (
      <Route {...rest} render={(props) => {
         const {isLoading, isLogined} = rest         
-        return isLoading ? <Loading/> : isLogined ?
-         <Component {...props} {...rest} />
-         : <Redirect to ={{
-             pathname: '/login',
-             state: { from: props.location }
-           }}/>
+        return isLoading ? <Wrapper> <Loading/> </Wrapper> 
+                : isLogined ?
+                <Component {...props} {...rest} />
+                : <Redirect to ={{
+                    pathname: '/login',
+                    state: { from: props.location }
+                }}/>
      }} />
  )}
 

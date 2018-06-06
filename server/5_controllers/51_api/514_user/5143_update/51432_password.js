@@ -1,11 +1,13 @@
 // Local import
+const verify = require('../../../../3_middlewares/31_jsonwebtoken/312_verify');
 const compare = require('../../../../6_utility/61_bcrypt/612_compare');
-const verify = require('../../../../6_utility/62_jsonwebtoken/622_verify');
 const model = require('../../../../7_models');
 const query = require('../../../../9_query/94_users/943_update/9432_password');
 
 module.exports = async (req, res) => {
-  console.log(`[5_control ] activated query: ${query}`);
+  if (process.env.NODE_ENV === 'development') {
+    console.log(`[51432_cont] activated compare password query: ${query}`);
+  }
 
   const decoded = await verify(req.headers.token);
   if (!decoded.success) res.json({ success: false, message: decoded.message });

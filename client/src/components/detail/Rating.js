@@ -78,7 +78,8 @@ class Rating extends Component {
             file : '',
             imagepreviewUrl: '',
             popupIsOpen : false,
-            data : ''
+            data : '',
+            filebtnSelected: false
         }
         this._onStarClick = this._onStarClick.bind(this);
         this._clickReview = this._clickReview.bind(this);
@@ -87,6 +88,8 @@ class Rating extends Component {
     }
 
     _callback(params) {
+        console.log('params', params);
+        
         this.setState({
             imageAddress: params
         })
@@ -122,7 +125,8 @@ class Rating extends Component {
                 })
                 // .then(response => this.setState({ data: response.data }))
                 .catch(err => console.log(err))
-            ,this.input.value = '', window.location.reload())
+            ,this.input.value = '')
+            //  window.location.reload()
     }
 
     _alertReview() {
@@ -149,7 +153,7 @@ class Rating extends Component {
                         />
                     </RatingDiv>
                     <ImageDiv>
-                        <img src = {this.state.imagepreviewUrl ? this.state.imagepreviewUrl: null} style = {{border: '1px solid black', width:'100%', height:'100%'}}/>
+                        <img src = {this.state.imagepreviewUrl? this.state.imagepreviewUrl :this.state.imageAddress ? this.state.imageAddress: null} style = {{border: '1px solid black', width:'100%', height:'100%'}}/>
                     </ImageDiv>                   
                 </TopWrite>
                 <ReviewDiv>

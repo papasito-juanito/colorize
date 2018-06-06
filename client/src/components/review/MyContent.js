@@ -229,7 +229,7 @@ class MyContent extends Component {
                             <UserDiv > <img alt='user' src = {this.props.user.user_photo} style = {{ borderRadius:'50%',height:'100%', width:'100%'}}/></UserDiv>
                                
                             <div>{this.props.user.name} <img style={{width: '8%', height:'8%'}} src = {this.props.user.gender === 'male'? male : female}/></div>
-                                <div>{this.props.user.age}, {this.props.user.tone}<br/></div>
+                                <div>{this.props.user.age}세 · {this.props.user.tone}<br/></div>
                         </Info>
                         <ReviewImage onClick={this._openPopup} src={this.props.user.review_photo} />
                           <div style={{textAlign:'center'}}>

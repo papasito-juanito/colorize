@@ -20,14 +20,14 @@ const Container = styled.div`
     // width: 55%;
     // height: 100%;
     // width: 10vw;
+    margin-right:-11rem;
     display: flex;
     flex-direction: column;
     position : relative;
 `
 const FileButton = styled.input`
     // width: 100%;
-    position: absolute;
-    right: 2%;
+    // display:none;
     color: transparent;
     // opacity : 0;
     ::-webkit-file-upload-button {
@@ -55,8 +55,7 @@ class FileUpload extends Component {
             file: '',
             imagepreviewUrl: '',
             popupIsOpen: false,
-            data: '',
-            imageURL:''
+            data: ''
         }
         this._openPopup = this._openPopup.bind(this);
         this._afterOpenPopup = this._afterOpenPopup.bind(this);
@@ -70,15 +69,14 @@ class FileUpload extends Component {
         e.preventDefault();
         let reader = new FileReader();
         let file = e.target.files[0];
-        let mimeType = e.target.files[0].type.split('image/')[1];
+        console.log(e.target.files[0].type)
+        let mimeType = e.target.files[0].type.split('/')[0];
         reader.readAsDataURL(file)
         reader.onload = () => {
-        mimeType === 'png' || mimeType === 'jpg' || mimeType === 'jpeg' ?
-            this.setState({
-                file: file,
-                imagepreviewUrl: reader.result,
-                imageAddress : ''
-            }) : this.setState({imagepreviewUrl : ''})
+        mimeType === 'image' ?
+            this.props.imagePreview(file, reader.result )
+            :alert('Image 파일만 등록만 가능합니다')
+        //    : this.setState({imagepreviewUrl : ''})
         }
 
 
@@ -102,34 +100,15 @@ class FileUpload extends Component {
         const token = localStorage.getItem('token')
         const formData = new FormData();
         formData.append('file', e.target.files[0]);
-        var mimeType = e.target.files[0].type.split('image/')[1];
-        console.log(mimeType)
-        
-        mimeType === 'png' || mimeType === 'jpg' || mimeType === 'jpeg' ?
+
         axios.post(`${url}/api/review/post/upload`, formData, { headers: { 'token': token , id: this.props.id} } )
-            // .then((response) => {
-            // console.log(response);
-            // })
             .then(response => {
                 console.log(response)
                 this.props.callback(response.data.message)
             }
-                // this.setState({ imageURL: `${url}/${response.data.file}` })
+
             )
             .catch(err => console.log(err))
-            : (alert('jpg/png 파일만 올릴수있어요'))
-
-        // fetch(`${url}/upload`, {
-        //     method: 'POST',
-        //     body: formData,
-        // }).then((response) => {
-            // response.json().then((body) => {
-                // console.log(response.json())
-                // this.setState({imageURL: `${url}${body.file}` });
-            // });
-        // })
-        // .catch(err => console.log(err))
-
     }
 
 
@@ -143,18 +122,10 @@ class FileUpload extends Component {
             $imagePreview = (<div style={{textAlign:'center', position: 'relative', top: '50%', transform: 'translateY(-50%)'}}>리뷰 사진을 올려주세요</div>);
 
         return (
-            < Container>
-              
-                    {/* <div style = {{height:'150px', width:'150px', border: '1px solid black'}}> <img src={require('../../assets/reviews/1528079528165images.jpeg')}/></div> */}
-                    {/* <div style = {{height:'150px', width:'150px', border: '1px solid black'}}> <img src={require('../../assets/reviews/1528079528165images.jpeg')}/></div> */}
-
-                {/* <ImgDiv>
-                    {$imagePreview}
-                </ImgDiv> */}
+            <Container>
                 <FileButton
                     type='file'
-                    accept = ".jpg, .png, .jpeg"
-                    ref={ref => { this.uploadInput = ref; }}
+                    accept = "image/*"
                     onChange={(e) => { this._handleImageChange(e); this._fileUploadHandler(e) }} />
                 <Modal
                     isOpen={this.state.popupIsOpen}

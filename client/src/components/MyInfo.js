@@ -230,8 +230,8 @@ class MyInfo extends Component {
       console.log('file@@@@@@@@@@@@@@ :', file)
       const formData = new FormData();
       formData.append('file', file);
-      var mimeType = file.type.split('image/')[1];
-        mimeType === 'png' || mimeType === 'jpg' || mimeType === 'jpeg' ?
+      var mimeType = file.type.split('/')[0];
+        mimeType === 'image' ?
         axios.post(`${url}/api/user/post/upload`, formData, { headers: { 'token': token} } )
 
             .then(response => {
@@ -243,7 +243,7 @@ class MyInfo extends Component {
 
             )
             .catch(err => console.log(err))
-            : (alert('jpg/png 파일만 올릴수있어요'), this.setState({filetype : false}))
+            : (alert('Image 파일만 올릴수있어요'), this.setState({filetype : false}))
 
           
       // console.log(mimeType)
@@ -406,7 +406,7 @@ class MyInfo extends Component {
               <Row>
                 <Column>사진</Column>
                 <Data>{this.state.hasPhoto ? <div><img style = {{ verticalAlign:'middle',width:'10%', borderRadius:'50%'}} src= {this.state.data.user_photo} /><button onClick={this._photoChange}> 사진 변경</button></div> 
-                  : <div><Dropzone onDrop={ this._onDrop } size={ 50 }  accept = "image/jpeg, image/png, image/jpg"    >
+                  : <div><Dropzone onDrop={ this._onDrop } size={ 50 }  accept = "image/*"    >
                  
                   <div style={{width:'100%', height:'100%', textAlign:'center'}}>
                        <div> Drop some files here!</div>

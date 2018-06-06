@@ -1,4 +1,5 @@
 // Local import
+const verify = require('../../../../3_middlewares/31_jsonwebtoken/312_verify');
 const check = require('../../../../6_utility/60_check/604_wishlist');
 const model = require('../../../../7_models');
 const insert = require('../../../../9_query/95_wishlists/951_post');
@@ -11,21 +12,20 @@ module.exports = async (req, res) => {
     console.log(`[5153_cont ] activated update query: ${pop}`);
   }
 
-  const exist = await check(req.body.color_id, req.user_id);
-
+  const decoded = await verify(req.headers.token);
+  const exist = await check(req.body.color_id, decoded.user_id);
   if (!exist.length) {
-    console.log('insert', insert);
-    await model(insert, [req.body.color_id, req.user_id]);
+    await model(insert, [req.body.color_id, decoded.user_id]);
     res.json({ success: true, message: true });
   } else {
     switch (exist[0].toggle) {
       case 'true': {
-        await model(hide, [req.body.color_id, req.user_id]);
+        await model(hide, [req.body.color_id, decoded.user_id]);
         res.json({ success: true, message: false });
         break;
       }
       case 'false': {
-        await model(pop, [req.body.color_id, req.user_id]);
+        await model(pop, [req.body.color_id, decoded.user_id]);
         res.json({ success: true, message: true });
         break;
       }

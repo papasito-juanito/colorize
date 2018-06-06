@@ -82,7 +82,7 @@ aws setting:
     $ sudo su - 관리자 권한 획득
     $ apt-get update - apt-get 의 패키지 업데이
     $ apt-cache search mysql-server - mysql 패키지가 존재하는지 확인
-    $ apt-get install mysql-server-5.6 - mysql 설치 -> 비밀번호 설정하는 페이지로 이동
+    $ apt-get install mysql-server-5.7 - mysql 설치 -> 비밀번호 설정하는 페이지로 이동
 
 ***
 git folder:
@@ -164,6 +164,11 @@ RDS:
     mysql -h colorize.clfod2la3omk.ap-northeast-2.rds.amazonaws.com -p colorize -u colorize < server/8_mysql/schema.sql
     set time_zone = 'Asia/Seoul';
 
-EC3:
+EC3:'ec2-13-125-176-32.ap-northeast-2.compute.amazonaws.com
     chmod 400 colorize.pem
     ssh -i "colorize.pem" ubuntu@ec2-13-125-176-32.ap-northeast-2.compute.amazonaws.com
+
+node.js update:
+    sudo apt-get purge --auto-remove nodejs
+    curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+    sudo apt-get install -y nodejs

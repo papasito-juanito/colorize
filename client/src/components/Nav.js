@@ -259,9 +259,9 @@ class Nav extends Component {
               <SideNav ref="mySidenav" >
                 <SideClose href="javascript:void(0)" onClick={this.closeNav}>&times;</SideClose>
                 <SideAnchor ref='Anchor' to="/" onClick={this.closeNav}>Home</SideAnchor>
-                <SideAnchor ref='Anchor' to="/myinfo" onClick={this.closeNav}>My&nbsp;Info</SideAnchor>
-                <SideAnchor ref='Anchor' to="/wishlist" onClick={this.closeNav}>Wish&nbsp;List</SideAnchor>
-                <SideAnchor ref='Anchor' to="/review" onClick={this.closeNav}>My&nbsp;Review</SideAnchor>
+                <SideAnchor ref='Anchor' to="/myinfo" onClick={this.closeNav}><nobr>My Info</nobr></SideAnchor>
+                <SideAnchor ref='Anchor' to="/wishlist" onClick={this.closeNav}><nobr>Wish List</nobr></SideAnchor>
+                <SideAnchor ref='Anchor' to="/review" onClick={this.closeNav}><nobr>My Review</nobr></SideAnchor>
                 <SideAnchor ref='Anchor' to={this.props.location.pathname + this.props.location.search} onClick={()=>{this.closeNav(); handleLogout()}}>Logout</SideAnchor>
               </SideNav> :
               <SideNav ref="mySidenav" >

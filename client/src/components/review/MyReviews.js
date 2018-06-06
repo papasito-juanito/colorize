@@ -92,6 +92,8 @@ const Emptybtn = styled.button`
     font-size: 1rem 
     font-family: 'Roboto';
     font-weight: 300;
+    border:0
+    outline:0
     &:hover {
         text-shadow: 0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F;
         // text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0080, 0 0 30px #ff0080, 0 0 40px #ff0080, 0 0 55px #ff0080, 0 0 75px #ff0080;
@@ -596,6 +598,9 @@ class MyReviews extends Component {
       .catch(err => console.log(err))
       : (alert('이미지 파일만 올릴수있어요'))
     }
+  goHome = () => {
+      this.props.history.push('/')
+  }     
 
   componentDidMount(){
 //여기서 내가쓴 리뷰 전체모아오기

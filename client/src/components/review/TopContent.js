@@ -24,7 +24,7 @@ Modal.setAppElement('#root');
 
 const Container = styled.div`
 border: 1px solid #d9dee8;
-background-color: white;
+background-color: blue;
 border-radius: 5px;
 display:flex;
 width:100%;
@@ -38,43 +38,41 @@ const Top = styled.div`
     border: solid pink 2px;
     height: 100%;
     width: 40%;
+    display : flex;
     @media (max-width: 768px) {
         width: 100%;
         height: 50%;
     }
 `
+
+const UserRating = styled.div`
+   flex-direction : column;
+`
 const ReviewImage = styled.img`
 width: 60%;
 height: 80%;
 cursor: pointer;
-float: right;
 object-fit: scale-down;
 border: solid blue 1px;
 `
 
 const Info = styled.div`
-width: 40%;
-height: 100%;
-float: left;
+height: 70%;
 background-color: lightblue;
-display:flex;
 flex-direction: column;
 justify-content:center;
-
 `
 
 const ReviewContent = styled.div`
-width: 70%;
-height: 100%;
-position: relative;
+width: 60%;
 background-color: yellow;
+flex-direction : column;
 @media (max-width: 768px) {
     width: 100%;
     height: 50%;
 }
 `
 const Bubble = styled.div`
-position: relative;
 width: 100%;
 height: 70%;
 border: #7F7F7F solid 2px;
@@ -91,6 +89,7 @@ height: 100%;
 `
 
 const LikeCount = styled.div`
+    position : absolute;
     width: 20%
     height: 60%
     top: 7%;
@@ -105,13 +104,15 @@ height: 100%;
 cursor: pointer;
 `
 const BottomContainer = styled.div`
-    position: relative;
+   border : 1px solid blue;
     height: 30%;
+    position : relative;
 `
 
 const UserDiv = styled.div`
     width: 25%;
     height: 30%;
+    
 `
 
 
@@ -175,36 +176,40 @@ class TopContent extends Component {
                 {this.props.data ? this.props.data.map((item, i) => {
                     return (
                         <Container key={i}>
-                        <Top>
-                            <Info >
-                                <UserDiv > <img alt='user'  src = {item.user_photo} style = {{ borderRadius:'50%',height:'100%', width:'100%'}} /></UserDiv>
-                                {/* 유저 이미지 여기서 받아와서 삽입 */}
-                                <div>{item.name}</div>
-                                <div>{item.age}세 · {item.tone}</div>
-
-                                <div style={{ fontSize: '0.8rem'}}> {item.writeAt.split('T')[0]} </div>
-                            </Info >
-                            <ReviewImage onClick={this._openPopup} src = {item.review_photo}/>
-                            <div style={{textAlign:'center'}}>
-                                    <StarRatingComponent
-                                        name="rate2"
-                                        editing={false}
-                                        value={item.rating}
-                                    />
-                                </div>
-                            {/* <ReviewImage onClick={this._openPopup} src={require(`../public/user/${this.props.파람스매치랑 유저아이디이용}.jpg`)} /> */}
-                        </Top>
-                            <ReviewContent >
-                                    <Bubble><Message readOnly>{item.message}</Message> </Bubble>
-                                    {/* {this.state.editing ? <Message readOnly>{data[i].message}</Message> : <Message>{data[i].message}</Message>} */}
-                                    {/* 윗코드는 내 리뷰 할때만 필요 */}
+                            <Top>
+                                <UserRating>
+                                    <Info>
+                                        <UserDiv > 
+                                            <img alt='user'  src = {item.user_photo} style = {{ borderRadius:'50%',height:'100%', width:'100%'}} />
+                                        </UserDiv>
+                                        <div>{item.name}</div>
+                                        <div>{item.age}세 </div>
+                                        <div>{item.tone}</div>
+                                        <div style={{ fontSize: '0.8rem'}}> {item.writeAt.split('T')[0]} </div>
+                                    </Info >
+                                    <div style={{height: '30%', border: '1px solid black', textAlign:'center'}}>
+                                        <StarRatingComponent
+                                            name="rate2"
+                                            editing={false}
+                                            value={item.rating}
+                                        />
+                                    </div>
+                                </UserRating>
+                                <ReviewImage onClick={this._openPopup} src = {item.review_photo}/>
+                            </Top>
+                            <ReviewContent>
+                                <Bubble>
+                                    <Message readOnly>
+                                        {item.message}
+                                    </Message> 
+                                </Bubble>
                                 <BottomContainer >
                                     <LikeCount>
                                         <Like onClick={this._reviewLike} src={item.toggle === 'true' ? like : hate} />
                                         {item.likes}
                                     </LikeCount>
                                 </BottomContainer>
-                            </ReviewContent >
+                            </ReviewContent>
                         </Container>
                     )
                 }) : null}

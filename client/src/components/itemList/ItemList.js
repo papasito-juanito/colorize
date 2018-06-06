@@ -49,24 +49,27 @@ const Btn = styled(Link)`
         color: white
         text-shadow: 0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F;
     }
-    @media (max-width: 426px) {
+    @media (max-width: 430px) {
         font-size: 0.8rem;
         min-width:70px;
-    }
-    @media (max-width: 392px) {
-        font-size: 0.8rem;
-        min-width:68px;
         padding: 6px 6px;
     }
-    @media (max-width: 364px) {
+    @media (max-width: 420px) {
+        font-size: 0.8rem;
+        min-width:68px;
+        padding: 4px 4px;
+    }
+    @media (max-width: 375px) {
         font-size: 0.8rem;
         min-width:50px;
-        padding: 2px 2px;
+        padding: 5px 5px;
+        margin-left: 7px
     }
     @media (max-width: 320px) {
         font-size: 0.8rem;
         min-width:50px;
-        padding: 2px 2px;
+        padding: 3px 3px;
+        margin-left: 2px
     }
 `;
 

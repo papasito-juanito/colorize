@@ -1,6 +1,3 @@
-// module.exports = require('mysql')
-//   .createConnection(require('../0_config').mysqlRDS);
-
 // Global import
 const mysql = require('mysql');
 

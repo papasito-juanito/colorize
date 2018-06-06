@@ -95,12 +95,12 @@ const Button = styled.button `
     color: white;
     background-color: black;
     text-align: center;
-    opacity: 0.6;
     transition: 0.3s;
-    border: 1px solid #d9dee8;
+    border: 0;
+    outline: 0;
     margin-right: 5%
     &:hover {
-        opacity: 1;
+      text-shadow: 0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F;
     }
     @media (max-width: 768px) {
       padding: 5px;
@@ -439,7 +439,7 @@ class MyInfo extends Component {
                            </Dropzone>
                            
                            
-                          <button onClick={this._photoChange}> 취소</button></div>}
+                          <Button onClick={this._photoChange}> 취소</Button></div>}
                 </Data>
               </Row>
               <Row>
@@ -450,7 +450,7 @@ class MyInfo extends Component {
                 <Column>닉네임</Column>
                 <Data>
                     {this.state.nickName === false ? <div><Input value = {this.state.data ? this.state.data.name : null} ref={ref => { this.nickname = ref; }}  readOnly/> <Button onClick = {this._nickNameChange}>닉네임 변경</Button></div>
-                    : <div><input onBlur={this._nicknameOnchange} ref={ref => { this.nickname = ref; }} /><button onClick = {this._confirmNickname}> 중복확인 </button><button onClick={this._nickNameChange}>변경취소</button></div>}
+                    : <div><input onBlur={this._nicknameOnchange} ref={ref => { this.nickname = ref; }} /><Button onClick = {this._confirmNickname}> 중복확인 </Button><Button onClick={this._nickNameChange}>변경취소</Button></div>}
                 </Data>
               </Row>
               <Row>
@@ -459,7 +459,7 @@ class MyInfo extends Component {
                   {!this.state.data ? null : this.state.tone === false ? this.state.data.tone : null}
                    {this.state.tone === false ? <Button onClick = {this._toneChange}style={{'margin-left': '15px'}}>피부타입 변경</Button> : null }
                   {this.state.tone === true ? 
-                    <div><Dropdown options={this.colorOptions} placeholder="USER'S PERSONAL COLOR" onChange={this._onColorSelect} value = {this.state.colorSelected} /> <button onClick={this._toneChange}>변경취소</button></div> 
+                    <div><Dropdown options={this.colorOptions} placeholder="USER'S PERSONAL COLOR" onChange={this._onColorSelect} value = {this.state.colorSelected} /> <Button onClick={this._toneChange}>변경취소</Button></div> 
                   : null}
                 </Data>
               </Row>              
@@ -491,7 +491,7 @@ class MyInfo extends Component {
               <Button onClick={this._submit}> 
                   변경 
               </Button>
-                <Link to='/' style={{ textDecoration: 'none' }}> <CancelButton>취소</CancelButton> </Link>
+                <Link to='/' style={{ textDecoration: 'none' }}> <Button>취소</Button> </Link>
             </div>
             {/* <button onClick={this.insta}> 검색 </button> */}
             {/* < img style = {{width:'100px', height:'100px'}} src = {this.state.photos ? this.state.photos : null} */}

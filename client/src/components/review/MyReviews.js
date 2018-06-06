@@ -42,7 +42,7 @@ const EmptyTitle = styled.div`
     font-family: 'Roboto';
     font-weight: 100;
     color: black
-    @media (max-width: 656px) {
+    @media (max-width: 660px) {
         font-size: 3.5rem
     }
     @media (max-width: 511px) {

@@ -76,7 +76,7 @@ const SideNav = styled.div`
   left: 0;
   background-color: #111;
   overflow-x: hidden;
-  transition: 0.3s;
+  transition: 0.5s;
   padding-top: 60px;
 `
 
@@ -89,7 +89,7 @@ const SideAnchor = styled(Link)`
   font-weight: 200;
   color: white;
   display: block;
-  transition: 0.1s;
+  transition: 0.3s;
   &:hover {
       color: white;
       text-shadow: 0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F;
@@ -162,7 +162,7 @@ class Nav extends Component {
   // }
 
   openNav = () => {
-    ReactDOM.findDOMNode(this.refs.mySidenav).style.width = '20vw' 
+    ReactDOM.findDOMNode(this.refs.mySidenav).style.width = '25vw' 
     ReactDOM.findDOMNode(this.refs.overlay).style.display = 'block'
     if(document.body.clientWidth<='1024'){
       ReactDOM.findDOMNode(this.refs.mySidenav).style.width = '30vw' 
@@ -259,9 +259,9 @@ class Nav extends Component {
               <SideNav ref="mySidenav" >
                 <SideClose href="javascript:void(0)" onClick={this.closeNav}>&times;</SideClose>
                 <SideAnchor ref='Anchor' to="/" onClick={this.closeNav}>Home</SideAnchor>
-                <SideAnchor ref='Anchor' to="/myinfo" onClick={this.closeNav}>My Info</SideAnchor>
-                <SideAnchor ref='Anchor' to="/wishlist" onClick={this.closeNav}>Wish List</SideAnchor>
-                <SideAnchor ref='Anchor' to="/review" onClick={this.closeNav}>My Review</SideAnchor>
+                <SideAnchor ref='Anchor' to="/myinfo" onClick={this.closeNav}>My&nbsp;Info</SideAnchor>
+                <SideAnchor ref='Anchor' to="/wishlist" onClick={this.closeNav}>Wish&nbsp;List</SideAnchor>
+                <SideAnchor ref='Anchor' to="/review" onClick={this.closeNav}>My&nbsp;Review</SideAnchor>
                 <SideAnchor ref='Anchor' to={this.props.location.pathname + this.props.location.search} onClick={()=>{this.closeNav(); handleLogout()}}>Logout</SideAnchor>
               </SideNav> :
               <SideNav ref="mySidenav" >

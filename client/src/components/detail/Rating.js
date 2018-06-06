@@ -125,8 +125,7 @@ class Rating extends Component {
                 })
                 // .then(response => this.setState({ data: response.data }))
                 .catch(err => console.log(err))
-            ,this.input.value = '')
-            //  window.location.reload()
+            ,this.input.value = '', window.location.reload())
     }
 
     _alertReview() {

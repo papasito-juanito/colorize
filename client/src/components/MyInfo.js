@@ -12,6 +12,7 @@ import avatar from '../assets/profile.png';
 
 import { Modal, Button } from 'antd';
 import 'antd/dist/antd.css';
+import './Myinfo.css'
 
 const Container = styled.div`
   padding-top: 100px;
@@ -236,7 +237,7 @@ class MyInfo extends Component {
               console.log(response.data.success)
              
             
-              this.nickname.value.length < 5 ? (this.setState({confirmNickname : false}),alert('닉네임은 5자 이상이어야 합니다')) : response.data.success === false ? (this.setState({confirmNickname : false}), alert('중복된 닉네임입니다.')) : (this.setState({confirmNickname : true}), alert('사용가능한 닉네임입니다.'))  
+              this.nickname.value.length < 5 ? (this.setState({confirmNickname : false}), this.nickerror()) : response.data.success === false ? (this.setState({confirmNickname : false}), alert('중복된 닉네임입니다.')) : (this.setState({confirmNickname : true}), alert('사용가능한 닉네임입니다.'))  
             }
             )
             .catch(err => console.log(err));
@@ -410,12 +411,17 @@ class MyInfo extends Component {
           window.location.reload()
         }
       });
-
     }
 
     error() {
       Modal.error({
         title: '변경 정보를 확인해주세요'
+      });
+    }
+
+    nickerror() {
+      Modal.error({
+        title: '닉네임은 5글자 이상 이어야 합니다.'
       });
     }
 

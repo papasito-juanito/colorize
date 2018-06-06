@@ -21,46 +21,42 @@ const customStyles = {
 };
 const Wrapper = styled.div`
     height: 100%;
-    width: 50vw;
-    display: flex;
-    background-color:#F4F5F9;
-    border: solid red 3px;
+    width: 49.5vw;
     flex-direction: column;
     @media (max-width: 768px) {
       width: 100%;
-      height: auto;
-  	}
-`;
-const Top = styled.div`
-    height: 70%;
-    width: 100%;
-    display: flex;
-    background-color:#F4F5F9;
-    border: solid red 3px;
-    flex-direction: row;
-    @media (max-width: 768px) {
       flex-direction: column;
   	}
 `;
+const Top = styled.div`
+    height: 20.5vw;
+    margin-bottom : 1vw;
+    width: 100%;
+    display: flex;
+    @media (max-width: 768px) {
+      flex-direction: column;
+      height: 100%;
+ 
+  	}
+`;
 const DetailDiv = styled.div`
-  width: 40%;
+  width: 20.3vw;
+  margin-right:1vw;
   height: 100%;
-  margin: 0 0 0 3%;
-  border : 1px solid #d9dee8;
+  border : 1px solid green;
   background-color:white;
-  padding: 5% 5% 5% 0;
   box-sizing:border-box;
-  padding : 3% 0 0 0;
   text-align: left;
   font-size: 1rem;
   color: black;
   float: top;
   @media (max-width: 768px) {
     width: 100%;
+    flex-direction: column;
     position: relative;
-    padding: 0;
-    margin: 0;
+    border : 1px solid black;
     text-align: center;
+    margin-top: 1%;
   }
 `;
 const Name = styled.div`
@@ -91,28 +87,39 @@ const VolPrice = styled.div`
 const More = styled.button`
   display: none;
   @media (max-width: 768px) {
-    display: flex;
-    justify-content: center;
+    display: inline-block
     width: 100%;
+    postion: absolute;
+    bottom : 0;
   }
 `;
 
 const ChartDiv = styled.div`
   width: 60%;
   height: 100%;
+  border: solid black 1px;
   @media (max-width: 768px) {
     width: 100%;
-    position: relative;
+    border : 1px solid black;
+    margin-top : 1%;
   }
 `;
 const Description = styled.div`
   width: 100%;
-  height: 30%;
+  height: 8.5vw;
   font-size : 0.7em;
+  border: solid green 1px;
   @media (max-width: 768px) {
       display: none;
   }
 `;
+
+const ModalDiv = styled.div`
+  width: 70vh;
+  @media (max-width: 768px) {
+    width: 30vh;
+  }
+`
 
 class DetailRight extends Component {
   constructor(props) {
@@ -195,7 +202,7 @@ class DetailRight extends Component {
                 >
 
               <h2 ref={subtitle => this.subtitle = subtitle}>상세 정보</h2>
-              <div ref={title => this.title = title} style={{ width: '50vh' }}>{this.props.data ? this.props.data[0].description : null}</div>
+              <ModalDiv innerRef={title => this.title = title}> {this.props.data ? this.props.data[0].description : null}</ModalDiv>
               <button style={{ cursor: 'pointer' }} onClick={this._closePopup}>close</button>
         </Modal>
 

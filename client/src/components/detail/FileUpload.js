@@ -69,7 +69,7 @@ class FileUpload extends Component {
         e.preventDefault();
         let reader = new FileReader();
         let file = e.target.files[0];
-        console.log(e.target.files[0].type)
+        console.log(file)
         let mimeType = e.target.files[0].type.split('/')[0];
         reader.readAsDataURL(file)
         reader.onload = () => {

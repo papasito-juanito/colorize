@@ -8,6 +8,8 @@ import StarRatingComponent from 'react-star-rating-component';
 import Modal from 'react-modal';
 import { url } from '../../config';
 import axios from 'axios';
+import male from '../../assets/male.png';
+import female from '../../assets/female.png';
 
 const customStyles = {
     content: {
@@ -25,91 +27,103 @@ const customStyles = {
 
 Modal.setAppElement('#root');
 
-const Container = styled.div`
-border: 1px solid #d9dee8;
-background-color: blue;
-border-radius: 5px;
-display: flex;
-width: 100%;
-height: 100%;
-@media(max-width: 768 px) {
-    flex-direction: column;
-    height:40vh;
-}
+const Div = styled.div `
+    width: 100%;
+    height: 100%;
 `
+const Container = styled.div`
+    border-radius: 5px;
+    border : 1px solid black
+    margin-top: 1%;
+    margin-bottom : 1%;
+    display:flex;
+    width: 100%;
+    height: 25vh;
+    @media (max-width: 768px) {
+        flex-direction: column;
+        height: 40vh;
+    }
+    `
 const Top = styled.div`
-    border: solid pink 2px;
     height: 100%;
     width: 40%;
-    display: flex;
+    display : flex;
     @media (max-width: 768px) {
         width: 100%;
         height: 50%;
     }
 `
-const ReviewImage = styled.img`
-    width: 60%;
-    height: 80%;
-    cursor: pointer;
-    object-fit: scale-down;
-    border: solid blue 1px;
+const UserImage = styled.img`
+    border-radius: 50%;
+    height: 100%; 
+    width: 100%;
 `
+const GenderImage = styled.img`
+    width: 8%;
+    height: 8%;
+`
+const ReviewImage = styled.img`
+    width: 11vw;
+    height: 11vw;
+    margin: auto;
+    cursor: pointer;
+    object-fit : cover;
 
+`
 const UserRating = styled.div `
    flex-direction : column;
+   width : 40%;
 `
-
 const Info = styled.div`
-height: 70%;
-background-color: lightblue;
-flex-direction: column;
-justify-content: center;
+    height: 100%;
+    width: 45%;
+    flex-direction: column;
+    justify-content:center;
+    margin-top : 1%;
+    margin-left:0.5vw;
+    justify-content:center;  
 `
 
 const ReviewContent = styled.div`
-width: 60%;
-background-color: yellow;
-flex-direction: column;
-@media(max-width: 768 px) {
-    width: 100%;
-    height: 50%;
-}
-`
-
+    width: 60%;
+    flex-direction : column;
+    @media (max-width: 768px) {
+        width: 100%;
+        height: 50%;
+    }
+    `
 const Message = styled.textarea`
+    margin : 1%;
     border: none;
     resize: none;
     width: 95%;
-    height: 100%;
+    height: 90%;
     &: focus {
         outline: none;
     }
 `
-
 const LikeCount = styled.div`
-    position: absolute;
+    position : absolute;
     width: 20%
     height: 60%
     top: 7%;
-    left:85%;
+    left:90%;
     position: absolute;
     align-content: center;
 `
-
 const Like = styled.img`
-    width: 30%;
-    height: 100%;
+    width: 5vh;
+    height: 5vh;
     cursor: pointer;
 `
 const BottomContainer = styled.div`
-    border: 1px solid blue;
-    height: 30%;
-    position: relative;
+    height: 25%;
+    position : relative;
 `
 
 const UserDiv = styled.div`
-    width: 25%;
-    height: 30%;
+    width: 5vw;
+    height: 5vw;
 `
 
 const Loading = styled.div `
@@ -126,20 +140,33 @@ const Loading = styled.div `
         100% { transform: rotate(360deg); }
     }
 `
-const Bubble = styled.div`
-width: 100%;
-height: 70%;
-border: #7F7F7F solid 2px;
-text-align: center;
+const LoadingDiv = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: center
 `
-
+const Bubble = styled.div`
+    width: 100%;
+    height: 75%;
+    border-radius: 5px;
+    border: #7F7F7F solid 2px;
+    text-align: center;
+`
+const PointButton = styled.button`
+    cursor: pointer;
+    border: 0;
+    outline: 0;
+`
+const ModalDiv = styled.div`
+     height: 70vh;
+     width: 70vh
+`
 const token = localStorage.getItem('token')
-class AllContent extends Component {
-    
+
+class AllContent extends Component {    
     constructor(props) {
         super(props);
         this.state = {
-            editing: true,
             popupIsOpen: false,
             imagepreviewUrl: '',
             items: this.props.data.length < 3 ? this.props.data.length : 3,
@@ -150,16 +177,9 @@ class AllContent extends Component {
         this._openPopup = this._openPopup.bind(this);
         this._afterOpenPopup = this._afterOpenPopup.bind(this);
         this._closePopup = this._closePopup.bind(this);
-        this._handleModify = this._handleModify.bind(this);
         this._reviewLike = this._reviewLike.bind(this);
         this._displayItems = this._displayItems.bind(this);
         this._loadMoreItems = this._loadMoreItems.bind(this);
-    }
-
-    _handleModify() {
-        this.setState({
-            editing: !this.state.editing
-        })
     }
 
     _reviewLike(e) {
@@ -171,7 +191,6 @@ class AllContent extends Component {
             .then((res) => {
                 return axios.get(`${url}/api/review/get/list?color_id=${this.props.id}`, { headers: { 'token': token } })
                 .then(response => {
-                    // console.log(response)
                     this.setState({ data: response.data.rows })
                 })
                 .catch(err => console.log(err))
@@ -180,7 +199,6 @@ class AllContent extends Component {
             .catch(err => console.log(err))            
     }
 
-    
     _openPopup(e) {
         this.setState({
             popupIsOpen: true,
@@ -203,24 +221,19 @@ class AllContent extends Component {
            data.length ? items.push(
                 <Container key={i}>
                     <Top>
-                        <UserRating>
-                            <Info>
-                                <UserDiv> 
-                                    <img alt='user' src = {data[i].user_photo} style = {{ borderRadius:'50%',height:'100%', width:'100%'}}/>
-                                </UserDiv>
-                                <div>{data[i].name}</div>
-                                <div>{data[i].age}세</div>
-                                <div>{data[i].tone}</div>
-                                <div style={{ fontSize: '0.8rem'}}> {data[i].writeAt.split('T')[0]} </div>
-                            </Info >
-                            <div style={{textAlign:'center'}}>
-                                <StarRatingComponent
-                                    name="rate2"
-                                    editing={false}
-                                    value={data[i].rating}
-                                />
-                            </div>
-                        </UserRating>
+                        <Info>
+                            <UserDiv> 
+                                <UserImage alt='user' src = {data[i].user_photo}/>
+                            </UserDiv>
+                            <div>{data[i].name} <GenderImage alt='gender' src = {data[i].gender === 'male'? male : female}/></div>
+                            <div>{data[i].age}세 · {data[i].tone}</div>
+                            <div style={{ fontSize: '0.8rem'}}> {data[i].writeAt.split('T')[0]} </div>
+                            <StarRatingComponent
+                                name="rate2"
+                                editing={false}
+                                value={data[i].rating}
+                            />
+                        </Info >           
                         <ReviewImage onClick={this._openPopup} src = {data[i].review_photo}/>
                     </Top>
                     <ReviewContent >
@@ -243,7 +256,6 @@ class AllContent extends Component {
     }
 
     _loadMoreItems() {
-        console.log(3)
         this.state.items !== this.props.data.length ? this.setState({ loadingState: true }) : null;
             setTimeout( () => {
                 this.setState({items: this.state.items + 2, loadingState: false });
@@ -252,37 +264,26 @@ class AllContent extends Component {
 
      
     componentDidMount() {
-        console.log(1)
-        console.log('document.body.scrollTop :', document.body.scrollTop)
-        console.log('document.body.clientHeight :', document.body.clientHeight)
-        console.log('document.body.scrollHeight :', document.body.scrollHeight)
-
         this.state.items !== this.props.data.length ? window.addEventListener("scroll", () => {  
             if (document.body.scrollTop + document.body.clientHeight <= document.body.scrollHeight ){
              this._loadMoreItems() 
             }
         }) : window.removeEventListener("scroll", this._loadMoreItems());
-
     }
 
     componentWillUpdate(nextProps, nextState){
-        console.log(2)
         if(nextState.items> this.props.data.length)  {
             return nextState.items = this.props.data.length;
         }
     }
 
     render() {
-        console.log(this.props.data)
-        console.log(this.state.items)
-        // console.log('카운팅@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ :', count++)
-        console.log('after state :',this.state.data)
         let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
 
         return (
-            <div style={{ width: '100%'}} ref ='iScroll' >
+            <Div ref ='iScroll' >
                 {this._displayItems()}
-                {this.state.loadingState ? <div style={{width:'100%',  display: 'flex', justifyContent: 'center'}}><Loading/></div>: ""}
+                {this.state.loadingState ? <LoadingDiv><Loading/></LoadingDiv>: ""}
 
                 <Modal
                     isOpen={this.state.popupIsOpen}
@@ -292,509 +293,12 @@ class AllContent extends Component {
                     contentLabel="Image popup"
                 >
                     <h2 ref={subtitle => this.subtitle = subtitle}>Review Image</h2>
-                    <div style={{ width: '50vh' }}>{popupImage}</div>
-                    <button style={{ cursor: 'pointer' }} onClick={this._closePopup}>close</button>
+                    <ModalDiv>{popupImage}</ModalDiv>
+                    <PointButton onClick={this._closePopup}>close</PointButton>
                 </Modal>
-            </div>
+            </Div>
         );
     }
 };
 
 export default AllContent;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React, { Component } from 'react';
-// import styled from 'styled-components';
-// import like from '../../assets/Heart.png';
-// import hate from '../../assets/emptyHeart.png';
-// import StarRatingComponent from 'react-star-rating-component';
-// import Modal from 'react-modal';
-
-// const customStyles = {
-//     content: {
-//         top: '50%',
-//         left: '50%',
-//         right: 'auto',
-//         bottom: 'auto',
-//         marginRight: '-50%',
-//         transform: 'translate(-50%, -50%)'
-//     }
-// };
-
-// Modal.setAppElement('#root');
-
-// const Container = styled.div`
-//     border: 1px solid #d9dee8;
-//     background-color: white;
-//     border-radius: 5px;
-//     display:flex;
-//     width:95%;
-//     height: 20vh;
-//     margin: 1% auto;
-
-// `
-
-// const ReviewImage = styled.img`
-//     margin: 1vh 0 1vh 1vw;
-//     width: 20%;
-//     height: 90%;
-//     cursor: pointer;
-// `
-
-// const Info = styled.div`
-//     margin: 1vh 0 1vh 1vw;
-//     width: 20%;
-//     height: 90%;
-// `
-
-// const ReviewContent = styled.div`
-//     margin: 1vh 1vw 1vh 0;
-//     width: 60%;
-//     height: 70%;
-//     position: relative;
-// `
-
-// const Message = styled.textarea`
-//     border: 2px solid #ccc;
-//     resize: none;
-//     width: 95%;
-//     height: 12vh;
-// `
-
-// const LikeCount = styled.div`
-//     width: 20%
-//     height: 70%
-//     top: 20%;
-//     left: 90%;
-//     position: absolute;
-// `
-
-// const Like = styled.img`
-//     width: 1.5rem;
-//     height: 1.5rem;
-//     cursor: pointer;
-// `
-// const BottomContainer = styled.div`
-//     position: relative;
-//     height: 30%;
-// `
-
-// const UserDiv = styled.div`
-//     border: 1px solid black;
-//     width: 20%;
-//     height: 30%;
-//     border-radius:50%;
-// `
-
-
-
-// class Content extends Component {
-//     constructor(props) {
-//         super();
-//         this.state = {
-//             editing: true,
-//             message: '글이나오고 글이나오고 글이나오고',
-//             likeCount: 100,
-//             id: 'wonbok1213',
-//             age: 32,
-//             skin: '지성',
-//             rating: 3,
-//             like: false,
-//             popupIsOpen: false,
-//             imagepreviewUrl: ''
-//         }
-
-//         this._openPopup = this._openPopup.bind(this);
-//         this._afterOpenPopup = this._afterOpenPopup.bind(this);
-//         this._closePopup = this._closePopup.bind(this);
-//         this._handleModify = this._handleModify.bind(this);
-//         this._reviewLike = this._reviewLike.bind(this);
-//     }
-
-//     _handleModify = function () {
-//         this.setState({
-//             editing: !this.state.editing
-//         })
-//     }
-
-//     _reviewLike = function () {
-//         this.setState({ like: !this.state.like })
-//         !this.state.like ? this.setState({ likecount: this.state.likeCount++ }) : this.setState({ likecount: this.state.likeCount-- })
-//         //누르면 개별 likes 올라가고 토글 개별로 되게 
-//     }
-
-//     _openPopup(e) {
-//         this.setState({
-//             popupIsOpen: true,
-//             imagepreviewUrl: e.target.src
-//         })
-//     }
-
-//     _afterOpenPopup() {
-//         this.subtitle.style.color = '#f00';
-//     }
-
-//     _closePopup() {
-//         this.setState({ popupIsOpen: false });
-//     }
-
-
-//     render() {
-//         const data = this.props ? this.props.data : null;
-//         console.log(this.props.data)
-//         console.log(data)
-//         let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
-
-//         return (
-//             <div style={{ width: '100%' }}>
-
-//                 {this.props.data ? this.props.data.map((item, i) => {
-//                     return (
-//                         <Container key={i}>
-//                             <ReviewImage onClick={this._openPopup} />
-//                             {/* <ReviewImage onClick={this._openPopup} src={require(`../public/user/${this.props.파람스매치랑 유저아이디이용}.jpg`)} /> */}
-//                             <Info >
-//                                 <UserDiv > <img alt='user' /></UserDiv>
-//                                 {/* 유저 이미지 여기서 받아와서 삽입 */}
-//                                 <div>{item.user}</div>
-//                                 <div>{item.age}, {item.tone}</div>
-//                                 <div>
-//                                     <StarRatingComponent
-//                                         name="rate2"
-//                                         editing={false}
-//                                         value={item.rating}
-//                                     />
-//                                 </div>
-//                             </Info >
-//                             <ReviewContent >
-//                                 <div style={{ textAlign: 'center' }}>
-//                                     {this.state.editing ? <Message readOnly>{item.message}</Message> : <Message>{item.message}</Message>}
-//                                 </div>
-//                                 <BottomContainer >
-//                                     <LikeCount>
-//                                         <Like onClick={this._reviewLike} src={this.state.like ? like : hate} />
-//                                         {item.likes}
-//                                     </LikeCount>
-//                                 </BottomContainer>
-//                             </ReviewContent >
-//                         </Container>
-//                     )
-//                 }) : null}
-
-
-//                 <Modal
-//                     isOpen={this.state.popupIsOpen}
-//                     onAfterOpen={this._afterOpenPopup}
-//                     onRequestClose={this._closePopup}
-//                     style={customStyles}
-//                     contentLabel="Image popup"
-//                 >
-//                     <h2 ref={subtitle => this.subtitle = subtitle}>Review Image</h2>
-//                     <div style={{ width: '50vh' }}>{popupImage}</div>
-//                     <button style={{ cursor: 'pointer' }} onClick={this._closePopup}>close</button>
-//                 </Modal>
-//             </div>
-//         );
-//     }
-// };
-
-// export default Content;
-
-
-
-// import React, { Component } from 'react';
-// import styled from 'styled-components';
-// import like from '../../assets/Heart.png';
-// import hate from '../../assets/emptyHeart.png';
-// import StarRatingComponent from 'react-star-rating-component';
-// import Modal from 'react-modal';
-// import axios from 'axios';
-// import { url } from '../../config';
-
-// const customStyles = {
-//     content: {
-//         top: '50%',
-//         left: '50%',
-//         right: 'auto',
-//         bottom: 'auto',
-//         marginRight: '-50%',
-//         transform: 'translate(-50%, -50%)'
-//     }
-// };
-
-// Modal.setAppElement('#root');
-
-// const Container = styled.div`
-//     border: 1px solid #d9dee8;
-//     background-color: white;
-//     border-radius: 5px;
-//     display:flex;
-//     width:95%;
-//     height: 20vh;
-//     margin: 1% auto;
-
-// `
-
-// const ReviewImage = styled.img`
-//     margin: 1vh 0 1vh 1vw;
-//     width: 20%;
-//     height: 90%;
-//     cursor: pointer;
-// `
-
-// const Info = styled.div`
-//     margin: 1vh 0 1vh 1vw;
-//     width: 20%;
-//     height: 90%;
-// `
-
-// const ReviewContent = styled.div`
-//     margin: 1vh 1vw 1vh 0;
-//     width: 60%;
-//     height: 70%;
-//     position: relative;
-// `
-
-// const Message = styled.textarea`
-//     border: 2px solid #ccc;
-//     resize: none;
-//     width: 95%;
-//     height: 12vh;
-// `
-
-// const LikeCount = styled.div`
-//     width: 20%
-//     height: 70%
-//     top: 20%;
-//     left: 90%;
-//     position: absolute;
-// `
-
-// const Like = styled.img`
-//     width: 1.5rem;
-//     height: 1.5rem;
-//     cursor: pointer;
-// `
-// const BottomContainer = styled.div`
-//     position: relative;
-//     height: 30%;
-// `
-
-// const UserDiv = styled.div`
-//     border: 1px solid black;
-//     width: 20%;
-//     height: 30%;
-//     border-radius:50%;
-// `
-
-
-
-// class Content extends Component {
-//     constructor(props) {
-//         super();
-//         this.state = {
-//             editing: true,
-//             message: '글이나오고 글이나오고 글이나오고',
-//             likeCount: 100,
-//             id: 'wonbok1213',
-//             age: 32,
-//             skin: '지성',
-//             rating: 3,
-//             like: false,
-//             popupIsOpen: false,
-//             imagepreviewUrl: '',
-//             data:[],
-//             requestSent: false
-//         }
-
-//         this._openPopup = this._openPopup.bind(this);
-//         this._afterOpenPopup = this._afterOpenPopup.bind(this);
-//         this._closePopup = this._closePopup.bind(this);
-//         this._handleModify = this._handleModify.bind(this);
-//         this._reviewLike = this._reviewLike.bind(this);
-//     }
-
-//     _handleModify = function () {
-//         this.setState({
-//             editing: !this.state.editing
-//         })
-//     }
-
-//     _reviewLike = function () {
-//         this.setState({ like: !this.state.like })
-//         !this.state.like ? this.setState({ likecount: this.state.likeCount++ }) : this.setState({ likecount: this.state.likeCount-- })
-//         //누르면 개별 likes 올라가고 토글 개별로 되게 
-//     }
-
-//     _openPopup(e) {
-//         this.setState({
-//             popupIsOpen: true,
-//             imagepreviewUrl: e.target.src
-//         })
-//     }
-
-//     _afterOpenPopup() {
-//         this.subtitle.style.color = '#f00';
-//     }
-
-//     _closePopup() {
-//         this.setState({ popupIsOpen: false });
-//     }
-
-//     componentDidMount() {
-//     window.addEventListener('scroll', this.handleOnScroll);
-//     // this.initData();
-//     }
-
-//     componentWillUnmount() {
-//     window.removeEventListener('scroll', this.handleOnScroll);
-//     }
-
-//     // initData() {
-//     // var data = this.createNewData(this.state.data.length, 3);
-//     // this.setState({ data: data });
-//     // }
-
-//     createNewData(startKey, counter) {
-//     var i = 0;
-//     var data = [];
-//     for (i = 0; i < counter; i++) {
-//         var Data = (<div key={startKey + i} className="data-info">Fake Data {startKey + i}</div>);
-//         data.push(Data);
-//     }
-
-//     return data;
-//     }
-
-//     handleOnScroll() {
-//     // http://stackoverflow.com/questions/9439725/javascript-how-to-detect-if-browser-window-is-scrolled-to-bottom
-//     var scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
-//     var scrollHeight = (document.documentElement && document.documentElement.scrollHeight) || document.body.scrollHeight;
-//     var clientHeight = document.documentElement.clientHeight || window.innerHeight;
-//     var scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
-
-//         if (scrolledToBottom) {
-//             this.querySearchResult();
-//         }
-//     }
-
-//     querySearchResult() {
-//     if (this.state.requestSent) {
-//         return;
-//     }
-
-//     // enumerate a slow query
-//         setTimeout(this.receiveData, 2000);
-
-//     this.setState({ requestSent: true });
-//     }
-
-
-//     receiveData() {
-//         const data=[];
-//         axios.get(`${url}/api/review/get/list?color_id=${this.props.id}`)
-//             .then(res => {
-//                 var fakeData = this.createNewData(this.state.data.length, 3);
-//                 var newData = this.state.data.concat(fakeData);
-//                 this.setState({ data: newData, requestSent: false })
-//                 console.log(res)
-//             })
-//             .catch(err => {
-//                 this.setState({ requestSent: false })
-//                 console.log(err)
-//             })
-
-    // $.ajax({
-    //     url: "#",
-    //     data: null,
-    //     method: "GET",
-    //     success: function (data, textStatus, jqXHR) {
-    //         var fakeData = this.createNewData(this.state.data.length, 3);
-    //         var newData = this.state.data.concat(fakeData);
-    //         this.setState({ data: newData, requestSent: false });
-    //     }.bind(this),
-    //     error: function (jqXHR, textStatus, errorThrown) {
-    //         this.setState({ requestSent: false });
-    //     }.bind(this)
-    // });
-// }
-
-
-
-
-
-
-
-//     render() {
-//         const data = this.props ? this.props.data : null;
-//         console.log(this.props.data)
-//         console.log(data)
-//         let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
-
-//         return (
-//             <div style={{ width: '100%' }}>
-
-//                 {this.props.data ? this.props.data.map((item, i) => {
-//                     return (
-//                         <Container key={i}>
-//                             <ReviewImage onClick={this._openPopup} />
-//                             {/* <ReviewImage onClick={this._openPopup} src={require(`../public/user/${this.props.파람스매치랑 유저아이디이용}.jpg`)} /> */}
-//                             <Info >
-//                                 <UserDiv > <img alt='user' /></UserDiv>
-//                                 {/* 유저 이미지 여기서 받아와서 삽입 */}
-//                                 <div>{item.user}</div>
-//                                 <div>{item.age}, {item.tone}</div>
-//                                 <div>
-//                                     <StarRatingComponent
-//                                         name="rate2"
-//                                         editing={false}
-//                                         value={item.rating}
-//                                     />
-//                                 </div>
-//                             </Info >
-//                             <ReviewContent >
-//                                 <div style={{ textAlign: 'center' }}>
-//                                     {this.state.editing ? <Message readOnly>{item.message}</Message> : <Message>{item.message}</Message>}
-//                                 </div>
-//                                 <BottomContainer >
-//                                     <LikeCount>
-//                                         <Like onClick={this._reviewLike} src={this.state.like ? like : hate} />
-//                                         {item.likes}
-//                                     </LikeCount>
-//                                 </BottomContainer>
-//                             </ReviewContent >
-//                         </Container>
-//                     )
-//                 }) : null}
-
-
-//                 <Modal
-//                     isOpen={this.state.popupIsOpen}
-//                     onAfterOpen={this._afterOpenPopup}
-//                     onRequestClose={this._closePopup}
-//                     style={customStyles}
-//                     contentLabel="Image popup"
-//                 >
-//                     <h2 ref={subtitle => this.subtitle = subtitle}>Review Image</h2>
-//                     <div style={{ width: '50vh' }}>{popupImage}</div>
-//                     <button style={{ cursor: 'pointer' }} onClick={this._closePopup}>close</button>
-//                 </Modal>
-//             </div>
-//         );
-//     }
-// };
-
-// export default Content;

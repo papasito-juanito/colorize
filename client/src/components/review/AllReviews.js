@@ -1,31 +1,16 @@
 import React from 'react';
-import AllContent from './AllContent'
+import AllContent from './AllContent';
+import styled from 'styled-components';
 
-
-// const Container = styled.div`
-//     top:10%;
-//     position: absolute;
-//     height: 30%;
-//     margin-top:2%;
-//     margin-left:5%;
-//     width: 90%
-//     border: 2px solid #ccc;
-//     background-color: #eee;
-//     border-radius: 5px;
-// `
-
-// const Div = styled.div`
-//     width: 95%;
-//     height: 50%;
-//     display: flex;
-//     backgroundColor : blue;
-// `
-
+const Div = styled.div `
+    width: 100%;
+    height: 100%;
+`
 const AllReviews = (props) => {
     return (
-        <div>
+        <Div>
             <AllContent id={props.id} data={props.data} />
-        </div>
+        </Div>
     );
 };
 

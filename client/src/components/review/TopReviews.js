@@ -1,32 +1,16 @@
 import React from 'react';
-import TopContent from './TopContent'
+import TopContent from './TopContent';
+import styled from 'styled-components';
 
-
-// const Container = styled.div`
-//     top:10%;
-//     position: absolute;
-//     height: 30%;
-//     margin-top:2%;
-//     margin-left:5%;
-//     width: 90%
-//     border: 2px solid #ccc;
-//     background-color: #eee;
-//     border-radius: 5px;
-// `
-
-// const Div = styled.div`
-//     width: 95%;
-//     height: 50%;
-//     display: flex;
-//     backgroundColor : blue;
-// `
-
+const Div = styled.div`
+    width: 100%;
+    height: 100%;
+`
 const TopReview = (props) => {
     return (
-        <div>
-        {/* <Content data={props.data} /> */}
-           <TopContent data={props.Topdata} />
-        </div>
+        <Div>
+            <TopContent data={props.Topdata} />
+        </Div>
     );
 };
 

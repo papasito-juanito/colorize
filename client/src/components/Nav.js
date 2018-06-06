@@ -258,20 +258,20 @@ class Nav extends Component {
           <NavRightContainer>
               {isLogined ? 
               <SideNav ref="mySidenav" >
-                <SideClose href="javascript:void(0)" onClick={this.closeNav}>&times;</SideClose>
-                <SideAnchor ref='Anchor' to="/" onClick={this.closeNav}>Home</SideAnchor>
-                <SideAnchor ref='Anchor' to="/myinfo" onClick={this.closeNav}><nobr>My Info</nobr></SideAnchor>
-                <SideAnchor ref='Anchor' to="/wishlist" onClick={this.closeNav}><nobr>Wish List</nobr></SideAnchor>
-                <SideAnchor ref='Anchor' to="/review" onClick={this.closeNav}><nobr>My Review</nobr></SideAnchor>
-                <SideAnchor ref='Anchor' to={this.props.location.pathname + this.props.location.search} onClick={()=>{this.closeNav(); handleLogout()}}>Logout</SideAnchor>
+                <SideClose style={{textDecoration: 'none'}}href="javascript:void(0)" onClick={this.closeNav}>&times;</SideClose>
+                <SideAnchor style={{textDecoration: 'none'}}ref='Anchor' to="/" onClick={this.closeNav}>Home</SideAnchor>
+                <SideAnchor style={{textDecoration: 'none'}}ref='Anchor' to="/myinfo" onClick={this.closeNav}><nobr>My Info</nobr></SideAnchor>
+                <SideAnchor style={{textDecoration: 'none'}}ref='Anchor' to="/wishlist" onClick={this.closeNav}><nobr>Wish List</nobr></SideAnchor>
+                <SideAnchor style={{textDecoration: 'none'}}ref='Anchor' to="/review" onClick={this.closeNav}><nobr>My Review</nobr></SideAnchor>
+                <SideAnchor style={{textDecoration: 'none'}}ref='Anchor' to={this.props.location.pathname + this.props.location.search} onClick={()=>{this.closeNav(); handleLogout()}}>Logout</SideAnchor>
               </SideNav> :
               <SideNav ref="mySidenav" >
-                <SideClose onClick={()=>{this.closeNav()}}>&times;</SideClose>
-                <SideAnchor ref='Anchor' to="/" onClick={()=>{this.closeNav();}}>Home</SideAnchor>
-                <SideAnchor ref='Anchor' to={{pathname: "/login", state: {from: {pathname: '/myinfo'}}}} onClick={()=>{this.closeNav();}}>My Info</SideAnchor>
-                <SideAnchor ref='Anchor' to={{pathname: "/login", state: {from: {pathname: '/wishlist'}}}} onClick={()=>{this.closeNav();}}>Wish List</SideAnchor>
-                <SideAnchor ref='Anchor' to={{pathname: "/login", state: {from: {pathname: '/review'}}}} onClick={()=>{this.closeNav();}}>My Review</SideAnchor>
-                <SideAnchor ref='Anchor' replace={true} to={{pathname: "/login", state: {from: this.props.location}} } onClick={()=>{this.closeNav();}}>Login</SideAnchor>
+                <SideClose style={{textDecoration: 'none'}}onClick={()=>{this.closeNav()}}>&times;</SideClose>
+                <SideAnchor style={{textDecoration: 'none'}}ref='Anchor' to="/" onClick={()=>{this.closeNav();}}>Home</SideAnchor>
+                <SideAnchor style={{textDecoration: 'none'}}ref='Anchor' to={{pathname: "/login", state: {from: {pathname: '/myinfo'}}}} onClick={()=>{this.closeNav();}}>My Info</SideAnchor>
+                <SideAnchor style={{textDecoration: 'none'}}ref='Anchor' to={{pathname: "/login", state: {from: {pathname: '/wishlist'}}}} onClick={()=>{this.closeNav();}}>Wish List</SideAnchor>
+                <SideAnchor style={{textDecoration: 'none'}}ref='Anchor' to={{pathname: "/login", state: {from: {pathname: '/review'}}}} onClick={()=>{this.closeNav();}}>My Review</SideAnchor>
+                <SideAnchor style={{textDecoration: 'none'}}ref='Anchor' replace={true} to={{pathname: "/login", state: {from: this.props.location}} } onClick={()=>{this.closeNav();}}>Login</SideAnchor>
               </SideNav>
               }     
         </NavRightContainer>

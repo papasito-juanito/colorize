@@ -212,7 +212,7 @@ const Stars = styled.span`
 `;
 const Review = styled.span`
 	font-size: 60%;
-	vertical-align: middle;
+	vertical-align: middle
 	color: grey;
     `;
 

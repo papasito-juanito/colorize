@@ -21,13 +21,21 @@ const Deletebtn = styled.button`
     border: none
     top:0
     left:0
+    padding: 0 
+    height: 25px;
+    width: 25px;
     float:left
-    font-size: 1.5rem
+    font-size: 1rem
     border-radius: 50%;
     transition: 0.5s;
     cursor: pointer
-    background: white
-    color: black
+    background: black
+    color: white
+    &:hover {
+        color: white;
+        text-shadow: 0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F;
+    }
+    text-align:center
 `
 
 const Empty = styled.div`
@@ -121,6 +129,9 @@ const Title = styled.div`
     color: black
     width: 80%;
     border-bottom: 1px solid black
+    @media (max-width: 1024px) {
+        text-align: center
+    }
 `
 
 const Container = styled.ul`
@@ -153,11 +164,6 @@ const Item = styled.li`
     height: 100%;
     font-size: 30px;
     list-style: none;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    &:hover {
-        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-    }
 `;
 const Img = styled.img`
     width: 100%;

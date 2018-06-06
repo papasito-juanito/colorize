@@ -23,13 +23,17 @@ const Empty = styled.div`
     margin-top: 80px
 `
 const Title = styled.div`
-    margin: 20px auto auto auto
+    margin: 20px auto
     font-size: 3rem
     font-family: 'Roboto';
     font-weight: 100;
     color: black
     width: 100%;
     border-bottom: 1px solid black
+    @media (max-width: 1024px) {
+      text-align: center
+  }
+
 `
 
 const EmptyTitle = styled.div`
@@ -45,10 +49,10 @@ const EmptyTitle = styled.div`
         font-size: 2.8rem
     }
     @media (max-width: 511px) {
-        font-size: 2.4rem
+        font-size: 2.8rem
     }
     @media (max-width: 379px) {
-        font-size: 2rem
+        font-size: 2.1rem
     }
 `
 
@@ -95,10 +99,13 @@ const Emptybtn = styled.button`
 `
 
 const Wrapper = styled.div`
-    margin : 7% auto 2% auto;
-    width: 80vw;
-    height: 100%;
-    box-sizing:border-box;
+  width: 80%;
+  margin: 70px auto;
+  display: flex;
+  flex-direction: column;
+  @media (max-width: 768px) {
+      margin-top: 50px;
+  }
 `
 
 const Container = styled.div`
@@ -618,7 +625,7 @@ class MyReviews extends Component {
     let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
     
     return (
-      <div style={{ padding: '1% 0 1% 0', fontFamily: "Nanum Gothic" }}>
+      <div style={{fontFamily: "Nanum Gothic" }}>
       <Wrapper>
         {this.state.data.length ? <Title> My Reviews </Title> : null}
          {this.state.isLoading? <div style={{display:"none"}}>loading</div> : this.state.data.length ?
@@ -633,7 +640,7 @@ class MyReviews extends Component {
                 : this.state.isReply && this.state.clickedComment === item.review_id  ?
                 <Dropzone onDrop={ this._onDrop.bind(this) } size={ 50 }  accept = "image/jpeg, image/png, image/jpg" style={{width: '100%', height: '100%'}}>
                   <div style={{width:'100%', height:'100%', textAlign:'center'}}>
-                       <div> click here </div>
+                       <div> 이미지 변경 Click </div>
                        <div style= {{width: '100%', height:'90%'}}>
                         {this.state.file ? 
                         <img id='imgloading' style = {{ verticalAlign:'middle', width:'90%', height:'90%', borderRadius:'50%'}} 

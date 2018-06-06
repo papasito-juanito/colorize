@@ -71,3 +71,22 @@ input {
   justify-content: space-between;
   height: auto;
 }
+
+.ant-avatar{
+	background: white !important;
+	color: black !important;
+}
+
+.ant-avatar:hover{
+	background: white;
+	color: white !important;
+	text-shadow: 0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F;
+}
+
+
+
+/* .ant-avatar.ant-avatar-lg.ant-avatar-circle.ant-avatar-icon{
+	height: 70%;
+	margin-top: 10%;
+	object-fit: scale-down;
+} */

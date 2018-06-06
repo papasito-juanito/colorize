@@ -169,7 +169,7 @@ class Login extends Component {
                 document.getElementById('password').style.fontSize = "0.8rem"
                 window.setTimeout(function() {
                     document.getElementById('password').style.display='none'
-                 }, 3000);
+                 }, 1000);
             } else if(res.data.message==='invalid mail'){
                 console.log('mail');
                 document.getElementById('email').style.display = "inline-block"
@@ -177,7 +177,7 @@ class Login extends Component {
                 document.getElementById('email').style.fontSize = "0.8rem"
                 window.setTimeout(function() {
                     document.getElementById('email').style.display='none'
-                 }, 3000);
+                 }, 1000);
             } else if(res.data.token) {
                 localStorage.setItem('token', res.data.token)
                 this.props.handleLoginUser()

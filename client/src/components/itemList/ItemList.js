@@ -36,9 +36,9 @@ const Btn = styled(Link)`
     padding: 8px 8px;
     min-width:77px;
     text-align: center;
+    text-decoration: none
     background-color: black;
     cursor: pointer;
-    text-decoration: none;
     font-size: 0.9rem;
     font-family: 'Roboto';
     font-weight: 300;
@@ -254,11 +254,11 @@ class ItemList extends Component {
         return (
             <Wrapper>
                     <SortContainer>
-                        <Btn to={`?sort=rating`} onClick={this.handleRating} id='rating'>별점순</Btn>
-                        <Btn to={`?sort=reviews_desc`} style={{marginLeft: '10px'}} onClick={this.handleReview} id='review'>리뷰순</Btn>
-                        <Btn to={`?sort=price_desc`} style={{marginLeft: '10px'}} onClick={this.handeHighPrice} id='desc'>높은가격순</Btn>
-                        <Btn to={`?sort=price_asc`} style={{marginLeft: '10px'}} onClick={this.handleLowPrice} id='asc'>낮은가격순</Btn>
-                        <Btn to={`?sort=latest`} style={{marginLeft: '10px'}} onClick={this.handleLatest} id='latest'>최신순</Btn>
+                        <Btn to={`?sort=rating`} style={{textDecoration: 'none'}} onClick={this.handleRating} id='rating'>별점순</Btn>
+                        <Btn to={`?sort=reviews_desc`} style={{marginLeft: '10px', textDecoration: 'none'}} onClick={this.handleReview} id='review'>리뷰순</Btn>
+                        <Btn to={`?sort=price_desc`} style={{marginLeft: '10px', textDecoration: 'none'}} onClick={this.handeHighPrice} id='desc'>높은가격순</Btn>
+                        <Btn to={`?sort=price_asc`} style={{marginLeft: '10px', textDecoration: 'none'}} onClick={this.handleLowPrice} id='asc'>낮은가격순</Btn>
+                        <Btn to={`?sort=latest`} style={{marginLeft: '10px', textDecoration: 'none'}} onClick={this.handleLatest} id='latest'>최신순</Btn>
                     </SortContainer>
                     {this.state.isLoading ?   
                 <Loading />:<Items item={this.state.item}/> }

@@ -4,6 +4,8 @@ import like from '../../assets/Heart.png';
 import hate from '../../assets/emptyHeart.png';
 import StarRatingComponent from 'react-star-rating-component';
 import Modal from 'react-modal';
+import male from '../../assets/male.png';
+import female from '../../assets/female.png';
 
 const customStyles = {
     content: {
@@ -22,20 +24,24 @@ const customStyles = {
 
 Modal.setAppElement('#root');
 
+const Div = styled.div`
+    width: 100%;
+    height: 100%;
+`
 const Container = styled.div`
-border: 1px solid #d9dee8;
-background-color: blue;
-border-radius: 5px;
-display:flex;
-width:100%;
-height: 100%;
-@media (max-width: 768px) {
-    flex-direction: column;
-    height: 40vh;
-}
+    border-radius: 5px;
+    border : 1px solid black
+    margin-top: 1%;
+    margin-bottom : 1%;
+    display:flex;
+    width: 100%;
+    height: 25vh;
+    @media (max-width: 768px) {
+        flex-direction: column;
+        height: 40vh;
+    }
 `
 const Top = styled.div`
-    border: solid pink 2px;
     height: 100%;
     width: 40%;
     display : flex;
@@ -44,87 +50,106 @@ const Top = styled.div`
         height: 50%;
     }
 `
-
 const UserRating = styled.div`
    flex-direction : column;
+   width : 40%;
+`
+const UserImage = styled.img `
+    border-radius: 50%;
+    height: 100%; 
+    width: 100%;
+`
+const GenderImage = styled.img `
+    width: 8%;
+    height: 8%;
 `
 const ReviewImage = styled.img`
-width: 60%;
-height: 80%;
-cursor: pointer;
-object-fit: scale-down;
-border: solid blue 1px;
+    width: 11vw;
+    height: 11vw;
+    margin: auto;
+    cursor: pointer;
+    object-fit : cover;
 `
-
 const Info = styled.div`
-height: 70%;
-background-color: lightblue;
-flex-direction: column;
-justify-content:center;
+    height: 100%;
+    width: 45%;
+    flex-direction: column;
+    justify-content:center;
+    margin-top : 1%;
+    margin-left:0.5vw;
+    justify-content:center;     
 `
 
 const ReviewContent = styled.div`
-width: 60%;
-background-color: yellow;
-flex-direction : column;
-@media (max-width: 768px) {
-    width: 100%;
-    height: 50%;
-}
+    width: 60%;
+    flex-direction : column;
+    @media (max-width: 768px) {
+        width: 100%;
+        height: 50%;
+    }
 `
 const Bubble = styled.div`
-width: 100%;
-height: 70%;
-border: #7F7F7F solid 2px;
-text-align: center;
+    width: 100%;
+    height: 75%;
+    border-radius: 5px;
+    border: #7F7F7F solid 2px;
+    text-align: center;
 `
 const Message = styled.textarea`
-border: none;
-resize: none;
-width: 95%;
-height: 100%;
-&: focus {
-    outline: none;
-}
+    margin:1%
+    border: none;
+    resize: none;
+    width: 95%;
+    height: 90%;
+    &: focus {
+        outline: none;
+    }
 `
 
 const LikeCount = styled.div`
     position : absolute;
     width: 20%
     height: 60%
-    top: 7%;
-    left:85%;
-    position: absolute;
+    top: 5%;
+    left:90%;
     align-content: center;
 `
 
 const Like = styled.img`
-width: 30%;
-height: 100%;
-cursor: pointer;
+    width: 5vh;
+    height: 5vh;
+    cursor: pointer;
+    @media (max-width: 768px) {
+    width: 1.2rem;
+    height: 1.2rem;
+    }
 `
 const BottomContainer = styled.div`
-   border : 1px solid blue;
-    height: 30%;
+    height: 25%;
     position : relative;
 `
 
 const UserDiv = styled.div`
-    width: 25%;
-    height: 30%;
-    
+    width: 5vw;
+    height: 5vw;
 `
-
-
-
+const PointButton = styled.button`
+    cursor: pointer;
+    border: 0;
+    outline: 0;
+`
+const ModalDiv = styled.div`
+     height: 70vh;
+     width: 70vh
+`
+const Span = styled.span`
+    font-size: 2em;
+`
 
 class TopContent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            editing: true,
-            likeCount: 100,
-            like: false,
             popupIsOpen: false,
             imagepreviewUrl: ''
         }
@@ -133,19 +158,12 @@ class TopContent extends Component {
         this._afterOpenPopup = this._afterOpenPopup.bind(this);
         this._closePopup = this._closePopup.bind(this);
         this._handleModify = this._handleModify.bind(this);
-        this._reviewLike = this._reviewLike.bind(this);
     }
 
     _handleModify = function () {
         this.setState({
             editing: !this.state.editing
         })
-    }
-
-    _reviewLike = function () {
-        this.setState({ like: !this.state.like })
-        !this.state.like ? this.setState({ likecount: this.state.likeCount++ }) : this.setState({ likecount: this.state.likeCount-- })
-        //누르면 개별 likes 올라가고 토글 개별로 되게 
     }
 
     _openPopup(e) {
@@ -165,36 +183,27 @@ class TopContent extends Component {
 
 
     render() {
-        // const data = this.props ? this.props.data : null;
-        console.log(this.props.data)
-        // console.log(data)
         let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
 
         return (
-            <div style={{ width: '100%' }}>
-
+            <Div>
                 {this.props.data ? this.props.data.map((item, i) => {
                     return (
                         <Container key={i}>
                             <Top>
-                                <UserRating>
-                                    <Info>
-                                        <UserDiv > 
-                                            <img alt='user'  src = {item.user_photo} style = {{ borderRadius:'50%',height:'100%', width:'100%'}} />
-                                        </UserDiv>
-                                        <div>{item.name}</div>
-                                        <div>{item.age}세 </div>
-                                        <div>{item.tone}</div>
-                                        <div style={{ fontSize: '0.8rem'}}> {item.writeAt.split('T')[0]} </div>
+                                <Info>
+                                    <UserDiv > 
+                                        <UserImage alt='user'  src = {item.user_photo}/>
+                                    </UserDiv>
+                                    <div>{item.name}  <GenderImage src = {item.gender === 'male'? male : female}/></div>
+                                    <div>{item.age}세 · {item.tone}</div>
+                                    <div style={{ fontSize: '0.8rem'}}> {item.writeAt.split('T')[0]} </div>
+                                    <StarRatingComponent
+                                        name="rate2"
+                                        editing={false}
+                                        value={item.rating}
+                                    />
                                     </Info >
-                                    <div style={{height: '30%', border: '1px solid black', textAlign:'center'}}>
-                                        <StarRatingComponent
-                                            name="rate2"
-                                            editing={false}
-                                            value={item.rating}
-                                        />
-                                    </div>
-                                </UserRating>
                                 <ReviewImage onClick={this._openPopup} src = {item.review_photo}/>
                             </Top>
                             <ReviewContent>
@@ -205,15 +214,14 @@ class TopContent extends Component {
                                 </Bubble>
                                 <BottomContainer >
                                     <LikeCount>
-                                        <Like onClick={this._reviewLike} src={item.toggle === 'true' ? like : hate} />
-                                        {item.likes}
+                                        <Like src={item.toggle === 'true' ? like : hate} />
+                                        <Span> {item.likes} </Span>
                                     </LikeCount>
                                 </BottomContainer>
                             </ReviewContent>
                         </Container>
                     )
                 }) : null}
-
 
                 <Modal
                     isOpen={this.state.popupIsOpen}
@@ -223,10 +231,10 @@ class TopContent extends Component {
                     contentLabel="Image popup"
                 >
                     <h2 ref={subtitle => this.subtitle = subtitle}>Review Image</h2>
-                    <div style={{ width: '50vh' }}>{popupImage}</div>
-                    <button style={{ cursor: 'pointer' }} onClick={this._closePopup}>close</button>
+                    <ModalDiv>{popupImage}</ModalDiv>
+                    <PointButton onClick={this._closePopup}>close</PointButton>
                 </Modal>
-            </div>
+            </Div>
         );
     }
 };

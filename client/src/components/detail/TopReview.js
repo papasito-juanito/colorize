@@ -9,6 +9,23 @@ const Div = styled.div`
      width: 100%;
      height: 100%;
 `
+const TopDiv = styled.div`
+    width: 100%;
+    height: 15%;
+    flex-direction : column;
+`
+const TitleDiv = styled.div`
+    width: 100%;
+    height: 80%;
+`
+const Border = styled.div`
+    width: 100%;
+    border : 2px solid #ccc
+`
+const BottomDiv = styled.div`
+    width: 100%;
+    height: 85%;
+`
 
 
 class TopReview extends Component {
@@ -28,12 +45,13 @@ class TopReview extends Component {
     render() {
         return (
             <Div>
-                <div> 
-                       <div style ={{width: '100%', height:'20%'}}>Top3 Reviews <div style={{width:'100%', border:'2px solid #ccc'}}></div></div>
-                </div>
-                <div>
+                <TopDiv>
+                    <TitleDiv>Top Reviews</TitleDiv>
+                    <Border/>
+                </TopDiv>
+                <BottomDiv>
                     {this.state.topReview.length !== 0 ? <TopReviews Topdata={this.state.topReview} /> : <div> <h2>등록된 리뷰가 없어요</h2></div>}
-                </div>
+                </BottomDiv>
             </Div>
         );
     }

@@ -11,28 +11,44 @@ const Wrapper = styled.div`
      width: 100%;
      height: 100% 
      display: flex;
-     border : 1px solid #d9dee8;
      background-color:white;
+    @media (max-width: 768px) {
+        width: 100%;
+        height: 35vh;
+    }
 `
 const RatingDiv = styled.div`
     width: 25%;
     height: 100%;
     text-align: center;
-    padding: 30% 0 0 0 ;
     box-sizing: border-box; 
+    position: relative;
 `
 const ChartDiv = styled.div`
     width: 70%; 
     height: 100%;
-    padding: 13% 0 0 0;
     box-sizing: border-box; 
+    position: relative;
+
+`
+const RatingValue = styled.div`
+    position: absolute;
+    margin-left: 10%
+    top: 50%;
+    transform: translateY(-50%);
+`
+const ChartValue = styled.div`
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
 `
 
 const options = {
     legend: { display: false },
     title: {
         display: true,
-        text: '사용자 평점',
+        text: '평점',
         fontSize: 15,
         fontFamily: 'sans-serif'
     },
@@ -44,7 +60,7 @@ const options = {
             ticks: {
                 beginAtZero: true,
                 min: 0,
-                max: 50,
+                max: 30,
                 stepSize: 2
             },
             display: false,
@@ -61,8 +77,6 @@ const options = {
             anchor: 'end',
             align: 'right'
         },
-        
-    
     },
 };
 
@@ -94,22 +108,23 @@ class Chart extends Component {
         };
 
         return (
-
-                <Wrapper>
-                    <RatingDiv>
-                        <NumberFormat value={this.props.data ? this.props.data[0].total : 0} displayType={'text'} thousandSeparator={true} prefix={'총 '} suffix={'명'} /><br />
-                        <h2> {this.props.data ? (this.props.data[0].avg).toFixed(2) : 0} </h2>
+            <Wrapper>
+                <RatingDiv>
+                    <RatingValue>
+                        <NumberFormat value={this.props.data ? this.props.data[0].total : 0} displayType={'text'} thousandSeparator={true} prefix={'총 '} suffix={'명'} /><br/>
+                        <h2>{this.props.data ? (this.props.data[0].avg).toFixed(2) : 0}</h2>
                         <StarRatingComponent
                             name="평점"
-                            value={this.props.data ? this.props.data[0].avg : 0}
-                            
+                            value={this.props.data ? this.props.data[0].avg : 0}    
                         />
-                    </RatingDiv>
-                    <ChartDiv>
-                        <HorizontalBar height={250} data={data} options={options} />
-                    </ChartDiv>
-                </Wrapper>
-
+                    </RatingValue>
+                </RatingDiv>
+                <ChartDiv>
+                    <ChartValue>
+                        <HorizontalBar height={200} data={data} options={options} />
+                    </ChartValue>
+                </ChartDiv>
+            </Wrapper>
         );
     }
 

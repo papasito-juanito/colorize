@@ -162,3 +162,8 @@ s3:
 RDS:
     mysql -h colorize.clfod2la3omk.ap-northeast-2.rds.amazonaws.com -p colorize -u colorize
     mysql -h colorize.clfod2la3omk.ap-northeast-2.rds.amazonaws.com -p colorize -u colorize < server/8_mysql/schema.sql
+    set time_zone = 'Asia/Seoul';
+
+EC3:
+    chmod 400 colorize.pem
+    ssh -i "colorize.pem" ubuntu@ec2-13-125-176-32.ap-northeast-2.compute.amazonaws.com

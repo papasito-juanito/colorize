@@ -7,6 +7,7 @@ module.exports = async (req, res) => {
     console.log(`[51322_cont ] activated get rank query: ${query}`);
   }
 
-  const rows = await model(query, [req.query.color_id, req.user_id]);
+  console.log('req.user_id', req.user_id);
+  const rows = await model(query, [req.query.color_id, req.header.token]);
   res.json({ success: true, rows });
 };

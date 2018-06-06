@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 
 // Local import
-const config = require('./../0_config');
+const { port } = require('./../0_config');
 const router = require('./../2_routes');
 const { url } = require('../../client/src/config');
 
@@ -22,7 +22,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, './../../client/build/index.html'));
 });
 
-app.listen(config.express.port, () => {
+app.listen(port, () => {
   console.log(`[1_express ] activated on ${url}...`);
 });
 

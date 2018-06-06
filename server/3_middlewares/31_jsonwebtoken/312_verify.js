@@ -1,18 +1,20 @@
 // Global import
-const jsonwebtoken = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 // Local import
-const { jwt } = require('../../0_config');
+const { secret } = require('../../0_config');
 const mysql = require('../../8_mysql');
-const query = require('../../9_query/94_users/942_get/9421_check');
+const query = require('../../9_query/94_users/942_get/9420_check');
 
 module.exports = (req, res, next) => {
-  console.log('[3_middle  ] activated token');
+  if (process.env.NODE_ENV === 'development') {
+    console.log('[312_middle] activated verify token');
+  }
 
   if (req.headers.token === undefined) {
     res.json({ success: false, message: 'provide token' });
   } else {
-    jsonwebtoken.verify(req.headers.token, jwt.secret, (err, decoded) => {
+    jwt.verify(req.headers.token, secret, (err, decoded) => {
       if (err) {
         res.json({ success: false, message: err.message });
       } else {

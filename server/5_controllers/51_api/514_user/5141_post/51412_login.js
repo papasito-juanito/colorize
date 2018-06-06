@@ -1,11 +1,13 @@
 // Local import
+const sign = require('../../../../3_middlewares/31_jsonwebtoken/311_sign');
 const compare = require('../../../../6_utility/61_bcrypt/612_compare');
-const sign = require('../../../../6_utility/62_jsonwebtoken/621_sign');
 const model = require('../../../../7_models');
 const query = require('../../../../9_query/94_users/941_post/9412_login');
 
 module.exports = async (req, res) => {
-  console.log(`[5_control ] activated query: ${query}`);
+  if (process.env.NODE_ENV === 'development') {
+    console.log(`[51412_cont] activated login query: ${query}`);
+  }
 
   const rows = await model(query, req.body.userMail);
   if (!rows.length) res.json({ success: false, message: 'invalid mail' });

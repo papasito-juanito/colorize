@@ -625,6 +625,8 @@ class MyReviews extends Component {
   render(){
     console.log('filefilefilefile', this.state.file);
     console.log('@@@@@WEFEWFWEFEWFEWFWEFW',this.state.imageAddress);
+    console.log('reviewphotoreviewphotoreviewphotoreviewphoto', this.state.data);
+    
     
     
     let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
@@ -635,21 +637,24 @@ class MyReviews extends Component {
         {this.state.data.length ? <Title> My Reviews </Title> : null}
          {this.state.isLoading? <div style={{display:"none"}}>loading</div> : this.state.data.length ?
          this.state.data.map((item, i) => {
+           console.log('itemitemtitemitemtitem', item);
+           
            return (
             <Container key={i}>           
              <LinkDiv> <Link to={`/items/detail/${item.color_id}`} style={{ textDecoration: 'none' }}><ReviewImage src={item.item_photo} /> </Link></LinkDiv>  
                 <MyImageDiv>
                 {!this.state.isReply ?
                 <MyImage onClick={this._openPopup} src ={item.review_photo}  />
-                
                 : this.state.isReply && this.state.clickedComment === item.review_id  ?
                 <Dropzone onDrop={ this._onDrop.bind(this) } size={ 50 }  accept = "image/jpeg, image/png, image/jpg" style={{width: '100%', height: '100%'}}>
                   <div style={{width:'100%', height:'100%', textAlign:'center'}}>
                        <div style={{color: 'black' ,fontWeight: 'bold'}}> 이미지 변경 클릭 </div>
                        <div style= {{width: '100%', height:'90%'}}>
+                        {/* <img style = {{ verticalAlign:'middle', width:'90%', height:'90%'}} src={item.review_photo} /> */}
                         {this.state.file ? 
-                        <img id='imgloading' style = {{ verticalAlign:'middle', width:'90%', height:'90%', borderRadius:'50%'}} 
-                        src= {this.state.imageAddress ? this.state.file.preview : 'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'} />:null}
+                        <img id='imgloading' style = {{ verticalAlign:'middle', width:'90%', height:'90%'}} 
+                        src= {this.state.imageAddress ? this.state.file.preview : 'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'} />
+                        :<img id='imgloading' style = {{ verticalAlign:'middle', width:'90%', height:'90%'}} src={item.review_photo} /> }
                       </div>
                   </div>      
                 </Dropzone>

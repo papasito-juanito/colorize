@@ -130,8 +130,8 @@ const ProfPic = styled.img`
 const ChangePic = styled.img`
   vertical-align: middle;
   justify-content: center;
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 80%;
   border-radius: 50%;
   object-fit: cover;
   // @media (max-width: 700px) {
@@ -143,6 +143,13 @@ const ChangePic = styled.img`
   //   height: 35vw;
   // }
 `
+const Img = styled.img`
+  width: 80%;
+  height: 80%;
+  border-radius: 50%;
+  object-fit: cover;
+`
+
 const CancelButton = styled.button `
     cursor: pointer;
     width: 10%;
@@ -506,7 +513,11 @@ class MyInfo extends Component {
                 <Data>{this.state.hasPhoto ? <div><ProfPic src= {this.state.data.user_photo} /><Buttons onClick={this._photoChange}> 사진 변경</Buttons></div> 
                   : <div><Dropzone onDrop={ this._onDrop } size={ 30 }  accept = "image/*">
                   <div style={{width:'100%', height:'100%', textAlign:'center'}}>
-                       <div style={{width:'100%', height:'100%', textAlign:'center'}}>{this.state.file ? <ChangePic src= {this.state.imageAddress ? this.state.file.preview : 'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'}  />:null}</div>
+                       <div style={{width:'100%', height:'100%', textAlign:'center'}}>
+                       <div style={{color: 'black' ,fontWeight: 'bold'}}> 이미지 변경 클릭 </div>
+                       {this.state.file ?
+                         <ChangePic src= {this.state.imageAddress ? this.state.file.preview : 'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'}  />
+                         :<Img src={this.state.data.user_photo}/>}</div>
                            </div>
                            </Dropzone>
                            

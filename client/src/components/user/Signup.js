@@ -24,7 +24,7 @@ const Container = styled.div`
     width: 70%;
     margin: 150px auto auto auto;
     @media (max-width: 768px) {
-        margin-top: 50px;
+        margin-top: 66px;
     }
     // @media (max-width: 768px) {
     //     margin-top: 100px;

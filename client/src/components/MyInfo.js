@@ -514,7 +514,7 @@ class MyInfo extends Component {
                 <Data>{this.state.data ? this.state.data.birth.split('T')[0] : null}</Data>
               </Row>
             </Table>
-            <div style={{margin: ' 5% auto auto auto' , textAlign:'center'}}>
+            <div style={{margin: ' 5% auto 10% auto' , textAlign:'center'}}>
               <Button onClick={this._submit}> 
                   변경 
               </Button>

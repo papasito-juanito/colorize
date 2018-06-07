@@ -66,7 +66,7 @@ const Btn = styled(Link)`
         margin-left: 7px
     }
     @media (max-width: 320px) {
-        font-size: 0.8rem;
+        font-size: 0.7rem;
         min-width:50px;
         padding: 3px 3px;
         margin-left: 2px

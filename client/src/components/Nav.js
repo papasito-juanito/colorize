@@ -24,10 +24,11 @@ const NavContainer = styled.header`
   background-color: black;
   height: 70px;
   width: 100%;
-  top:0;
   z-index:4;
   position: fixed
-  webkit-overflow-scrolling: auto
+  top:0;
+  -webkit-overflow-scrolling : touch !important;
+  overflow: auto !important;
   display: flex;
   flex-direction: row;
   transition: top 0.3s;
@@ -196,18 +197,6 @@ class Nav extends Component {
     }
   }
 
-  ScrollStart = () => {
-    var prevScrollpos = window.pageYOffset;
-    return function() {
-      var currentScrollPos = window.pageYOffset;
-      if (prevScrollpos > currentScrollPos||prevScrollpos <0) {
-        document.getElementById("navbar").style.top = "0";
-      } else {
-        document.getElementById("navbar").style.top = "-10%";
-      }
-      prevScrollpos = currentScrollPos;
-    }
-  }
 
   // getID = (filteredItems) => {
   //   var link = '';
@@ -228,7 +217,6 @@ class Nav extends Component {
 
   componentDidMount(){
     // this.getData();
-    window.addEventListener("touchmove", this.ScrollStart(), false);
     window.addEventListener('scroll',this.hideHeader(), false);
   }
 

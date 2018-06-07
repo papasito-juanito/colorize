@@ -23,20 +23,20 @@ const LoginContainer = styled.div`
     width: 70%;
     margin: 150px auto auto auto;
     @media (max-width: 768px) {
-        margin-top: 200px;
+        margin-top: 50px;
     }
 
     @media (max-width: 500px) {
         width: 90%;
     }
 
-    @media (max-width: 375px) {
-        margin-top: 150px;
-    }
-    @media (max-width: 320px) {
-        margin-top: 100px;
-    }
-`
+//     @media (max-width: 375px) {
+//         margin-top: 150px;
+//     }
+//     @media (max-width: 320px) {
+//         margin-top: 100px;
+//     }
+// `
 
 const LoginTop = styled.div`
     display:flex;

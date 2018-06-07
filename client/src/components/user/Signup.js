@@ -304,6 +304,95 @@ class Signup extends Component {
             }
             }
         } 
+
+    // enterSubmit = () => {
+    //     console.log(this.ref);
+    //     // if (e.key === 'Enter'){
+    //     const form = {
+    //         userMail:  this.email.value,
+    //         userPassword: this.password.value,
+    //         userName:  this.nickname.value,
+    //         birthDate: this.date.value, 
+    //         gender: this.state.genderSelected,
+    //         toneName: this.state.colorSelected
+    //     }
+    //     const {userMail, userPassword, userName, birthDate, gender, toneName} = form
+    //     const {isValidEmail, isValidPassword, isValidNickname, birthdateSelected, genderSelected, colorSelected} = this.state
+    //     console.log('birthdate', birthDate.slice(0,4));
+    //     if(!(userMail && userPassword && userName && birthDate && gender && toneName)){
+    //         this.error()
+    //     } else {
+    //         if(!validator.isEmail(userMail)){
+    //             document.getElementById('email').style.display = "inline-block"
+    //             document.getElementById('email').style.color = "red"
+    //             document.getElementById('email').style.fontSize = "0.8rem"
+    //             window.setTimeout(function() {
+    //                 document.getElementById('email').style.display='none'
+    //              }, 3000);
+    //         } else if(!validator.isLength(userPassword, {min: 5, max: 10})){
+    //             document.getElementById('password').style.display = "inline-block"
+    //             document.getElementById('password').style.color = "red"
+    //             document.getElementById('password').style.fontSize = "0.8rem"
+    //             window.setTimeout(function() {
+    //                 document.getElementById('nickname').style.display='none'
+    //              }, 3000);
+    //         } else if(!validator.isLength(userName, {min: 5, max: 10})){
+    //             document.getElementById('nickname').style.display = "inline-block"
+    //             document.getElementById('nickname').style.color = "red"
+    //             document.getElementById('nickname').style.fontSize = "0.8rem"
+    //             window.setTimeout(function() {
+    //                 document.getElementById('nickname').style.display='none'
+    //              }, 3000);
+    //         } else if(!this.state.birthdateSelected ||birthDate.slice(0,4)>2018 || birthDate.slice(0,4)<1900 ){
+    //             document.getElementById('birthdate').style.display = "inline-block"
+    //             document.getElementById('birthdate').style.color = "red"
+    //             document.getElementById('birthdate').style.fontSize = "0.8rem"
+    //             window.setTimeout(function() {
+    //                 document.getElementById('birthdate').style.display='none'
+    //              }, 3000);
+    //         } else {
+    //             axios.post(`${url}/api/user/post/signup`, form)
+    //             .then(res => {
+    //                 console.log(res);
+    //                 if(res.data.success===true){
+    //                     this.setState({
+    //                         signupSuccess: true
+    //                     })
+    //                     const {history} = this.props
+    //                     if(this.props.location.state){
+    //                         const {pathname} = this.props.location.state.from
+    //                         const {search} = this.props.location.state.from
+    //                         history.push('/login', {from: {pathname: pathname, search: search}}) 
+    //                     }else{
+    //                         history.push('/login')
+    //                     }
+    //                 }else if(!res.data.success&&res.data.message==='invalid mail'){
+    //                     this.setState({
+    //                         isExist: "중복된 메일 주소입니다."
+    //                     })
+    //                     document.getElementById('email').style.display = "inline-block"
+    //                     document.getElementById('email').style.color = "red"
+    //                     document.getElementById('email').style.fontSize = "0.8rem"
+    //                     window.setTimeout(function() {
+    //                         document.getElementById('email').style.display='none'
+    //                      }, 3000);
+    //                 }else if(!res.data.success&&res.data.message==='invalid name'){
+    //                     this.setState({
+    //                         isExistName: "중복된 닉네임 입니다."
+    //                     })
+    //                     document.getElementById('nickname').style.display = "inline-block"
+    //                     document.getElementById('nickname').style.color = "red"
+    //                     document.getElementById('nickname').style.fontSize = "0.8rem"
+    //                     window.setTimeout(function() {
+    //                         document.getElementById('nickname').style.display='none'
+    //                      }, 3000);
+    //                 }
+    //             })
+    //             .catch(error => console.log(error))
+    //         }
+    //         }
+    //     // }
+    // }
     
 
     onChangeEmail = () => {
@@ -383,11 +472,6 @@ class Signup extends Component {
     ]
 
     render() {
-        console.log('signup', this.state.isValidEmail);
-        
-        console.log(this.state.genderSelected);
-        console.log(this.state.colorSelected);
-        console.log(this.state.signupSuccess);
         
         return (
             <Container>
@@ -419,7 +503,7 @@ class Signup extends Component {
                     <Dropdown style={{borderRadius: '20px'}} options={this.genderOptions} onChange={this.onSelectedGender.bind(this)} placeholder="여자/남자"
                     value={this.state.genderSelected}/>
                     피부톤<br/>
-                    <Dropdown options={this.colorOptions} onChange={this.onColorSelect.bind(this)} placeholder="계절별 피부톤"
+                    <Dropdown onClick={this.enterSubmit.bind(this)} id='signup' tabindex="0" options={this.colorOptions} onChange={this.onColorSelect.bind(this)} placeholder="계절별 피부톤"
                     value={this.state.colorSelected} />
                         <Signupbtn onClick={this.onSubmit}>Signup</Signupbtn>
                     </SignupBottom>

@@ -163,6 +163,7 @@ class Login extends Component {
         userPassword: this.password.value
     }
     console.log('form', form);
+
     axios.post(`${url}/api/user/post/login`, form)
         .then(res => {
             console.log('login', res);
@@ -203,6 +204,54 @@ class Login extends Component {
         .catch(error => console.log(error))
     }
 
+    enterToLogin = (e) => {
+        const form = {
+            userMail: this.email.value,
+            userPassword: this.password.value
+        }
+        console.log('form', form);
+        if (e.key === 'Enter'){
+            axios.post(`${url}/api/user/post/login`, form)
+            .then(res => {
+                console.log('login', res);
+                if(res.data.message==="invalid password"){
+                    console.log('password');
+                    document.getElementById('password').style.display = "inline-block"
+                    document.getElementById('password').style.color = "red"
+                    document.getElementById('password').style.fontSize = "0.8rem"
+                    window.setTimeout(function() {
+                        document.getElementById('password').style.display='none'
+                     }, 1000);
+                } else if(res.data.message==='invalid mail'){
+                    console.log('mail');
+                    document.getElementById('email').style.display = "inline-block"
+                    document.getElementById('email').style.color = "red"
+                    document.getElementById('email').style.fontSize = "0.8rem"
+                    window.setTimeout(function() {
+                        document.getElementById('email').style.display='none'
+                     }, 1000);
+                } else if(res.data.token) {
+                    localStorage.setItem('token', res.data.token)
+                    this.props.handleLoginUser()
+                    const {history} = this.props
+                    var pathname = ""
+                        if(this.props.location.state){
+                            var {search} = this.props.location.state.from
+                            pathname = this.props.location.state.from.pathname
+                        } else {
+                            console.log('elselse', this.props);
+                            pathname = '/'
+                        }    
+                        if(pathname === '/signup'){
+                            history.push('/')
+                        } else {
+                            search ? history.push(pathname + search) : history.push(pathname)       
+                        }
+            }})
+            .catch(error => console.log(error))
+        }
+        }
+
     clickSighup = () => {
         console.log('clickSighup', this.props);
         const {history} = this.props
@@ -230,10 +279,10 @@ class Login extends Component {
                         </IdWrapper>
                         <PasswordWrapper> 
                             비밀번호 <Span id='password'> 패스워드가 틀렸습니다. </Span>
-                            <PasswordInput innerRef={ref => { this.password = ref; }} placeholder="Enter Your Password"/> 
+                            <PasswordInput onKeyPress={this.enterToLogin} innerRef={ref => { this.password = ref; }} placeholder="Enter Your Password"/> 
                         </PasswordWrapper>
                         <LoginSignupButtonWrapper> 
-                            <Loginbtn onClick={this.clickToLogin}> Login </Loginbtn>
+                            <Loginbtn if='myBtn' onClick={this.clickToLogin}> Login </Loginbtn>
                             <Signupbtn onClick={this.clickSighup}> SignUp </Signupbtn>
                         </LoginSignupButtonWrapper>
                     </LoginBottom>

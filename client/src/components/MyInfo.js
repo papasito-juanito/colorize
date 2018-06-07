@@ -130,8 +130,8 @@ const ProfPic = styled.img`
 const ChangePic = styled.img`
   vertical-align: middle;
   justify-content: center;
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 80%;
   border-radius: 50%;
   object-fit: cover;
   // @media (max-width: 700px) {

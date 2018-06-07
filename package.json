@@ -29,7 +29,7 @@
     "path": "^0.12.7"
   },
   "scripts": {
-    "test": "NODE_ENV=develpment nodemon server/1_express/index.js --ignore 'client/'",
+    "test": "NODE_ENV=development nodemon server/1_express/index.js --ignore 'client/'",
     "server": "nodemon server/1_express/index.js --ignore 'client/'"
   },
   "devDependencies": {

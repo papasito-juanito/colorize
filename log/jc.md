@@ -166,7 +166,7 @@ RDS:
 
 EC3:'ec2-13-125-176-32.ap-northeast-2.compute.amazonaws.com
     chmod 400 colorize.pem
-    ssh -i "colorize.pem" ubuntu@ec2-13-125-176-32.ap-northeast-2.compute.amazonaws.com
+    ssh -i "colorize.pem" ubuntu@ec2-52-78-69-229.ap-northeast-2.compute.amazonaws.com
 
 node.js update:
     sudo apt-get purge --auto-remove nodejs
@@ -180,3 +180,19 @@ RDS:
     RDS 보안그룹 인바운드에 모든 트래픽 허용 규칙을 추가해줘서 해결함
     안전한건지는 모르겠음 (EC2 포트만 연결하는 경우는 mysqlRDS 연결안됨)
     => 모든 트래픽 지우고 소스를 211.48.51.34/32 에서 0.0.0.0/0으로 수정
+
+Nginx:
+    sudo service nginx restart
+    sudo vi /etc/nginx/nginx.conf
+    sudo vi /etc/nginx/sites-available/default
+
+    location / {
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header Host $http_host;
+      proxy_set_header X-NginX-Proxy true;
+      proxy_pass http://127.0.0.1:8080/;
+      proxy_redirect off;
+    }
+    sudo service nginx restart
+    되면 인바운드 8080 지우기!

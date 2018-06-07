@@ -172,3 +172,10 @@ node.js update:
     sudo apt-get purge --auto-remove nodejs
     curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
     sudo apt-get install -y nodejs
+
+#2018-06-07
+***
+RDS:
+    AWS에서 RDS mysql이 연결되지 않는 문제는
+    RDS 보안그룹 인바운드에 모든 트래픽 허용 규칙을 추가해줘서 해결함
+    안전한건지는 모르겠음 (EC2 포트만 연결하는 경우는 mysqlRDS 연결안됨)

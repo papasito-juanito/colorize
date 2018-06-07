@@ -97,6 +97,11 @@ const Bubble = styled.div`
     border-radius: 5px;
     border: #7F7F7F solid 2px;
     text-align: center;
+    @media (max-width: 768px) {
+    width: 100%;
+    height: 80%;
+    border: none;
+    }
 `
 const Message = styled.textarea`
     margin:1%
@@ -106,6 +111,10 @@ const Message = styled.textarea`
     height: 90%;
     &: focus {
         outline: none;
+    }
+     @media (max-width: 768px) {
+    background-color: #F4F5F9;
+    border-radius : 5px;
     }
 `
 
@@ -165,15 +174,24 @@ class TopContent extends Component {
     }
 
     _reviewLike(e) {
+        console.log('fromallreview', this.props.data);
+        console.log(e.target.id);
+        
         const token = localStorage.getItem('token')
-        const reviewId = this.props.data[e.target.id].review_id
+        const reviewId = e.target.id
         const form = {
             review_id: reviewId
         }
+        console.log(e.target.id)
+        console.log('formformform', form);
+        
         axios.post(`${url}/api/review/update/like`,form, { headers: { 'token': token } })
             .then((res) => {
+                console.log('resresresrse', res);
+                
                 return axios.get(`${url}/api/review/get/rank?color_id=${this.props.id}`, { headers: { 'token': token } })
                 .then(response => {
+                    console.log('reviewlikeresponse', response);    
                     this.setState({ data: response.data.rows })
                     // window.location.reload()
                 })
@@ -231,7 +249,7 @@ class TopContent extends Component {
                                 </Bubble>
                                 <BottomContainer >
                                     <LikeCount>
-                                        <Like id={i} onClick={this._reviewLike} src={item.toggle === 'true' ? like : hate} />
+                                        <Like id={item.review_id} onClick={this._reviewLike} src={item.toggle === 'true' ? like : hate} />
                                         <Span> {item.likes} </Span>
                                     </LikeCount>
                                 </BottomContainer>

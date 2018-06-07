@@ -55,28 +55,31 @@ const Info = styled.div`
     flex-direction: column;
     justify-content:center;
     align-items: center;
+    position : relative;
     @media (max-width: 768px) {
         width: 40%;
         height: 100%;
-        position: relative;
     }
 `
 
 const InfoDiv = styled.div`
+        position: absolute;
+        top:35%;
+        left: 5%;
+        transform: translateY(-50%);
+        flex-direction: column;
     @media (max-width: 768px) {
         display: inline-block;
-        position: absolute;
-        top:50%;
-        left: 10%;
-        transform: translateY(-50%);
+
+
     }
 `
 const UserDiv = styled.div`
-    width: 3rem;
-    height: 3rem;
+    width: 5vw;
+    height: 5vw;
     @media (max-width: 768px) {
-    width: 70%;
-    height: 70%;
+    width: 30%;
+    height: 30%;
     }   
 
 `
@@ -160,13 +163,13 @@ const LikeCount = styled.div`
     width: 20%
     height: 60%
     top: 7%;
-    left:90%;
+    left:88%;
     position: absolute;
     align-content: center;
 `
 const Like = styled.img`
-    width: 5vh;
-    height: 5vh;
+    width: 1.2rem;
+    height: 1.2rem;
     cursor: pointer;
 `
 const BottomContainer = styled.div`
@@ -231,9 +234,9 @@ class MyContent extends Component {
                         <Info>
                             <InfoDiv>
                                 <UserDiv> 
-                                    <div style={{width:'100%'}}> 내 리뷰 </div>
+                 
                                     <UserImage alt='user' src = {this.props.user.user_photo}/>
-                                </UserDiv>   
+                                </UserDiv>
                                 <div>{this.props.user.name} <GenderImage alt ='gender' src = {this.props.user.gender === 'male'? male : female}/></div>
                                 <div>{this.props.user.age}세 · {this.props.user.tone}<br/></div>
                                 <div style={{ fontSize: '0.8rem'}}> {this.props.user.writeAt.split(' ')[0]} </div>

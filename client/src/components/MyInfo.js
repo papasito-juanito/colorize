@@ -143,6 +143,13 @@ const ChangePic = styled.img`
   //   height: 35vw;
   // }
 `
+const Img = styled.img`
+  width: 80%;
+  height: 80%;
+  border-radius: 50%;
+  object-fit: cover;
+`
+
 const CancelButton = styled.button `
     cursor: pointer;
     width: 10%;
@@ -237,7 +244,7 @@ class MyInfo extends Component {
               console.log(response.data.success)
              
             
-              this.nickname.value.length < 5 ? (this.setState({confirmNickname : false}), this.nickerror()) : response.data.success === false ? (this.setState({confirmNickname : false}), alert('중복된 닉네임입니다.')) : (this.setState({confirmNickname : true}), alert('사용가능한 닉네임입니다.'))  
+              this.nickname.value.length < 5 ? (this.setState({confirmNickname : false}), this.nickerror()) : response.data.success === false ? (this.setState({confirmNickname : false}), this.nickDuperror()) : (this.setState({confirmNickname : true}), this.nicksuccess())  
             }
             )
             .catch(err => console.log(err));
@@ -413,6 +420,15 @@ class MyInfo extends Component {
       });
     }
 
+    nicksuccess() {
+      Modal.success({
+        title: '사용가능한 닉네임입니다.',
+        onOk: ()=> {
+          window.location.reload()
+        }
+      });
+    }
+
     error() {
       Modal.error({
         title: '변경 정보를 확인해주세요'
@@ -422,6 +438,12 @@ class MyInfo extends Component {
     nickerror() {
       Modal.error({
         title: '닉네임은 5글자 이상 이어야 합니다.'
+      });
+    }
+
+    nickDuperror() {
+      Modal.error({
+        title: '중복된 닉네임입니다.'
       });
     }
 
@@ -491,7 +513,11 @@ class MyInfo extends Component {
                 <Data>{this.state.hasPhoto ? <div><ProfPic src= {this.state.data.user_photo} /><Buttons onClick={this._photoChange}> 사진 변경</Buttons></div> 
                   : <div><Dropzone onDrop={ this._onDrop } size={ 30 }  accept = "image/*">
                   <div style={{width:'100%', height:'100%', textAlign:'center'}}>
-                       <div style={{width:'100%', height:'100%', textAlign:'center'}}>{this.state.file ? <ChangePic src= {this.state.imageAddress ? this.state.file.preview : 'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'}  />:null}</div>
+                       <div style={{width:'100%', height:'100%', textAlign:'center'}}>
+                       <div style={{color: 'black' ,fontWeight: 'bold'}}> 이미지 변경 클릭 </div>
+                       {this.state.file ?
+                         <ChangePic src= {this.state.imageAddress ? this.state.file.preview : 'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'}  />
+                         :<Img src={this.state.data.user_photo}/>}</div>
                            </div>
                            </Dropzone>
                            

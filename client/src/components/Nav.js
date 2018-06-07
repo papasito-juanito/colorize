@@ -196,6 +196,19 @@ class Nav extends Component {
     }
   }
 
+  ScrollStart = () => {
+    var prevScrollpos = window.pageYOffset;
+    return function() {
+      var currentScrollPos = window.pageYOffset;
+      if (prevScrollpos > currentScrollPos) {
+        document.getElementById("navbar").style.top = "0";
+      } else {
+        document.getElementById("navbar").style.top = "-10%";
+      }
+      prevScrollpos = currentScrollPos;
+    }
+  }
+
   // getID = (filteredItems) => {
   //   var link = '';
   //   const elements = filteredItems;
@@ -215,6 +228,7 @@ class Nav extends Component {
 
   componentDidMount(){
     // this.getData();
+    document.addEventListener("touchmove", this.ScrollStart(), false);
     window.addEventListener('scroll',this.hideHeader(), false);
   }
 

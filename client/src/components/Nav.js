@@ -214,7 +214,7 @@ class Nav extends Component {
 
   componentDidMount(){
     // this.getData();
-    window.addEventListener('scroll',this.hideHeader());
+    window.addEventListener('scroll',this.hideHeader(), false);
   }
 
   render(){

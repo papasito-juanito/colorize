@@ -237,7 +237,7 @@ class MyInfo extends Component {
               console.log(response.data.success)
              
             
-              this.nickname.value.length < 5 ? (this.setState({confirmNickname : false}), this.nickerror()) : response.data.success === false ? (this.setState({confirmNickname : false}), alert('중복된 닉네임입니다.')) : (this.setState({confirmNickname : true}), alert('사용가능한 닉네임입니다.'))  
+              this.nickname.value.length < 5 ? (this.setState({confirmNickname : false}), this.nickerror()) : response.data.success === false ? (this.setState({confirmNickname : false}), this.nickDuperror()) : (this.setState({confirmNickname : true}), this.nicksuccess())  
             }
             )
             .catch(err => console.log(err));
@@ -413,6 +413,15 @@ class MyInfo extends Component {
       });
     }
 
+    nicksuccess() {
+      Modal.success({
+        title: '사용가능한 닉네임입니다.',
+        onOk: ()=> {
+          window.location.reload()
+        }
+      });
+    }
+
     error() {
       Modal.error({
         title: '변경 정보를 확인해주세요'
@@ -422,6 +431,12 @@ class MyInfo extends Component {
     nickerror() {
       Modal.error({
         title: '닉네임은 5글자 이상 이어야 합니다.'
+      });
+    }
+
+    nickDuperror() {
+      Modal.error({
+        title: '중복된 닉네임입니다.'
       });
     }
 

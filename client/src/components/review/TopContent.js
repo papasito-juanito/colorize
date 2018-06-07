@@ -97,6 +97,11 @@ const Bubble = styled.div`
     border-radius: 5px;
     border: #7F7F7F solid 2px;
     text-align: center;
+    @media (max-width: 768px) {
+    width: 100%;
+    height: 80%;
+    border: none;
+    }
 `
 const Message = styled.textarea`
     margin:1%
@@ -106,6 +111,10 @@ const Message = styled.textarea`
     height: 90%;
     &: focus {
         outline: none;
+    }
+     @media (max-width: 768px) {
+    background-color: #F4F5F9;
+    border-radius : 5px;
     }
 `
 

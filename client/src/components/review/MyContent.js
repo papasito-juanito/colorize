@@ -36,6 +36,7 @@ const Container = styled.div`
     @media (max-width: 768px) {
         flex-direction: column;
         height: 40vh;
+        
     }
 `
 const Top = styled.div`
@@ -45,6 +46,7 @@ const Top = styled.div`
     @media (max-width: 768px) {
         width: 100%;
         height: 50%;
+        display: flex;
     }
 `
 const Info = styled.div`
@@ -53,6 +55,30 @@ const Info = styled.div`
     flex-direction: column;
     justify-content:center;
     align-items: center;
+    @media (max-width: 768px) {
+        width: 40%;
+        height: 100%;
+        position: relative;
+    }
+`
+
+const InfoDiv = styled.div`
+    @media (max-width: 768px) {
+        display: inline-block;
+        position: absolute;
+        top:50%;
+        left: 10%;
+        transform: translateY(-50%);
+    }
+`
+const UserDiv = styled.div`
+    width: 3rem;
+    height: 3rem;
+    @media (max-width: 768px) {
+    width: 70%;
+    height: 70%;
+    }   
+
 `
 const UserImage = styled.img `
     border-radius: 50%;
@@ -63,10 +89,15 @@ const ImageRating = styled.div`
     flex-direction : column;
     width: 60%;
     height: 100%;
+      @media (max-width: 768px) {
+        width: 60%;
+        height: 100%;
+        flex-direction: column;
+    }
 `
 const ImageDiv = styled.div `
     width: 100%;
-    height: 90%;
+    height: 80%;
     position: relative;
 `
 const GenderImage = styled.img `
@@ -83,6 +114,10 @@ const ReviewImage = styled.img`
     left: 50%;
     transform: translate(-50%, -50%);
     object-fit : cover;
+    @media (max-width: 768px) {
+    width: 80%;
+    height: 80%;
+    }
 `
 const ReviewContent = styled.div`
     width: 60%;
@@ -100,15 +135,26 @@ const Bubble = styled.div`
     border: #7F7F7F solid 2px;
     text-align: center;
     border-radius: 5px;
+    @media (max-width: 768px) {
+    width: 100%;
+    height: 80%;
+    border: none;
+    }
 `
 const Message = styled.textarea`
     border: none;
     resize: none;
     width: 95%;
     height: 100%;
+    overflow: auto;
     &: focus {
         outline: none;
     }
+    @media (max-width: 768px) {
+    background-color: #F4F5F9;
+    border-radius : 5px;
+    }
+    
 `
 const LikeCount = styled.div`
     width: 20%
@@ -126,11 +172,14 @@ const Like = styled.img`
 const BottomContainer = styled.div`
     position: relative;
     height: 30%;
+    @media (max-width: 768px) {
+    width: 100%;
+    height: 20%;
+    }
 `
-const UserDiv = styled.div`
-    width: 5vw;
-    height: 5vw;
-`
+
+
+
 
 
 
@@ -180,18 +229,21 @@ class MyContent extends Component {
                 <Container>
                     <Top>
                         <Info>
-                            <UserDiv> 
-                                <UserImage alt='user' src = {this.props.user.user_photo}/>
-                            </UserDiv>   
-                            <div>{this.props.user.name} <GenderImage alt ='gender' src = {this.props.user.gender === 'male'? male : female}/></div>
-                            <div>{this.props.user.age}세 · {this.props.user.tone}<br/></div>
-                            <div style={{ fontSize: '0.8rem'}}> {this.props.user.writeAt.split(' ')[0]} </div>
+                            <InfoDiv>
+                                <UserDiv> 
+                                    <div style={{width:'100%'}}> 내 리뷰 </div>
+                                    <UserImage alt='user' src = {this.props.user.user_photo}/>
+                                </UserDiv>   
+                                <div>{this.props.user.name} <GenderImage alt ='gender' src = {this.props.user.gender === 'male'? male : female}/></div>
+                                <div>{this.props.user.age}세 · {this.props.user.tone}<br/></div>
+                                <div style={{ fontSize: '0.8rem'}}> {this.props.user.writeAt.split(' ')[0]} </div>
+                            </InfoDiv>
                         </Info>
                         <ImageRating>
                             <ImageDiv>
                                 <ReviewImage onClick={this._openPopup} src={this.props.user.review_photo} />
                             </ImageDiv>
-                            <div style={{ height: '0%', textAlign:'center'}}>
+                            <div style={{ height: '20%', textAlign:'center'}}>
                                 <StarRatingComponent
                                         name="rate2"
                                         editing={false}

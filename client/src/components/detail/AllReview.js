@@ -27,7 +27,6 @@ const BottomDiv = styled.div `
     height: 85%;
 `
 
-
 class Allreview extends Component{
     constructor(){
         super()

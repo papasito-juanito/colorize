@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import like from '../../assets/Heart.png';
@@ -6,6 +7,8 @@ import StarRatingComponent from 'react-star-rating-component';
 import Modal from 'react-modal';
 import male from '../../assets/male.png';
 import female from '../../assets/female.png';
+import axios from 'axios';
+import { url } from '../../config';
 
 const customStyles = {
     content: {
@@ -151,19 +154,33 @@ class TopContent extends Component {
         super(props);
         this.state = {
             popupIsOpen: false,
-            imagepreviewUrl: ''
+            imagepreviewUrl: '',
+            data : this.props.data
         }
 
         this._openPopup = this._openPopup.bind(this);
         this._afterOpenPopup = this._afterOpenPopup.bind(this);
         this._closePopup = this._closePopup.bind(this);
-        this._handleModify = this._handleModify.bind(this);
+        this._reviewLike = this._reviewLike.bind(this);
     }
 
-    _handleModify = function () {
-        this.setState({
-            editing: !this.state.editing
-        })
+    _reviewLike(e) {
+        const token = localStorage.getItem('token')
+        const reviewId = this.props.data[e.target.id].review_id
+        const form = {
+            review_id: reviewId
+        }
+        axios.post(`${url}/api/review/update/like`,form, { headers: { 'token': token } })
+            .then((res) => {
+                return axios.get(`${url}/api/review/get/rank?color_id=${this.props.id}`, { headers: { 'token': token } })
+                .then(response => {
+                    this.setState({ data: response.data.rows })
+                    // window.location.reload()
+                })
+                .catch(err => console.log(err))
+                }
+            )
+            .catch(err => console.log(err))            
     }
 
     _openPopup(e) {
@@ -184,10 +201,10 @@ class TopContent extends Component {
 
     render() {
         let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
-
+        console.log('asynasynasyn :', this.state.data)
         return (
             <Div>
-                {this.props.data ? this.props.data.map((item, i) => {
+                {this.state.data ? this.state.data.map((item, i) => {
                     return (
                         <Container key={i}>
                             <Top>
@@ -214,7 +231,7 @@ class TopContent extends Component {
                                 </Bubble>
                                 <BottomContainer >
                                     <LikeCount>
-                                        <Like src={item.toggle === 'true' ? like : hate} />
+                                        <Like id={i} onClick={this._reviewLike} src={item.toggle === 'true' ? like : hate} />
                                         <Span> {item.likes} </Span>
                                     </LikeCount>
                                 </BottomContainer>

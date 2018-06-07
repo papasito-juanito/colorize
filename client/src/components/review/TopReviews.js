@@ -9,7 +9,7 @@ const Div = styled.div`
 const TopReview = (props) => {
     return (
         <Div>
-            <TopContent data={props.Topdata} />
+            <TopContent  id={props.id} data={props.Topdata} />
         </Div>
     );
 };

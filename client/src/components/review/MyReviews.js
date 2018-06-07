@@ -457,7 +457,7 @@ class MyReviews extends Component {
     const previousMessage = this.state.data[e.target.id].message;
      const form = {
       //  reviewPhoto : this.state.data.item_photo,
-        reviewPhoto : this.state.imageAddress,
+        reviewPhoto : this.state.imageAddress || this.state.data[e.target.id].review_photo,
        reviewRating : this.state.rating,
        reviewMessage : this.modifyReview.value,
        review_id : this.state.data[e.target.id].review_id

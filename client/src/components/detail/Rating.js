@@ -152,7 +152,7 @@ class Rating extends Component {
                         />
                     </RatingDiv>
                     <ImageDiv>
-                        <img src = {this.state.imagepreviewUrl? this.state.imagepreviewUrl :this.state.imageAddress ? this.state.imageAddress: null} style = {{border: '1px solid black', width:'100%', height:'100%'}}/>
+                        < img src = {!this.state.imagepreviewUrl ? null : this.state.imageAddress ? this.state.imageAddress : 'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'} style = {{border: '1px solid black', width:'100%', height:'100%'}}/>
                     </ImageDiv>                   
                 </TopWrite>
                 <ReviewDiv>

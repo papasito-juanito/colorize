@@ -11,7 +11,9 @@ const Container = styled.ul`
     // border: solid grey 1px;
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-evenly;
+	justify-content: space-evenly;
+	-webkit-justify-content: space-evenly !important
+	-webkit-flex-flow: row wrap;
     margin: 0 -10px;
 `;
 

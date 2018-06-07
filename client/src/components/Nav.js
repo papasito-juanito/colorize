@@ -27,6 +27,7 @@ const NavContainer = styled.header`
   z-index:4;
   position: fixed
   top:0;
+  -webkit-top: 0
   -webkit-overflow-scrolling : auto !important;
   overflow: auto !important;
   display: flex;

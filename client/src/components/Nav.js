@@ -33,7 +33,6 @@ const NavContainer = styled.header`
   flex-direction: row;
   transition: top 0.3s;
   align-items: center;
-
   @media (max-width: 768px) {
       height: 50px;
   }
@@ -186,13 +185,21 @@ class Nav extends Component {
 
   hideHeader= () => {
     var prevScrollpos = window.pageYOffset;
+    console.log('prev', prevScrollpos);
+    
     return function() {
+      console.log(window.pageYOffset);
+      
       var currentScrollPos = window.pageYOffset;
       if (prevScrollpos > currentScrollPos) {
         document.getElementById("navbar").style.top = "0";
         document.getElementById("navbar").style['-webkit-overflow-scrolling'] = 'touch'
       } else {
         document.getElementById("navbar").style.top = "-10%";
+      }
+      if(window.pageYOffset===0){
+        console.log('000000000');
+        document.getElementById("navbar").style.top = "0";
       }
       prevScrollpos = currentScrollPos;
     }

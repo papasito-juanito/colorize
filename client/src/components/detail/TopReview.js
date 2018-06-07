@@ -50,7 +50,7 @@ class TopReview extends Component {
                     <Border/>
                 </TopDiv>
                 <BottomDiv>
-                    {this.state.topReview.length !== 0 ? <TopReviews Topdata={this.state.topReview} /> : <div> <h2>등록된 리뷰가 없어요</h2></div>}
+                    {this.state.topReview.length !== 0 ? <TopReviews id = {this.props.id} Topdata={this.state.topReview} /> : <div> <h2>등록된 리뷰가 없어요</h2></div>}
                 </BottomDiv>
             </Div>
         );

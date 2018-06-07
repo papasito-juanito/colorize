@@ -24,17 +24,20 @@ const Container = styled.div`
     width: 70%;
     margin: 150px auto auto auto;
     @media (max-width: 768px) {
-        margin-top: 100px;
+        margin-top: 66px;
     }
+    // @media (max-width: 768px) {
+    //     margin-top: 100px;
+    // }
     @media (max-width: 414px) {
         width: 90%;
     }
-    @media (max-width: 375px) {
-        margin-top: 100px;
-    }
-    @media (max-width: 320px) {
-        margin-top: 100px;
-    }
+    // @media (max-width: 375px) {
+    //     margin-top: 19px;
+    // }
+    // @media (max-width: 320px) {
+    //     margin-top: 100px;
+    // }
 `
 
 
@@ -503,7 +506,7 @@ class Signup extends Component {
                     <Dropdown style={{borderRadius: '20px'}} options={this.genderOptions} onChange={this.onSelectedGender.bind(this)} placeholder="여자/남자"
                     value={this.state.genderSelected}/>
                     피부톤<br/>
-                    <Dropdown onClick={this.enterSubmit.bind(this)} id='signup' tabindex="0" options={this.colorOptions} onChange={this.onColorSelect.bind(this)} placeholder="계절별 피부톤"
+                    <Dropdown id='signup' tabindex="0" options={this.colorOptions} onChange={this.onColorSelect.bind(this)} placeholder="계절별 피부톤"
                     value={this.state.colorSelected} />
                         <Signupbtn onClick={this.onSubmit}>Signup</Signupbtn>
                     </SignupBottom>

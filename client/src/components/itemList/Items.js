@@ -22,8 +22,8 @@ const ItemLink = styled(Link)`
     min-width: 225px;
     max-height: 300px;
     min-height: 300px;
-		margin: 0 10px;
-		margin-bottom: 20px;
+	margin: 0 10px;
+	margin-bottom: 20px;
     &:visited {
         color: black;
         text-decoration: none 
@@ -49,16 +49,16 @@ const Img = styled.img`
 	display: block;
 `;
 const Colorline = styled.div`
-		width: 100%;
-		height: 10px;
-		background-color: #${props => props.color};
-		margin-bottom: 5%;
+	width: 100%;
+	height: 10px;
+	background-color: #${props => props.color};
+	margin-bottom: 5%;
 `;
 const ItemBottom = styled.div`
-		float: bottom;
-		width: 100%;
-		height: 25%;
-		display: block;
+	float: bottom;
+	width: 100%;
+	height: 25%;
+	display: block;
 `;
 const ItemColor = styled.div`
 	width: 100%;
@@ -67,8 +67,8 @@ const ItemColor = styled.div`
 	font-size: 30%;
 `;
 const ItemDetails = styled.div`
-		width: 100%;
-		text-align: center;
+	width: 100%;
+	text-align: center;
 `;
 const ItemName = styled.div`
 	font-size: 43%;
@@ -77,11 +77,11 @@ const ItemName = styled.div`
 	font-weight: bold;
 `;
 const Detail = styled.div`
-		font-size: 40%;
-		color: grey;
+	font-size: 40%;
+	color: grey;
 `;
 const Brand = styled.span`
-		font-weight: bold;
+	font-weight: bold;
 `;
 const Rating = styled.div`
 	font-size: 70%;

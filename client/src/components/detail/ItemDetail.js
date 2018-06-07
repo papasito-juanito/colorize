@@ -62,6 +62,7 @@ const DetailDiv = styled.div`
 const Name = styled.div`
   font-size: 1.5rem;
   font-weight: bold;
+  text-align: center;
 `;
 const Brand = styled.div`
 `;
@@ -115,9 +116,8 @@ const Description = styled.div`
 `;
 
 const ModalDiv = styled.div`
-  width: 70vh;
   @media (max-width: 768px) {
-    width: 30vh;
+    width: 60vw;
   }
 `
 

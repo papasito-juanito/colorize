@@ -6,18 +6,17 @@ import AllReview from './AllReview';
 import styled, { ThemeProvider } from 'styled-components';
 import Comment from './Comment';
 import TopReview from './TopReview';
-// import InfiniteScroll from 'react-infinite-scroller';
 import axios from 'axios';
 import { url } from '../../config';
 
 const Container = styled.div`
-	@media (max-width: 768px) {
-			margin-top: 80px;
-			flex-direction:column;
-    }
     height: 100%;
-	margin: 100px 10% 0 10%;
-	align-items: center;
+    margin: 100px 10% 0 10%;
+    align-items: center;
+	@media (max-width: 768px) {
+        margin-top: 80px;
+        flex-direction:column;
+    }
 `
 const TopDetail = styled.div`
 	height: 30vw;
@@ -70,11 +69,7 @@ const Arrow = styled.i`
     display: inline-block;
     padding: 6%;
 `
-
-
-
 const scrollStepInPx = 50;
-
 const delayInMs = 10;
 
 
@@ -125,7 +120,6 @@ class Detail extends Component {
                 }
         })
         .catch(err => console.log(err));
-
     }
     
 
@@ -144,12 +138,9 @@ class Detail extends Component {
           .catch(err => console.log(err))
     }    
 
-
-
-
     render(){
-        const loginState = this.props.isLogined;
         const {handleLogout} = this.props
+        console.log(this.props.isLogined)
         return (
             <Container>
                 <TopDetail>
@@ -157,13 +148,13 @@ class Detail extends Component {
                     <ItemDetail data={this.state.data} id = {this.props.match.params.id}/>
                 </TopDetail>
                 <Write>
-                    <Comment isLogined={this.props.isLogined} handleLogout={this.props.handleLogout} loginState={loginState} id={this.props.match.params.id}/>
+                    <Comment isLogined={this.props.isLogined} handleLogout={this.props.handleLogout} id={this.props.match.params.id}/>
                 </Write>
                 <ReviewDiv>
                     <TopReview id={this.props.match.params.id} />
                 </ReviewDiv>
                 <ReviewDiv>
-                    {loginState ? <AllReview handleLogout={handleLogout} id={this.props.match.params.id}/> : <div><h2>전체 리뷰를 보시려면 로그인 해주세요 </h2></div>}
+                    {this.props.isLogined ? <AllReview handleLogout={handleLogout} id={this.props.match.params.id}/> : <div><h2>전체 리뷰를 보시려면 로그인 해주세요 </h2></div>}
                 </ReviewDiv>
                 <HomeButton onClick={this.scrollToTop}><Arrow/><br/> Top </HomeButton>
         </Container>

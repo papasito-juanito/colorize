@@ -70,7 +70,7 @@ const InfoDiv = styled.div`
         flex-direction: column;
         @media (max-width: 768px) {
         display: inline-block;
-        
+          font-size : 0.8rem;
     }
         @media (max-width: 320px) {
             font-size : 0.7rem;
@@ -96,6 +96,7 @@ const UserImage = styled.img `
 const ImageRating = styled.div`
     width: 60%;
     height: 100%;
+    margin: 1%;
 `
 
 const GenderImage = styled.img `
@@ -104,8 +105,10 @@ const GenderImage = styled.img `
 `
 const ReviewImage = styled.img`
     cursor: pointer;
-    height: 100%; 
-    width: 100%;
+    height: 96%; 
+    width: 98%;
+    padding: 1%;
+    border-radius:5px;
     object-fit : cover;
     @media (max-width: 768px) {
     width: 100%;
@@ -130,6 +133,7 @@ const Bubble = styled.div`
     border-radius: 5px;
     box-sizing:border-box;
     margin: 1% 1% 0 1%;
+    padding: 1%
     @media (max-width: 768px) {
     width: 100%;
     height: 80%;
@@ -139,7 +143,7 @@ const Bubble = styled.div`
 const Message = styled.textarea`
     border: none;
     resize: none;
-    width: 95%;
+    width: 100%;
     height: 100%;
     overflow: auto;
     &: focus {
@@ -149,10 +153,12 @@ const Message = styled.textarea`
     background-color: #F4F5F9;
     border-radius : 5px;
     }
+    @media (max-width: 320px) {
+        font-size : 0.7rem;
+    }
     
 `
 const BottomContainer = styled.div `
-    position: relative;
     height: 30%;
     @media (max-width: 768px) {
     width: 100%;
@@ -160,16 +166,11 @@ const BottomContainer = styled.div `
     }
 `
 const LikeCount = styled.div`
-    width: 20%
-    height: 60%
-    top: 7%;
-    left:88%;
-    position: absolute;
-    align-content: center;
-    
+    width: 20%;
+    height: 60%;
+    margin: 0 0 0 85%;
     @media (max-width: 360px) {
-        padding-top: 1%;
-        top: -20%;
+      bottom: 0;
     }
 `
 const Like = styled.img`
@@ -187,17 +188,15 @@ const Like = styled.img`
 `
 
 const ModalDiv = styled.div `
-     height: 70vh;
-     width: 70vh
+     width: 70vh;
     @media (max-width: 768px) {
-    width: 80vw;
-    height: 80vw;
+    width: 60vw;
+    height: 60vw;
     object-fit : contain;
     }
 `
 const PointButton = styled.button `
     cursor: pointer;
-    border: 0;
     outline: 0;
 `
 
@@ -211,9 +210,13 @@ const Span = styled.span `
     font-size: 0.8rem;
 
     }
-
 `
-
+const Button = styled.button`
+    cursor: pointer;
+    border: none;
+    color: white;
+    background-color: black;
+`
 
 
 
@@ -281,7 +284,9 @@ class MyContent extends Component {
                             </Message>
                         </Bubble>
                         <BottomContainer >
+                   
                             <LikeCount>
+                                            {/* < Button >수정 </Button> */}
                                 <Like src={like} />
                                 <Span>{this.props.user.likes}</Span>
                             </LikeCount>

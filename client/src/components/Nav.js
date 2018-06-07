@@ -28,8 +28,7 @@ const NavContainer = styled.header`
   position: fixed
   top:0;
   -webkit-top: 0
-  -webkit-overflow-scrolling : auto !important;
-  overflow: auto !important;
+  -webkit-overflow-scrolling: auto
   display: flex;
   flex-direction: row;
   transition: top 0.3s;

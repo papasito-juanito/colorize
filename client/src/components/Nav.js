@@ -31,7 +31,7 @@ const NavContainer = styled.header`
   -webkit-overflow-scrolling: auto
   display: flex;
   flex-direction: row;
-  transition: top 0.3s;
+  transition: top 0.1s;
   align-items: center;
   @media (max-width: 768px) {
       height: 50px;

@@ -27,6 +27,7 @@ const NavContainer = styled.header`
   top:0;
   z-index:4;
   position: fixed
+  webkit-overflow-scrolling: touch
   display: flex;
   flex-direction: row;
   transition: top 0.3s;

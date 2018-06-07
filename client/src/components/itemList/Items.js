@@ -60,6 +60,12 @@ const ItemBottom = styled.div`
 		height: 25%;
 		display: block;
 `;
+const ItemColor = styled.div`
+	width: 100%;
+	text-align: center;
+	color: #${props => props.color};
+	font-size: 30%;
+`;
 const ItemDetails = styled.div`
 		width: 100%;
 		text-align: center;
@@ -98,6 +104,7 @@ const Items = ({ item }) => (
 						<Colorline color={item.hex}/>
             <ItemBottom>
 							<ItemDetails>
+								{/* <ItemColor color={item.hex}>{item.color}</ItemColor> */}
 								<ItemName>{item.name}</ItemName>
 								<Detail><Brand>{item.brand}</Brand> {item.volume} / {item.price}원</Detail>
 								<Rating>

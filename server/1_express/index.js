@@ -23,7 +23,6 @@ app.get('*', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log('NODE_ENV: ', process.env.NODE_ENV);
   console.log(`[1_express ] activated on ${url}...`);
 });
 

@@ -507,7 +507,7 @@ class MyInfo extends Component {
                 <Column>닉네임</Column>
                 <Data>
                     {this.state.nickName === false ? <div><Input value = {this.state.data ? this.state.data.name : null} ref={ref => { this.nickname = ref; }}  readOnly/> <Buttons onClick = {this._nickNameChange}>닉네임 변경</Buttons></div>
-                    : <div><input style={{border: '0.5px solid #ccc'}} onBlur={this._nicknameOnchange} ref={ref => { this.nickname = ref; }} /><Buttons onClick = {this._confirmNickname}> 중복확인 </Buttons><Buttons onClick={this._nickNameChange}>변경취소</Buttons></div>}
+                    : <div><input style={{border: '0.5px solid #ccc'}} onBlur={this._nicknameOnchange} ref={ref => { this.nickname = ref; }} /><Buttons  style={{marginLeft: '2%', marginRight: '2%'}} onClick = {this._confirmNickname}> 중복확인 </Buttons><Buttons onClick={this._nickNameChange}>변경취소</Buttons></div>}
                 </Data>
               </Row>
               <Row>

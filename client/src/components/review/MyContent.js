@@ -28,8 +28,7 @@ const customStyles = {
 Modal.setAppElement('#root');
 
 const Container = styled.div`
-    border: 1px solid #d9dee8;
-    background-color: white;
+    border: 1px solid black;
     border-radius: 5px;
     display:flex;
     width:100%;
@@ -40,9 +39,9 @@ const Container = styled.div`
     }
 `
 const Top = styled.div`
-    border: solid pink 2px;
     height: 100%;
     width: 40%;
+    display: flex;
     @media (max-width: 768px) {
         width: 100%;
         height: 50%;
@@ -51,36 +50,56 @@ const Top = styled.div`
 const Info = styled.div`
     width: 40%;
     height: 100%;
-    float: left;
-    background-color: lightblue;
-    display:flex;
     flex-direction: column;
     justify-content:center;
+    align-items: center;
+`
+const UserImage = styled.img `
+    border-radius: 50%;
+    height: 100%; 
+    width: 100%;
+`
+const ImageRating = styled.div`
+    flex-direction : column;
+    width: 60%;
+    height: 100%;
+`
+const ImageDiv = styled.div `
+    width: 100%;
+    height: 90%;
+    position: relative;
+`
+const GenderImage = styled.img `
+    width: 8%;
+    height: 8%;
 `
 const ReviewImage = styled.img`
-    width: 60%;
-    height: 80%;
+    width: 10vw;
+    height: 10vw;
     cursor: pointer;
-    float: right;
-    object-fit: scale-down;
-    border: solid blue 1px;
+    margin: auto;
+    position: absolute;
+    top: 50% ;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    object-fit : cover;
 `
 const ReviewContent = styled.div`
-    width: 70%;
+    width: 60%;
     height: 100%;
     position: relative;
-    background-color: yellow;
     @media (max-width: 768px) {
         width: 100%;
         height: 50%;
     }
 `
 const Bubble = styled.div`
-position: relative;
-width: 100%;
-height: 70%;
-border: #7F7F7F solid 2px;
-text-align: center;
+    position: relative;
+    width: 100%;
+    height: 70%;
+    border: #7F7F7F solid 2px;
+    text-align: center;
+    border-radius: 5px;
 `
 const Message = styled.textarea`
     border: none;
@@ -91,77 +110,26 @@ const Message = styled.textarea`
         outline: none;
     }
 `
-
 const LikeCount = styled.div`
     width: 20%
     height: 60%
     top: 7%;
-    left:85%;
+    left:90%;
     position: absolute;
     align-content: center;
 `
-
 const Like = styled.img`
-    width: 30%;
-    height: 100%;
+    width: 5vh;
+    height: 5vh;
     cursor: pointer;
 `
 const BottomContainer = styled.div`
     position: relative;
     height: 30%;
 `
-
-const Modify = styled.button`
-    font-size: 0.8rem;    
-    width: 7%;
-    height: 50%;
-    color: black;
-    top: 2%;
-    left: 2%;
-    position: absolute
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
-    &:hover {
-        background-color: RoyalBlue;
-    }
-`
-
-const Delete = styled.button`
-    font-size: 0.8em;    
-    width: 7%;
-    height: 50%;
-    color: black;
-    top: 2%;
-    left: 10%;
-    position: absolute
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
-    &:hover {
-        background-color: red;
-    }
-`
-
-const Cancel = styled.button`
-    font-size: 0.8em;    
-    width: 7%;
-    height: 50%;
-    color: black;
-    top: 2%;
-    left: 10%;
-    position: absolute
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
-    &:hover {
-        background-color: red;
-    }
-`
-
 const UserDiv = styled.div`
-    width: 25%;
-    height: 30%;
+    width: 5vw;
+    height: 5vw;
 `
 
 
@@ -170,8 +138,6 @@ class MyContent extends Component {
     constructor(props) {
         super();
         this.state = {
-            rating: 3,
-            like: false,
             popupIsOpen: false,
             imagepreviewUrl: '',
             data:''
@@ -207,65 +173,59 @@ class MyContent extends Component {
             this.setState({ popupIsOpen: false });
         }
 
-        // componentDidMount() {
-        //     const token = localStorage.getItem('token')
-        //     console.log(1)
-        //     axios.get(`${url}/api/review/get/info?color_id=${this.props.id}`, { headers: { 'token': token } })
-        //         .then(response =>{
-        //           console.log(response)
-        //           this.setState({data: response})
-        //         }
-        //         )
-        //         .catch(err => console.log(err))
-        // }
-
         render() {
-        console.log(this.props.user)
         let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
+
             return (
-                    <Container id='MyContentCONTAINER'>
-                        <Top>
-                        <Info >
-                            <UserDiv > <img alt='user' src = {this.props.user.user_photo} style = {{ borderRadius:'50%',height:'100%', width:'100%'}}/></UserDiv>
-                               
-                            <div>{this.props.user.name} <img style={{width: '8%', height:'8%'}} src = {this.props.user.gender === 'male'? male : female}/></div>
-                                <div>{this.props.user.age}세 · {this.props.user.tone}<br/></div>
+                <Container>
+                    <Top>
+                        <Info>
+                            <UserDiv> 
+                                <UserImage alt='user' src = {this.props.user.user_photo}/>
+                            </UserDiv>   
+                            <div>{this.props.user.name} <GenderImage alt ='gender' src = {this.props.user.gender === 'male'? male : female}/></div>
+                            <div>{this.props.user.age}세 · {this.props.user.tone}<br/></div>
+                            <div style={{ fontSize: '0.8rem'}}> {this.props.user.writeAt.split(' ')[0]} </div>
                         </Info>
-                        <ReviewImage onClick={this._openPopup} src={this.props.user.review_photo} />
-                          <div style={{textAlign:'center'}}>
+                        <ImageRating>
+                            <ImageDiv>
+                                <ReviewImage onClick={this._openPopup} src={this.props.user.review_photo} />
+                            </ImageDiv>
+                            <div style={{ height: '0%', textAlign:'center'}}>
                                 <StarRatingComponent
-                                    name="rate2"
-                                    editing={false}
-                                    value={this.props.user.rating}
-                                    // value = {this.props.user.rating}
+                                        name="rate2"
+                                        editing={false}
+                                        value={this.props.user.rating}
                                 />
                             </div>
-                      
-                        {/* <ReviewImage onClick={this._openPopup} src={this.props.user.review_photo} /> */}
-                        </Top>
-                        <ReviewContent id="REVIEWCONTENT">
-                            <Bubble> <Message readOnly id="MESSAGE">{this.props.user.message}</Message></Bubble>
-                            <BottomContainer >
-                                <LikeCount>
-                                    <Like src={like} />
+                        </ImageRating>
+                    </Top>
+                    <ReviewContent>
+                        <Bubble> 
+                            <Message readOnly>
+                                {this.props.user.message}
+                            </Message>
+                        </Bubble>
+                        <BottomContainer >
+                            <LikeCount>
+                                <Like src={like} />
                                 {this.props.user.likes}
-                                </LikeCount>
-                            </BottomContainer>
-                        </ReviewContent >
-                        
-
-                        <Modal
-                            isOpen={this.state.popupIsOpen}
-                            onAfterOpen={this._afterOpenPopup}
-                            onRequestClose={this._closePopup}
-                            style={customStyles}
-                            contentLabel="Image popup"
-                        >
-                            <h2 ref={subtitle => this.subtitle = subtitle}>Review Image</h2>
-                            <div style={{ width: '50vh' }}>{popupImage}</div>
-                            <button style={{ cursor: 'pointer' }} onClick={this._closePopup}>close</button>
-                        </Modal>
-                    </Container>
+                            </LikeCount>
+                        </BottomContainer>
+                    </ReviewContent >
+            
+                    <Modal
+                        isOpen={this.state.popupIsOpen}
+                        onAfterOpen={this._afterOpenPopup}
+                        onRequestClose={this._closePopup}
+                        style={customStyles}
+                        contentLabel="Image popup"
+                    >
+                        <h2 ref={subtitle => this.subtitle = subtitle}>Review Image</h2>
+                        <div style={{ width: '50vh' }}>{popupImage}</div>
+                        <button style={{ cursor: 'pointer' }} onClick={this._closePopup}>close</button>
+                    </Modal>
+                </Container>
         );
     }
 };

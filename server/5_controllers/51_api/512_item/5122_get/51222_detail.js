@@ -1,4 +1,5 @@
 // Local import
+const verify = require('../../../../3_middlewares/31_jsonwebtoken/312_verify');
 const model = require('../../../../7_models');
 const query = require('../../../../9_query/92_items/922_get/9222_detail');
 
@@ -7,11 +8,21 @@ module.exports = async (req, res) => {
     console.log(`[51222_cont] activated detail query: ${query.visitor}`);
   }
 
-  if (req.headers.token === undefined) {
-    const rows = await model(query.visitor, req.query.color_id);
-    res.json({ success: true, message: 'unknown visitor', rows });
-  } else {
-    const rows = await model(query.member, [req.query.color_id, req.user_id]);
-    res.json({ success: true, message: req.user_id, rows });
+  const decoded = await verify(req.headers.token);
+  switch (decoded.success) {
+    case true: {
+      const rows = await model(query.member, [req.query.color_id, decoded.user_id]);
+      res.json({ success: true, message: decoded.userMail, rows });
+      break;
+    }
+    case false: {
+      const rows = await model(query.visitor, req.query.color_id);
+      res.json({ success: true, message: 'unknown visitor', rows });
+      break;
+    }
+    default: {
+      res.json({ success: false, message: 'unexpected error' });
+      break;
+    }
   }
 };

@@ -416,7 +416,7 @@ class Signup extends Component {
                     onChange={this.onBirthdate.bind(this)} innerRef={ref => { this.date = ref; }} placeholder="YYYYMMDD"/> 
                     {this.state.birthdateSelected ? null : <InvalidNickname>올바른 날짜 형식이 아닙니다.</InvalidNickname>}
                     성별<br/>
-                    <Dropdown options={this.genderOptions} onChange={this.onSelectedGender.bind(this)} placeholder="여자/남자"
+                    <Dropdown style={{borderRadius: '20px'}} options={this.genderOptions} onChange={this.onSelectedGender.bind(this)} placeholder="여자/남자"
                     value={this.state.genderSelected}/>
                     피부톤<br/>
                     <Dropdown options={this.colorOptions} onChange={this.onColorSelect.bind(this)} placeholder="계절별 피부톤"

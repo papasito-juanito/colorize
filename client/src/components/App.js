@@ -122,6 +122,8 @@ class App extends Component {
         
     render() {
         console.log('app login', this.state);
+        console.log('loginstate', this.state.isLogined);
+        
         const {isLoading, isLogined} = this.state
         return (
             <Router>

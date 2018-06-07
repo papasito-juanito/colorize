@@ -55,7 +55,8 @@ class FileUpload extends Component {
             file: '',
             imagepreviewUrl: '',
             popupIsOpen: false,
-            data: ''
+            data: '',
+            isLoading: true
         }
         this._openPopup = this._openPopup.bind(this);
         this._afterOpenPopup = this._afterOpenPopup.bind(this);
@@ -69,7 +70,7 @@ class FileUpload extends Component {
         e.preventDefault();
         let reader = new FileReader();
         let file = e.target.files[0];
-        console.log(e.target.files[0].type)
+        console.log(file)
         let mimeType = e.target.files[0].type.split('/')[0];
         reader.readAsDataURL(file)
         reader.onload = () => {
@@ -104,6 +105,9 @@ class FileUpload extends Component {
         axios.post(`${url}/api/review/post/upload`, formData, { headers: { 'token': token , id: this.props.id} } )
             .then(response => {
                 console.log(response)
+                this.setState({
+                    isLoading: false
+                })
                 this.props.callback(response.data.message)
             }
 
@@ -114,6 +118,8 @@ class FileUpload extends Component {
 
 
     render() {
+        console.log('fileselectfilefile', this.state.imagepreviewUrl);
+        
         let { imagepreviewUrl } = this.state;
         let $imagePreview = null;
         let popupImage = (<img src={imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)

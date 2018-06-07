@@ -13,23 +13,21 @@ import { url } from '../../config';
 const Container = styled.div`
 	@media (max-width: 768px) {
 			margin-top: 80px;
-			display: block;
-	}
+			flex-direction:column;
+    }
+    height: 100%;
 	margin: 100px 10% 0 10%;
 	align-items: center;
 `
 const TopDetail = styled.div`
 	height: 30vw;
 	display: flex;
-	background-color: #F4F5F9;
-	display: flex;
 	@media (max-width: 768px) {
         flex-direction: column;
-        height: auto;
+        height: 100%;
 	}
 `
 const Write = styled.div`
-	border: solid lightblue 2px;
 	margin-top: 10px;
 	height: 25vh;
 	@media (max-width: 768px) {
@@ -38,7 +36,8 @@ const Write = styled.div`
 `
 
 const ReviewDiv = styled.div`
-	width: 100%;
+    width: 100%;
+    margin-top: 10px;
 	@media (max-width: 768px) {
 		// display: none;
 	}
@@ -149,10 +148,8 @@ class Detail extends Component {
 
 
     render(){
-        
-        let loginState = this.props.isLogined;
+        const loginState = this.props.isLogined;
         const {handleLogout} = this.props
-        console.log('login stsate :', this.props.isLogined)
         return (
             <Container>
                 <TopDetail>
@@ -166,7 +163,7 @@ class Detail extends Component {
                     <TopReview id={this.props.match.params.id} />
                 </ReviewDiv>
                 <ReviewDiv>
-                    {loginState ? <AllReview handleLogout={handleLogout} id={this.props.match.params.id}/> : <div><h2>리뷰를 보시려면 로그인 해주세요 </h2></div>}
+                    {loginState ? <AllReview handleLogout={handleLogout} id={this.props.match.params.id}/> : <div><h2>전체 리뷰를 보시려면 로그인 해주세요 </h2></div>}
                 </ReviewDiv>
                 <HomeButton onClick={this.scrollToTop}><Arrow/><br/> Top </HomeButton>
         </Container>

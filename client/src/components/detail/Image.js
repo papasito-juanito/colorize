@@ -8,22 +8,23 @@ import { url } from '../../config';
 
 const Div = styled.div`
     height : 100%;
-    border: solid red 3px;
-    width: 30vw;
+    border: solid black 1px;
+    width: 29.5vw;
+    margin-right: 1vw;
     position: relative;
     box-sizing: border-box; 
     background-color:white;
     @media (max-width: 768px) {
         width: 100%;
 	    justify-content:center;
-	    height: 200px;
+	    height: 30%;
 	}
 `
 
 const Image = styled.img`
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: scale-down;
     justify-content: center;
     display: block;
     // background: pink;
@@ -33,8 +34,8 @@ const Image = styled.img`
 `
 
 const Wishlist = styled.div`
-    width: 2.5vw;
-    height: 2.5vw;
+    width: 2.5rem;
+    height: 2.5rem;
     position: absolute;
     left: 1%;
     top:1%;
@@ -46,7 +47,6 @@ const Heart = styled.img`
     object-fit: contain;
     justify-content: center;
     display: block;
-    background: pink;
 `
 
 class DetailLeft extends Component {

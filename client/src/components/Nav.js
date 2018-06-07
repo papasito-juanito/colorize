@@ -27,7 +27,7 @@ const NavContainer = styled.header`
   z-index:4;
   position: fixed
   top:0;
-  -webkit-overflow-scrolling : touch !important;
+  -webkit-overflow-scrolling : auto !important;
   overflow: auto !important;
   display: flex;
   flex-direction: row;
@@ -190,6 +190,7 @@ class Nav extends Component {
       var currentScrollPos = window.pageYOffset;
       if (prevScrollpos > currentScrollPos) {
         document.getElementById("navbar").style.top = "0";
+        document.getElementById("navbar").style['-webkit-overflow-scrolling'] = 'touch'
       } else {
         document.getElementById("navbar").style.top = "-10%";
       }

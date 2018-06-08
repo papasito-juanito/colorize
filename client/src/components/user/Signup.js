@@ -252,7 +252,7 @@ class Signup extends Component {
                 window.setTimeout(function() {
                     document.getElementById('nickname').style.display='none'
                  }, 1000);
-            } else if(!validator.isLength(userName, {min: 5, max: 10})){
+            } else if(!validator.isLength(userName, {min: 2, max: 6})){
                 document.getElementById('nickname').style.display = "inline-block"
                 document.getElementById('nickname').style.color = "red"
                 document.getElementById('nickname').style.fontSize = "0.8rem"
@@ -328,7 +328,7 @@ class Signup extends Component {
     onChangeNickname = () => {
         const nickname = this.nickname.value
         this.setState({
-            isValidNickname: validator.isLength(nickname, {min: 5, max: 10})
+            isValidNickname: validator.isLength(nickname, {min: 2, max: 6})
         })        
     }
 
@@ -400,7 +400,7 @@ class Signup extends Component {
                     <br/>
                     닉네임<Span id='nickname'>{this.state.isExistName ? this.state.isExistName : '닉네임 형식이 아닙니다'}</Span><br/>
                     <Input
-                    onChange={this.onChangeNickname.bind(this)} innerRef={ref => { this.nickname = ref; }} placeholder="5~10 글자로 입력해주세요"/> 
+                    onChange={this.onChangeNickname.bind(this)} innerRef={ref => { this.nickname = ref; }} placeholder="2~6 글자로 입력해주세요"/> 
                     {/* {this.state.isValidNickname ? null : <InvalidNickname>5글자 이상 10글자 이하로 입력 해 주세요</InvalidNickname>} */}
                     <br/>
                     생년월일<Span id='birthdate'>잘못 된 날짜 형식입니다</Span><br/>

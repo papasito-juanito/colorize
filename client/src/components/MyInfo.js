@@ -217,7 +217,7 @@ class MyInfo extends Component {
       }
         axios.post(`${url}/api/user/update/username`, form, { headers: {'token': token}})
           .then(response => {
-            this.nickname.value.length < 5 || this.nickname.value.length >= 10 ?
+            this.nickname.value.length > 6 || this.nickname.value.length < 2 ?
             (this.setState({confirmNickname : false}), this.nickerror()) 
             : response.data.success === false ?
               (this.setState({confirmNickname : false}), this.nickDuperror()) :
@@ -227,7 +227,7 @@ class MyInfo extends Component {
     }
 
     _nicknameOnchange(){
-    this.nickname.value.length <5 ? this.setState({confirmNickname : false}) : null;
+    this.nickname.value.length <2 || this.nickname.value.length >6 ? this.setState({confirmNickname : false}) : null;
     }
 
     _photoChange(){
@@ -255,18 +255,19 @@ class MyInfo extends Component {
     _onDrop(files, reject){
       const file =  files[0];      
       const token = localStorage.getItem('token')
-      this.setState({file:file})
-          const formData = new FormData();
-          formData.append('file', file);
+      const formData = new FormData();
+      formData.append('file', file);
+       var mimeType = file.type.split('/')[1];
+       mimeType === 'jpg' || mimeType === 'JPG' || mimeType === 'jpeg' || mimeType === 'JPEG' || mimeType === 'png' || mimeType === 'PNG' ?
+        (this.setState({file}),
+    
           // Send the compressed image file to server with XMLHttpRequest.
-          var mimeType = file.type.split('/')[0];
-          mimeType === 'image' ?
           axios.post(`${url}/api/user/post/upload`, formData, { headers: { 'token': token} } )
             .then(response => {
                 console.log(response)
                 this.setState({imageAddress : response.data.message})
               })
-              .catch(err => console.log(err))
+              .catch(err => console.log(err)))
               : this.uploadImage();
     }
     //   const formData = new FormData();
@@ -289,7 +290,7 @@ class MyInfo extends Component {
     }
 
     _minNumber(){
-      this.newPassword.value.length <5 || this.newPassword.value.length <= 10 ? this.setState({minNum : false}) : this.setState({minNum : true})
+      this.newPassword.value.length >=2 || this.newPassword.value.length <= 6 ? this.setState({minNum : false}) : this.setState({minNum : true})
     }
 
     _passwordCompare(){
@@ -328,7 +329,7 @@ class MyInfo extends Component {
 
     nickerror() {
       Modal.error({
-        title: '닉네임은 5글자 이상 10글자 이하여야 합니다.'
+        title: '닉네임은 2글자 이상 6글자 이하여야 합니다.'
       });
     }
 

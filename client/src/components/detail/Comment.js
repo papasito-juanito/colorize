@@ -52,9 +52,10 @@ class Comment extends Component {
                     <Rating loginState = {this.props.isLogined} handleLogout={this.props.handleLogout} info={this.state.user} id={this.props.id} data={this.state.data} />
                 </Div> 
                 : this.props.isLogined === true && this.state.user.message === 'written' ?
-                <Div>
+                <div style={{width: '100%', height:'100%', flexDirection:'column'}}>
+                    <div style ={{width: '100%', height:'6vh'}}><h2> My Review</h2> </div>
                     <MyContent id={this.props.id} user={this.state.user ? this.state.user.rows[0] : null}/>
-                </Div> 
+                </div> 
                 :
                 <Div>
                     <Rating loginState = {this.props.isLogined} handleLogout={this.props.handleLogout} info={this.state.user} id={this.props.id} data={this.state.data} />

@@ -12,7 +12,7 @@ const Div = styled.div`
 
 const Container = styled.div`
     @media (max-width: 768px) {
-        //  display : none
+         display : none
     }
 `
 const TopDiv = styled.div `
@@ -35,7 +35,7 @@ const BottomDiv = styled.div `
 const Button = styled.button `
     display: none;
     @media (max-width: 768px) {
-        // display: inline-block;
+        display: inline-block;
 	}
 
 `
@@ -78,8 +78,7 @@ class Allreview extends Component{
                 </BottomDiv> 
                 </Container>
               : null}
-                    <Button > 전체리뷰보기 </Button>
-            </Div>
+            </Div>  
               
         )
     }

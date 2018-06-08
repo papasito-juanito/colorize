@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import axios from 'axios';
 import { url } from '../../config';
 import FileUpload from './FileUpload';
+import Dropzone from 'react-dropzone';
+import ImageCompressor from 'image-compressor.js';
 
 
 const Wrapper = styled.div`
@@ -79,6 +81,9 @@ const TextArea = styled.textarea`
     resize : none;
     border-radius : 5px;
     background-color: #F6F6F6;
+    @media (max-width: 768px) {
+       border:none;
+    }
 `
 const Button = styled.button`
     position: relative;
@@ -172,7 +177,15 @@ class Rating extends Component {
                         </CenterDiv>
                     </RatingDiv>
                     <ImageDiv>
-                        <ReviewImage src = {!this.state.imagepreviewUrl ? null : this.state.imageAddress ? this.state.imageAddress : 'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'}/>
+
+
+
+
+
+
+
+                        
+                        {/* <ReviewImage src = {!this.state.imagepreviewUrl ? null : this.state.imageAddress ? this.state.imageAddress : 'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'}/> */}
                     </ImageDiv>                   
                 </TopWrite>
                 <ReviewDiv>

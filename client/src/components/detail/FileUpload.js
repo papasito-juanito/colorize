@@ -70,14 +70,13 @@ class FileUpload extends Component {
         e.preventDefault();
         let reader = new FileReader();
         let file = e.target.files[0];
-        console.log(file)
+        console.log('filereader files[0] : @@@@@', file)
         let mimeType = e.target.files[0].type.split('/')[0];
         reader.readAsDataURL(file)
         reader.onload = () => {
         mimeType === 'image' ?
             this.props.imagePreview(file, reader.result )
             :alert('Image 파일만 등록만 가능합니다')
-        //    : this.setState({imagepreviewUrl : ''})
         }
 
 
@@ -88,7 +87,13 @@ class FileUpload extends Component {
     }
 
     _afterOpenPopup() {
-        this.subtitle.style.color = '#f00';
+        this.subtitle.style.color = 'black';
+        document.getElementById('closebtn').onmouseover = function(){
+            document.getElementById("closebtn").style.textShadow = '0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F'
+          }
+          document.getElementById("closebtn").onmouseout = function() {
+            document.getElementById("closebtn").style.textShadow = 'none'
+          };
     }
 
     _closePopup() {
@@ -142,7 +147,7 @@ class FileUpload extends Component {
                 >
                     <h2 ref={subtitle => this.subtitle = subtitle}>Review Image</h2>
                     <div style={{ width: '50vh' }}>{popupImage}</div>
-                    <button style={{ cursor: 'pointer' }} onClick={this._closePopup}>close</button>
+                    <button id='closebtn' style={{ cursor: 'pointer' }}  style={{ marginTop: '10px', fontWeight:'100', fontFamily:'Roboto', cursor: 'pointer', border:'0', outline:'0', backgroundColor:'black', color: 'white'  }} onClick={this._closePopup} onClick={this._closePopup}>close</button>
                 </Modal>
             </Container>
         )

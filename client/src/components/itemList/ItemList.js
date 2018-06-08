@@ -94,48 +94,6 @@ const Loading = styled.div`
         margin-top: 125px;
       }
 `
-const HomeButton = styled.button`
-    position: fixed;
-    background-color:black;
-    color: white;
-    border: none;
-    right:1%;
-    bottom:1%;
-    opacity: 1;
-    width: 4rem;
-    height: 4rem;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    &:hover {
-    opacity: 0.3;
-    border: none;
-  }
-  &:active {
-      border:none
-  }
-    @media (max-width: 320px) {
-        width: 2.5rem;
-        height: 2.5rem;
-    }
-    @media (max-width: 375px) {
-        width: 3.5rem;
-        height: 3.5rem;
-    }
-    @media (max-width: 415px) {
-        width: 3.5rem;
-        height: 3.5rem;
-    }
-`
-
-const Arrow = styled.i`
-    transform: rotate(-135deg);
-    -webkit-transform: rotate(-135deg);
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    display: inline-block;
-    padding: 6%;
-`
 const scrollStepInPx = 50;
 
 const delayInMs = 10;
@@ -167,7 +125,7 @@ class ItemList extends Component {
         axios.get(`${url}/api/item/get/list?color_id=[${this.props.match.params.id.split('&')}]&order_by=price DESC`)
         .then((response) => {
             console.log('price',response)
-            this.setState({item: response.data.rows})
+            this.setState({item: response.data.rows, isLoading: false})
           })
         document.getElementById('desc').style.textShadow = '0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F';
         document.getElementById('asc').style.textShadow = 'none';
@@ -180,7 +138,7 @@ class ItemList extends Component {
         axios.get(`${url}/api/item/get/list?color_id=[${this.props.match.params.id.split('&')}]&order_by=price ASC`)
         .then((response) => {
             console.log('price',response)
-            this.setState({item: response.data.rows})
+            this.setState({item: response.data.rows, isLoading: false})
           })
         document.getElementById('asc').style.textShadow = '0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F';
         document.getElementById('desc').style.textShadow = 'none';
@@ -193,7 +151,7 @@ class ItemList extends Component {
         axios.get(`${url}/api/item/get/list?color_id=[${this.props.match.params.id.split('&')}]&order_by=avg DESC`)
         .then((response) => {
             console.log('price',response)
-            this.setState({item: response.data.rows})
+            this.setState({item: response.data.rows, isLoading: false})
           })
         document.getElementById('rating').style.textShadow = '0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F';
         document.getElementById('desc').style.textShadow = 'none';
@@ -206,7 +164,7 @@ class ItemList extends Component {
         axios.get(`${url}/api/item/get/list?color_id=[${this.props.match.params.id.split('&')}]&order_by=date DESC`)
         .then((response) => {
             console.log('price',response)
-            this.setState({item: response.data.rows})
+            this.setState({item: response.data.rows, isLoading: false})
           })
         document.getElementById('latest').style.textShadow = '0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F'; 
         document.getElementById('desc').style.textShadow = 'none';
@@ -216,10 +174,10 @@ class ItemList extends Component {
     }
         
     handleReview = () => {
-        axios.get(`${url}/api/item/get/list?color_id=[${this.props.match.params.id.split('&')}]&order_by=reviews DESC`)
+         axios.get(`${url}/api/item/get/list?color_id=[${this.props.match.params.id.split('&')}]&order_by=reviews DESC`)
         .then((response) => {
             console.log('price',response)
-            this.setState({item: response.data.rows})
+            this.setState({item: response.data.rows, isLoading: false})
           })
         document.getElementById('review').style.textShadow = '0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F'; 
         document.getElementById('latest').style.textShadow = 'none';
@@ -229,12 +187,6 @@ class ItemList extends Component {
     }
 
     componentDidMount(){
-        console.log('itemsitemsitemsitems', this.props);    
-        axios.get(`${url}/api/item/get/list?color_id=[${this.props.match.params.id.split('&')}]&order_by=avg DESC`)
-        .then((response) => {
-            console.log(response)
-            this.setState({item: response.data.rows, isLoading: false})
-          })
         switch (this.props.history.location.search.split('=')[1]) {
             case 'price_desc' : this.handeHighPrice(); 
                 break;
@@ -244,9 +196,18 @@ class ItemList extends Component {
                 break; 
             case 'reviews_desc' : this.handleReview(); 
                 break; 
-            default : document.getElementById('rating').style.textShadow = '0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F';
+            default : this.renderDefault();
                 break;
         }
+    }
+
+    renderDefault = () =>{
+        axios.get(`${url}/api/item/get/list?color_id=[${this.props.match.params.id.split('&')}]&order_by=avg DESC`)
+        .then((response) => {
+            console.log(response)
+            this.setState({item: response.data.rows, isLoading: false})
+          })
+        document.getElementById('rating').style.textShadow = '0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F';
     }
  
     render(){
@@ -263,7 +224,6 @@ class ItemList extends Component {
                     </SortContainer>
                     {this.state.isLoading ?   
                 <Loading />:<Items item={this.state.item}/> }
-                <HomeButton id="top" onClick={this.scrollToTop}><Arrow/><br/> Top </HomeButton>
             </Wrapper>
         )
     }    

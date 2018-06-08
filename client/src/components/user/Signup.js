@@ -145,6 +145,7 @@ const BirthdateImageDiv = styled.div`
 const InvalidBirthdate = styled.div`
     color:red
     font-size: 0.8rem;
+    margin-bottom: 10px
     @media (max-width: 414px) {
         font-size: 0.7rem
     }
@@ -243,28 +244,29 @@ class Signup extends Component {
                 document.getElementById('email').style.fontSize = "0.8rem"
                 window.setTimeout(function() {
                     document.getElementById('email').style.display='none'
-                 }, 3000);
+                 }, 1000);
             } else if(!validator.isLength(userPassword, {min: 5, max: 10})){
                 document.getElementById('password').style.display = "inline-block"
                 document.getElementById('password').style.color = "red"
                 document.getElementById('password').style.fontSize = "0.8rem"
                 window.setTimeout(function() {
                     document.getElementById('nickname').style.display='none'
-                 }, 3000);
+                 }, 1000);
             } else if(!validator.isLength(userName, {min: 5, max: 10})){
                 document.getElementById('nickname').style.display = "inline-block"
                 document.getElementById('nickname').style.color = "red"
                 document.getElementById('nickname').style.fontSize = "0.8rem"
                 window.setTimeout(function() {
                     document.getElementById('nickname').style.display='none'
-                 }, 3000);
+                 }, 1000);
             } else if(!this.state.birthdateSelected ||birthDate.slice(0,4)>2018 || birthDate.slice(0,4)<1900 ){
                 document.getElementById('birthdate').style.display = "inline-block"
                 document.getElementById('birthdate').style.color = "red"
                 document.getElementById('birthdate').style.fontSize = "0.8rem"
                 window.setTimeout(function() {
                     document.getElementById('birthdate').style.display='none'
-                 }, 3000);
+                 }, 1000);
+                 
             } else {
                 axios.post(`${url}/api/user/post/signup`, form)
                 .then(res => {
@@ -308,95 +310,6 @@ class Signup extends Component {
             }
         } 
 
-    // enterSubmit = () => {
-    //     console.log(this.ref);
-    //     // if (e.key === 'Enter'){
-    //     const form = {
-    //         userMail:  this.email.value,
-    //         userPassword: this.password.value,
-    //         userName:  this.nickname.value,
-    //         birthDate: this.date.value, 
-    //         gender: this.state.genderSelected,
-    //         toneName: this.state.colorSelected
-    //     }
-    //     const {userMail, userPassword, userName, birthDate, gender, toneName} = form
-    //     const {isValidEmail, isValidPassword, isValidNickname, birthdateSelected, genderSelected, colorSelected} = this.state
-    //     console.log('birthdate', birthDate.slice(0,4));
-    //     if(!(userMail && userPassword && userName && birthDate && gender && toneName)){
-    //         this.error()
-    //     } else {
-    //         if(!validator.isEmail(userMail)){
-    //             document.getElementById('email').style.display = "inline-block"
-    //             document.getElementById('email').style.color = "red"
-    //             document.getElementById('email').style.fontSize = "0.8rem"
-    //             window.setTimeout(function() {
-    //                 document.getElementById('email').style.display='none'
-    //              }, 3000);
-    //         } else if(!validator.isLength(userPassword, {min: 5, max: 10})){
-    //             document.getElementById('password').style.display = "inline-block"
-    //             document.getElementById('password').style.color = "red"
-    //             document.getElementById('password').style.fontSize = "0.8rem"
-    //             window.setTimeout(function() {
-    //                 document.getElementById('nickname').style.display='none'
-    //              }, 3000);
-    //         } else if(!validator.isLength(userName, {min: 5, max: 10})){
-    //             document.getElementById('nickname').style.display = "inline-block"
-    //             document.getElementById('nickname').style.color = "red"
-    //             document.getElementById('nickname').style.fontSize = "0.8rem"
-    //             window.setTimeout(function() {
-    //                 document.getElementById('nickname').style.display='none'
-    //              }, 3000);
-    //         } else if(!this.state.birthdateSelected ||birthDate.slice(0,4)>2018 || birthDate.slice(0,4)<1900 ){
-    //             document.getElementById('birthdate').style.display = "inline-block"
-    //             document.getElementById('birthdate').style.color = "red"
-    //             document.getElementById('birthdate').style.fontSize = "0.8rem"
-    //             window.setTimeout(function() {
-    //                 document.getElementById('birthdate').style.display='none'
-    //              }, 3000);
-    //         } else {
-    //             axios.post(`${url}/api/user/post/signup`, form)
-    //             .then(res => {
-    //                 console.log(res);
-    //                 if(res.data.success===true){
-    //                     this.setState({
-    //                         signupSuccess: true
-    //                     })
-    //                     const {history} = this.props
-    //                     if(this.props.location.state){
-    //                         const {pathname} = this.props.location.state.from
-    //                         const {search} = this.props.location.state.from
-    //                         history.push('/login', {from: {pathname: pathname, search: search}}) 
-    //                     }else{
-    //                         history.push('/login')
-    //                     }
-    //                 }else if(!res.data.success&&res.data.message==='invalid mail'){
-    //                     this.setState({
-    //                         isExist: "중복된 메일 주소입니다."
-    //                     })
-    //                     document.getElementById('email').style.display = "inline-block"
-    //                     document.getElementById('email').style.color = "red"
-    //                     document.getElementById('email').style.fontSize = "0.8rem"
-    //                     window.setTimeout(function() {
-    //                         document.getElementById('email').style.display='none'
-    //                      }, 3000);
-    //                 }else if(!res.data.success&&res.data.message==='invalid name'){
-    //                     this.setState({
-    //                         isExistName: "중복된 닉네임 입니다."
-    //                     })
-    //                     document.getElementById('nickname').style.display = "inline-block"
-    //                     document.getElementById('nickname').style.color = "red"
-    //                     document.getElementById('nickname').style.fontSize = "0.8rem"
-    //                     window.setTimeout(function() {
-    //                         document.getElementById('nickname').style.display='none'
-    //                      }, 3000);
-    //                 }
-    //             })
-    //             .catch(error => console.log(error))
-    //         }
-    //         }
-    //     // }
-    // }
-    
 
     onChangeEmail = () => {
         const email = this.email.value
@@ -443,14 +356,6 @@ class Signup extends Component {
         history.push('/login', {from: {pathname: pathname, search: search}})   
     }
 
-    showSucces = () => {
-
-    }
-
-    showFailure = () => {
-
-    }
-
      colorOptions = [
         { value: '모르겠어요', label: '모르겠어요' },
         {
@@ -486,27 +391,27 @@ class Signup extends Component {
                     이메일 주소<Span id='email'>{this.state.isExist ? this.state.isExist : '이메일 형식이 아닙니다.'}</Span><br/>
                     <Input 
                     onChange={this.onChangeEmail.bind(this)} innerRef={ref => { this.email = ref; }} placeholder="abc@email.com"/> 
-                    {this.state.isValidEmail ? null : <InvalidId style={{fontSiz:'0.6rem'}}>Invalid Email Type</InvalidId>}
+                    {/* {this.state.isValidEmail ? null : <InvalidId style={{fontSiz:'0.6rem'}}>Invalid Email Type</InvalidId>} */}
                     <br/>
                     비밀번호<Span id='password'>5~10 글자로 입력해주세요</Span><br/>
                     <Input type="password"
-                    onChange={this.onChangePassword.bind(this)} innerRef={ref => { this.password = ref; }} placeholder="Enter Your Password"/> 
-                    {this.state.isValidPassword ? null : <InvalidPassword>5글자 이상 10글자 이하로 입력 해 주세요</InvalidPassword>}  
+                    onChange={this.onChangePassword.bind(this)} innerRef={ref => { this.password = ref; }} placeholder="5~10 글자로 입력해주세요"/> 
+                    {/* {this.state.isValidPassword ? null : <InvalidPassword>5글자 이상 10글자 이하로 입력 해 주세요</InvalidPassword>}   */}
                     <br/>
                     닉네임<Span id='nickname'>{this.state.isExistName ? this.state.isExistName : '닉네임 형식이 아닙니다'}</Span><br/>
                     <Input
-                    onChange={this.onChangeNickname.bind(this)} innerRef={ref => { this.nickname = ref; }} placeholder="Enter Your Nickname"/> 
-                    {this.state.isValidNickname ? null : <InvalidNickname>5글자 이상 10글자 이하로 입력 해 주세요</InvalidNickname>}
+                    onChange={this.onChangeNickname.bind(this)} innerRef={ref => { this.nickname = ref; }} placeholder="5~10 글자로 입력해주세요"/> 
+                    {/* {this.state.isValidNickname ? null : <InvalidNickname>5글자 이상 10글자 이하로 입력 해 주세요</InvalidNickname>} */}
                     <br/>
                     생년월일<Span id='birthdate'>잘못 된 날짜 형식입니다</Span><br/>
                     <Input
-                    onChange={this.onBirthdate.bind(this)} innerRef={ref => { this.date = ref; }} placeholder="YYYYMMDD"/> 
-                    {this.state.birthdateSelected ? null : <InvalidNickname>올바른 날짜 형식이 아닙니다.</InvalidNickname>}
+                    onChange={this.onBirthdate.bind(this)} innerRef={ref => { this.date = ref; }} placeholder="ex)19871213"/> 
+                    {/* {this.state.birthdateSelected ? null : <InvalidBirthdate>올바른 날짜 형식이 아닙니다.</InvalidBirthdate>} */}
                     성별<br/>
                     <Dropdown style={{borderRadius: '20px'}} options={this.genderOptions} onChange={this.onSelectedGender.bind(this)} placeholder="여자/남자"
                     value={this.state.genderSelected}/>
                     피부톤<br/>
-                    <Dropdown id='signup' tabindex="0" options={this.colorOptions} onChange={this.onColorSelect.bind(this)} placeholder="계절별 피부톤"
+                    <Dropdown tabindex="0" options={this.colorOptions} onChange={this.onColorSelect.bind(this)} placeholder="계절별 피부톤"
                     value={this.state.colorSelected} />
                         <Signupbtn onClick={this.onSubmit}>Signup</Signupbtn>
                     </SignupBottom>

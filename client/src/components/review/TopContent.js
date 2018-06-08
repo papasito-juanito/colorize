@@ -76,6 +76,10 @@ const InfoDiv = styled.div `
         flex-direction: column;
         @media (max-width: 768px) {
         display: inline-block;
+          font-size : 0.8rem;
+    }
+        @media (max-width: 320px) {
+        font-size : 0.7rem;
     }
 `
 const UserDiv = styled.div `
@@ -98,6 +102,7 @@ const UserImage = styled.img `
 const ImageRating = styled.div `
     width: 60%;
     height: 100%;
+    margin: 1%;
 `
 
 const GenderImage = styled.img `
@@ -106,8 +111,10 @@ const GenderImage = styled.img `
 `
 const ReviewImage = styled.img `
     cursor: pointer;
-    height: 100%; 
-    width: 100%;
+    height: 96%; 
+    width: 98%;
+    padding: 1%;
+    border-radius:5px;
     object-fit : cover;
     @media (max-width: 768px) {
     width: 100%;
@@ -131,7 +138,8 @@ const Bubble = styled.div `
     text-align: center;
     border-radius: 5px;
     box-sizing:border-box;
-    margin : 1%;
+    margin: 1% 1% 0 1%;
+    padding : 1%;
     @media (max-width: 768px) {
     width: 100%;
     height: 80%;
@@ -141,7 +149,7 @@ const Bubble = styled.div `
 const Message = styled.textarea `
     border: none;
     resize: none;
-    width: 95%;
+    width: 100%;
     height: 100%;
     overflow: auto;
     &: focus {
@@ -151,27 +159,35 @@ const Message = styled.textarea `
     background-color: #F4F5F9;
     border-radius : 5px;
     }
+    @media (max-width: 320px) {
+        font-size : 0.7rem;
+    }
     
 `
-const LikeCount = styled.div `
-    width: 20%
-    height: 60%
-    top: 7%;
-    left:88%;
-    position: absolute;
-    align-content: center;
+const LikeCount = styled.div`
+    width: 20%;
+    height: 60%;
+    margin: 0 0 0 85%;
+      @media (max-width: 360px) {
+    }
+    @media (max-width: 360px) {
+      bottom: 0;
+    }
 `
 const Like = styled.img `
-    width: 3rem;
-    height: 3rem;
+    width: 2rem;
+    height: 2rem;
     cursor: pointer;
     @media (max-width: 768px) {
-    width: 1.2rem;
-    height: 1.2rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    }
+    @media (max-width: 360px) {
+    width: 1rem;
+    height: 1rem;
     }
 `
 const BottomContainer = styled.div `
-    position: relative;
     height: 30%;
     @media (max-width: 768px) {
     width: 100%;
@@ -179,23 +195,39 @@ const BottomContainer = styled.div `
     }
 `
 const ModalDiv = styled.div `
-     height: 70vh;
-     width: 70vh
+     width: 70vh;
     @media (max-width: 768px) {
-    width: 80vw;
-    height: 80vw;
+    width: 60vw;
+    height: 60vw;
     object-fit : contain;
     }
 `
 
 const PointButton = styled.button`
     cursor: pointer;
-    border: 0;
     outline: 0;
+    margin-top:10px
+    border: 0
+    font-weight: 100
+    font-family: Roboto
+    background-color: black
+    color: white
+    &:hover {
+        text-shadow: 0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F;
+        // text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0080, 0 0 30px #ff0080, 0 0 40px #ff0080, 0 0 55px #ff0080, 0 0 75px #ff0080;
+    }  
 `
 
-const Span = styled.span`
-    font-size: 2em;
+const Span = styled.span `
+    font-size: 1.5rem;
+    padding-left:5%;
+    @media (max-width: 767px) {
+    font-size: 0.8rem;
+    }
+    @media (max-width: 360px) {
+    font-size: 0.8rem;
+
+    }
 `
 
 class TopContent extends Component {
@@ -216,7 +248,7 @@ class TopContent extends Component {
     _reviewLike(e) {
         console.log('fromallreview', this.props.data);
         console.log(e.target.id);
-        
+        const data = [];
         const token = localStorage.getItem('token')
         const reviewId = e.target.id
         const form = {
@@ -226,13 +258,18 @@ class TopContent extends Component {
         console.log('formformform', form);
         
         axios.post(`${url}/api/review/update/like`,form, { headers: { 'token': token } })
+        
             .then((res) => {
                 console.log('resresresrse', res);
                 
                 return axios.get(`${url}/api/review/get/rank?color_id=${this.props.id}`, { headers: { 'token': token } })
                 .then(response => {
-                    console.log('reviewlikeresponse', response);    
-                    this.setState({ data: response.data.rows })
+                    for(var i = 0; i< response.data.rows.length; i++){
+                        if(response.data.rows[i].likes>0){
+                        data.push(response.data.rows[i])
+                    }
+                }
+                    this.setState({ data: data })
                     // window.location.reload()
                 })
                 .catch(err => console.log(err))
@@ -249,17 +286,17 @@ class TopContent extends Component {
     }
 
     _afterOpenPopup() {
-        this.subtitle.style.color = '#f00';
+        this.subtitle.style.color = 'black';
     }
 
     _closePopup() {
         this.setState({ popupIsOpen: false });
     }
 
-
     render() {
         let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
         console.log('asynasynasyn :', this.state.data)
+        console.log('prorporrporrpo:', this.props.data)
         return (
             <Div>
                 {this.state.data ? this.state.data.map((item, i) => {

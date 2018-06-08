@@ -9,6 +9,12 @@ const Div = styled.div`
      width: 100%;
      height: 100%;
 `
+
+const Container = styled.div`
+    @media (max-width: 768px) {
+        //  display : none
+    }
+`
 const TopDiv = styled.div `
     width: 100%;
     height: 15%;
@@ -26,12 +32,21 @@ const BottomDiv = styled.div `
     width: 100%;
     height: 85%;
 `
+const Button = styled.button `
+    display: none;
+    @media (max-width: 768px) {
+        display: inline-block;
+	}
+
+`
+
 
 class Allreview extends Component{
     constructor(){
         super()
         this.state = {
-            data : ''
+            data : '',
+            display: true
         }
     }
 
@@ -52,14 +67,19 @@ class Allreview extends Component{
     render(){
         return(
             <Div>
+                 {this.state.data.length !== 0 ?
+                 <Container>
                 <TopDiv>
                     <TitleDiv>All Reviews</TitleDiv>
                     <Border/>
                 </TopDiv>
                 <BottomDiv>
-                    {this.state.data.length !== 0 ? <AllReviews id = {this.props.id} data={this.state.data}/> : <div> <h2>등록된 리뷰가 없어요</h2></div>}
-                </BottomDiv>
-            </Div>
+                    <AllReviews id = {this.props.id} data={this.state.data}/> 
+                </BottomDiv> 
+                </Container>
+              : <div><h2>등록된 리뷰가 없습니다</h2></div>}
+            </Div>  
+              
         )
     }
 

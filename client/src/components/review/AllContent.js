@@ -77,8 +77,13 @@ const InfoDiv = styled.div `
         flex-direction: column;
         @media (max-width: 768px) {
         display: inline-block;
+          font-size : 0.8rem;
     }
-`
+        @media (max-width: 320px) {
+            font-size : 0.7rem;
+        }
+  `
+
 const UserDiv = styled.div `
     width: 5vw;
     height: 5vw;
@@ -119,6 +124,7 @@ width: 100%;
 const ImageRating = styled.div `
 width: 60%;
 height: 100%;
+margin: 1%;
 `
 
 const GenderImage = styled.img `
@@ -127,8 +133,10 @@ height: 8%;
 `
 const ReviewImage = styled.img `
 cursor: pointer;
-height: 100%;
-width: 100%;
+height: 96%; 
+width: 98%;
+padding: 1%;
+border-radius:5px;
 object-fit: cover;
 @media(max-width: 768px) {
     width: 100%;
@@ -145,14 +153,15 @@ position: relative;
 }
 `
 const Bubble = styled.div `
-position: relative;
-width: 98%;
-height: 70%;
-border: #7F7F7F solid 2px;
+    position: relative;
+    width: 98%;
+    height: 70%;
+    border: #7F7F7F solid 2px;
     text-align: center;
     border-radius: 5px;
     box-sizing:border-box;
-    margin : 1%;
+    margin: 1% 1% 0 1%;
+    padding: 1%;
     @media (max-width: 768px) {
     width: 100%;
     height: 80%;
@@ -163,7 +172,7 @@ border: #7F7F7F solid 2px;
 const Message = styled.textarea `
     border: none;
     resize: none;
-    width: 95%;
+    width: 100%;
     height: 100%;
     overflow: auto;
     &: focus {
@@ -173,27 +182,33 @@ const Message = styled.textarea `
     background-color: #F4F5F9;
     border-radius : 5px;
     }
+       @media (max-width: 320px) {
+            font-size : 0.7rem;
+        }
     
 `
 const LikeCount = styled.div `
-    width: 20%
-    height: 60%
-    top: 7%;
-    left:88%;
-    position: absolute;
-    align-content: center;
+    width: 20%;
+    height: 60%;
+    margin: 0 0 0 85%;
+    @media (max-width: 360px) {
+      bottom: 0;
+    }
 `
 const Like = styled.img `
-    width: 3rem;
-    height: 3rem;
+    width: 2rem;
+    height: 2rem;
     cursor: pointer;
     @media (max-width: 768px) {
-    width: 1.2rem;
-    height: 1.2rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    }
+    @media (max-width: 360px) {
+    width: 1rem;
+    height: 1rem;
     }
 `
 const BottomContainer = styled.div `
-    position: relative;
     height: 30%;
     @media (max-width: 768px) {
     width: 100%;
@@ -201,23 +216,39 @@ const BottomContainer = styled.div `
     }
 `
 const ModalDiv = styled.div `
-     height: 70vh;
-     width: 70vh
+     width: 70vh;
     @media (max-width: 768px) {
-    width: 80vw;
-    height: 80vw;
+    width: 60vw;
+    height: 60vw;
     object-fit : contain;
     }
 `
 
 const PointButton = styled.button `
     cursor: pointer;
-    border: 0;
     outline: 0;
+    border: 0
+    margin-top:10px
+    font-weight: 100
+    font-family: Roboto
+    background-color: black
+    color: white
+    &:hover {
+        text-shadow: 0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F;
+        // text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0080, 0 0 30px #ff0080, 0 0 40px #ff0080, 0 0 55px #ff0080, 0 0 75px #ff0080;
+    }  
 `
 
 const Span = styled.span `
-    font-size: 2em;
+    font-size: 1.5rem;
+    padding-left:5%;
+    @media (max-width: 767px) {
+    font-size: 0.8rem;
+    }
+    @media (max-width: 360px) {
+    font-size: 0.8rem;
+
+    }
 `
 
 const token = localStorage.getItem('token')
@@ -266,7 +297,7 @@ class AllContent extends Component {
     }
 
     _afterOpenPopup() {
-        this.subtitle.style.color = '#f00';
+        this.subtitle.style.color = 'black';
     }
 
     _closePopup() {
@@ -359,7 +390,7 @@ class AllContent extends Component {
                 >
                     <h2 ref={subtitle => this.subtitle = subtitle}>Review Image</h2>
                     <ModalDiv>{popupImage}</ModalDiv>
-                    <PointButton onClick={this._closePopup}>close</PointButton>
+                    <PointButton id='closebtn' onClick={this._closePopup}>close</PointButton>
                 </Modal>
             </Div>
         );

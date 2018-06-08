@@ -62,6 +62,7 @@ const DetailDiv = styled.div`
 const Name = styled.div`
   font-size: 1.5rem;
   font-weight: bold;
+  text-align: center;
 `;
 const Brand = styled.div`
 `;
@@ -107,17 +108,17 @@ const ChartDiv = styled.div`
 const Description = styled.div`
   width: 100%;
   height: 8.5vw;
-  font-size : 0.7em;
-  border: solid green 1px;
+  font-size : 1vw;
+  border: solid blue 2px;
+  padding: 0.5vw;
   @media (max-width: 768px) {
       display: none;
   }
 `;
 
 const ModalDiv = styled.div`
-  width: 70vh;
   @media (max-width: 768px) {
-    width: 30vh;
+    width: 60vw;
   }
 `
 

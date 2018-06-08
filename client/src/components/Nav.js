@@ -185,11 +185,8 @@ class Nav extends Component {
 
   hideHeader= () => {
     var prevScrollpos = window.pageYOffset;
-    console.log('prev', prevScrollpos);
     
     return function() {
-      console.log(window.pageYOffset);
-      
       var currentScrollPos = window.pageYOffset;
       if (prevScrollpos > currentScrollPos) {
         document.getElementById("navbar").style.top = "0";

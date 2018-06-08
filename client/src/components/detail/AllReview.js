@@ -12,7 +12,7 @@ const Div = styled.div`
 
 const Container = styled.div`
     @media (max-width: 768px) {
-         display : none
+        //  display : none
     }
 `
 const TopDiv = styled.div `
@@ -70,7 +70,7 @@ class Allreview extends Component{
                  {this.state.data.length !== 0 ?
                  <Container>
                 <TopDiv>
-                    <TitleDiv>All Reviews</TitleDiv>
+                    <TitleDiv><h2>All Reviews</h2></TitleDiv>
                     <Border/>
                 </TopDiv>
                 <BottomDiv>

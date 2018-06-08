@@ -256,7 +256,6 @@ class MyInfo extends Component {
 
       const file =  files[0];      
       const token = localStorage.getItem('token')
-      console.log('Dropzoneedklfsjdflksjflsjfs@2@@@ :', file)
       this.setState({file:file})
           const formData = new FormData();
           formData.append('file', file);

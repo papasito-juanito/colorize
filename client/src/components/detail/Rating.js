@@ -5,7 +5,10 @@ import styled from 'styled-components';
 import axios from 'axios';
 import { url } from '../../config';
 import FileUpload from './FileUpload';
-
+import Dropzone from 'react-dropzone';
+import ImageCompressor from 'image-compressor.js';
+import { Modal, Button } from 'antd';
+import 'antd/dist/antd.css';
 
 const Wrapper = styled.div`
     width: 100%;
@@ -59,7 +62,7 @@ const ImageDiv = styled.div `
     }
 `
 const ReviewDiv = styled.div`
-    width: 47vw;
+    width: 48vw;
     border: 1px solid black;
     @media (max-width: 768px) {
         width: 100%;
@@ -79,8 +82,22 @@ const TextArea = styled.textarea`
     resize : none;
     border-radius : 5px;
     background-color: #F6F6F6;
+    @media (max-width: 768px) {
+       border:none;
+    }
 `
-const Button = styled.button`
+const ImgDiv = styled.div`
+    width: 100%;
+    height: 100%;
+    text-align:center;
+`
+const Img = styled.img `
+    width: 80%;
+    height: 80%;
+    border-radius: 50%;
+    object-fit: cover;
+`
+const sendButton = styled.button`
     position: relative;
     height: 25px;
     cursor: pointer;
@@ -89,7 +106,35 @@ const Button = styled.button`
     background-color: black;
     text-align: center;
 `
+const ChangePic = styled.img `
+  vertical-align: middle;
+  justify-content: center;
+  width: 80%;
+  height: 80%;
+  border-radius: 50%;
+  object-fit: cover;
+`
 
+const Modify = styled.button `
+    font-size: 0.8rem;    
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 3px 7px 3px 7px;
+    margin: 5px 10px 5px 0px;
+    border: 0;
+    outline:0;
+    background-color: black;
+    &:hover {
+      text-shadow: 0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F;
+    }
+    @media (max-width: 768px) {
+      font-size: 0.6rem;
+      height: 20px;
+      width: 50px;
+  }
+`
+const token = localStorage.getItem('token')
 
 class Rating extends Component {
     constructor(props) {
@@ -99,29 +144,12 @@ class Rating extends Component {
             imageAddress : '',
             file : '',
             imagepreviewUrl: '',
-            popupIsOpen : false,
-            data : '',
-            filebtnSelected: false
+            popupIsOpen : false
         }
         this._onStarClick = this._onStarClick.bind(this);
         this._clickReview = this._clickReview.bind(this);
         this._alertReview = this._alertReview.bind(this);
-        this._imagePreview = this._imagePreview.bind(this);
-    }
-
-    _callback(params) {
-        console.log('params', params);
-        
-        this.setState({
-            imageAddress: params
-        })
-    }
-
-    _imagePreview(file, imagepreviewUrl ) {
-        this.setState({
-            file : file,
-            imagepreviewUrl: imagepreviewUrl
-        })
+        this._onDrop = this._onDrop.bind(this);
     }
 
     _onStarClick(nextValue, prevValue, name) {
@@ -129,15 +157,14 @@ class Rating extends Component {
     }
 
     _clickReview() {
-        const token = localStorage.getItem('token')
         const form = {
             color_id: this.props.id,
             reviewPhoto: this.state.imageAddress,
             reviewRating: this.state.rating,
             reviewMessage: this.input.value
         }
-        this.props.loginState === false ? (alert('로그인이 필요한 서비스 입니다.'), this.props.handleLogout()) :
-        !this.state.imageAddress ? alert('사진 등록은 필수입니다') : 
+        this.props.loginState === false ? (this.login(), this.props.handleLogout()) :
+        !this.state.imageAddress ? this.picture() : 
              (axios.post(`${url}/api/review/post/message`, form, { headers: { 'token': token } })
                 .then((response) => {
                 console.log(response);
@@ -150,13 +177,46 @@ class Rating extends Component {
          this.props.loginState === true && this.state.imageAddress ? alert('후기가 등록되었습니다') : null;
     }
 
-    render() {
-        console.log('this.props.image :', this.props.image)
-        console.log('this.props.info.success :', this.props.info.success)
-        console.log('this.props.handleLogout :', this.props.handleLogout)
-        console.log('this.props.loginState :', this.props.loginState)
-        console.log('address : ', this.state.imageAddress)
+    uploadImage() {
+        Modal.error({
+            title: 'Image 파일만 업로드 가능합니다.'
+        });
+    }
+    login() {
+        Modal.error({
+            title: '로그인이 필요한 서비스 입니다.'
+        });
+    }
+    picture() {
+        Modal.error({
+            title: '사진 등록은 필수입니다'
+        });
+    }
 
+    _onDrop(files, reject){
+      const file =  files[0];
+      this.setState({file})
+      new ImageCompressor(file, {
+        quality: 0.6,
+        success: (result)=> {
+            const formData = new FormData();
+            formData.append('file', file);
+            var mimeType = file.type.split('/')[0];
+            mimeType === 'image' ?
+             axios.post(`${url}/api/review/post/upload`, formData, { headers: { 'token': token} } )
+             .then(response => {
+                this.setState({imageAddress : response.data.message})
+             })
+               .catch(err => console.log(err))
+               : this.uploadImage();
+        },
+        error: (e) => {
+          console.log(e.message);
+        },
+      });
+    }
+
+    render() {
         const { rating } = this.state;
         return (
             <Wrapper>
@@ -172,18 +232,27 @@ class Rating extends Component {
                         </CenterDiv>
                     </RatingDiv>
                     <ImageDiv>
-                        <ReviewImage src = {!this.state.imagepreviewUrl ? null : this.state.imageAddress ? this.state.imageAddress : 'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'}/>
+                        <Dropzone style={{width:'100%', height:'100%'}} onDropAccepted={ this._onDrop } onDropRejected={this.uploadImage} accept = "image/*">
+                            <ImgDiv>
+                                <ImgDiv>
+                                    <div style={{color: 'black' ,fontWeight: 'bold'}}> 
+                                        사진을 등록해 주세요 
+                                    </div>
+                                        {this.state.file ?
+                                        <ChangePic src= {this.state.imageAddress ? this.state.file.preview : 'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'}  />
+                                        :null}
+                                </ImgDiv>
+                           </ImgDiv>
+                        </Dropzone>
                     </ImageDiv>                   
                 </TopWrite>
                 <ReviewDiv>
                     <TextArea placeholder='사용 후기를 입력해주세요.' innerRef={ref => { this.input = ref; }} /><br />
                     <BottomContainer>
-                     <FileUpload imagePreview = {this._imagePreview} callback={this._callback.bind(this)} id={this.props.id} />
-                    <Button onClick={() => { this._alertReview(); this._clickReview() }}>등록</Button>
+                        <Modify onClick={() => { this._alertReview(); this._clickReview() }}>등록</Modify>
                     </BottomContainer>
                 </ReviewDiv>
             </Wrapper>
-
         )
     }
 }

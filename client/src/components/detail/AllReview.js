@@ -12,7 +12,7 @@ const Div = styled.div`
 
 const Container = styled.div`
     @media (max-width: 768px) {
-        //  display : none
+         display : none
     }
 `
 const TopDiv = styled.div `
@@ -35,7 +35,7 @@ const BottomDiv = styled.div `
 const Button = styled.button `
     display: none;
     @media (max-width: 768px) {
-        // display: inline-block;
+        display: inline-block;
 	}
 
 `
@@ -77,9 +77,8 @@ class Allreview extends Component{
                     <AllReviews id = {this.props.id} data={this.state.data}/> 
                 </BottomDiv> 
                 </Container>
-              : null}
-                    <Button > 전체리뷰보기 </Button>
-            </Div>
+              : <div><h2>등록된 리뷰가 없습니다</h2></div>}
+            </Div>  
               
         )
     }

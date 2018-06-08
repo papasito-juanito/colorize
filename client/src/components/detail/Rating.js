@@ -9,6 +9,7 @@ import Dropzone from 'react-dropzone';
 import ImageCompressor from 'image-compressor.js';
 import { Modal, Button } from 'antd';
 import 'antd/dist/antd.css';
+import AvatarEditor from 'react-avatar-editor'
 
 const Wrapper = styled.div`
     width: 100%;
@@ -24,7 +25,7 @@ const TopWrite = styled.div`
     display: flex;
     @media (max-width: 768px) {
         width: 100%;
-        height: 15vh;
+        height: 20vh;
         margin-bottom: 1%;
     }
 `
@@ -50,6 +51,7 @@ const CenterDiv = styled.div`
 const ReviewImage = styled.img`
     width: 100%;
     height: 100%;
+    object-fit : contain;
 `
 const ImageDiv = styled.div `
     width: 16vw;
@@ -66,7 +68,7 @@ const ReviewDiv = styled.div`
     border: 1px solid black;
     @media (max-width: 768px) {
         width: 100%;
-        height: 20vh;
+        height: 25vh;
     }
 `
 const BottomContainer = styled.div`
@@ -95,7 +97,7 @@ const Img = styled.img `
     width: 80%;
     height: 80%;
     border-radius: 50%;
-    object-fit: cover;
+    object-fit: contain;
 `
 const sendButton = styled.button`
     position: relative;
@@ -114,7 +116,7 @@ const ChangePic = styled.img `
   border-radius: 5px;
   object-fit: cover;
     @media (max-width: 768px) {
-       object-fit: fill;
+       object-fit: contain;
     }
 `
 
@@ -151,7 +153,6 @@ class Rating extends Component {
         }
         this._onStarClick = this._onStarClick.bind(this);
         this._clickReview = this._clickReview.bind(this);
-        this._alertReview = this._alertReview.bind(this);
         this._onDrop = this._onDrop.bind(this);
     }
 
@@ -160,6 +161,7 @@ class Rating extends Component {
     }
 
     _clickReview() {
+        const token = localStorage.getItem('token')
         const form = {
             color_id: this.props.id,
             reviewPhoto: this.state.imageAddress,
@@ -168,17 +170,21 @@ class Rating extends Component {
         }
         this.props.loginState === false ? (this.login(), this.props.handleLogout()) :
         !this.state.imageAddress ? this.picture() : 
-             (axios.post(`${url}/api/review/post/message`, form, { headers: { 'token': token } })
+             axios.post(`${url}/api/review/post/message`, form, { headers: { 'token': token } })
                 .then((response) => {
-                console.log(response);
+                console.log('review response@@@@@', response);
                 })
+                .then(res => (
+                    this.input.value = '', this.review()
+                ))
+                // .then(res => window.location.reload())
                 .catch(err => console.log(err))
-            ,this.input.value = '', window.location.reload())
+                // window.location.reload()
     }
 
-    _alertReview() {
-         this.props.loginState === true && this.state.imageAddress ? alert('후기가 등록되었습니다') : null;
-    }
+    // _alertReview() {
+    //      this.props.loginState === true && this.state.imageAddress ? this.review() : null;
+    // }
 
     uploadImage() {
         Modal.error({
@@ -186,11 +192,12 @@ class Rating extends Component {
         });
     }
 
-      review() {
+    review() {
         Modal.error({
             title: '후기가 등록되었습니다.'
         });
     }
+
     login() {
         Modal.error({
             title: '로그인이 필요한 서비스 입니다.'
@@ -244,13 +251,14 @@ class Rating extends Component {
                                         :null}
                                 </ImgDiv>
                            </ImgDiv>
+                           <AvatarEditor width={250} height={250} scale={1.2} image={this.state.imageAddress} />
                         </Dropzone>
                     </ImageDiv>                   
                 </TopWrite>
                 <ReviewDiv>
                     <TextArea placeholder='사용 후기를 입력해주세요.' innerRef={ref => { this.input = ref; }} /><br />
                     <BottomContainer>
-                        <Modify onClick={() => { this._alertReview(); this._clickReview() }}>등록</Modify>
+                        <Modify onClick={() => {this._clickReview() }}>등록</Modify>
                     </BottomContainer>
                 </ReviewDiv>
             </Wrapper>

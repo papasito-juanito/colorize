@@ -8,6 +8,7 @@ import Comment from './Comment';
 import TopReview from './TopReview';
 import axios from 'axios';
 import { url } from '../../config';
+import { Modal } from 'antd';
 
 const Container = styled.div`
     height: 100%;
@@ -118,14 +119,18 @@ class Detail extends Component {
                     })
                     .catch(err => console.log(err))
                 } else {
-                    alert('로그인 후 이용해 주세요 ')
+                    this.login()
                       this.props.handleLogout()
                 }
         })
         .catch(err => console.log(err));
     }
     
-
+   login() {
+       Modal.error({
+           title: '로그인 후 이용해 주세요'
+       });
+   }
     
     componentDidMount(){
     const token = localStorage.getItem('token')
@@ -159,8 +164,7 @@ class Detail extends Component {
                 <ReviewDiv>
                     {this.props.isLogined ? <AllReview handleLogout={handleLogout} id={this.props.match.params.id}/> : <div><h2>전체 리뷰를 보시려면 로그인 해주세요 </h2></div>}
                 </ReviewDiv>
-                <HomeButton onClick={this.scrollToTop}><Arrow/><br/> Top </HomeButton>
-     
+                {/* <HomeButton onClick={this.scrollToTop}><Arrow/><br/> Top </HomeButton> */}
         </Container>
         )
     }

@@ -113,6 +113,9 @@ const ChangePic = styled.img `
   height: 80%;
   border-radius: 5px;
   object-fit: cover;
+    @media (max-width: 768px) {
+       object-fit: fill;
+    }
 `
 
 const Modify = styled.button `
@@ -182,6 +185,12 @@ class Rating extends Component {
             title: 'Image 파일만 업로드 가능합니다.'
         });
     }
+
+      review() {
+        Modal.error({
+            title: '후기가 등록되었습니다.'
+        });
+    }
     login() {
         Modal.error({
             title: '로그인이 필요한 서비스 입니다.'
@@ -195,16 +204,16 @@ class Rating extends Component {
 
     _onDrop(files, reject){
       const file =  files[0];
-      this.setState({file})
-        const formData = new FormData();
-        formData.append('file', file);
-        var mimeType = file.type.split('/')[0];
-        mimeType === 'image' ?
+       const formData = new FormData();
+       formData.append('file', file);
+       var mimeType = file.type.split('/')[1];
+       mimeType === 'jpg' || mimeType === 'JPG' || mimeType === 'jpeg' || mimeType === 'JPEG' || mimeType === 'png' || mimeType === 'PNG' ?
+        (this.setState({file}),
             axios.post(`${url}/api/review/post/upload`, formData, { headers: { 'token': token} } )
             .then(response => {
             this.setState({imageAddress : response.data.message})
             })
-            .catch(err => console.log(err))
+            .catch(err => console.log(err)))
             : this.uploadImage();
     }
 

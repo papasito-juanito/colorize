@@ -44,7 +44,7 @@ const DetailDiv = styled.div`
   width: 20.3vw;
   margin-right:1vw;
   height: 100%;
-  border : 1px solid green;
+  border : 1px solid black;
   background-color:white;
   box-sizing:border-box;
   text-align: left;
@@ -55,9 +55,10 @@ const DetailDiv = styled.div`
     width: 100%;
     flex-direction: column;
     position: relative;
-    border : 1px solid black;
+    border : none
     text-align: center;
     margin-top: 1%;
+    
   }
 `;
 const Name = styled.div`
@@ -102,7 +103,6 @@ const ChartDiv = styled.div`
   border: solid black 1px;
   @media (max-width: 768px) {
     width: 100%;
-    border : 1px solid black;
     margin-top : 1%;
   }
 `;

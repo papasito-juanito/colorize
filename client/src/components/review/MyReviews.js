@@ -560,11 +560,11 @@ class MyReviews extends Component {
   _onDrop(files){
     const token = localStorage.getItem('token')
     const file = files[0];
-    this.setState({file:file})
-        const formData = new FormData();
-        formData.append('file', file);
-        var mimeType = file.type.split('/')[0];
-        mimeType === 'image' ?
+          const formData = new FormData();
+          formData.append('file', file);
+       var mimeType = file.type.split('/')[1];
+       mimeType === 'jpg' || mimeType === 'JPG' || mimeType === 'jpeg' || mimeType === 'JPEG' || mimeType === 'png' || mimeType === 'PNG' ?
+        (this.setState({file}),
         axios.post(`${url}/api/user/post/upload`, formData, { headers: { 'token': token} } )
             .then(response => {
                 this.setState({
@@ -573,7 +573,7 @@ class MyReviews extends Component {
                 document.getElementById('imgloading').style.display = 'inline-block'
             }
           )
-          .catch(err => console.log(err))
+          .catch(err => console.log(err)))
            : this.uploadImage();
     }
 
@@ -660,7 +660,7 @@ class MyReviews extends Component {
                 <MyImage onClick={this._openPopup} src ={item.review_photo}  />
                 
                 : this.state.isReply && this.state.clickedComment === item.review_id  ?
-                <Dropzone onDrop={ this._onDrop.bind(this) } size={ 50 }  accept = "image/jpeg, image/png, image/jpg" style={{width: '100%', height: '100%'}}>
+                <Dropzone onDropAccepted={ this._onDrop.bind(this) } size={ 50 }  accept = "image/*" style={{width: '100%', height: '100%'}}>
                   <div style={{width:'100%', height:'100%', textAlign:'center'}}>
                        <div style={{color: 'black' ,fontWeight: 'bold'}}> 이미지 변경 클릭 </div>
                        <div style= {{width: '100%', height:'90%'}}>

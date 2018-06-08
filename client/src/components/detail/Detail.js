@@ -29,9 +29,9 @@ const TopDetail = styled.div`
 `
 const Write = styled.div`
 	margin-top: 10px;
-	height: 25vh;
+	height: 30vh;
 	@media (max-width: 768px) {
-        height: 40vh;
+        height: 45vh;
 	}
 `
 
@@ -41,6 +41,36 @@ const ReviewDiv = styled.div`
 	@media (max-width: 768px) {
 	}
 `
+
+const HomeButton = styled.button`
+    position: fixed;
+    background-color:black;
+    color: white;
+    border: none;
+    right:1%;
+    bottom:1%;
+    opacity: 1;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    &:hover {
+    opacity: 0.3;
+    border: none;
+  }
+`
+
+const Arrow = styled.i`
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 6%;
+`
+
+
 
 const scrollStepInPx = 50;
 const delayInMs = 10;
@@ -129,6 +159,8 @@ class Detail extends Component {
                 <ReviewDiv>
                     {this.props.isLogined ? <AllReview handleLogout={handleLogout} id={this.props.match.params.id}/> : <div><h2>전체 리뷰를 보시려면 로그인 해주세요 </h2></div>}
                 </ReviewDiv>
+                <HomeButton onClick={this.scrollToTop}><Arrow/><br/> Top </HomeButton>
+     
         </Container>
         )
     }

@@ -260,7 +260,6 @@ class MyInfo extends Component {
         quality: 0.6,
         success: (result)=> {
           console.log('result', result);
-          
           const formData = new FormData();
           formData.append('file', file);
           // Send the compressed image file to server with XMLHttpRequest.

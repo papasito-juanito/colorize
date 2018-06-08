@@ -172,13 +172,16 @@ const Modify = styled.button`
     font-size: 0.8rem;    
     width: 60px;
     height: 30px;
-    color: black;
+    color: white;
     border: none;
     cursor: pointer;
     padding: 3px 7px 3px 7px;
     margin: 5px 10px 5px 0px;
+    border: 0;
+    outline:0;
+    background-color: black;
     &:hover {
-        background-color: RoyalBlue;
+      text-shadow: 0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F;
     }
     @media (max-width: 768px) {
       font-size: 0.6rem;
@@ -188,18 +191,26 @@ const Modify = styled.button`
 `
 const Cancel = styled.button`
     font-size: 0.8em;    
-    width: 7%;
-    height: 70%;
-    color: black;
-    top: 10%;
-    left: 15%;
+    width: 60px;
+    height: 30px;
+    color: white;
+    padding: 3px 7px 3px 7px;
+    margin: 5px 10px 5px 24px;
+    background-color: black
+    left: 60px
     position: absolute
-    border-radius: 50%;
-    border: none;
+    border: 0;
+    outline:0;
     cursor: pointer;
     &:hover {
-        background-color: red;
+      text-shadow: 0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F;
     }
+    @media (max-width: 768px) {
+      font-size: 0.6rem;
+      height: 20px;
+      width: 50px;
+      margin: 5px 10px 5px 3%;
+  }
 `
 
 const UserDiv = styled.div`

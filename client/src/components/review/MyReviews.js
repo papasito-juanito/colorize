@@ -221,35 +221,6 @@ const UserDiv = styled.div`
     border-radius:50%;
 `
 
-
-const HomeButton = styled.button`
-    position: fixed;
-    background-color:black;
-    color: white;
-    border: none;
-    right:1%;
-    bottom:1%;
-    opacity: 1;
-    width: 4rem;
-    height: 4rem;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    &:hover {
-    opacity: 0.3;
-    border: none;
-  }
-`
-
-const Arrow = styled.i`
-    transform: rotate(-135deg);
-    -webkit-transform: rotate(-135deg);
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    display: inline-block;
-    padding: 6%;
-`
-
 const Loading = styled.div`
     border: 16px solid #f3f3f3;
     border-radius: 50%;
@@ -732,7 +703,6 @@ class MyReviews extends Component {
                   <EmptyMessage>Colorize에서 마음에 드는 칼러의 <br/>립스틱을 구경하고 리뷰를 작성해보세요</EmptyMessage>
                   <Emptybtn onClick={this.goHome}>Colorize yourself</Emptybtn>
                 </Empty>}
-        <HomeButton onClick={this.scrollToTop}><Arrow /><br /> Top </HomeButton>
         <RModal
           isOpen={this.state.popupIsOpen}
           onAfterOpen={this._afterOpenPopup}

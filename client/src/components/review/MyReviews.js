@@ -324,7 +324,8 @@ const customStyles = {
     right: 'auto',
     bottom: 'auto',
     marginRight: '-50%',
-    transform: 'translate(-50%, -50%)'
+    transform: 'translate(-50%, -50%)',
+    color: 'black'
   },
   overlay: {
     position: 'fixed',
@@ -402,7 +403,13 @@ class MyReviews extends Component {
   }
 
   _afterOpenPopup() {
-    this.subtitle.style.color = '#f00';
+    this.subtitle.style.color = 'black';
+    document.getElementById('closebtn').onmouseover = function(){
+      document.getElementById("closebtn").style.textShadow = '0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F'
+    }
+    document.getElementById("closebtn").onmouseout = function() {
+      document.getElementById("closebtn").style.textShadow = 'none'
+    };
   }
 
   _closePopup() {
@@ -628,7 +635,7 @@ class MyReviews extends Component {
             <Top>           
              <ItemLink><Link to={`/items/detail/${item.color_id}`} style={{ textDecoration: 'none' }}>
              <ReviewImage src={item.item_photo} /></Link></ItemLink>
-             <Info >
+             <Info  >
                 <div>{item.name}</div>
                 {/* <div>{item.color}</div> */}
              
@@ -711,7 +718,7 @@ class MyReviews extends Component {
         >
           <h2 ref={subtitle => this.subtitle = subtitle}>Review Image</h2>
           <div style={{ width: '50vh' }}>{popupImage}</div>
-          <button style={{ cursor: 'pointer' }} onClick={this._closePopup}>close</button>
+          <button id='closebtn' style={{ marginTop: '10px', fontWeight:'100', fontFamily:'Roboto', cursor: 'pointer', border:'0', outline:'0', backgroundColor:'black', color: 'white'  }} onClick={this._closePopup}>close</button>
         </RModal>
       </Wrapper>
       </div>

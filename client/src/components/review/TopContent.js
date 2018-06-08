@@ -206,6 +206,16 @@ const ModalDiv = styled.div `
 const PointButton = styled.button`
     cursor: pointer;
     outline: 0;
+    margin-top:10px
+    border: 0
+    font-weight: 100
+    font-family: Roboto
+    background-color: black
+    color: white
+    &:hover {
+        text-shadow: 0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F;
+        // text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0080, 0 0 30px #ff0080, 0 0 40px #ff0080, 0 0 55px #ff0080, 0 0 75px #ff0080;
+    }  
 `
 
 const Span = styled.span `
@@ -271,7 +281,7 @@ class TopContent extends Component {
     }
 
     _afterOpenPopup() {
-        this.subtitle.style.color = '#f00';
+        this.subtitle.style.color = 'black';
     }
 
     _closePopup() {

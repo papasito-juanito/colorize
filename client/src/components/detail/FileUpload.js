@@ -70,14 +70,13 @@ class FileUpload extends Component {
         e.preventDefault();
         let reader = new FileReader();
         let file = e.target.files[0];
-        console.log(file)
+        console.log('filereader files[0] : @@@@@', file)
         let mimeType = e.target.files[0].type.split('/')[0];
         reader.readAsDataURL(file)
         reader.onload = () => {
         mimeType === 'image' ?
             this.props.imagePreview(file, reader.result )
             :alert('Image 파일만 등록만 가능합니다')
-        //    : this.setState({imagepreviewUrl : ''})
         }
 
 

@@ -27,16 +27,6 @@ class Comment extends Component {
         };
     }
 
-
-
-
-            // .then(response =>{
-            // if(response.data.success===true){
-            //   this.setState({data : response.data.rows[0]})
-            // }else {
-            //   this.props.handleLogout()
-            //   this.props.history.push('/login', {from: this.props.location})
-            // }
     componentDidMount(){
         const token = localStorage.getItem('token')
         axios.get(`${url}/api/review/get/info?color_id=${this.props.id}`, { headers: { 'token': token } })
@@ -54,11 +44,12 @@ class Comment extends Component {
         console.log(this.state.user?this.state.user:null)
         console.log(this.props.id)
         console.log(this.state.data)
+        console.log(this.props.isLogined)
         return (
             <Container>
                 {!this.props.isLogined ?
                 <Div>
-                    <Rating loginState = {this.props.loginState} handleLogout={this.props.handleLogout} info={this.state.user} id={this.props.id} data={this.state.data} />
+                    <Rating loginState = {this.props.isLogined} handleLogout={this.props.handleLogout} info={this.state.user} id={this.props.id} data={this.state.data} />
                 </Div> 
                 : this.props.isLogined === true && this.state.user.message === 'written' ?
                 <Div>
@@ -66,7 +57,7 @@ class Comment extends Component {
                 </Div> 
                 :
                 <Div>
-                    <Rating loginState = {this.props.loginState} handleLogout={this.props.handleLogout} info={this.state.user} id={this.props.id} data={this.state.data} />
+                    <Rating loginState = {this.props.isLogined} handleLogout={this.props.handleLogout} info={this.state.user} id={this.props.id} data={this.state.data} />
                 </Div>    
                 }
 

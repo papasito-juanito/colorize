@@ -613,6 +613,8 @@ class MyReviews extends Component {
   render(){
     console.log('filefilefilefile', this.state.file);
     console.log('@@@@@WEFEWFWEFEWFEWFWEFW',this.state.imageAddress);
+    console.log('reviewphotoreviewphotoreviewphotoreviewphoto', this.state.data);
+    
     
     
     let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
@@ -623,6 +625,8 @@ class MyReviews extends Component {
         {this.state.data.length ? <Title> My Reviews </Title> : null}
          {this.state.isLoading? <div style={{display:"none"}}>loading</div> : this.state.data.length ?
          this.state.data.map((item, i) => {
+           console.log('itemitemtitemitemtitem', item);
+           
            return (
             <Container key={i}>
             <Top>           

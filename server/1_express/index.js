@@ -4,7 +4,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const path = require('path');
-const hsts = require('hsts');
+// const hsts = require('hsts');
 
 // Local import
 const { port } = require('./../0_config');
@@ -18,11 +18,11 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use('/api', router);
 app.use('/', express.static(path.join(__dirname, './../../client/build')));
-app.use(hsts({
-  maxAge: 10886400,
-  includeSubDomains: true,
-  preload: true,
-}));
+// app.use(hsts({
+//   maxAge: 10886400,
+//   includeSubDomains: true,
+//   preload: true,
+// }));
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, './../../client/build/index.html'));

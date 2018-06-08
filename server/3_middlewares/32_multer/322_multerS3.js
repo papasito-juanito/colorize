@@ -14,6 +14,7 @@ module.exports = (req, res) => {
   const s3 = new aws.S3({ credentials });
   const upload = multer({
     storage: multerS3({
+      size: 1024,
       s3,
       bucket: (req.headers.id)
         ? `${bucket}/${req.originalUrl.split('/')[2]}/${req.headers.id}`

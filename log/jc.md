@@ -196,3 +196,50 @@ Nginx:
     }
     sudo service nginx restart
     되면 인바운드 8080 지우기!
+
+ALB:
+    로드 밸런서 프로토콜   로드 밸런서 포트  인스턴스 프로토콜   인스턴스 포트
+    HTTP	            80	          HTTP	          80   // 끄면 안됨.
+    HTTP	            8080          HTTP	          80   // 꺼도 됨.
+    HTTPS	            443	          HTTP	          80   // 8080으로 하면 오래걸려서 80으로 바꿈.! 빨라짐
+
+	location / {
+ 
+		if ($http_x_forwarded_proto != "https") {
+			rewrite ^(.*)$ https://$server_name$1 permanent;
+		}
+
+#2018.06.08
+***
+Nginx: 
+  1) 리다이렉트한다는 부분 필요없더라
+    server {
+        listen 80;
+        server_name www.colorize.io;
+        return 301 $scheme://colorize.io;
+    }
+  2) 80포트 요청을 443으로.. https로 리다이렉팅 되지만 접속이 안됨..
+    server {
+        listen 80;
+        server_name colorize.io;
+        return 301 https://$server_name$request_uri;
+    }
+
+    server {
+        listen 443 ssl;
+        server_name colorize.io;
+    }
+  3) 세번째 방법.. 두번째 방법의 443 포트는 빼고
+    server {
+       listen         80;
+       server_name    colorize.io www.colorize.io;
+       rewrite        ^ https://$server_name$request_uri? permanent;
+    }
+
+    server {
+       listen         1443;
+       server_name    colorize.io www.colorize.io;
+   } 
+
+HSTS:
+    Strict-Transport-Security: max-age=31536000;

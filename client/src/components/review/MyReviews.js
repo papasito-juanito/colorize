@@ -561,11 +561,6 @@ class MyReviews extends Component {
     const token = localStorage.getItem('token')
     const file = files[0];
     this.setState({file:file})
-    console.log('file@@@@@@@@@@@@@@ :', file)
-    new ImageCompressor(file, {
-      quality: 0.6,
-      success: (result)=> {
-        console.log('result', result);
         const formData = new FormData();
         formData.append('file', file);
         var mimeType = file.type.split('/')[0];
@@ -579,12 +574,7 @@ class MyReviews extends Component {
             }
           )
           .catch(err => console.log(err))
-          : (alert('이미지 파일만 올릴수있어요'))
-      },
-      error: (e) => {
-        console.log(e.message);
-      },
-    });
+           : this.uploadImage();
     }
 
 
@@ -592,6 +582,12 @@ class MyReviews extends Component {
   goHome = () => {
       this.props.history.push('/')
   }     
+
+    uploadImage() {
+        Modal.error({
+            title: 'Image 파일만 업로드 가능합니다.'
+        });
+    }
 
   componentDidMount(){
 //여기서 내가쓴 리뷰 전체모아오기

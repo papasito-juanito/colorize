@@ -282,6 +282,7 @@ class AllContent extends Component {
                 return axios.get(`${url}/api/review/get/list?color_id=${this.props.id}`, { headers: { 'token': token } })
                 .then(response => {
                     this.setState({ data: response.data.rows })
+                    window.location.reload();
                 })
                 .catch(err => console.log(err))
                 }

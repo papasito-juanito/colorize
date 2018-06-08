@@ -255,12 +255,7 @@ class MyInfo extends Component {
     _onDrop(files, reject){
       const file =  files[0];      
       const token = localStorage.getItem('token')
-      console.log('Dropzoneedklfsjdflksjflsjfs@2@@@ :', file)
       this.setState({file:file})
-      new ImageCompressor(file, {
-        quality: 0.6,
-        success: (result)=> {
-          console.log('result', result);
           const formData = new FormData();
           formData.append('file', file);
           // Send the compressed image file to server with XMLHttpRequest.
@@ -273,11 +268,6 @@ class MyInfo extends Component {
               })
               .catch(err => console.log(err))
               : this.uploadImage();
-        },
-        error: (e) => {
-          console.log(e.message);
-        },
-      });
     }
     //   const formData = new FormData();
     //   formData.append('file', file);

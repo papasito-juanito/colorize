@@ -11,6 +11,7 @@ import { url } from '../../config';
 
 const Container = styled.div`
     height: 100%;
+    width: 80vw;
     margin: 100px 10% 0 10%;
     align-items: center;
 	@media (max-width: 768px) {
@@ -38,7 +39,6 @@ const ReviewDiv = styled.div`
     width: 100%;
     margin-top: 10px;
 	@media (max-width: 768px) {
-		// display: none;
 	}
 `
 
@@ -69,6 +69,9 @@ const Arrow = styled.i`
     display: inline-block;
     padding: 6%;
 `
+
+
+
 const scrollStepInPx = 50;
 const delayInMs = 10;
 
@@ -157,6 +160,7 @@ class Detail extends Component {
                     {this.props.isLogined ? <AllReview handleLogout={handleLogout} id={this.props.match.params.id}/> : <div><h2>전체 리뷰를 보시려면 로그인 해주세요 </h2></div>}
                 </ReviewDiv>
                 <HomeButton onClick={this.scrollToTop}><Arrow/><br/> Top </HomeButton>
+     
         </Container>
         )
     }

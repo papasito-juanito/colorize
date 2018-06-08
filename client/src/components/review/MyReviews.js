@@ -717,7 +717,7 @@ class MyReviews extends Component {
 
                   {!this.state.isReply ? <Modify id={i} onClick={this._reviewDelete}> 삭제</Modify> 
                     : this.state.isReply && this.state.clickedComment === item.review_id ? <Cancel id={i} onClick = {this._reviewCancel} > 취소 </Cancel>
-                    : <Delete id={i} type="dashed" onClick={this._reviewDelete}> 삭제</Delete> }
+                    : <Modify id={i} type="dashed" onClick={this._reviewDelete}> 삭제</Modify> }
 
                   <LikeCount>
                     <Like src={like} />

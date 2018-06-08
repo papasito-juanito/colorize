@@ -19,10 +19,9 @@ app.use(bodyParser.json());
 app.use('/api', router);
 app.use('/', express.static(path.join(__dirname, './../../client/build')));
 app.use(hsts({
-  maxAge: 1234000,
-  setIf(req, res) {
-    return req.secure || (req.headers['x-forwarded-proto'] === 'https');
-  },
+  maxAge: 10886400,
+  includeSubDomains: true,
+  preload: true,
 }));
 
 app.get('*', (req, res) => {

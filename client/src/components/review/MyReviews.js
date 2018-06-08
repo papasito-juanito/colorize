@@ -20,6 +20,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   @media (max-width: 768px) {
       margin-top: 50px;
+      width: 95%;
   }
 `
 const Title = styled.div`

@@ -221,35 +221,6 @@ const UserDiv = styled.div`
     border-radius:50%;
 `
 
-
-const HomeButton = styled.button`
-    position: fixed;
-    background-color:black;
-    color: white;
-    border: none;
-    right:1%;
-    bottom:1%;
-    opacity: 1;
-    width: 4rem;
-    height: 4rem;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    &:hover {
-    opacity: 0.3;
-    border: none;
-  }
-`
-
-const Arrow = styled.i`
-    transform: rotate(-135deg);
-    -webkit-transform: rotate(-135deg);
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    display: inline-block;
-    padding: 6%;
-`
-
 const Loading = styled.div`
     border: 16px solid #f3f3f3;
     border-radius: 50%;
@@ -353,7 +324,8 @@ const customStyles = {
     right: 'auto',
     bottom: 'auto',
     marginRight: '-50%',
-    transform: 'translate(-50%, -50%)'
+    transform: 'translate(-50%, -50%)',
+    color: 'black'
   },
   overlay: {
     position: 'fixed',
@@ -431,7 +403,13 @@ class MyReviews extends Component {
   }
 
   _afterOpenPopup() {
-    this.subtitle.style.color = '#f00';
+    this.subtitle.style.color = 'black';
+    document.getElementById('closebtn').onmouseover = function(){
+      document.getElementById("closebtn").style.textShadow = '0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F'
+    }
+    document.getElementById("closebtn").onmouseout = function() {
+      document.getElementById("closebtn").style.textShadow = 'none'
+    };
   }
 
   _closePopup() {
@@ -657,7 +635,7 @@ class MyReviews extends Component {
             <Top>           
              <ItemLink><Link to={`/items/detail/${item.color_id}`} style={{ textDecoration: 'none' }}>
              <ReviewImage src={item.item_photo} /></Link></ItemLink>
-             <Info >
+             <Info  >
                 <div>{item.name}</div>
                 {/* <div>{item.color}</div> */}
              
@@ -732,7 +710,6 @@ class MyReviews extends Component {
                   <EmptyMessage>Colorize에서 마음에 드는 칼러의 <br/>립스틱을 구경하고 리뷰를 작성해보세요</EmptyMessage>
                   <Emptybtn onClick={this.goHome}>Colorize yourself</Emptybtn>
                 </Empty>}
-        <HomeButton onClick={this.scrollToTop}><Arrow /><br /> Top </HomeButton>
         <RModal
           isOpen={this.state.popupIsOpen}
           onAfterOpen={this._afterOpenPopup}
@@ -742,7 +719,7 @@ class MyReviews extends Component {
         >
           <h2 ref={subtitle => this.subtitle = subtitle}>Review Image</h2>
           <div style={{ width: '50vh' }}>{popupImage}</div>
-          <button style={{ cursor: 'pointer' }} onClick={this._closePopup}>close</button>
+          <button id='closebtn' style={{ marginTop: '10px', fontWeight:'100', fontFamily:'Roboto', cursor: 'pointer', border:'0', outline:'0', backgroundColor:'black', color: 'white'  }} onClick={this._closePopup}>close</button>
         </RModal>
       </Wrapper>
       </div>

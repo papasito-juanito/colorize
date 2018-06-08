@@ -10,6 +10,7 @@ import { Modal } from 'antd';
 import { Link } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import Dropzone from 'react-dropzone';
+import ImageCompressor from 'image-compressor.js';
 
 
 
@@ -583,21 +584,33 @@ class MyReviews extends Component {
     const file = files[0];
     this.setState({file:file})
     console.log('file@@@@@@@@@@@@@@ :', file)
-    const formData = new FormData();
-    formData.append('file', file);
-    var mimeType = file.type.split('/')[0];
-    mimeType === 'image' ?
-    axios.post(`${url}/api/user/post/upload`, formData, { headers: { 'token': token} } )
-        .then(response => {
-            this.setState({
-              imageAddress : response.data.message,
-            })
-            document.getElementById('imgloading').style.display = 'inline-block'
-        }
-      )
-      .catch(err => console.log(err))
-      : (alert('이미지 파일만 올릴수있어요'))
+    new ImageCompressor(file, {
+      quality: 0.6,
+      success: (result)=> {
+        console.log('result', result);
+        const formData = new FormData();
+        formData.append('file', file);
+        var mimeType = file.type.split('/')[0];
+        mimeType === 'image' ?
+        axios.post(`${url}/api/user/post/upload`, formData, { headers: { 'token': token} } )
+            .then(response => {
+                this.setState({
+                  imageAddress : response.data.message,
+                })
+                document.getElementById('imgloading').style.display = 'inline-block'
+            }
+          )
+          .catch(err => console.log(err))
+          : (alert('이미지 파일만 올릴수있어요'))
+      },
+      error: (e) => {
+        console.log(e.message);
+      },
+    });
     }
+
+
+
   goHome = () => {
       this.props.history.push('/')
   }     

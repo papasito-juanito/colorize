@@ -253,6 +253,7 @@ class MyInfo extends Component {
     }
 
     _onDrop(files, reject){
+
       const file =  files[0];      
       const token = localStorage.getItem('token')
       const formData = new FormData();
@@ -270,20 +271,6 @@ class MyInfo extends Component {
               .catch(err => console.log(err)))
               : this.uploadImage();
     }
-    //   const formData = new FormData();
-    //   formData.append('file', file);
-    //   console.log('file@@@@@@@@@@', file)
-    //   console.log(file.type)
-    //   var mimeType = file.type.split('/')[0];
-    //     mimeType === 'image' ?
-    //     axios.post(`${url}/api/user/post/upload`, formData, { headers: { 'token': token} } )
-    //       .then(response => {
-    //           console.log(response)
-    //           this.setState({imageAddress : response.data.message})
-    //         })
-    //         .catch(err => console.log(err))
-    //         : this.uploadImage();
-    // }
 
     _passwordConfirm(){
       console.log(this.password.value.length)

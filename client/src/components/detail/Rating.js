@@ -111,7 +111,7 @@ const ChangePic = styled.img `
   justify-content: center;
   width: 80%;
   height: 80%;
-  border-radius: 50%;
+  border-radius: 5px;
   object-fit: cover;
 `
 
@@ -197,7 +197,7 @@ class Rating extends Component {
       const file =  files[0];
       this.setState({file})
       new ImageCompressor(file, {
-        quality: 0.6,
+        quality: 0.2,
         success: (result)=> {
             const formData = new FormData();
             formData.append('file', file);

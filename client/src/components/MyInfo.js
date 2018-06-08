@@ -26,6 +26,7 @@ const Container = styled.div`
   margin: 0px auto;
   @media (max-width: 768px) {
     width: 90%;
+    padding-top: 70px;
   }
   `
 const Header = styled.h1`

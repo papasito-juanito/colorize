@@ -253,7 +253,7 @@ class MyInfo extends Component {
     }
 
     _onDrop(files, reject){
-      const file =  files[0];
+      const file =  files[0];      
       const token = localStorage.getItem('token')
       console.log('Dropzoneedklfsjdflksjflsjfs@2@@@ :', file)
       this.setState({file:file})

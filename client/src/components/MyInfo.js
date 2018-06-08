@@ -158,7 +158,6 @@ const CancelButton = styled.button `
         opacity: 1;
     }
 `
-const token = localStorage.getItem('token')
 
 class MyInfo extends Component {
     constructor(){
@@ -193,13 +192,15 @@ class MyInfo extends Component {
     }
 
     componentDidMount(){
+      const token = localStorage.getItem('token')
       axios.get(`${url}/api/user/get/info`, {headers: { 'token': token }})
         .then(response =>{
+          console.log('myinforesresresresresresresrsersers', response);
             if(response.data.success===true){
               this.setState({data : response.data.rows[0]})
-            }else {
+            }else if(response.data.success===false) {
               this.props.handleLogout()
-              this.props.history.push('/login', {from: this.props.location})
+              // this.props.history.push('/login', {from: this.props.location})
             }
           }) 
 

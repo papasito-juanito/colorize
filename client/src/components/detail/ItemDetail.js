@@ -108,8 +108,9 @@ const ChartDiv = styled.div`
 const Description = styled.div`
   width: 100%;
   height: 8.5vw;
-  font-size : 0.7em;
-  border: solid green 1px;
+  font-size : 1vw;
+  border: solid blue 2px;
+  padding: 0.5vw;
   @media (max-width: 768px) {
       display: none;
   }

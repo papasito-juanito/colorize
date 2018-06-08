@@ -52,14 +52,19 @@ class Allreview extends Component{
     render(){
         return(
             <Div>
+                 {this.state.data.length !== 0 ?
+                 <div>
                 <TopDiv>
                     <TitleDiv>All Reviews</TitleDiv>
                     <Border/>
                 </TopDiv>
                 <BottomDiv>
-                    {this.state.data.length !== 0 ? <AllReviews id = {this.props.id} data={this.state.data}/> : <div> <h2>등록된 리뷰가 없어요</h2></div>}
-                </BottomDiv>
+                    <AllReviews id = {this.props.id} data={this.state.data}/> 
+                </BottomDiv> 
+                </div>
+              : null}
             </Div>
+              
         )
     }
 

@@ -12,50 +12,72 @@ const Wrapper = styled.div`
     height: 100%;
     display: flex;
     background-color: white;
-    border: solid red 2px;
     @media (max-width: 768px) {
         flex-direction: column;
-        height: 30vh;
     }
 `
 const TopWrite = styled.div`
-    border: solid orange 2px;
-    width: 35vw;
+    width: 32vw;
     display: flex;
-    margin: 0;
     @media (max-width: 768px) {
-        width: 1g00%;
+        width: 100%;
         height: 15vh;
+        margin-bottom: 1%;
     }
 `
 const RatingDiv = styled.div`
-    width: 45%;
+    width: 15vw;
     height: 100%;
+    margin-right: 1vw;
+    position: relative;
+    border: 1px solid black;
+    @media (max-width: 768px) {
+    width: 33vw;
+    }
+`
+const CenterDiv = styled.div`
+    position : absolute;
+    margin: auto;
+    top : 50%;
+    left : 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
-    padding: 4% 0 0 0;
-    box-sizing: border-box; 
-    float: left;
-    border: 1px solid green;
+    width: 80%;
 `
-
+const ReviewImage = styled.img`
+    width: 100%;
+    height: 100%;
+`
 const ImageDiv = styled.div `
-    width: 55%;
-    border: 1px solid black
-
+    width: 16vw;
+    height: 100%;
+    margin-right: 1vw;
+    border: 1px solid black;
+    @media (max-width: 768px) {
+    width: 47vw;
+    margin : 0;
+    }
 `
-
 const ReviewDiv = styled.div`
-    width: 45vw;
-    border: solid pink 2px;
+    width: 47vw;
+    border: 1px solid black;
     @media (max-width: 768px) {
         width: 100%;
         height: 20vh;
     }
 `
+const BottomContainer = styled.div`
+    display: flex;
+    padding-right: 1%;
+    justify-content: flex-end;
+`
+
 const TextArea = styled.textarea`
-    width: 100%;
+    width: 98%;
     height: 70%;
-    margin: 5px 5px 0 0;
+    margin: 1%;
+    resize : none;
+    border-radius : 5px;
     background-color: #F6F6F6;
 `
 const Button = styled.button`
@@ -111,19 +133,15 @@ class Rating extends Component {
         const form = {
             color_id: this.props.id,
             reviewPhoto: this.state.imageAddress,
-            // reviewPhoto: 3,
             reviewRating: this.state.rating,
             reviewMessage: this.input.value
         }
-
-        // console.log(form)
         this.props.loginState === false ? (alert('로그인이 필요한 서비스 입니다.'), this.props.handleLogout()) :
         !this.state.imageAddress ? alert('사진 등록은 필수입니다') : 
              (axios.post(`${url}/api/review/post/message`, form, { headers: { 'token': token } })
                 .then((response) => {
                 console.log(response);
                 })
-                // .then(response => this.setState({ data: response.data }))
                 .catch(err => console.log(err))
             ,this.input.value = '', window.location.reload())
     }
@@ -142,25 +160,27 @@ class Rating extends Component {
         const { rating } = this.state;
         return (
             <Wrapper>
-                <TopWrite id="TOPWRITE">
+                <TopWrite>
                     <RatingDiv>
-                        <h6>평점을 입력해주세요</h6>
-                        <StarRatingComponent
-                            name="평점"
-                            value={rating}
-                            onStarClick={this._onStarClick}
-                        />
+                        <CenterDiv>
+                            <div>평점 입력해 주세요</div>
+                            <StarRatingComponent
+                                name="평점"
+                                value={rating}
+                                onStarClick={this._onStarClick}
+                            />
+                        </CenterDiv>
                     </RatingDiv>
                     <ImageDiv>
-                        < img src = {!this.state.imagepreviewUrl ? null : this.state.imageAddress ? this.state.imageAddress : 'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'} style = {{border: '1px solid black', width:'100%', height:'100%'}}/>
+                        <ReviewImage src = {!this.state.imagepreviewUrl ? null : this.state.imageAddress ? this.state.imageAddress : 'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'}/>
                     </ImageDiv>                   
                 </TopWrite>
                 <ReviewDiv>
                     <TextArea placeholder='사용 후기를 입력해주세요.' innerRef={ref => { this.input = ref; }} /><br />
-                    <div style={{display : 'flex',  justifyContent : 'flex-end'}}>
+                    <BottomContainer>
                      <FileUpload imagePreview = {this._imagePreview} callback={this._callback.bind(this)} id={this.props.id} />
                     <Button onClick={() => { this._alertReview(); this._clickReview() }}>등록</Button>
-                    </div>
+                    </BottomContainer>
                 </ReviewDiv>
             </Wrapper>
 

@@ -196,24 +196,16 @@ class Rating extends Component {
     _onDrop(files, reject){
       const file =  files[0];
       this.setState({file})
-      new ImageCompressor(file, {
-        quality: 0.2,
-        success: (result)=> {
-            const formData = new FormData();
-            formData.append('file', file);
-            var mimeType = file.type.split('/')[0];
-            mimeType === 'image' ?
-             axios.post(`${url}/api/review/post/upload`, formData, { headers: { 'token': token} } )
-             .then(response => {
-                this.setState({imageAddress : response.data.message})
-             })
-               .catch(err => console.log(err))
-               : this.uploadImage();
-        },
-        error: (e) => {
-          console.log(e.message);
-        },
-      });
+        const formData = new FormData();
+        formData.append('file', file);
+        var mimeType = file.type.split('/')[0];
+        mimeType === 'image' ?
+            axios.post(`${url}/api/review/post/upload`, formData, { headers: { 'token': token} } )
+            .then(response => {
+            this.setState({imageAddress : response.data.message})
+            })
+            .catch(err => console.log(err))
+            : this.uploadImage();
     }
 
     render() {

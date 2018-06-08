@@ -248,7 +248,7 @@ class TopContent extends Component {
     _reviewLike(e) {
         console.log('fromallreview', this.props.data);
         console.log(e.target.id);
-        
+        const data = [];
         const token = localStorage.getItem('token')
         const reviewId = e.target.id
         const form = {
@@ -258,13 +258,18 @@ class TopContent extends Component {
         console.log('formformform', form);
         
         axios.post(`${url}/api/review/update/like`,form, { headers: { 'token': token } })
+        
             .then((res) => {
                 console.log('resresresrse', res);
                 
                 return axios.get(`${url}/api/review/get/rank?color_id=${this.props.id}`, { headers: { 'token': token } })
                 .then(response => {
-                    console.log('reviewlikeresponse', response);    
-                    this.setState({ data: response.data.rows })
+                    for(var i = 0; i< response.data.rows.length; i++){
+                        if(response.data.rows[i].likes>0){
+                        data.push(response.data.rows[i])
+                    }
+                }
+                    this.setState({ data: data })
                     // window.location.reload()
                 })
                 .catch(err => console.log(err))

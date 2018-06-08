@@ -57,7 +57,7 @@ class TopReview extends Component {
             <Div>
                  {this.state.topReview.length !== 0 ?
                 <TopDiv>
-                    <TitleDiv>Top Reviews</TitleDiv>
+                    <TitleDiv><h2>Top Reviews</h2></TitleDiv>
                     <Border/>
                 </TopDiv>
                 : null}

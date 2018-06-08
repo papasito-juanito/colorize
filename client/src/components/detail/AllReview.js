@@ -12,7 +12,7 @@ const Div = styled.div`
 
 const Container = styled.div`
     @media (max-width: 768px) {
-         display : none
+        //  display : none
     }
 `
 const TopDiv = styled.div `

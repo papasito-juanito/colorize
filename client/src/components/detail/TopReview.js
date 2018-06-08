@@ -27,7 +27,6 @@ const BottomDiv = styled.div`
     height: 85%;
 `
 
-
 class TopReview extends Component {
     constructor(props) {
         super(props);
@@ -40,13 +39,11 @@ class TopReview extends Component {
         const token = localStorage.getItem('token')
         axios.get(`${url}/api/review/get/rank?color_id=${this.props.id}`, token !== null ? { headers: { 'token': token} }: null)
             .then(response => {
-                console.log('previous data:', response.data.rows)
                 for(var i = 0; i< response.data.rows.length; i++){
                     if(response.data.rows[i].likes>0){
                         data.push(response.data.rows[i])
                     }
                 }
-                  console.log('after data:', data)
                 this.setState({ topReview: data})
             })
             .catch(err => console.log(err));

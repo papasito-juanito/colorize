@@ -195,7 +195,6 @@ class MyInfo extends Component {
       const token = localStorage.getItem('token')
       axios.get(`${url}/api/user/get/info`, {headers: { 'token': token }})
         .then(response =>{
-          console.log('myinforesresresresresresresrsersers', response);
             if(response.data.success===true){
               this.setState({data : response.data.rows[0]})
             }else if(response.data.success===false) {

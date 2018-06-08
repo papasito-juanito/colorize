@@ -9,10 +9,9 @@ const Div = styled.div`
      width: 100%;
      height: 100%;
 `
-
 const Container = styled.div`
     @media (max-width: 768px) {
-        //  display : none
+        display : ${props => props.display ? 'block' : 'none'}
     }
 `
 const TopDiv = styled.div `
@@ -32,24 +31,29 @@ const BottomDiv = styled.div `
     width: 100%;
     height: 85%;
 `
-const Button = styled.button `
+const ReviewDiv = styled.div `
+    width: 100%;
+    cursor: pointer;
     display: none;
     @media (max-width: 768px) {
-        display: inline-block;
+        display : inline-block;
 	}
 
 `
-
 
 class Allreview extends Component{
     constructor(){
         super()
         this.state = {
             data : '',
-            display: true
+            display: false
         }
+        this.allReview = this.allReview.bind(this);
     }
 
+    allReview(){
+        this.setState({display : !this.state.display})
+    }
 
     componentDidMount() {
         const token = localStorage.getItem('token')
@@ -68,7 +72,7 @@ class Allreview extends Component{
         return(
             <Div>
                  {this.state.data.length !== 0 ?
-                 <Container>
+                 <Container display={this.state.display}>
                 <TopDiv>
                     <TitleDiv><h2>All Reviews</h2></TitleDiv>
                     <Border/>
@@ -78,6 +82,7 @@ class Allreview extends Component{
                 </BottomDiv> 
                 </Container>
               : <div><h2>등록된 리뷰가 없습니다</h2></div>}
+              <ReviewDiv onClick={this.allReview}>{!this.state.display ? '전체 리뷰 보기 >' : '전체 리뷰 닫기 <'}  </ReviewDiv>
             </Div>  
               
         )

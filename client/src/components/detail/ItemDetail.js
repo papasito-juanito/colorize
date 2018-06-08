@@ -20,6 +20,7 @@ const customStyles = {
     transform: 'translate(-50%, -50%)',
   },
 };
+
 const Wrapper = styled.div`
     height: 100%;
     width: 49.5vw;
@@ -37,7 +38,6 @@ const Top = styled.div`
     @media (max-width: 768px) {
       flex-direction: column;
       height: 100%;
- 
   	}
 `;
 const DetailDiv = styled.div`
@@ -58,9 +58,9 @@ const DetailDiv = styled.div`
     border : none
     text-align: center;
     margin-top: 1%;
-    
   }
 `;
+
 const Name = styled.div`
   font-size: 1.5rem;
   font-weight: bold;
@@ -127,7 +127,6 @@ class DetailRight extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      like: false,
       data: '',
       popupIsOpen: false,
     };
@@ -137,15 +136,10 @@ class DetailRight extends Component {
   }
 
   componentDidMount() {
-    // axios.get(`${url}/api/item/rate?color_id=${this.props.match.params.id}`)
-    // console.log(this.detail.offsetHeight)
     axios.get(`${url}/api/item/get/rate?color_id=${this.props.id}`)
-    // .then((response) => {
-    //     console.log(response.data);
-    //   })
-      .then(response => this.setState({
-        data: response.data.rows,
-      }))
+      .then(response => 
+        this.setState({data: response.data.rows})
+      )
       .catch(err => console.log(err));
   }
 
@@ -165,26 +159,25 @@ class DetailRight extends Component {
 
 
   render() {
-    console.log(this.props.data);
     return (
       <Wrapper>
         <Top>
-        <DetailDiv>
-            <Name>{this.props.data ? this.props.data[0].name : null}</Name>
-            <Brand>{this.props.data ? this.props.data[0].brand : null}</Brand>
-            <Category>{this.props.data ? this.props.data[0].category : null}</Category>
-            <ColorName color={this.props.data? this.props.data[0].hex : null}>{this.props.data ? this.props.data[0].color : null}
-              <ColorBox color={this.props.data? this.props.data[0].hex : null}/>
-            </ColorName>
-            <VolPrice>
-            <div>{this.props.data ? this.props.data[0].volume : null} /&nbsp; </div> 
-              <NumberFormat value={this.props.data ? this.props.data[0].price : 0} displayType="text" thousandSeparator suffix="원" />
-            </VolPrice>
-            <More onClick={this._openPopup}>상세정보</More>
-        </DetailDiv>
-        <ChartDiv>
-              <Chart data={this.state.data} />
-        </ChartDiv>
+          <DetailDiv>
+              <Name>{this.props.data ? this.props.data[0].name : null}</Name>
+              <Brand>{this.props.data ? this.props.data[0].brand : null}</Brand>
+              <Category>{this.props.data ? this.props.data[0].category : null}</Category>
+              <ColorName color={this.props.data? this.props.data[0].hex : null}>{this.props.data ? this.props.data[0].color : null}
+                <ColorBox color={this.props.data? this.props.data[0].hex : null}/>
+              </ColorName>
+              <VolPrice>
+                <div>{this.props.data ? this.props.data[0].volume : null} /&nbsp; </div> 
+                <NumberFormat value={this.props.data ? this.props.data[0].price : 0} displayType="text" thousandSeparator suffix="원" />
+              </VolPrice>
+              <More onClick={this._openPopup}>상세정보</More>
+          </DetailDiv>
+          <ChartDiv>
+            <Chart data={this.state.data} />
+          </ChartDiv>
         </Top>
         <Description>
           <LinesEllipsis

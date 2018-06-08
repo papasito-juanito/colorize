@@ -77,7 +77,7 @@ class Allreview extends Component{
                     <AllReviews id = {this.props.id} data={this.state.data}/> 
                 </BottomDiv> 
                 </Container>
-              : null}
+              : <div><h2>등록된 리뷰가 없습니다</h2></div>}
             </Div>  
               
         )

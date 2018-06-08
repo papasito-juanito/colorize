@@ -670,7 +670,8 @@ class MyReviews extends Component {
                        <div style= {{width: '100%', height:'90%'}}>
                         {this.state.file ? 
                         <img id='imgloading' style = {{ verticalAlign:'middle', width:'90%', height:'90%', borderRadius:'50%'}} 
-                        src= {this.state.imageAddress ? this.state.file.preview : 'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'} />:null}
+                        src= {this.state.imageAddress ? this.state.file.preview : 'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'} />
+                        :<img src={item.review_photo} style={{width:'90%', height:'90%'}}/>}
                       </div>
                   </div>      
                 </Dropzone>

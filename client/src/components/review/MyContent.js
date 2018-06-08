@@ -218,7 +218,6 @@ const Span = styled.span `
     }
     @media (max-width: 360px) {
     font-size: 0.8rem;
-
     }
 `
 const Button = styled.button`

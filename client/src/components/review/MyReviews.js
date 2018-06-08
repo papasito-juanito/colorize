@@ -10,6 +10,7 @@ import { Modal } from 'antd';
 import { Link } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import Dropzone from 'react-dropzone';
+import ImageCompressor from 'image-compressor.js';
 
 
 
@@ -172,13 +173,16 @@ const Modify = styled.button`
     font-size: 0.8rem;    
     width: 60px;
     height: 30px;
-    color: black;
+    color: white;
     border: none;
     cursor: pointer;
     padding: 3px 7px 3px 7px;
     margin: 5px 10px 5px 0px;
+    border: 0;
+    outline:0;
+    background-color: black;
     &:hover {
-        background-color: RoyalBlue;
+      text-shadow: 0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F;
     }
     @media (max-width: 768px) {
       font-size: 0.6rem;
@@ -188,18 +192,26 @@ const Modify = styled.button`
 `
 const Cancel = styled.button`
     font-size: 0.8em;    
-    width: 7%;
-    height: 70%;
-    color: black;
-    top: 10%;
-    left: 15%;
+    width: 60px;
+    height: 30px;
+    color: white;
+    padding: 3px 7px 3px 7px;
+    margin: 5px 10px 5px 24px;
+    background-color: black
+    left: 60px
     position: absolute
-    border-radius: 50%;
-    border: none;
+    border: 0;
+    outline:0;
     cursor: pointer;
     &:hover {
-        background-color: red;
+      text-shadow: 0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F;
     }
+    @media (max-width: 768px) {
+      font-size: 0.6rem;
+      height: 20px;
+      width: 50px;
+      margin: 5px 10px 5px 3%;
+  }
 `
 
 const UserDiv = styled.div`
@@ -207,35 +219,6 @@ const UserDiv = styled.div`
     width: 20%;
     height: 30%;
     border-radius:50%;
-`
-
-
-const HomeButton = styled.button`
-    position: fixed;
-    background-color:black;
-    color: white;
-    border: none;
-    right:1%;
-    bottom:1%;
-    opacity: 1;
-    width: 4rem;
-    height: 4rem;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    &:hover {
-    opacity: 0.3;
-    border: none;
-  }
-`
-
-const Arrow = styled.i`
-    transform: rotate(-135deg);
-    -webkit-transform: rotate(-135deg);
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    display: inline-block;
-    padding: 6%;
 `
 
 const Loading = styled.div`
@@ -572,21 +555,33 @@ class MyReviews extends Component {
     const file = files[0];
     this.setState({file:file})
     console.log('file@@@@@@@@@@@@@@ :', file)
-    const formData = new FormData();
-    formData.append('file', file);
-    var mimeType = file.type.split('/')[0];
-    mimeType === 'image' ?
-    axios.post(`${url}/api/user/post/upload`, formData, { headers: { 'token': token} } )
-        .then(response => {
-            this.setState({
-              imageAddress : response.data.message,
-            })
-            document.getElementById('imgloading').style.display = 'inline-block'
-        }
-      )
-      .catch(err => console.log(err))
-      : (alert('이미지 파일만 올릴수있어요'))
+    new ImageCompressor(file, {
+      quality: 0.6,
+      success: (result)=> {
+        console.log('result', result);
+        const formData = new FormData();
+        formData.append('file', file);
+        var mimeType = file.type.split('/')[0];
+        mimeType === 'image' ?
+        axios.post(`${url}/api/user/post/upload`, formData, { headers: { 'token': token} } )
+            .then(response => {
+                this.setState({
+                  imageAddress : response.data.message,
+                })
+                document.getElementById('imgloading').style.display = 'inline-block'
+            }
+          )
+          .catch(err => console.log(err))
+          : (alert('이미지 파일만 올릴수있어요'))
+      },
+      error: (e) => {
+        console.log(e.message);
+      },
+    });
     }
+
+
+
   goHome = () => {
       this.props.history.push('/')
   }     
@@ -693,7 +688,7 @@ class MyReviews extends Component {
 
                   {!this.state.isReply ? <Modify id={i} onClick={this._reviewDelete}> 삭제</Modify> 
                     : this.state.isReply && this.state.clickedComment === item.review_id ? <Cancel id={i} onClick = {this._reviewCancel} > 취소 </Cancel>
-                    : <Delete id={i} type="dashed" onClick={this._reviewDelete}> 삭제</Delete> }
+                    : <Modify id={i} type="dashed" onClick={this._reviewDelete}> 삭제</Modify> }
 
                   <LikeCount>
                     <Like src={like} />
@@ -708,7 +703,6 @@ class MyReviews extends Component {
                   <EmptyMessage>Colorize에서 마음에 드는 칼러의 <br/>립스틱을 구경하고 리뷰를 작성해보세요</EmptyMessage>
                   <Emptybtn onClick={this.goHome}>Colorize yourself</Emptybtn>
                 </Empty>}
-        <HomeButton onClick={this.scrollToTop}><Arrow /><br /> Top </HomeButton>
         <RModal
           isOpen={this.state.popupIsOpen}
           onAfterOpen={this._afterOpenPopup}

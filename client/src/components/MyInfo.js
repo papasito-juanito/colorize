@@ -9,6 +9,7 @@ import { url } from '../config';
 import { Link } from 'react-router-dom';
 import Dropzone from 'react-dropzone';
 import avatar from '../assets/profile.png';
+import ImageCompressor from 'image-compressor.js';
 
 import { Modal, Button } from 'antd';
 import 'antd/dist/antd.css';
@@ -33,7 +34,7 @@ const Header = styled.h1`
   letter-spacing: -1px;
   text-align: center;
 `
-// font-family:;
+
 const Table = styled.table`
   width: 100%;
   border-top: 2px solid black;
@@ -134,14 +135,6 @@ const ChangePic = styled.img`
   height: 80%;
   border-radius: 50%;
   object-fit: cover;
-  // @media (max-width: 700px) {
-  //   width: 25vw;
-  //   height: 25vw;
-  // }
-  // @media (max-width: 500px) {
-  //   width: 35vw;
-  //   height: 35vw;
-  // }
 `
 const Img = styled.img`
   width: 80%;
@@ -165,7 +158,7 @@ const CancelButton = styled.button `
         opacity: 1;
     }
 `
-//닉네임 중복확인 api 비밀번호 확인 api  validation 확인 
+const token = localStorage.getItem('token')
 
 class MyInfo extends Component {
     constructor(){
@@ -177,15 +170,11 @@ class MyInfo extends Component {
           nickName : false,
           colorSelected : '',
           validate : true,
-          files:'',
-          imagepreviewUrl: '',
-          photos:'',
+          file:'',
           confirmPassword : '',
           confirmNickname :'',
           minNum : '',
-          filetype:'',
-          imageAddress : ''
-          
+          imageAddress: ''
         }
 
         this._toneChange = this._toneChange.bind(this);
@@ -204,7 +193,6 @@ class MyInfo extends Component {
     }
 
     componentDidMount(){
-      const token = localStorage.getItem('token');
       axios.get(`${url}/api/user/get/info`, {headers: { 'token': token }})
         .then(response =>{
             if(response.data.success===true){
@@ -216,43 +204,29 @@ class MyInfo extends Component {
           }) 
 
     }
-    // _submitImg(){
-    //      axios.post(`${url}/test`, {'base64' :this.state.imagepreviewUrl, 'mail' : this.state.data.mail})
-    //        .then((result) => {
-    //          console.log(result)
-    //        })
-    //        .catch(err => console.log(err))
 
-    // }
     _toneChange(){
-   
       this.setState({tone : !this.state.tone})
     }
 
     _confirmNickname(){
       const token = localStorage.getItem('token')
-      console.log(this.password.value)
       const form = {
         userName: this.nickname.value
       }
-        axios.post(`${url}/api/user/update/username`, form, {
-          headers: {
-            'token': token
-          }
-        })
-            .then(response => {
-              console.log(response.data.success)
-             
-            
-              this.nickname.value.length < 5 ? (this.setState({confirmNickname : false}), this.nickerror()) : response.data.success === false ? (this.setState({confirmNickname : false}), this.nickDuperror()) : (this.setState({confirmNickname : true}), this.nicksuccess())  
-            }
-            )
-            .catch(err => console.log(err));
+        axios.post(`${url}/api/user/update/username`, form, { headers: {'token': token}})
+          .then(response => {
+            this.nickname.value.length < 5 || this.nickname.value.length >= 10 ?
+            (this.setState({confirmNickname : false}), this.nickerror()) 
+            : response.data.success === false ?
+              (this.setState({confirmNickname : false}), this.nickDuperror()) :
+              (this.setState({confirmNickname : true}), this.nicksuccess())  
+          })
+          .catch(err => console.log(err));
     }
 
     _nicknameOnchange(){
-     console.log(this.nickname.value)
-     this.nickname.value.length <5 ? this.setState({confirmNickname : false}) : null;
+    this.nickname.value.length <5 ? this.setState({confirmNickname : false}) : null;
     }
 
     _photoChange(){
@@ -260,157 +234,84 @@ class MyInfo extends Component {
     }
 
     _nickNameChange(){
-           
       this.setState({nickName : !this.state.nickName})
     }
 
-
-
     _comparePassword(){
-      console.log(this.newPassword.value)
-      console.log(this.confirmPassword.value)
-      // !this.password.value ? this.setState({validate : false}) :
       this.newPassword.value !== this.confirmPassword.value ? 
        this.setState({validate : false})
-        // alert('입력한 비밀번호가 일치하지 않습니다') 
-      
-       : 
-       this.setState({validate : true})
-      // alert('ok');
+       : this.setState({validate : true})
     }
 
     _passwordInput(){
-      !this.newPassword.value ? alert('새로운 패스워드를 먼저 입력해주세요') : null;
+      !this.newPassword.value ? this.newPasswordFirst() : null;
     }
 
     _onColorSelect(option) {
-      console.log(option.value)
       this.setState({ colorSelected: option.value })
     }
 
-    _onDrop(files){
+    _onDrop(files, reject){
+      const file =  files[0];
       const token = localStorage.getItem('token')
-      const file = files[0];
+      console.log('Dropzoneedklfsjdflksjflsjfs@2@@@ :', file)
       this.setState({file:file})
-      console.log('file@@@@@@@@@@@@@@ :', file)
-      const formData = new FormData();
-      formData.append('file', file);
-      var mimeType = file.type.split('/')[0];
-        mimeType === 'image' ?
-        axios.post(`${url}/api/user/post/upload`, formData, { headers: { 'token': token} } )
-
+      new ImageCompressor(file, {
+        quality: 0.6,
+        success: (result)=> {
+          console.log('result', result);
+          const formData = new FormData();
+          formData.append('file', file);
+          // Send the compressed image file to server with XMLHttpRequest.
+          var mimeType = file.type.split('/')[0];
+          mimeType === 'image' ?
+          axios.post(`${url}/api/user/post/upload`, formData, { headers: { 'token': token} } )
             .then(response => {
                 console.log(response)
                 this.setState({imageAddress : response.data.message})
-              
-
-            }
-
-            )
-            .catch(err => console.log(err))
-            : (alert('Image 파일만 올릴수있어요'))
-
-          
-      // console.log(mimeType)
-      // console.log(files)
-      // console.log(file)
-      // console.log('file.preview@@@@@@@@@@@@@@@@ :', file.preview)
-      // console.log(typeof file)
-      //  let reader = new FileReader();
-
-      // typeof file === 'string'||'object' ? reader.readAsDataURL(file) :alert('적당한형식이 아닙니당')
-          // reader.readAsDataURL(file)
-          //    reader.onload = () => {
-          //      this.setState({
-          //        file:file,
-          //        imagepreviewUrl: reader.result
-          //      })
-          //    }
-            //  console.log(this.state.imagepreviewUrl)
-      
-
-      // var options = {
-      //     headers : {
-      //       'content-type': "application/json"
-      //     //  'multipart/form-data'
-      //     }
-      //   }
-   
-      }
-
-            // axios.get(`${url}`, {
-            //     filename: file.name,
-            //     filetype: file.type
-            // })
-            // .then((result) => {
-            //   var signedUrl = result.data.signedUrl;
-
-    // this.setState({
-    //   files
-    // });
-  // files.forEach(file => {
-  //   const reader = new FileReader();
-  //   reader.onload = () => {
-  //     const fileAsBinaryString = reader.result;
-  //     // do whatever you want with the file content
-  //   };
-  //   reader.onabort = () => console.log('file reading was aborted');
-  //   reader.onerror = () => console.log('file reading has failed');
-
-  //   reader.readAsBinaryString(file);
-  // });
-// }
-
-
-
-      // var file = files[0];
-      // console.log(file)
-      // var options = {
-      //    headers : {
-      //      'content-type': file.type
-      //     //  'multipart/form-data'
-      //    }
-      //   }
-      // axios.post(`${url}/update`, file, options)
-      //   .then((result) => {
-      //       console.log(result)
-      //   })
-      //   .catch(err => console.log(err))
-      // }
-
-      // axios.get(`${url}`, {
-      //     filename: file.name,
-      //     filetype: file.type
-      // })
-      // .then((result) => {
-      //   var signedUrl = result.data.signedUrl;
-      // })
+              })
+              .catch(err => console.log(err))
+              : this.uploadImage();
+        },
+        error: (e) => {
+          console.log(e.message);
+        },
+      });
+    }
+    //   const formData = new FormData();
+    //   formData.append('file', file);
+    //   console.log('file@@@@@@@@@@', file)
+    //   console.log(file.type)
+    //   var mimeType = file.type.split('/')[0];
+    //     mimeType === 'image' ?
+    //     axios.post(`${url}/api/user/post/upload`, formData, { headers: { 'token': token} } )
+    //       .then(response => {
+    //           console.log(response)
+    //           this.setState({imageAddress : response.data.message})
+    //         })
+    //         .catch(err => console.log(err))
+    //         : this.uploadImage();
+    // }
 
     _passwordConfirm(){
       console.log(this.password.value.length)
     }
 
     _minNumber(){
-      this.newPassword.value.length <5 ? this.setState({minNum : false}) : this.setState({minNum : true})
+      this.newPassword.value.length <5 || this.newPassword.value.length <= 10 ? this.setState({minNum : false}) : this.setState({minNum : true})
     }
 
     _passwordCompare(){
-      const token = localStorage.getItem('token')
-      console.log(token)
-      console.log(this.password.value)
       const form = {
         userPassword : this.password.value
       }
         axios.post(`${url}/api/user/update/password`, form, { headers: { 'token': token} })
-            .then(response => {
-              console.log(response.data)
-            
+            .then(response => {            
               response.data.success === true || !this.password.value ? this.setState({confirmPassword : true}) : this.setState({confirmPassword : false})
             })
             .catch(err => console.log(err));
     }
-
-
+    
     success() {
       Modal.success({
         title: '정보가 수정되었습니다.',
@@ -424,7 +325,6 @@ class MyInfo extends Component {
       Modal.success({
         title: '사용가능한 닉네임입니다.',
         onOk: ()=> {
-          window.location.reload()
         }
       });
     }
@@ -437,7 +337,7 @@ class MyInfo extends Component {
 
     nickerror() {
       Modal.error({
-        title: '닉네임은 5글자 이상 이어야 합니다.'
+        title: '닉네임은 5글자 이상 10글자 이하여야 합니다.'
       });
     }
 
@@ -447,29 +347,37 @@ class MyInfo extends Component {
       });
     }
 
+    newPasswordFirst(){
+      Modal.error({
+        title: '새로운 패스워드를 먼저 입력해 주세요.'
+      });
+    }
+
+    uploadImage(){
+      Modal.error({
+        title: 'Image 파일만 업로드 가능합니다.'
+      });
+    }
+
     _submit(){
       const token = localStorage.getItem('token')
       const form = {
         userPassword : this.newPassword.value || undefined, 
-        userName : this.nickname.value, 
+        userName : this.nickname.value || this.state.data.name,
         userPhoto: this.state.imageAddress || this.state.data.user_photo,
         toneName : this.state.colorSelected || this.state.data.tone
 
       }
-        // /confirmNickname true
-
-        this.state.validate === true && this.state.confirmNickname !== false && this.state.confirmPassword !== false && this.state.minNum !== false  ?  
-          axios.post(`${url}/api/user/update/info`, form,  { headers: { 'token': token } })
-          .then(response => {
-            if(response.data.success){
-              this.success()
-            } else if(!response.data.success){
-              this.error()
-            }
+      this.state.validate === true && this.state.confirmNickname !== false && this.state.confirmPassword !== false && this.state.minNum !== false  ?  
+        axios.post(`${url}/api/user/update/info`, form,  { headers: { 'token': token } })
+        .then(response => {
+          if(response.data.success){
+            this.success()
+          } else if(!response.data.success){
+            this.error()
           }
-          )
-          .catch(err => console.log(err)) : this.error()
-     
+        })
+        .catch(err => console.log(err)) : this.error()
     }
       
     
@@ -493,16 +401,6 @@ class MyInfo extends Component {
   ]
 
     render() {
-      console.log('this.state.file@@@@@@@@@@@@@ : ',this.state.file)
-      console.log('닉네임 유효 :', this.state.confirmNickname)
-      console.log('현재비번 유효 :', this.state.confirmPassword)
-      console.log('비번 대조 :', this.state.validate)
-      console.log('최소 비번숫자 :', this.state.minNum)
-      console.log('datadatadtata', this.state.data)
-      console.log('myinfomyinfomyinfo', this.props);
-      console.log('filefilefile', this.state.file);
-
-        // console.log(this.state.imagepreviewUrl)
         return (
           this.state.data ?
           <Container>
@@ -511,7 +409,7 @@ class MyInfo extends Component {
               <Row>
                 <Column>사진</Column>
                 <Data>{this.state.hasPhoto ? <div><ProfPic src= {this.state.data.user_photo} /><Buttons onClick={this._photoChange}> 사진 변경</Buttons></div> 
-                  : <div><Dropzone onDrop={ this._onDrop } size={ 30 }  accept = "image/*">
+                  : <div><Dropzone onDropAccepted={ this._onDrop } onDropRejected={this.uploadImage} size={ 30 }  accept = "image/*">
                   <div style={{width:'100%', height:'100%', textAlign:'center'}}>
                        <div style={{width:'100%', height:'100%', textAlign:'center'}}>
                        <div style={{color: 'black' ,fontWeight: 'bold'}}> 이미지 변경 클릭 </div>
@@ -520,8 +418,6 @@ class MyInfo extends Component {
                          :<Img src={this.state.data.user_photo}/>}</div>
                            </div>
                            </Dropzone>
-                           
-                           
                           <Buttons onClick={this._photoChange}> 취소</Buttons></div>}
                 </Data>
               </Row>
@@ -533,7 +429,7 @@ class MyInfo extends Component {
                 <Column>닉네임</Column>
                 <Data>
                     {this.state.nickName === false ? <div><Input value = {this.state.data ? this.state.data.name : null} ref={ref => { this.nickname = ref; }}  readOnly/> <Buttons onClick = {this._nickNameChange}>닉네임 변경</Buttons></div>
-                    : <div><input style={{border: '0.5px solid #ccc'}} onBlur={this._nicknameOnchange} ref={ref => { this.nickname = ref; }} /><Buttons  style={{marginLeft: '2%', marginRight: '2%'}} onClick = {this._confirmNickname}> 중복확인 </Buttons><Buttons onClick={this._nickNameChange}>변경취소</Buttons></div>}
+                    : <div><input style={{border: '0.5px solid #ccc'}}  defaultValue = {this.state.data.name} onBlur={this._nicknameOnchange} ref={ref => { this.nickname = ref; }}/><Buttons style={{marginLeft: '2%', marginRight: '2%'}} onClick = {this._confirmNickname}> 중복확인 </Buttons><Buttons onClick={this._nickNameChange}>변경취소</Buttons></div>}
                 </Data>
               </Row>
               <Row>
@@ -576,9 +472,6 @@ class MyInfo extends Component {
               </Buttons>
                 <Link to='/' style={{ textDecoration: 'none' }}> <Buttons>취소</Buttons> </Link>
             </div>
-            {/* <button onClick={this.insta}> 검색 </button> */}
-            {/* < img style = {{width:'100px', height:'100px'}} src = {this.state.photos ? this.state.photos : null} */}
-             {/*//이건나중에 < img style = {{width:'100px', height:'100px'}} src = {this.state.photos ? this.state.photos.data[0].images.standard_resolution.url : null} */}
             
           
             </Container>

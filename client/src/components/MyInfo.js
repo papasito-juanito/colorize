@@ -215,7 +215,7 @@ class MyInfo extends Component {
       }
         axios.post(`${url}/api/user/update/username`, form, { headers: {'token': token}})
           .then(response => {
-            this.nickname.value.length < 5 ?
+            this.nickname.value.length < 5 || this.nickname.value.length >= 10 ?
             (this.setState({confirmNickname : false}), this.nickerror()) 
             : response.data.success === false ?
               (this.setState({confirmNickname : false}), this.nickDuperror()) :
@@ -275,7 +275,7 @@ class MyInfo extends Component {
     }
 
     _minNumber(){
-      this.newPassword.value.length <5 ? this.setState({minNum : false}) : this.setState({minNum : true})
+      this.newPassword.value.length <5 || this.newPassword.value.length <= 10 ? this.setState({minNum : false}) : this.setState({minNum : true})
     }
 
     _passwordCompare(){
@@ -314,7 +314,7 @@ class MyInfo extends Component {
 
     nickerror() {
       Modal.error({
-        title: '닉네임은 5글자 이상 이어야 합니다.'
+        title: '닉네임은 5글자 이상 10글자 이하여야 합니다.'
       });
     }
 
@@ -340,7 +340,7 @@ class MyInfo extends Component {
       const token = localStorage.getItem('token')
       const form = {
         userPassword : this.newPassword.value || undefined, 
-        userName : this.nickname.value, 
+        userName : this.nickname.value || this.state.data.name,
         userPhoto: this.state.imageAddress || this.state.data.user_photo,
         toneName : this.state.colorSelected || this.state.data.tone
 

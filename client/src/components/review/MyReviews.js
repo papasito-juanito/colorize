@@ -528,10 +528,10 @@ class MyReviews extends Component {
         const mimeType = file.type.split('/')[1];
         mimeType === 'jpg' || mimeType === 'JPG' || mimeType === 'jpeg' || mimeType === 'JPEG' || mimeType === 'png' || mimeType === 'PNG' ?
           (this.setState({file}),
-          axios.post(`${url}/api/user/post/upload`, formData, { headers: { 'token': token } } )
+          axios.post(`${url}/api/user/post/upload`, formData, { headers: { 'token': token,'orientation' : orientation} } )
             .then(response => {
               this.setState({imageAddress : response.data.message})
-              document.getElementById('imgloading').style.display = 'inline-block'
+              // document.getElementById('imgloading').style.display = 'inline-block'
             })
             .catch(err => console.log(err)))
           : this.uploadImage();

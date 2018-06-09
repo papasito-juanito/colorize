@@ -63,7 +63,7 @@ module.exports = (req, res) => {
         },
       }],
     }),
-  }).single('file');
+  }).single('filename');
 
   upload(req, res, (err) => {
     if (err) {

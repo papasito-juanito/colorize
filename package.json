@@ -31,7 +31,7 @@
     "sharp": "^0.20.3"
   },
   "scripts": {
-    "dev": "NODE_ENV=development nodemon server/1_express/index.js --ignore 'client/'",
+    "test": "NODE_ENV=development nodemon server/1_express/index.js --ignore 'client/'",
     "server": "nodemon server/1_express/index.js --ignore 'client/'"
   },
   "devDependencies": {

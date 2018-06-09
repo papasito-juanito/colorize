@@ -35,6 +35,7 @@ module.exports = (req, res) => {
           cb(null, `${Date.now().toString()}_${file.originalname}`);
         },
         transform(req, file, cb) {
+          console.log('req.headers.orientation', req.headers.orientation);
           switch (req.headers.orientation) {
             case '6': {
               return cb(null, sharp().rotate(90).resize(400, 400).jpeg());
@@ -67,6 +68,7 @@ module.exports = (req, res) => {
     if (err) {
       res.json({ success: false, message: err.message });
     } else {
+      console.log('req.file', req.file);
       res.json({ success: true, message: req.file.transforms[0].location });
     }
   });

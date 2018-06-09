@@ -35,7 +35,6 @@ module.exports = (req, res) => {
           cb(null, `${Date.now().toString()}_${file.originalname}`);
         },
         transform(req, file, cb) {
-          console.log('he', req.headers.orientation);
           switch (req.headers.orientation) {
             case '6': {
               return cb(null, sharp().rotate(90).resize(400, 400).jpeg());

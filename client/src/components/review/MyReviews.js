@@ -537,53 +537,6 @@ class MyReviews extends Component {
           : this.uploadImage();
       });
     }
-    // img.onload = function () {
-    //   var width = img.width,
-    //   height = img.height,
-    //   canvas = document.createElement('canvas'),
-    //   ctx = canvas.getContext("2d");
-    //   if (4 < srcOrientation && srcOrientation < 9) {
-    //     canvas.width = height;
-    //     canvas.height = width;
-    //   } else {
-    //     canvas.width = width;
-    //     canvas.height = height;
-    //   }
-
-    //   switch (srcOrientation) {
-    //     case 2: ctx.transform(-1, 0, 0, 1, width, 0); break;
-    //     case 3: ctx.transform(-1, 0, 0, -1, width, height ); break;
-    //     case 4: ctx.transform(1, 0, 0, -1, 0, height ); break;
-    //     case 5: ctx.transform(0, 1, 1, 0, 0, 0); break;
-    //     case 6: ctx.transform(0, 1, -1, 0, height , 0); break;
-    //     case 7: ctx.transform(0, -1, -1, 0, height , width); break;
-    //     case 8: ctx.transform(0, -1, 1, 0, 0, width); break;
-    //     default: break;
-    //   }
-
-      // if (img.naturalWidth > img.naturalHeight) {
-      //   console.log('landscape', orientation); 
-      // orientation = 'landscape';
-      // } else if (img.naturalWidth < img.naturalHeight) {
-      //   console.log('portrait', orientation);
-      // orientation = 'portrait';
-      // } else {
-      //   console.log('even', orientation);
-      // orientation = 'even';
-      // }
-    // }
-  
-    // formData.append('file', file);
-    // const mimeType = file.type.split('/')[1];
-    // mimeType === 'jpg' || mimeType === 'JPG' || mimeType === 'jpeg' || mimeType === 'JPEG' || mimeType === 'png' || mimeType === 'PNG' ?
-    //   (this.setState({file}),
-    //   axios.post(`${url}/api/user/post/upload`, formData, { headers: { 'token': token} } )
-    //     .then(response => {
-    //       this.setState({imageAddress : response.data.message})
-    //       document.getElementById('imgloading').style.display = 'inline-block'
-    //     })
-    //     .catch(err => console.log(err)))
-    //   : this.uploadImage();
   }
 
   

@@ -59,7 +59,7 @@ class TopReview extends Component {
                 </TopDiv>
                 : null}
                 <BottomDiv>
-                    {this.state.topReview.length !== 0 ? <TopReviews id = {this.props.id} Topdata={this.state.topReview} /> : null}
+                    {this.state.topReview.length !== 0 ? <TopReviews id = {this.props.id} Topdata={this.state.topReview} isLogined={this.props.isLogined}/> : null}
                 </BottomDiv>
             </Div>
         );

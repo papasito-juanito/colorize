@@ -35,7 +35,30 @@ module.exports = (req, res) => {
           cb(null, `${Date.now().toString()}_${file.originalname}`);
         },
         transform(req, file, cb) {
-          cb(null, sharp().resize(400, 400).jpeg());
+          console.log('he', req.headers.orientation);
+          switch (req.headers.orientation) {
+            case '6': {
+              return cb(null, sharp().rotate(90).resize(400, 400).jpeg());
+            }
+            case '3': {
+              return cb(null, sharp().rotate(180).resize(400, 400).jpeg());
+            }
+            case '8': {
+              return cb(null, sharp().rotate(270).resize(400, 400).jpeg());
+            }
+            case '5': {
+              return cb(null, sharp().rotate(90).resize(400, 400).jpeg());
+            }
+            case '4': {
+              return cb(null, sharp().rotate(180).resize(400, 400).jpeg());
+            }
+            case '7': {
+              return cb(null, sharp().rotate(270).resize(400, 400).jpeg());
+            }
+            default: {
+              return cb(null, sharp().resize(400, 400).jpeg());
+            }
+          }
         },
       }],
     }),

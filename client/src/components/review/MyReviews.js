@@ -521,33 +521,14 @@ class MyReviews extends Component {
     const img = new Image()
     var orientation = ''
     img.src = file.preview
-    var image = document.getElementById('imgloading');
     img.onload = (e)=> {
       this.getOrientation(file, (orientation) => {
-        console.log('orientation',file);
-        var width = img.width,
-        height = img.height,
-        canvas = document.createElement('canvas'),
-        ctx = canvas.getContext("2d");
-        console.log('ororororororirirori', orientation);
-        // switch (orientation) {          
-        //   case 2: ctx.transform(-1, 0, 0, 1, width, 0); break;
-        //   case 3: ctx.transform(-1, 0, 0, -1, width, height ); break;
-        //   case 4: ctx.transform(1, 0, 0, -1, 0, height ); break;
-        //   case 5: ctx.transform(0, 1, 1, 0, 0, 0); break;
-        //   case 6: ctx.transform(0, 1, -1, 0, height , 0); break;
-        //   case 7: ctx.transform(0, -1, -1, 0, height , width); break;
-        //   case 8: ctx.transform(0, -1, 1, 0, 0, width); break;
-        //   default: break;
-        // }
-
-        console.log(ctx.transform(0, 1, -1, 0, height , 0));
-        ctx.drawImage(img, 0, 0);
-        formData.append('file', file, orientation);
+        
+        formData.append('filename', file, orientation);
         const mimeType = file.type.split('/')[1];
         mimeType === 'jpg' || mimeType === 'JPG' || mimeType === 'jpeg' || mimeType === 'JPEG' || mimeType === 'png' || mimeType === 'PNG' ?
           (this.setState({file}),
-          axios.post(`${url}/api/user/post/upload`, formData, { headers: { 'token': token} } )
+          axios.post(`${url}/api/user/post/upload`, formData, { headers: { 'token': token } } )
             .then(response => {
               this.setState({imageAddress : response.data.message})
               document.getElementById('imgloading').style.display = 'inline-block'

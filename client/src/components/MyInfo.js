@@ -301,7 +301,7 @@ getOrientation(file, callback) {
     img.onload = (e)=> {
       this.getOrientation(file, (orientation) => {
         
-        formData.append('filename', file, orientation);
+        formData.append('img', file, orientation);
         const mimeType = file.type.split('/')[1];
         mimeType === 'jpg' || mimeType === 'JPG' || mimeType === 'jpeg' || mimeType === 'JPEG' || mimeType === 'png' || mimeType === 'PNG' ?
           (this.setState({file}),

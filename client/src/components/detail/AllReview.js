@@ -35,6 +35,7 @@ const ReviewDiv = styled.div `
     width: 100%;
     cursor: pointer;
     display: none;
+    font-size: 1.1rem;
     @media (max-width: 768px) {
         display : inline-block;
 	}
@@ -82,7 +83,7 @@ class Allreview extends Component{
                 </BottomDiv> 
                 </Container>
               : <div><h2>등록된 리뷰가 없습니다</h2></div>}
-              <ReviewDiv onClick={this.allReview}>{!this.state.display ? '전체 리뷰 보기 >' : '전체 리뷰 닫기 <'}  </ReviewDiv>
+              {this.state.data.length !==0 ?<ReviewDiv onClick={this.allReview}>{!this.state.display ? '전체 리뷰 보기 >' : '전체 리뷰 닫기 <'}  </ReviewDiv> : null}
             </Div>  
               
         )

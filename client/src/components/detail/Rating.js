@@ -114,10 +114,7 @@ const ChangePic = styled.img `
   width: 80%;
   height: 80%;
   border-radius: 5px;
-  object-fit: cover;
-    @media (max-width: 768px) {
-       object-fit: contain;
-    }
+  object-fit: contain;
 `
 
 const Modify = styled.button `
@@ -175,7 +172,7 @@ class Rating extends Component {
                 console.log('review response@@@@@', response);
                 })
                 .then(res => (
-                    this.input.value = '', alert('후기가 등록되었습니다')
+                    this.input.value = '', this.review()
                 ))
                 .then(res => window.location.reload())
                 .catch(err => console.log(err))
@@ -194,7 +191,10 @@ class Rating extends Component {
 
     review() {
         Modal.error({
-            title: '후기가 등록되었습니다.'
+            title: '후기가 등록되었습니다.',
+               onOk: ()=> {
+          window.location.reload()
+        }
         });
     }
 

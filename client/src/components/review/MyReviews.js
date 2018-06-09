@@ -427,9 +427,11 @@ class MyReviews extends Component {
      }
     axios.post(`${url}/api/review/update/message`, form,  { headers: { 'token': token } })
       .then((response) => {
+        console.log(response);
+        
         if(response.data.success){
           isReply: !this.state.isReply
-          window.location.reload()
+          // window.location.reload()
         }
       })
       .catch(err => console.log(err));
@@ -523,70 +525,21 @@ class MyReviews extends Component {
     img.src = file.preview
     img.onload = (e)=> {
       this.getOrientation(file, (orientation) => {
-        
         formData.append('filename', file, orientation);
         const mimeType = file.type.split('/')[1];
         mimeType === 'jpg' || mimeType === 'JPG' || mimeType === 'jpeg' || mimeType === 'JPEG' || mimeType === 'png' || mimeType === 'PNG' ?
           (this.setState({file}),
-          axios.post(`${url}/api/user/post/upload`, formData, { headers: { 'token': token,'orientation' : orientation} } )
+          axios.post(`${url}/api/user/post/upload`, formData, { headers: { 'token': token, 'orientation': orientation } } )
             .then(response => {
+              console.log(response);
               this.setState({imageAddress : response.data.message})
-              // document.getElementById('imgloading').style.display = 'inline-block'
+              document.getElementById('imgloading').style.display = 'inline-block'
             })
             .catch(err => console.log(err)))
           : this.uploadImage();
       });
     }
-    // img.onload = function () {
-    //   var width = img.width,
-    //   height = img.height,
-    //   canvas = document.createElement('canvas'),
-    //   ctx = canvas.getContext("2d");
-    //   if (4 < srcOrientation && srcOrientation < 9) {
-    //     canvas.width = height;
-    //     canvas.height = width;
-    //   } else {
-    //     canvas.width = width;
-    //     canvas.height = height;
-    //   }
-
-    //   switch (srcOrientation) {
-    //     case 2: ctx.transform(-1, 0, 0, 1, width, 0); break;
-    //     case 3: ctx.transform(-1, 0, 0, -1, width, height ); break;
-    //     case 4: ctx.transform(1, 0, 0, -1, 0, height ); break;
-    //     case 5: ctx.transform(0, 1, 1, 0, 0, 0); break;
-    //     case 6: ctx.transform(0, 1, -1, 0, height , 0); break;
-    //     case 7: ctx.transform(0, -1, -1, 0, height , width); break;
-    //     case 8: ctx.transform(0, -1, 1, 0, 0, width); break;
-    //     default: break;
-    //   }
-
-      // if (img.naturalWidth > img.naturalHeight) {
-      //   console.log('landscape', orientation); 
-      // orientation = 'landscape';
-      // } else if (img.naturalWidth < img.naturalHeight) {
-      //   console.log('portrait', orientation);
-      // orientation = 'portrait';
-      // } else {
-      //   console.log('even', orientation);
-      // orientation = 'even';
-      // }
-    // }
-  
-    // formData.append('file', file);
-    // const mimeType = file.type.split('/')[1];
-    // mimeType === 'jpg' || mimeType === 'JPG' || mimeType === 'jpeg' || mimeType === 'JPEG' || mimeType === 'png' || mimeType === 'PNG' ?
-    //   (this.setState({file}),
-    //   axios.post(`${url}/api/user/post/upload`, formData, { headers: { 'token': token} } )
-    //     .then(response => {
-    //       this.setState({imageAddress : response.data.message})
-    //       document.getElementById('imgloading').style.display = 'inline-block'
-    //     })
-    //     .catch(err => console.log(err)))
-    //   : this.uploadImage();
   }
-
-  
 
   goHome() {
     this.props.history.push('/')
@@ -616,6 +569,9 @@ class MyReviews extends Component {
   }
 
   render(){
+    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@',this.state.imageAddress);
+    console.log('propsprops', this.props);
+    
     let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
     
     return (
@@ -697,7 +653,7 @@ class MyReviews extends Component {
             }): <Empty>
                   <EmptyTitle>My Reviews is empty</EmptyTitle> 
                   <EmptyMessage>Colorize에서 마음에 드는 칼러의 <br/>립스틱을 구경하고 리뷰를 작성해보세요</EmptyMessage>
-                  <Emptybtn onClick={this.goHome}>Colorize yourself</Emptybtn>
+                  <Emptybtn onClick={this.goHome.bind(this)}>Colorize yourself</Emptybtn>
                 </Empty>}
         <RModal
           isOpen={this.state.popupIsOpen}

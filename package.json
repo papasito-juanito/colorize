@@ -32,6 +32,7 @@
   },
   "scripts": {
     "dev": "NODE_ENV=development nodemon server/1_express/index.js --ignore 'client/'",
+    "pro": "pm2 start server/1_express/index.js",
     "server": "nodemon server/1_express/index.js --ignore 'client/'"
   },
   "devDependencies": {

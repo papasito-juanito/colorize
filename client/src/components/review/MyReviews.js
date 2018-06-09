@@ -431,7 +431,7 @@ class MyReviews extends Component {
         
         if(response.data.success){
           isReply: !this.state.isReply
-          // window.location.reload()
+          window.location.reload()
         }
       })
       .catch(err => console.log(err));
@@ -616,14 +616,14 @@ class MyReviews extends Component {
                     {!this.state.isReply ?
                     <MyImage onClick={this._openPopup} src ={item.review_photo}  />
                     : this.state.isReply && this.state.clickedComment === item.review_id  ?
-                    <Dropzone id='imgloading' onDropAccepted={ this._onDrop.bind(this) } size={ 50 }  accept = "image/*" style={{width: '100%', height: '100%'}}>
+                    <Dropzone  onDropAccepted={ this._onDrop.bind(this) } size={ 50 }  accept = "image/*" style={{width: '100%', height: '100%'}}>
                       <div style={{width:'100%', height:'100%', textAlign:'center'}}>
                         <div style={{color: 'black' ,fontWeight: 'bold'}}> 이미지 변경 클릭 </div>
                         <div style= {{width: '100%', height:'90%'}}>
                           {this.state.file ? 
                           <img id='imgloading' style = {{ verticalAlign:'middle', width:'90%', height:'90%', borderRadius:'50%'}} 
-                          src= {this.state.imageAddress ? this.state.file.preview : 'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'} />
-                          :<img id='imgloading' src={item.review_photo} style={{width:'90%', height:'90%'}}/>}
+                          src= {this.state.imageAddress ? this.state.imageAddress : 'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'} />
+                          :<img  src={this.state.imageAddress} style={{width:'90%', height:'90%'}}/>}
                         </div>
                       </div>      
                     </Dropzone>

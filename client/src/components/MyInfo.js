@@ -432,7 +432,7 @@ getOrientation(file, callback) {
                       <div style={{width:'100%', height:'100%', textAlign:'center'}}>
                       <div style={{color: 'black' ,fontWeight: 'bold'}}> 이미지 변경 클릭 </div>
                       {this.state.file ?
-                        <ChangePic src= {this.state.imageAddress ? this.state.file.preview : 'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'}  />
+                        <ChangePic src= {this.state.imageAddress ? this.state.imageAddress : 'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'}  />
                         :<Img src={this.state.data.user_photo}/>}</div>
                           </div>
                           </Dropzone>

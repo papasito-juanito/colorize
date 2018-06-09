@@ -305,7 +305,7 @@ getOrientation(file, callback) {
                                         사진을 등록해 주세요 
                                     </div>
                                         {this.state.file ?
-                                        <ChangePic src= {this.state.imageAddress ? this.state.file.preview : 'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'}  />
+                                        <ChangePic src= {this.state.imageAddress ? this.state.imageAddress : 'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'}  />
                                         :null}
                                 </ImgDiv>
                            </ImgDiv>

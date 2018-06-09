@@ -8,7 +8,6 @@ const path = require('path');
 // Local import
 const { port } = require('./../0_config');
 const router = require('./../2_routes');
-const { url } = require('../../client/src/config');
 
 const app = express();
 
@@ -23,7 +22,7 @@ app.get('*', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`[1_express ] activated on ${process.env.NODE_ENV} mode ${url}...`);
+  console.log(`[1_express ] activated ${process.env.NODE_ENV || 'production'} mode...`);
 });
 
 module.exports = app;

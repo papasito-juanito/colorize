@@ -2,9 +2,9 @@
 const mysql = require('mysql');
 
 // Local import
-const { mysqlRDS } = require('../0_config');
+const { mysqlLocal } = require('../0_config');
 
-const dbConnection = mysql.createConnection(mysqlRDS);
+const dbConnection = mysql.createConnection(mysqlLocal);
 
 dbConnection.connect((err) => {
   if (err) {

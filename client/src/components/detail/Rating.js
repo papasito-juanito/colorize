@@ -251,7 +251,7 @@ class Rating extends Component {
                                         :null}
                                 </ImgDiv>
                            </ImgDiv>
-                           <AvatarEditor width={250} height={250} scale={1.2} image={this.state.imageAddress} />
+                           {/* <AvatarEditor width={250} height={250} scale={1.2} image={this.state.imageAddress} /> */}
                         </Dropzone>
                     </ImageDiv>                   
                 </TopWrite>

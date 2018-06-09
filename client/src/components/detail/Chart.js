@@ -8,10 +8,10 @@ import NumberFormat from 'react-number-format';
 import '../../../node_modules/chartjs-plugin-datalabels/dist/chartjs-plugin-datalabels.js';
 
 const Wrapper = styled.div`
-     width: 100%;
-     height: 100% 
-     display: flex;
-     background-color:white;
+    width: 100%;
+    height: 100% 
+    display: flex;
+    background-color:white;
     @media (max-width: 768px) {
         width: 100%;
         height: 35vh;
@@ -80,54 +80,41 @@ const options = {
     },
 };
 
-
-class Chart extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-
-    }
-
-    render() {
-        const data = {
-            labels: ['5점', '4점', '3점', '2점', '1점'],
-            datasets: [
-                {
-                    label: '평점수',
-                    backgroundColor: ['#4CAF50', '#2196F3', '#00bcd4', '#ff9800', '#f44336'],
-                    data: [
-                        this.props.data ? this.props.data[0].sssss : null,
-                        this.props.data ? this.props.data[0].ssss : null,
-                        this.props.data ? this.props.data[0].sss : null,
-                        this.props.data ? this.props.data[0].ss : null,
-                        this.props.data ? this.props.data[0].s : null,
-                    ],
-                },
+var Chart = (props) => {
+    const data = {
+        labels: ['5점', '4점', '3점', '2점', '1점'],
+        datasets: [{
+            label: '평점수',
+            backgroundColor: ['#4CAF50', '#2196F3', '#00bcd4', '#ff9800', '#f44336'],
+            data: [
+                props.data ? props.data[0].sssss : null,
+                props.data ? props.data[0].ssss : null,
+                props.data ? props.data[0].sss : null,
+                props.data ? props.data[0].ss : null,
+                props.data ? props.data[0].s : null,
             ],
-        };
+        }],
+    };
 
-        return (
-            <Wrapper>
-                <RatingDiv>
-                    <RatingValue>
-                        <NumberFormat value={this.props.data ? this.props.data[0].total : 0} displayType={'text'} thousandSeparator={true} prefix={'총 '} suffix={'명'} /><br/>
-                        <h2>{this.props.data ? (this.props.data[0].avg).toFixed(2) : 0}</h2>
-                        <StarRatingComponent
-                            name="평점"
-                            value={this.props.data ? this.props.data[0].avg : 0}    
-                        />
-                    </RatingValue>
-                </RatingDiv>
-                <ChartDiv>
-                    <ChartValue>
-                        <HorizontalBar height={200} data={data} options={options} />
-                    </ChartValue>
-                </ChartDiv>
-            </Wrapper>
-        );
-    }
-
+    return (
+        <Wrapper>
+            <RatingDiv>
+                <RatingValue>
+                    <NumberFormat value={props.data ? props.data[0].total : 0} displayType={'text'} thousandSeparator={true} prefix={'총 '} suffix={'명'} /><br/>
+                    <h2>{props.data ? (props.data[0].avg).toFixed(2) : 0}</h2>
+                    <StarRatingComponent
+                        name="평점"
+                        value={props.data ? props.data[0].avg : 0}    
+                    />
+                </RatingValue>
+            </RatingDiv>
+            <ChartDiv>
+                <ChartValue>
+                    <HorizontalBar height={200} data={data} options={options} />
+                </ChartValue>
+            </ChartDiv>
+        </Wrapper>
+    );
 }
 
 export default Chart;

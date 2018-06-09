@@ -466,28 +466,146 @@ class MyReviews extends Component {
        })    
   }
 
+  getOrientation(file, callback) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      console.log('file', file);
+      console.log('callback', callback);
+        var view = new DataView(e.target.result);
+        if (view.getUint16(0, false) != 0xFFD8)
+        {
+            return callback(-2);
+        }
+        var length = view.byteLength, offset = 2;
+        while (offset < length) 
+        {
+            if (view.getUint16(offset+2, false) <= 8) return callback(-1);
+            var marker = view.getUint16(offset, false);
+            offset += 2;
+            if (marker == 0xFFE1) 
+            {
+                if (view.getUint32(offset += 2, false) != 0x45786966) 
+                {
+                    return callback(-1);
+                }
+                var little = view.getUint16(offset += 6, false) == 0x4949;
+                offset += view.getUint32(offset + 4, little);
+                var tags = view.getUint16(offset, little);
+                offset += 2;
+                for (var i = 0; i < tags; i++)
+                {
+                    if (view.getUint16(offset + (i * 12), little) == 0x0112)
+                    {
+                        return callback(view.getUint16(offset + (i * 12) + 8, little));
+                    }
+                }
+            }
+            else if ((marker & 0xFF00) != 0xFF00)
+            {
+                break;
+            }
+            else
+            { 
+                offset += view.getUint16(offset, false);
+            }
+        }
+        return callback(-1);
+    };
+    reader.readAsArrayBuffer(file);
+}
+
   _onDrop(files){
     const token = localStorage.getItem('token')
     const file = files[0];
     const formData = new FormData();
     const img = new Image()
+    var orientation = ''
+    img.src = file.preview
+    var image = document.getElementById('imgloading');
+    img.onload = (e)=> {
+      this.getOrientation(file, (orientation) => {
+        console.log('orientation',file);
+        var width = img.width,
+        height = img.height,
+        canvas = document.createElement('canvas'),
+        ctx = canvas.getContext("2d");
+        console.log('ororororororirirori', orientation);
+        // switch (orientation) {          
+        //   case 2: ctx.transform(-1, 0, 0, 1, width, 0); break;
+        //   case 3: ctx.transform(-1, 0, 0, -1, width, height ); break;
+        //   case 4: ctx.transform(1, 0, 0, -1, 0, height ); break;
+        //   case 5: ctx.transform(0, 1, 1, 0, 0, 0); break;
+        //   case 6: ctx.transform(0, 1, -1, 0, height , 0); break;
+        //   case 7: ctx.transform(0, -1, -1, 0, height , width); break;
+        //   case 8: ctx.transform(0, -1, 1, 0, 0, width); break;
+        //   default: break;
+        // }
 
+        console.log(ctx.transform(0, 1, -1, 0, height , 0));
+        ctx.drawImage(img, 0, 0);
+        formData.append('file', file, orientation);
+        const mimeType = file.type.split('/')[1];
+        mimeType === 'jpg' || mimeType === 'JPG' || mimeType === 'jpeg' || mimeType === 'JPEG' || mimeType === 'png' || mimeType === 'PNG' ?
+          (this.setState({file}),
+          axios.post(`${url}/api/user/post/upload`, formData, { headers: { 'token': token} } )
+            .then(response => {
+              this.setState({imageAddress : response.data.message})
+              document.getElementById('imgloading').style.display = 'inline-block'
+            })
+            .catch(err => console.log(err)))
+          : this.uploadImage();
+      });
+    }
+    // img.onload = function () {
+    //   var width = img.width,
+    //   height = img.height,
+    //   canvas = document.createElement('canvas'),
+    //   ctx = canvas.getContext("2d");
+    //   if (4 < srcOrientation && srcOrientation < 9) {
+    //     canvas.width = height;
+    //     canvas.height = width;
+    //   } else {
+    //     canvas.width = width;
+    //     canvas.height = height;
+    //   }
 
-    console.log(file);
-    
-    doOnOrientationChange();
-    formData.append('file', file);
-    const mimeType = file.type.split('/')[1];
-    mimeType === 'jpg' || mimeType === 'JPG' || mimeType === 'jpeg' || mimeType === 'JPEG' || mimeType === 'png' || mimeType === 'PNG' ?
-      (this.setState({file}),
-      axios.post(`${url}/api/user/post/upload`, formData, { headers: { 'token': token} } )
-        .then(response => {
-          this.setState({imageAddress : response.data.message})
-          document.getElementById('imgloading').style.display = 'inline-block'
-        })
-        .catch(err => console.log(err)))
-      : this.uploadImage();
+    //   switch (srcOrientation) {
+    //     case 2: ctx.transform(-1, 0, 0, 1, width, 0); break;
+    //     case 3: ctx.transform(-1, 0, 0, -1, width, height ); break;
+    //     case 4: ctx.transform(1, 0, 0, -1, 0, height ); break;
+    //     case 5: ctx.transform(0, 1, 1, 0, 0, 0); break;
+    //     case 6: ctx.transform(0, 1, -1, 0, height , 0); break;
+    //     case 7: ctx.transform(0, -1, -1, 0, height , width); break;
+    //     case 8: ctx.transform(0, -1, 1, 0, 0, width); break;
+    //     default: break;
+    //   }
+
+      // if (img.naturalWidth > img.naturalHeight) {
+      //   console.log('landscape', orientation); 
+      // orientation = 'landscape';
+      // } else if (img.naturalWidth < img.naturalHeight) {
+      //   console.log('portrait', orientation);
+      // orientation = 'portrait';
+      // } else {
+      //   console.log('even', orientation);
+      // orientation = 'even';
+      // }
+    // }
+  
+    // formData.append('file', file);
+    // const mimeType = file.type.split('/')[1];
+    // mimeType === 'jpg' || mimeType === 'JPG' || mimeType === 'jpeg' || mimeType === 'JPEG' || mimeType === 'png' || mimeType === 'PNG' ?
+    //   (this.setState({file}),
+    //   axios.post(`${url}/api/user/post/upload`, formData, { headers: { 'token': token} } )
+    //     .then(response => {
+    //       this.setState({imageAddress : response.data.message})
+    //       document.getElementById('imgloading').style.display = 'inline-block'
+    //     })
+    //     .catch(err => console.log(err)))
+    //   : this.uploadImage();
   }
+
+  
 
   goHome() {
     this.props.history.push('/')
@@ -559,14 +677,14 @@ class MyReviews extends Component {
                     {!this.state.isReply ?
                     <MyImage onClick={this._openPopup} src ={item.review_photo}  />
                     : this.state.isReply && this.state.clickedComment === item.review_id  ?
-                    <Dropzone onDropAccepted={ this._onDrop.bind(this) } size={ 50 }  accept = "image/*" style={{width: '100%', height: '100%'}}>
+                    <Dropzone id='imgloading' onDropAccepted={ this._onDrop.bind(this) } size={ 50 }  accept = "image/*" style={{width: '100%', height: '100%'}}>
                       <div style={{width:'100%', height:'100%', textAlign:'center'}}>
                         <div style={{color: 'black' ,fontWeight: 'bold'}}> 이미지 변경 클릭 </div>
                         <div style= {{width: '100%', height:'90%'}}>
                           {this.state.file ? 
                           <img id='imgloading' style = {{ verticalAlign:'middle', width:'90%', height:'90%', borderRadius:'50%'}} 
                           src= {this.state.imageAddress ? this.state.file.preview : 'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'} />
-                          :<img src={item.review_photo} style={{width:'90%', height:'90%'}}/>}
+                          :<img id='imgloading' src={item.review_photo} style={{width:'90%', height:'90%'}}/>}
                         </div>
                       </div>      
                     </Dropzone>
@@ -615,8 +733,8 @@ class MyReviews extends Component {
       </div>
     )
   }
-
 }
+
 
 
 export default MyReviews;

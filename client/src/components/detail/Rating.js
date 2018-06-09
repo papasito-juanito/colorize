@@ -175,9 +175,9 @@ class Rating extends Component {
                 console.log('review response@@@@@', response);
                 })
                 .then(res => (
-                    this.input.value = '', this.review()
+                    this.input.value = '', alert('후기가 등록되었습니다')
                 ))
-                // .then(res => window.location.reload())
+                .then(res => window.location.reload())
                 .catch(err => console.log(err))
                 // window.location.reload()
     }

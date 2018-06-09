@@ -335,7 +335,6 @@ RModal.setAppElement('#root');
 
 const scrollStepInPx = 50;
 const delayInMs = 10;
-const token = localStorage.getItem('token')
 
 class MyReviews extends Component {
   constructor(){
@@ -418,6 +417,7 @@ class MyReviews extends Component {
   }
 
   _updateReply(e){
+    const token = localStorage.getItem('token')
     const previousMessage = this.state.data[e.target.id].message;
     const form = {
       reviewPhoto : this.state.imageAddress || this.state.data[e.target.id].review_photo,
@@ -470,6 +470,12 @@ class MyReviews extends Component {
     const token = localStorage.getItem('token')
     const file = files[0];
     const formData = new FormData();
+    const img = new Image()
+
+
+    console.log(file);
+    
+    doOnOrientationChange();
     formData.append('file', file);
     const mimeType = file.type.split('/')[1];
     mimeType === 'jpg' || mimeType === 'JPG' || mimeType === 'jpeg' || mimeType === 'JPEG' || mimeType === 'png' || mimeType === 'PNG' ?

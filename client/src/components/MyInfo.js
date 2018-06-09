@@ -1,5 +1,4 @@
 /* eslint-disable */
-
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import Dropdown from 'react-dropdown';
@@ -10,7 +9,6 @@ import { Link } from 'react-router-dom';
 import Dropzone from 'react-dropzone';
 import avatar from '../assets/profile.png';
 import ImageCompressor from 'image-compressor.js';
-
 import { Modal, Button } from 'antd';
 import 'antd/dist/antd.css';
 import './Myinfo.css'
@@ -87,34 +85,31 @@ const InTH = styled.th`
   text-align: left;
   padding-left: 8px;
   width: 100%;
-  @media (max-width: 768px) {
-
-  }
 `
 
 const Buttons = styled.button `
-    cursor: pointer;
-    min-width: 70px;
-    min-height: 25px;
-    border: none;
-    color: white;
-    background-color: black;
-    text-align: center;
-    transition: 0.3s;
-    border: 0;
-    outline: 0;
-    margin-right: 5%
-    &:hover {
-      text-shadow: 0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F;
-    }
-    @media (max-width: 768px) {
-      padding: 5px;
-      margin: 5px;
-    }
+  cursor: pointer;
+  min-width: 70px;
+  min-height: 25px;
+  border: none;
+  color: white;
+  background-color: black;
+  text-align: center;
+  transition: 0.3s;
+  border: 0;
+  outline: 0;
+  margin-right: 5%
+  &:hover {
+    text-shadow: 0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F;
+  }
+  @media (max-width: 768px) {
+    padding: 5px;
+    margin: 5px;
+  }
 `
 const Input = styled.input`
-    padding-left: 5px;
-    border: 0.5px solid #ccc
+  padding-left: 5px;
+  border: 0.5px solid #ccc
 `
 const ProfPic = styled.img`
   vertical-align:middle;
@@ -144,142 +139,132 @@ const Img = styled.img`
 `
 
 const CancelButton = styled.button `
-    cursor: pointer;
-    width: 10%;
-    height: 5vh;
-    border: none;
-    color: black;
-    background-color: #F4F5F9;
-    text-align: center;
-    opacity: 0.6;
-    transition: 0.3s;
-    border: n1px solid #d9dee8;
-    &:hover {
-        opacity: 1;
-    }
+  cursor: pointer;
+  width: 10%;
+  height: 5vh;
+  border: none;
+  color: black;
+  background-color: #F4F5F9;
+  text-align: center;
+  opacity: 0.6;
+  transition: 0.3s;
+  border: n1px solid #d9dee8;
+  &:hover {
+      opacity: 1;
+  }
 `
 
 class MyInfo extends Component {
-    constructor(){
-        super()
-        this.state = {
-          hasPhoto: true,
-          data: '',
-          tone : false,
-          nickName : false,
-          colorSelected : '',
-          validate : true,
-          file:'',
-          confirmPassword : '',
-          confirmNickname :'',
-          minNum : '',
-          imageAddress: ''
-        }
-
-        this._toneChange = this._toneChange.bind(this);
-        this._photoChange = this._photoChange.bind(this);
-        this._nickNameChange = this._nickNameChange.bind(this);
-        this._comparePassword = this._comparePassword.bind(this);
-        this._passwordInput = this._passwordInput.bind(this);
-        this._submit = this._submit.bind(this);
-        this._onColorSelect = this._onColorSelect.bind(this);
-        this._onDrop = this._onDrop.bind(this);
-        this._passwordConfirm = this._passwordConfirm.bind(this);
-        this._passwordCompare = this._passwordCompare.bind(this);
-        this._confirmNickname = this._confirmNickname.bind(this);
-        this._minNumber = this._minNumber.bind(this);
-        this._nicknameOnchange = this._nicknameOnchange.bind(this);
-    }
-
-    componentDidMount(){
-      const token = localStorage.getItem('token')
-      axios.get(`${url}/api/user/get/info`, {headers: { 'token': token }})
-        .then(response =>{
-            if(response.data.success===true){
-              this.setState({data : response.data.rows[0]})
-            }else if(response.data.success===false) {
-              this.props.handleLogout()
-              // this.props.history.push('/login', {from: this.props.location})
-            }
-          }) 
-
-    }
-
-    _toneChange(){
-      this.setState({tone : !this.state.tone})
-    }
-
-    _confirmNickname(){
-      const token = localStorage.getItem('token')
-      const form = {
-        userName: this.nickname.value
+  constructor(){
+    super()
+    this.state = {
+      hasPhoto: true,
+      data: '',
+      tone : false,
+      nickName : false,
+      colorSelected : '',
+      validate : true,
+      file:'',
+      confirmPassword : '',
+      confirmNickname :'',
+      minNum : '',
+      imageAddress: ''
       }
-        axios.post(`${url}/api/user/update/username`, form, { headers: {'token': token}})
+
+    this._toneChange = this._toneChange.bind(this);
+    this._photoChange = this._photoChange.bind(this);
+    this._nickNameChange = this._nickNameChange.bind(this);
+    this._comparePassword = this._comparePassword.bind(this);
+    this._passwordInput = this._passwordInput.bind(this);
+    this._submit = this._submit.bind(this);
+    this._onColorSelect = this._onColorSelect.bind(this);
+    this._onDrop = this._onDrop.bind(this);
+    this._passwordCompare = this._passwordCompare.bind(this);
+    this._confirmNickname = this._confirmNickname.bind(this);
+    this._minNumber = this._minNumber.bind(this);
+    this._nicknameOnchange = this._nicknameOnchange.bind(this);
+    }
+
+  componentDidMount(){
+    const token = localStorage.getItem('token')
+    axios.get(`${url}/api/user/get/info`, {headers: { 'token': token }})
+      .then(response =>{
+          if(response.data.success===true){
+            this.setState({data : response.data.rows[0]})
+          }else if(response.data.success===false) {
+            this.props.handleLogout()
+          }
+      }) 
+  }
+
+  _toneChange(){
+    this.setState({tone : !this.state.tone})
+  }
+
+  _confirmNickname(){
+    const token = localStorage.getItem('token')
+    const form = {
+      userName: this.nickname.value
+    }
+      axios.post(`${url}/api/user/update/username`, form, { headers: {'token': token}})
+        .then(response => {
+          this.nickname.value.length > 6 || this.nickname.value.length < 2 ?
+          (this.setState({confirmNickname : false}), this.nickerror()) 
+          : response.data.success === false ?
+            (this.setState({confirmNickname : false}), this.nickDuperror()) :
+            (this.setState({confirmNickname : true}), this.nicksuccess())  
+        })
+        .catch(err => console.log(err));
+  }
+
+  _nicknameOnchange(){
+  this.nickname.value.length <2 || this.nickname.value.length >6 ? this.setState({confirmNickname : false}) : null;
+  }
+
+  _photoChange(){
+    this.setState({hasPhoto : !this.state.hasPhoto})
+  }
+
+  _nickNameChange(){
+    this.setState({nickName : !this.state.nickName})
+  }
+
+  _comparePassword(){
+    this.newPassword.value !== this.confirmPassword.value ? 
+    this.setState({validate : false})
+    : this.setState({validate : true})
+  }
+
+  _passwordInput(){
+    !this.newPassword.value ? this.newPasswordFirst() : null;
+  }
+
+  _onColorSelect(option) {
+    this.setState({ colorSelected: option.value })
+  }
+
+  _onDrop(files){
+    const file =  files[0];      
+    const token = localStorage.getItem('token')
+    const formData = new FormData();
+    formData.append('file', file);
+      var mimeType = file.type.split('/')[1];
+      mimeType === 'jpg' || mimeType === 'JPG' || mimeType === 'jpeg' || mimeType === 'JPEG' || mimeType === 'png' || mimeType === 'PNG' ?
+      (this.setState({file}),
+        axios.post(`${url}/api/user/post/upload`, formData, { headers: { 'token': token} } )
           .then(response => {
-            this.nickname.value.length > 6 || this.nickname.value.length < 2 ?
-            (this.setState({confirmNickname : false}), this.nickerror()) 
-            : response.data.success === false ?
-              (this.setState({confirmNickname : false}), this.nickDuperror()) :
-              (this.setState({confirmNickname : true}), this.nicksuccess())  
-          })
-          .catch(err => console.log(err));
-    }
-
-    _nicknameOnchange(){
-    this.nickname.value.length <2 || this.nickname.value.length >6 ? this.setState({confirmNickname : false}) : null;
-    }
-
-    _photoChange(){
-      this.setState({hasPhoto : !this.state.hasPhoto})
-    }
-
-    _nickNameChange(){
-      this.setState({nickName : !this.state.nickName})
-    }
-
-    _comparePassword(){
-      this.newPassword.value !== this.confirmPassword.value ? 
-       this.setState({validate : false})
-       : this.setState({validate : true})
-    }
-
-    _passwordInput(){
-      !this.newPassword.value ? this.newPasswordFirst() : null;
-    }
-
-    _onColorSelect(option) {
-      this.setState({ colorSelected: option.value })
-    }
-
-    _onDrop(files, reject){
-
-      const file =  files[0];      
-      const token = localStorage.getItem('token')
-      const formData = new FormData();
-      formData.append('file', file);
-       var mimeType = file.type.split('/')[1];
-       mimeType === 'jpg' || mimeType === 'JPG' || mimeType === 'jpeg' || mimeType === 'JPEG' || mimeType === 'png' || mimeType === 'PNG' ?
-        (this.setState({file}),
-    
-          // Send the compressed image file to server with XMLHttpRequest.
-          axios.post(`${url}/api/user/post/upload`, formData, { headers: { 'token': token} } )
-            .then(response => {
-                console.log(response)
-                this.setState({imageAddress : response.data.message})
-              })
-              .catch(err => console.log(err)))
-              : this.uploadImage();
-    }
-
-    _passwordConfirm(){
-      console.log(this.password.value.length)
-    }
+              this.setState({imageAddress : response.data.message})
+            })
+            .catch(err => console.log(err)))
+            : this.uploadImage();
+  }
 
     _minNumber(){
-      this.newPassword.value.length >=2 || this.newPassword.value.length <= 6 ? this.setState({minNum : false}) : this.setState({minNum : true})
+      this.newPassword.value.length <5 || this.newPassword.value.length > 10 ? this.setState({minNum : false}) : this.setState({minNum : true})
     }
 
     _passwordCompare(){
+      const token = localStorage.getItem('token')
       const form = {
         userPassword : this.password.value
       }
@@ -358,8 +343,6 @@ class MyInfo extends Component {
         .catch(err => console.log(err)) : this.error()
     }
       
-    
-
     colorOptions = [
       { value: '모르겠어요', label: '모르겠어요' },
       {
@@ -378,82 +361,82 @@ class MyInfo extends Component {
       }
   ]
 
-    render() {
-        return (
-          this.state.data ?
-          <Container>
-            <Header>내 정보 수정</Header>
-            <Table>
-              <Row>
-                <Column>사진</Column>
-                <Data>{this.state.hasPhoto ? <div><ProfPic src= {this.state.data.user_photo} /><Buttons onClick={this._photoChange}> 사진 변경</Buttons></div> 
-                  : <div><Dropzone onDropAccepted={ this._onDrop } onDropRejected={this.uploadImage} size={ 30 }  accept = "image/*">
-                  <div style={{width:'100%', height:'100%', textAlign:'center'}}>
-                       <div style={{width:'100%', height:'100%', textAlign:'center'}}>
-                       <div style={{color: 'black' ,fontWeight: 'bold'}}> 이미지 변경 클릭 </div>
-                       {this.state.file ?
-                         <ChangePic src= {this.state.imageAddress ? this.state.file.preview : 'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'}  />
-                         :<Img src={this.state.data.user_photo}/>}</div>
-                           </div>
-                           </Dropzone>
-                          <Buttons onClick={this._photoChange}> 취소</Buttons></div>}
-                </Data>
-              </Row>
-              <Row>
-                <Column>이메일</Column>
-                <Data>{this.state.data ? this.state.data.mail : null}</Data>
-              </Row>
-              <Row>
-                <Column>닉네임</Column>
-                <Data>
-                    {this.state.nickName === false ? <div><Input value = {this.state.data ? this.state.data.name : null} ref={ref => { this.nickname = ref; }}  readOnly/> <Buttons onClick = {this._nickNameChange}>닉네임 변경</Buttons></div>
-                    : <div><input style={{border: '0.5px solid #ccc'}}  defaultValue = {this.state.data.name} onBlur={this._nicknameOnchange} ref={ref => { this.nickname = ref; }}/><Buttons style={{marginLeft: '2%', marginRight: '2%'}} onClick = {this._confirmNickname}> 중복확인 </Buttons><Buttons onClick={this._nickNameChange}>변경취소</Buttons></div>}
-                </Data>
-              </Row>
-              <Row>
-                <Column>피부타입</Column>
-                <Data>
-                  {!this.state.data ? null : this.state.tone === false ? this.state.data.tone : null}
-                   {this.state.tone === false ? <Buttons onClick = {this._toneChange}style={{'margin-left': '15px'}}>피부타입 변경</Buttons> : null }
-                  {this.state.tone === true ? 
-                    <div><Dropdown options={this.colorOptions} placeholder="USER'S PERSONAL COLOR" onChange={this._onColorSelect} value = {this.state.colorSelected} /> <Buttons onClick={this._toneChange}>변경취소</Buttons></div> 
-                  : null}
-                </Data>
-              </Row>              
-              <Row>
-                <Column>비밀번호</Column>
-                <Data style={{height: 'auto !important'}}>
-                <div>비밀번호는 5-10자 이내로 설정해주세요.</div>
-                    <div>현재 비밀번호</div>
-                    <input style={{border: '0.5px solid #ccc'}} onChange={this._passwordCompare} ref={ref => { this.password = ref; }}type='password'/>
-                      {!this.password ? null : !this.password.value.length ? null : this.state.confirmPassword === true ? < div > Ok </div> :  this.state.confirmPassword === false ? <div>비밀번호 확인해주세요</div > : null}
-                    <div>신규 비밀번호</div>
-                    <input style={{border: '0.5px solid #ccc'}} onChange ={this._minNumber} ref={ref => { this.newPassword = ref; }} type='password'/>
-                    {!this.newPassword ? null: !this.newPassword.value.length ? null : !this.state.minNum ? <div>비밀번호는 5글자 이상 입력하셔야 합니다.</div> : <div>Ok</div>}
-                    <div>비밀번호 재입력</div>
-                    <input style={{border: '0.5px solid #ccc'}} onClick={this._passwordInput} onChange = {this._comparePassword} ref={ref => { this.confirmPassword = ref; }} type='password'/>
-                     {!this.confirmPassword && !this.newPassword ?  null : this.confirmPassword.value && this.newPassword.value ? <div>{this.state.validate === true ? '비밀번호가 일치합니다' : '입력한 비밀번호가 일치하지 않습니다'}</div>:null}
-                </Data>
-              </Row>
-              <Row>
-                <Column>성별</Column>
-                <Data>{this.state.data ? this.state.data.gender : null}</Data>
-              </Row>
-              <Row>
-                <Column>생년월일</Column>
-                <Data>{this.state.data ? this.state.data.birth.split('T')[0] : null}</Data>
-              </Row>
-            </Table>
-            <div style={{margin: ' 5% auto auto auto' , textAlign:'center'}}>
-              <Buttons onClick={this._submit}> 
-                  변경 
-              </Buttons>
-                <Link to='/' style={{ textDecoration: 'none' }}> <Buttons>취소</Buttons> </Link>
-            </div>
-            
+  render() {
+      return (
+        this.state.data ?
+        <Container>
+          <Header>내 정보 수정</Header>
+          <Table>
+            <Row>
+              <Column>사진</Column>
+              <Data>{this.state.hasPhoto ? <div><ProfPic src= {this.state.data.user_photo} /><Buttons onClick={this._photoChange}> 사진 변경</Buttons></div> 
+                : <div><Dropzone onDropAccepted={ this._onDrop } onDropRejected={this.uploadImage} size={ 30 }  accept = "image/*">
+                <div style={{width:'100%', height:'100%', textAlign:'center'}}>
+                      <div style={{width:'100%', height:'100%', textAlign:'center'}}>
+                      <div style={{color: 'black' ,fontWeight: 'bold'}}> 이미지 변경 클릭 </div>
+                      {this.state.file ?
+                        <ChangePic src= {this.state.imageAddress ? this.state.file.preview : 'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'}  />
+                        :<Img src={this.state.data.user_photo}/>}</div>
+                          </div>
+                          </Dropzone>
+                        <Buttons onClick={this._photoChange}> 취소</Buttons></div>}
+              </Data>
+            </Row>
+            <Row>
+              <Column>이메일</Column>
+              <Data>{this.state.data ? this.state.data.mail : null}</Data>
+            </Row>
+            <Row>
+              <Column>닉네임</Column>
+              <Data>
+                  {this.state.nickName === false ? <div><Input value = {this.state.data ? this.state.data.name : null} ref={ref => { this.nickname = ref; }}  readOnly/> <Buttons onClick = {this._nickNameChange}>닉네임 변경</Buttons></div>
+                  : <div><input style={{border: '0.5px solid #ccc'}}  defaultValue = {this.state.data.name} onBlur={this._nicknameOnchange} ref={ref => { this.nickname = ref; }}/><Buttons style={{marginLeft: '2%', marginRight: '2%'}} onClick = {this._confirmNickname}> 중복확인 </Buttons><Buttons onClick={this._nickNameChange}>변경취소</Buttons></div>}
+              </Data>
+            </Row>
+            <Row>
+              <Column>피부타입</Column>
+              <Data>
+                {!this.state.data ? null : this.state.tone === false ? this.state.data.tone : null}
+                  {this.state.tone === false ? <Buttons onClick = {this._toneChange}style={{'margin-left': '15px'}}>피부타입 변경</Buttons> : null }
+                {this.state.tone === true ? 
+                  <div><Dropdown options={this.colorOptions} placeholder="USER'S PERSONAL COLOR" onChange={this._onColorSelect} value = {this.state.colorSelected} /> <Buttons onClick={this._toneChange}>변경취소</Buttons></div> 
+                : null}
+              </Data>
+            </Row>              
+            <Row>
+              <Column>비밀번호</Column>
+              <Data style={{height: 'auto !important'}}>
+              <div>비밀번호는 5-10자 이내로 설정해주세요.</div>
+                  <div>현재 비밀번호</div>
+                  <input style={{border: '0.5px solid #ccc'}} onChange={this._passwordCompare} ref={ref => { this.password = ref; }}type='password'/>
+                    {!this.password ? null : !this.password.value.length ? null : this.state.confirmPassword === true ? < div > Ok </div> :  this.state.confirmPassword === false ? <div>비밀번호 확인해주세요</div > : null}
+                  <div>신규 비밀번호</div>
+                  <input style={{border: '0.5px solid #ccc'}} onChange ={this._minNumber} ref={ref => { this.newPassword = ref; }} type='password'/>
+                  {!this.newPassword ? null: !this.newPassword.value.length ? null : !this.state.minNum ? <div>비밀번호는 5글자 이상 입력하셔야 합니다.</div> : <div>Ok</div>}
+                  <div>비밀번호 재입력</div>
+                  <input style={{border: '0.5px solid #ccc'}} onClick={this._passwordInput} onChange = {this._comparePassword} ref={ref => { this.confirmPassword = ref; }} type='password'/>
+                    {!this.confirmPassword && !this.newPassword ?  null : this.confirmPassword.value && this.newPassword.value ? <div>{this.state.validate === true ? '비밀번호가 일치합니다' : '입력한 비밀번호가 일치하지 않습니다'}</div>:null}
+              </Data>
+            </Row>
+            <Row>
+              <Column>성별</Column>
+              <Data>{this.state.data ? this.state.data.gender : null}</Data>
+            </Row>
+            <Row>
+              <Column>생년월일</Column>
+              <Data>{this.state.data ? this.state.data.birth.split('T')[0] : null}</Data>
+            </Row>
+          </Table>
+          <div style={{margin: ' 5% auto auto auto' , textAlign:'center'}}>
+            <Buttons onClick={this._submit}> 
+                변경 
+            </Buttons>
+              <Link to='/' style={{ textDecoration: 'none' }}> <Buttons>취소</Buttons> </Link>
+          </div>
           
-            </Container>
-            : < Container > "Loading..." </Container>
+        
+          </Container>
+          : < Container > "Loading..." </Container>
         )
     }
 }

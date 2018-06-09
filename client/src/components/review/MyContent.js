@@ -266,7 +266,7 @@ class MyContent extends Component {
                             <UserDiv> 
                                 <UserImage alt='user' src = {this.props.user.user_photo}/>
                             </UserDiv>
-                            <div>{this.props.user.name} <GenderImage alt ='gender' src = {this.props.user.gender === 'male'? male : female}/></div>
+                            <div><strong>{this.props.user.name}</strong> <GenderImage alt ='gender' src = {this.props.user.gender === 'male'? male : female}/></div>
                             <div>{this.props.user.age}세 · {this.props.user.tone}<br/></div>
                             <div style={{ fontSize: '0.8rem'}}> {this.props.user.writeAt.split(' ')[0]} </div>
                             <div>

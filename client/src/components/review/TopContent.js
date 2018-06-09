@@ -257,7 +257,7 @@ class TopContent extends Component {
                                 }
                             }
                             this.setState({ data: data })
-                            window.location.reload()
+                            window.location.reload();
                         })
                         .catch(err => console.log(err))
             })
@@ -293,7 +293,7 @@ class TopContent extends Component {
                                         <UserDiv> 
                                             <UserImage alt='user'  src = {item.user_photo}/>
                                         </UserDiv>
-                                            <div>{item.name}  <GenderImage src = {item.gender === 'male'? male : female}/></div>
+                                            <div><strong>{item.name}</strong>  <GenderImage src = {item.gender === 'male'? male : female}/></div>
                                             <div>{item.age}세 · {item.tone}</div>
                                             <div style={{ fontSize: '0.8rem'}}> {item.writeAt.split('T')[0]} </div>
                                             <StarRatingComponent

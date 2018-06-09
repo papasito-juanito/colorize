@@ -278,7 +278,6 @@ class AllContent extends Component {
                 return axios.get(`${url}/api/review/get/list?color_id=${this.props.id}`, { headers: { 'token': token } })
                 .then(response => {
                     this.setState({ data: response.data.rows })
-                    window.location.reload();
                 })
                 .catch(err => console.log(err))
                 }
@@ -313,7 +312,7 @@ class AllContent extends Component {
                                 <UserDiv> 
                                     <UserImage alt='user' src = {data[i].user_photo}/>
                                 </UserDiv>
-                                <div>{data[i].name} <GenderImage alt='gender' src = {data[i].gender === 'male'? male : female}/></div>
+                                <div><strong>{data[i].name}</strong> <GenderImage alt='gender' src = {data[i].gender === 'male'? male : female}/></div>
                                 <div>{data[i].age}세 · {data[i].tone}</div>
                                 <div style={{ fontSize: '0.8rem'}}> {data[i].writeAt.split('T')[0]} </div>
                                 <StarRatingComponent

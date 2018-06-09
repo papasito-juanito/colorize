@@ -4,7 +4,7 @@ import axios from 'axios';
 import { url } from '../../config';
 import styled from 'styled-components';
 import StarRatingComponent from 'react-star-rating-component';
-import like from '../../assets/reviewLike.png';
+import like from '../../assets/Heart.png';
 import RModal from 'react-modal';
 import { Modal } from 'antd';
 import { Link } from 'react-router-dom';
@@ -526,6 +526,7 @@ class MyReviews extends Component {
                     <ReviewImage src={item.item_photo} /></Link>
                   </ItemLink>
                   <Info>
+                    <strong>
                     <div>{item.name}</div>           
                       {!this.state.isReply ? 
                         <div>내 평점:
@@ -546,6 +547,7 @@ class MyReviews extends Component {
                           </div>
                         </div>
                         }
+                    </strong>
                   </Info>
                   <MyImageDiv>
                     {!this.state.isReply ?

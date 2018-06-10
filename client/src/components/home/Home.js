@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import tinycolor from "tinycolor2";
 import { url } from '../../config';
 
-import axios from 'axios';
 
 const HomeContainer = styled.div`
   background-color: white;
@@ -55,37 +54,24 @@ class Home extends React.Component {
     
     componentDidMount(){
       
-      axios.get(`${url}/api/color/get`)
-      .then(response =>{ 
-        console.log(response)
-        this.setState({
-          data: response.data.rows,
-          isLoaded: true
-        })
-      })
-      .then(()=>(
-        this.sortColorGroup(this.state.data))
-      )
-      .then(()=>{
-        isLoaded: true
-      })
-      // .then(data =>{
-      //   this.setState({data:data.rows})} )
-      // .then(() => this.sortColorGroup(this.state.data))
-      // .then(() => this.setState({isLoaded: true}))
+      fetch(`${url}/api/color/get`)
+      .then(response => response.json())
+      .then(data =>{
+        this.setState({data:data.rows})} )
+      .then(() => this.sortColorGroup(this.state.data))
+      .then(() => this.setState({isLoaded: true}))
   }
 
-  colorGroup = {
-    A: [],
-    B: [],
-    C: [],
-    D: [],
-    E: [],
-    F: [],
-    G: [],
-    H: []
-  }
-
+    colorGroup = {
+        A: [],
+        B: [],
+        C: [],
+        D: [],
+        E: [],
+        F: [],
+        G: [],
+        H: []
+      }
       
       sortColorGroup(dbItemHex) {
         var hArr = []; //array to store h values

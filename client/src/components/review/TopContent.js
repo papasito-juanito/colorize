@@ -250,7 +250,8 @@ class TopContent extends Component {
         }
         !this.props.isLogined ? this.login() :
         axios.post(`${url}/api/review/update/like`,form, { headers: { 'token': token } })
-            .then((res) => {                
+            .then((res) => {     
+                console.log(res)           
                 return axios.get(`${url}/api/review/get/rank?color_id=${this.props.id}`, { headers: { 'token': token } })
                         .then(response => {
                             for(var i = 0; i< response.data.rows.length; i++){
@@ -259,7 +260,8 @@ class TopContent extends Component {
                                 }
                             }
                             console.log('data@@@@@@ :', data)
-                            this.setState({ data: data })
+                            this.setState({ data })
+                            console.log(this.state.data)
                             // window.location.reload();
                         })
                         .catch(err => console.log(err))

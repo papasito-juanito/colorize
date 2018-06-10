@@ -260,7 +260,7 @@ class TopContent extends Component {
                                 }
                             }
                             this.setState({ data })
-                            // window.location.reload();
+                            window.location.reload();
                         })
                         .catch(err => console.log(err))
             })

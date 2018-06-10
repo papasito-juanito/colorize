@@ -9,6 +9,7 @@ import Dropzone from 'react-dropzone';
 import ImageCompressor from 'image-compressor.js';
 import { Modal, Button } from 'antd';
 import 'antd/dist/antd.css';
+import AvatarEditor from 'react-avatar-editor'
 
 const Wrapper = styled.div`
     width: 100%;
@@ -24,7 +25,7 @@ const TopWrite = styled.div`
     display: flex;
     @media (max-width: 768px) {
         width: 100%;
-        height: 15vh;
+        height: 20vh;
         margin-bottom: 1%;
     }
 `
@@ -50,6 +51,7 @@ const CenterDiv = styled.div`
 const ReviewImage = styled.img`
     width: 100%;
     height: 100%;
+    object-fit : contain;
 `
 const ImageDiv = styled.div `
     width: 16vw;
@@ -66,7 +68,7 @@ const ReviewDiv = styled.div`
     border: 1px solid black;
     @media (max-width: 768px) {
         width: 100%;
-        height: 20vh;
+        height: 25vh;
     }
 `
 const BottomContainer = styled.div`
@@ -95,7 +97,7 @@ const Img = styled.img `
     width: 80%;
     height: 80%;
     border-radius: 50%;
-    object-fit: cover;
+    object-fit: contain;
 `
 const sendButton = styled.button`
     position: relative;
@@ -112,10 +114,7 @@ const ChangePic = styled.img `
   width: 80%;
   height: 80%;
   border-radius: 5px;
-  object-fit: cover;
-    @media (max-width: 768px) {
-       object-fit: fill;
-    }
+  object-fit: contain;
 `
 
 const Modify = styled.button `
@@ -151,7 +150,6 @@ class Rating extends Component {
         }
         this._onStarClick = this._onStarClick.bind(this);
         this._clickReview = this._clickReview.bind(this);
-        this._alertReview = this._alertReview.bind(this);
         this._onDrop = this._onDrop.bind(this);
     }
 
@@ -160,6 +158,7 @@ class Rating extends Component {
     }
 
     _clickReview() {
+        const token = localStorage.getItem('token')
         const form = {
             color_id: this.props.id,
             reviewPhoto: this.state.imageAddress,
@@ -168,17 +167,21 @@ class Rating extends Component {
         }
         this.props.loginState === false ? (this.login(), this.props.handleLogout()) :
         !this.state.imageAddress ? this.picture() : 
-             (axios.post(`${url}/api/review/post/message`, form, { headers: { 'token': token } })
+             axios.post(`${url}/api/review/post/message`, form, { headers: { 'token': token } })
                 .then((response) => {
-                console.log(response);
+                console.log('review response@@@@@', response);
                 })
+                .then(res => (
+                    this.input.value = '', this.review()
+                ))
+                .then(res => window.location.reload())
                 .catch(err => console.log(err))
-            ,this.input.value = '', window.location.reload())
+                // window.location.reload()
     }
 
-    _alertReview() {
-         this.props.loginState === true && this.state.imageAddress ? alert('후기가 등록되었습니다') : null;
-    }
+    // _alertReview() {
+    //      this.props.loginState === true && this.state.imageAddress ? this.review() : null;
+    // }
 
     uploadImage() {
         Modal.error({
@@ -186,11 +189,15 @@ class Rating extends Component {
         });
     }
 
-      review() {
+    review() {
         Modal.error({
-            title: '후기가 등록되었습니다.'
+            title: '후기가 등록되었습니다.',
+               onOk: ()=> {
+          window.location.reload()
+        }
         });
     }
+
     login() {
         Modal.error({
             title: '로그인이 필요한 서비스 입니다.'
@@ -202,20 +209,78 @@ class Rating extends Component {
         });
     }
 
-    _onDrop(files, reject){
-      const file =  files[0];
-       const formData = new FormData();
-       formData.append('file', file);
-       var mimeType = file.type.split('/')[1];
-       mimeType === 'jpg' || mimeType === 'JPG' || mimeType === 'jpeg' || mimeType === 'JPEG' || mimeType === 'png' || mimeType === 'PNG' ?
-        (this.setState({file}),
-            axios.post(`${url}/api/review/post/upload`, formData, { headers: { 'token': token} } )
+getOrientation(file, callback) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      console.log('file', file);
+      console.log('callback', callback);
+        var view = new DataView(e.target.result);
+        if (view.getUint16(0, false) != 0xFFD8)
+        {
+            return callback(-2);
+        }
+        var length = view.byteLength, offset = 2;
+        while (offset < length) 
+        {
+            if (view.getUint16(offset+2, false) <= 8) return callback(-1);
+            var marker = view.getUint16(offset, false);
+            offset += 2;
+            if (marker == 0xFFE1) 
+            {
+                if (view.getUint32(offset += 2, false) != 0x45786966) 
+                {
+                    return callback(-1);
+                }
+                var little = view.getUint16(offset += 6, false) == 0x4949;
+                offset += view.getUint32(offset + 4, little);
+                var tags = view.getUint16(offset, little);
+                offset += 2;
+                for (var i = 0; i < tags; i++)
+                {
+                    if (view.getUint16(offset + (i * 12), little) == 0x0112)
+                    {
+                        return callback(view.getUint16(offset + (i * 12) + 8, little));
+                    }
+                }
+            }
+            else if ((marker & 0xFF00) != 0xFF00)
+            {
+                break;
+            }
+            else
+            { 
+                offset += view.getUint16(offset, false);
+            }
+        }
+        return callback(-1);
+    };
+    reader.readAsArrayBuffer(file);
+}
+
+  _onDrop(files){
+    const token = localStorage.getItem('token')
+    const file = files[0];
+    const formData = new FormData();
+    const img = new Image()
+    var orientation = ''
+    img.src = file.preview
+    img.onload = (e)=> {
+      this.getOrientation(file, (orientation) => {
+        
+        formData.append('img', file, orientation);
+        const mimeType = file.type.split('/')[1];
+        mimeType === 'jpg' || mimeType === 'JPG' || mimeType === 'jpeg' || mimeType === 'JPEG' || mimeType === 'png' || mimeType === 'PNG' ?
+          (this.setState({file}),
+          axios.post(`${url}/api/review/post/upload`, formData, { headers: { 'token': token,'orientation' : orientation} } )
             .then(response => {
-            this.setState({imageAddress : response.data.message})
+              this.setState({imageAddress : response.data.message})
+              // document.getElementById('imgloading').style.display = 'inline-block'
             })
             .catch(err => console.log(err)))
-            : this.uploadImage();
+          : this.uploadImage();
+      });
     }
+}
 
     render() {
         const { rating } = this.state;
@@ -240,17 +305,18 @@ class Rating extends Component {
                                         사진을 등록해 주세요 
                                     </div>
                                         {this.state.file ?
-                                        <ChangePic src= {this.state.imageAddress ? this.state.file.preview : 'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'}  />
+                                        <ChangePic src= {this.state.imageAddress ? this.state.imageAddress : 'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'}  />
                                         :null}
                                 </ImgDiv>
                            </ImgDiv>
+                           {/* <AvatarEditor width={250} height={250} scale={1.2} image={this.state.imageAddress} /> */}
                         </Dropzone>
                     </ImageDiv>                   
                 </TopWrite>
                 <ReviewDiv>
                     <TextArea placeholder='사용 후기를 입력해주세요.' innerRef={ref => { this.input = ref; }} /><br />
                     <BottomContainer>
-                        <Modify onClick={() => { this._alertReview(); this._clickReview() }}>등록</Modify>
+                        <Modify onClick={() => {this._clickReview() }}>등록</Modify>
                     </BottomContainer>
                 </ReviewDiv>
             </Wrapper>

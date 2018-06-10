@@ -17,7 +17,6 @@ const Div = styled.div`
     display: flex;
 `;
 
-
 class Comment extends Component {
     constructor(props) {
         super(props);
@@ -31,20 +30,12 @@ class Comment extends Component {
         const token = localStorage.getItem('token')
         axios.get(`${url}/api/review/get/info?color_id=${this.props.id}`, { headers: { 'token': token } })
             .then(response => {
-                console.log(response)
                 this.setState({ user: response.data })
-
-            }
-            )
+            })
             .catch(err => console.log(err)) 
-            
     }
     
     render() {
-        console.log(this.state.user?this.state.user:null)
-        console.log(this.props.id)
-        console.log(this.state.data)
-        console.log(this.props.isLogined)
         return (
             <Container>
                 {!this.props.isLogined ?
@@ -61,7 +52,6 @@ class Comment extends Component {
                     <Rating loginState = {this.props.isLogined} handleLogout={this.props.handleLogout} info={this.state.user} id={this.props.id} data={this.state.data} />
                 </Div>    
                 }
-
             </Container>
         );
     }

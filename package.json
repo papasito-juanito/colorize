@@ -25,11 +25,14 @@
     "morgan": "^1.9.0",
     "multer": "^1.3.0",
     "multer-s3": "^2.7.0",
+    "multer-s3-transform": "^2.3.2",
     "mysql": "^2.15.0",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "sharp": "^0.20.3"
   },
   "scripts": {
-    "test": "NODE_ENV=development nodemon server/1_express/index.js --ignore 'client/'",
+    "dev": "NODE_ENV=development nodemon server/1_express/index.js --ignore 'client/'",
+    "pro": "pm2 start server/1_express/index.js",
     "server": "nodemon server/1_express/index.js --ignore 'client/'"
   },
   "devDependencies": {

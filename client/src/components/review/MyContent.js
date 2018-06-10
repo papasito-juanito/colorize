@@ -62,18 +62,18 @@ const Info = styled.div`
 `
 
 const InfoDiv = styled.div`
-        position: absolute;
-        padding-top:2%;
-        top:50%
-        left:10%;
-        transform: translateY(-50%);
-        flex-direction: column;
-        @media (max-width: 768px) {
+    position: absolute;
+    padding-top:2%;
+    top:50%
+    left:10%;
+    transform: translateY(-50%);
+    flex-direction: column;
+    @media (max-width: 768px) {
         display: inline-block;
-          font-size : 0.8rem;
+        font-size : 0.8rem;
     }
-        @media (max-width: 320px) {
-            font-size : 0.7rem;
+    @media (max-width: 320px) {
+        font-size : 0.7rem;
     }
 `
 const UserDiv = styled.div`
@@ -81,10 +81,10 @@ const UserDiv = styled.div`
     height: 5vw;
     margin-bottom:10%;
     @media (max-width: 768px) {
-    width: 10vw;
-    height: 10vw;
-    padding-top:2%;
-    margin-bottom:-1%;
+        width: 10vw;
+        height: 10vw;
+        padding-top:2%;
+        margin-bottom:-1%;
     }   
 
 `
@@ -111,8 +111,8 @@ const ReviewImage = styled.img`
     border-radius:5px;
     object-fit : cover;
     @media (max-width: 768px) {
-    width: 100%;
-    height: 100%;
+        width: 100%;
+        height: 100%;
     }
 `
 const ReviewContent = styled.div`
@@ -135,9 +135,9 @@ const Bubble = styled.div`
     margin: 1% 1% 0 1%;
     padding: 1%
     @media (max-width: 768px) {
-    width: 100%;
-    height: 80%;
-    border: none;
+        width: 100%;
+        height: 80%;
+        border: none;
     }
 `
 const Message = styled.textarea`
@@ -150,8 +150,8 @@ const Message = styled.textarea`
         outline: none;
     }
     @media (max-width: 768px) {
-    background-color: #F4F5F9;
-    border-radius : 5px;
+        background-color: #F4F5F9;
+        border-radius : 5px;
     }
     @media (max-width: 320px) {
         font-size : 0.7rem;
@@ -161,8 +161,8 @@ const Message = styled.textarea`
 const BottomContainer = styled.div `
     height: 30%;
     @media (max-width: 768px) {
-    width: 100%;
-    height: 20%;
+        width: 100%;
+        height: 20%;
     }
 `
 const LikeCount = styled.div`
@@ -170,7 +170,7 @@ const LikeCount = styled.div`
     height: 60%;
     margin: 0 0 0 85%;
     @media (max-width: 360px) {
-      bottom: 0;
+        bottom: 0;
     }
 `
 const Like = styled.img`
@@ -178,21 +178,21 @@ const Like = styled.img`
     height: 2rem;
     cursor: pointer;
     @media (max-width: 768px) {
-    width: 1.5rem;
-    height: 1.5rem;
+        width: 1.5rem;
+        height: 1.5rem;
     }
     @media (max-width: 360px) {
-    width: 1rem;
-    height: 1rem;
+        width: 1rem;
+        height: 1rem;
     }
 `
 
 const ModalDiv = styled.div `
-     width: 70vh;
+    width: 70vh;
     @media (max-width: 768px) {
-    width: 60vw;
-    height: 60vw;
-    object-fit : contain;
+        width: 60vw;
+        height: 60vw;
+        object-fit : contain;
     }
 `
 const PointButton = styled.button `
@@ -206,7 +206,6 @@ const PointButton = styled.button `
     color: white
     &:hover {
         text-shadow: 0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F;
-        // text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0080, 0 0 30px #ff0080, 0 0 40px #ff0080, 0 0 55px #ff0080, 0 0 75px #ff0080;
     }  
 `
 
@@ -214,10 +213,10 @@ const Span = styled.span `
     font-size: 1.5rem;
     padding-left:5%;
     @media (max-width: 767px) {
-    font-size: 0.8rem;
+        font-size: 0.8rem;
     }
     @media (max-width: 360px) {
-    font-size: 0.8rem;
+        font-size: 0.8rem;
     }
 `
 const Button = styled.button`
@@ -226,8 +225,6 @@ const Button = styled.button`
     color: white;
     background-color: black;
 `
-
-
 
 class MyContent extends Component {
     constructor(props) {
@@ -242,7 +239,6 @@ class MyContent extends Component {
         this._afterOpenPopup = this._afterOpenPopup.bind(this);
         this._closePopup = this._closePopup.bind(this);
     }
-
 
     _openPopup(e) {
         this.setState({
@@ -259,61 +255,61 @@ class MyContent extends Component {
         this.setState({ popupIsOpen: false });
     }
 
-        render() {
-        let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
+    render() {
+    let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
 
-            return (
-                <Container>
-                    <Top>
-                        <Info>
-                            <InfoDiv>
-                                <UserDiv> 
-                                    <UserImage alt='user' src = {this.props.user.user_photo}/>
-                                </UserDiv>
-                                <div>{this.props.user.name} <GenderImage alt ='gender' src = {this.props.user.gender === 'male'? male : female}/></div>
-                                <div>{this.props.user.age}세 · {this.props.user.tone}<br/></div>
-                                <div style={{ fontSize: '0.8rem'}}> {this.props.user.writeAt.split(' ')[0]} </div>
-                                <div>
-                                    <StarRatingComponent
-                                        name="rate2"
-                                        editing={false}
-                                        value={this.props.user.rating}
-                                    />
-                                </div>
-                            </InfoDiv>
-                        </Info>
-                        <ImageRating>
-                            <ReviewImage onClick={this._openPopup} src={this.props.user.review_photo} />
-                        </ImageRating>
-                    </Top>
-                    <ReviewContent>
-                        <Bubble> 
-                            <Message readOnly>
-                                {this.props.user.message}
-                            </Message>
-                        </Bubble>
-                        <BottomContainer >
-                   
-                            <LikeCount>
-                                            {/* < Button >수정 </Button> */}
-                                <Like src={like} />
-                                <Span>{this.props.user.likes}</Span>
-                            </LikeCount>
-                        </BottomContainer>
-                    </ReviewContent >
-            
-                    <Modal
-                        isOpen={this.state.popupIsOpen}
-                        onAfterOpen={this._afterOpenPopup}
-                        onRequestClose={this._closePopup}
-                        style={customStyles}
-                        contentLabel="Image popup"
-                    >
-                        <h2 ref={subtitle => this.subtitle = subtitle}>Review Image</h2>
-                        <ModalDiv>{popupImage}</ModalDiv>
-                        <PointButton onClick={this._closePopup}>close</PointButton>
-                    </Modal>
-                </Container>
+        return (
+            <Container>
+                <Top>
+                    <Info>
+                        <InfoDiv>
+                            <UserDiv> 
+                                <UserImage alt='user' src = {this.props.user.user_photo}/>
+                            </UserDiv>
+                            <div><strong>{this.props.user.name}</strong> <GenderImage alt ='gender' src = {this.props.user.gender === 'male'? male : female}/></div>
+                            <div>{this.props.user.age}세 · {this.props.user.tone}<br/></div>
+                            <div style={{ fontSize: '0.8rem'}}> {this.props.user.writeAt.split(' ')[0]} </div>
+                            <div>
+                                <StarRatingComponent
+                                    name="rate2"
+                                    editing={false}
+                                    value={this.props.user.rating}
+                                />
+                            </div>
+                        </InfoDiv>
+                    </Info>
+                    <ImageRating>
+                        <ReviewImage onClick={this._openPopup} src={this.props.user.review_photo} />
+                    </ImageRating>
+                </Top>
+                <ReviewContent>
+                    <Bubble> 
+                        <Message readOnly>
+                            {this.props.user.message}
+                        </Message>
+                    </Bubble>
+                    <BottomContainer >
+                
+                        <LikeCount>
+                                        {/* < Button >수정 </Button> */}
+                            <Like src={like} />
+                            <Span>{this.props.user.likes}</Span>
+                        </LikeCount>
+                    </BottomContainer>
+                </ReviewContent >
+        
+                <Modal
+                    isOpen={this.state.popupIsOpen}
+                    onAfterOpen={this._afterOpenPopup}
+                    onRequestClose={this._closePopup}
+                    style={customStyles}
+                    contentLabel="Image popup"
+                >
+                    <h2 ref={subtitle => this.subtitle = subtitle}>Review Image</h2>
+                    <ModalDiv>{popupImage}</ModalDiv>
+                    <PointButton onClick={this._closePopup}>close</PointButton>
+                </Modal>
+            </Container>
         );
     }
 };

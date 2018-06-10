@@ -8,7 +8,7 @@ const { credentials, bucket } = require('../../0_config');
 
 module.exports = (req, res) => {
   if (process.env.NODE_ENV === 'development') {
-    console.log('[322_middle] activated multerS3 to upload');
+    console.log('[322_middle] activated multer-s3 to upload');
   }
 
   const s3 = new aws.S3({ credentials });

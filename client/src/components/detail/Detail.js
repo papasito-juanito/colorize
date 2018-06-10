@@ -8,6 +8,7 @@ import Comment from './Comment';
 import TopReview from './TopReview';
 import axios from 'axios';
 import { url } from '../../config';
+import { Modal } from 'antd';
 
 const Container = styled.div`
     height: 100%;
@@ -38,8 +39,6 @@ const Write = styled.div`
 const ReviewDiv = styled.div`
     width: 100%;
     margin-top: 10px;
-	@media (max-width: 768px) {
-	}
 `
 
 const HomeButton = styled.button`
@@ -70,11 +69,8 @@ const Arrow = styled.i`
     padding: 6%;
 `
 
-
-
 const scrollStepInPx = 50;
 const delayInMs = 10;
-
 
 class Detail extends Component {
     constructor(props){
@@ -83,11 +79,9 @@ class Detail extends Component {
             data: '',
             intervalId : 0
         }
-
         this.scrollStep = this.scrollStep.bind(this);
         this.scrollToTop = this.scrollToTop.bind(this);
         this._clickToWish = this._clickToWish.bind(this);
-
     }
 
     scrollStep() {
@@ -98,10 +92,9 @@ class Detail extends Component {
     }
 
     scrollToTop() {
-        let intervalId = setInterval(this.scrollStep, delayInMs);
+        const intervalId = setInterval(this.scrollStep, delayInMs);
         this.setState({ intervalId: intervalId });
     }
-
 
     _clickToWish() {
     const token = localStorage.getItem('token')
@@ -111,39 +104,41 @@ class Detail extends Component {
 
     axios.post(`${url}/api/wishlist/update`, form, { headers: {'token': token}})
         .then((response) => {
-             if (response.data.success === true) {
-            return axios.get(`${url}/api/item/get/detail?color_id=${this.props.match.params.id}`,{headers : {'token': token}})
-                .then(response => {
-                    this.setState({data : response.data.rows})
-                    })
+            if (response.data.success === true) {
+                return axios.get(`${url}/api/item/get/detail?color_id=${this.props.match.params.id}`,{headers : {'token': token}})
+                    .then(response => {
+                        this.setState({data : response.data.rows})
+                        })
                     .catch(err => console.log(err))
-                } else {
-                    alert('로그인 후 이용해 주세요 ')
-                      this.props.handleLogout()
-                }
+            } else {
+                this.login()
+                this.props.handleLogout()
+            }
         })
         .catch(err => console.log(err));
     }
     
-
+   login() {
+       Modal.error({
+           title: '로그인 후 이용해 주세요'
+       });
+   }
     
     componentDidMount(){
-    const token = localStorage.getItem('token')
+        const token = localStorage.getItem('token')
         axios.get(`${url}/api/item/get/detail?color_id=${this.props.match.params.id}`,{headers : {'token': token}})
           .then(response => {
-               if (response.data.success === true) {
-              console.log(response.data.rows)
-            this.setState({data : response.data.rows})
-               } else {
-                     this.props.handleLogout()
+                if (response.data.success === true) {
+                    this.setState({data : response.data.rows})
+                } else {
+                    this.props.handleLogout()
                }
           })
-          .catch(err => console.log(err))
+        .catch(err => console.log(err))
     }    
 
     render(){
         const {handleLogout} = this.props
-        console.log(this.props.isLogined)
         return (
             <Container>
                 <TopDetail>
@@ -154,18 +149,15 @@ class Detail extends Component {
                     <Comment isLogined={this.props.isLogined} handleLogout={this.props.handleLogout} id={this.props.match.params.id}/>
                 </Write>
                 <ReviewDiv>
-                    <TopReview id={this.props.match.params.id} />
+                    <TopReview id={this.props.match.params.id} isLogined={this.props.isLogined} />
                 </ReviewDiv>
                 <ReviewDiv>
                     {this.props.isLogined ? <AllReview handleLogout={handleLogout} id={this.props.match.params.id}/> : <div><h2>전체 리뷰를 보시려면 로그인 해주세요 </h2></div>}
                 </ReviewDiv>
-                <HomeButton onClick={this.scrollToTop}><Arrow/><br/> Top </HomeButton>
-     
         </Container>
         )
     }
 }
-
 
 
 export default Detail;

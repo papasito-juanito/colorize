@@ -243,3 +243,18 @@ Nginx:
 
 HSTS:
     Strict-Transport-Security: max-age=31536000;
+#2018.06.09
+***
+Nginx:
+    모바일 사진 2.4메가 업로드시 413 에러 발생
+    sudo nano /etc/nginx/nginx.conf
+    
+server {
+        listen 80;
+        client_max_body_size 5M;
+
+        server_name colorize.io www.colorize.io;
+
+        if ($http_x_forwarded_proto = 'http') {
+                return 301 https://$server_name$request_uri;
+        }

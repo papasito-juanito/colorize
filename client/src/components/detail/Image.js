@@ -28,10 +28,6 @@ const Image = styled.img`
     object-fit: scale-down;
     justify-content: center;
     display: block;
-    // background: pink;
-    @media (max-width: 768px) {
-
-	}
 `
 
 const Wishlist = styled.div`
@@ -50,24 +46,15 @@ const Heart = styled.img`
     display: block;
 `
 
-class DetailLeft extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-        }
-    }
-
-    render(){
-        
-        return (
-            <Div>
-                <Image src={this.props.data ? this.props.data[0].item_photo : null} alt={'lip'} />
-                <Wishlist>
-                    <Heart onClick={this.props.changeWish} src={!this.props.data ? null : this.props.data[0].wish === 'true'  ? Wish : noWish} alt={'wishlist'} />  
-                </Wishlist>
-            </Div>
-        )
-    }
+var DetailLeft = (props) => {
+    return (
+        <Div>
+            <Image src={props.data ? props.data[0].item_photo : null} alt={'lip'} />
+            <Wishlist>
+                <Heart onClick={props.changeWish} src={!props.data ? null : props.data[0].wish === 'true'  ? Wish : noWish} alt={'wishlist'} />  
+            </Wishlist>
+        </Div>
+    )
 }
 
 export default DetailLeft;

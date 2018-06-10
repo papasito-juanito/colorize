@@ -410,7 +410,6 @@ class MyReviews extends Component {
   }
 
   _onStarClick(nextValue, prevValue, name, e) {
-    console.log(e.target)
     this.setState({ rating: nextValue });
   }
 
@@ -435,7 +434,6 @@ class MyReviews extends Component {
      }
     axios.post(`${url}/api/review/update/message`, form,  { headers: { 'token': token } })
       .then((response) => {
-        console.log('replyreplyreplyreplyreplyreply',response);
         
         if(response.data.success){
           isReply: !this.state.isReply
@@ -488,8 +486,6 @@ class MyReviews extends Component {
   getOrientation(file, callback) {
     var reader = new FileReader();
     reader.onload = function(e) {
-      console.log('file', file);
-      console.log('callback', callback);
         var view = new DataView(e.target.result);
         if (view.getUint16(0, false) != 0xFFD8)
         {
@@ -548,7 +544,6 @@ class MyReviews extends Component {
           (this.setState({file}),
           axios.post(`${url}/api/user/post/upload`, formData, {headers:{ 'token': token, 'orientation': orientation }} )
             .then(response => {
-              console.log(response);
               this.setState({imageAddress : response.data.message})
               document.getElementById('imgloading').style.display = 'inline-block'
             })
@@ -572,7 +567,6 @@ class MyReviews extends Component {
     const token = localStorage.getItem('token')
     axios.get(`${url}/api/review/get/user`, { headers: { 'token': token } })
       .then(response =>{ 
-        console.log('rerssersrsersersreser', response);
                
         if(response.data.success===true){
           this.setState({
@@ -587,8 +581,7 @@ class MyReviews extends Component {
       .catch(err => console.log(err))
   }
 
-  render(){
-    console.log(this.state.data)    
+  render(){   
     let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
     
     return (

@@ -3,22 +3,11 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
-import Autocomplete from 'react-autocomplete';
-import axios from 'axios';
-import { Button } from 'antd';
 
 // Local import
-import { url } from '../config';
-import history from '../utils/history';
-import Login from './user/Login'
-import lipImage from '../assets/lipImage.png';
 import neon from '../assets/neon.png';
-import profile from '../assets/profile.png';
 import { Avatar } from 'antd';
 import './Nav.css';
-
-
-
 
 const NavContainer = styled.header`
   background-color: black;
@@ -58,10 +47,6 @@ const NavRightContainer = styled.div`
   cursor: pointer;
   vertical-align: middle;
 `
-const Search = styled.input`
-  margin-right: 15%;
-`
-
 const Menu = styled.div`
   object-fit: scale-down;
   margin-left: 2%
@@ -95,17 +80,6 @@ const SideAnchor = styled(Link)`
   &:hover {
       color: white;
       text-shadow: 0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F;
-  }
-`
-const LoginAnchor = styled.a`
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #818181;
-  display: block;
-  transition: 0.3s;
-  &:hover {
-      color: #f1f1f1;
   }
 `
 const SideClose = styled.a`
@@ -149,20 +123,6 @@ class Nav extends Component {
     }
   }
 
-  // getData = () => {
-  //   axios.get(`${url}/api/item/get/search`)
-  //   .then((response) => {
-  //     this.setState({ item: response.data.rows });
-  //   })
-  // }
-  
-  // handleSearch = () => {
-  //   const { value, item } = this.state;
-  //   const filteredItems = item.filter((i) => i.label.toLowerCase().includes(value));
-  //   console.log(filteredItems, "%^#$%^#$%*%^*^");
-  //   this.getID(filteredItems);
-  // }
-
   openNav = () => {
     ReactDOM.findDOMNode(this.refs.mySidenav).style.width = '22vw' 
     ReactDOM.findDOMNode(this.refs.overlay).style.display = 'block'
@@ -195,39 +155,17 @@ class Nav extends Component {
         document.getElementById("navbar").style.top = "-10%";
       }
       if(window.pageYOffset===0){
-        console.log('000000000');
         document.getElementById("navbar").style.top = "0";
       }
       prevScrollpos = currentScrollPos;
     }
   }
 
-
-  // getID = (filteredItems) => {
-  //   var link = '';
-  //   const elements = filteredItems;
-  //   // var elements = document.getElementsByClassName("undefined cell-enabled cell-selected");
-  //   for (var i=0; i<elements.length; i++) {
-  //     link = link + elements[i].id + '&';
-  //   }
-  //   console.log('777777777777&&&&&&&&&&7^%^&$654^',link);
-  //  link = link.slice(0, -1);
-  //   if(link.length === 0){
-  //     alert('선택하신상품이없습니다')
-  //   } else {
-  //     window.location.href = `/items/${link}?sort=rating`;
-  //     // this.props.history.push(`/items/${link}?sort=rating`);
-  //   }
-  // }
-
   componentDidMount(){
-    // this.getData();
     window.addEventListener('scroll',this.hideHeader(), false);
   }
 
   render(){
-    console.log('######this.state.selectedID@#@#@######', this.state.selectedId);
-      console.log('navnavnav', this.props);   
       const { isLogined, handleLogout } = this.props
       return (        
         <NavContainer id="navbar">
@@ -238,31 +176,6 @@ class Nav extends Component {
         <Menu>
         <Avatar size="large" icon="user" onClick={this.openNav} />
         </Menu>
-        
-        {/* <Search type="text" placeholder="Search"/> */}
-          {/* <input type="search" placeholder="Search" /> */}
-          {/* <div className="search-container">
-            <Autocomplete
-              items={this.state.item}
-              className="search-bar"
-              shouldItemRender={(item, value) => item.label.toLowerCase().indexOf(value.toLowerCase()) > -1}
-              getItemValue={item => item.label}
-              type="search"
-              renderItem={(item, highlighted) => {
-                return (<div
-                  key={item.id}
-                  style={{ backgroundColor: highlighted ? '#eee' : 'transparent'}}
-                >
-                  {item.label}
-                </div>)       
-              }
-              } 
-              value={this.state.value}
-              onChange={e => this.setState({ value: e.target.value })}
-              onSelect={value => this.setState({ value })}
-            />
-            <Button onClick={this.handleSearch} className="search-button" shape="circle" icon="search" />
-          </div> */}
           <NavRightContainer>
               {isLogined ? 
               <SideNav ref="mySidenav" >

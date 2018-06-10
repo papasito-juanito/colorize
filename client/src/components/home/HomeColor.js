@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import TableDragSelect from "react-table-drag-select";
 import styled from 'styled-components';
 
-import { Modal, Button } from 'antd';
+import { Modal } from 'antd';
 import 'antd/dist/antd.css';
 import './HomeColor.css';
 
@@ -50,19 +50,6 @@ class HomeColor extends Component {
     this.setState({ cells });
   };
 
-  showHex = () => {
-    for(var key in this.colorGroup) {
-      for(var i=0; i<this.colorGroup[key].length; i++) {
-        if(!this.colorGroup[key][i]) {
-          <td>{this.colorGroup[key][i-1].itemHex}</td>
-        }
-        else {
-          <td>{this.colorGroup[key][i].itemHex}</td>
-        }
-     }
-    }
-  }
-
   error() {
     Modal.info({
       title: '색상을 먼저 선택해주세요.',
@@ -78,7 +65,6 @@ class HomeColor extends Component {
       link = link + elements[i].id + '&';
     }
    link = link.slice(0, -1);
-    // const encodeLink = encodeURIComponent(link);
     if(link.length === 0){
       this.error()
     } else {

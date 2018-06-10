@@ -99,9 +99,9 @@
     margin: 1px;
     display: block;
     width: 10vw !important;
-    height: 5vh !important;
+    height: 4.5vh !important;
   }
   .table-drag-select td.cell-selected {
-    box-shadow:inset 0px 0px 0px 1.5px black;
+    box-shadow:inset 0px 0px 0px 2px black;
   }
 }

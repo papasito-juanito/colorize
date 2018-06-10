@@ -58,7 +58,8 @@ input[type=search]:focus {
 
 input {
   border-radius: 20px !important;
-  height: 32px;
+	height: 32px;
+	padding-left: 10px;
 }
 .search-button {
 }

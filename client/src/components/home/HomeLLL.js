@@ -93,11 +93,9 @@ class Home extends React.Component {
             })
           }
         }
-        console.log(this.colorGroup);
       }
       
     render() {
-      console.log(this.state.data);
         return (
             <HomeContainer>
                 {/* <HomeTitle/> */}

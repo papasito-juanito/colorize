@@ -55,7 +55,6 @@ class Home extends React.Component {
       fetch(`${url}/api/color/get`)
       .then(response => response.json())
       .then(data =>{
-        console.log('data', data);
         this.setState({data:data.rows})} )
       .then(() => this.sortColorGroup(this.state.data))
       .then(() => this.setState({isLoaded: true}))
@@ -80,8 +79,6 @@ class Home extends React.Component {
         hArr.sort(function(a, b){
           return a-b;
         });
-
-        console.log(hArr);
         var splitArr = Math.round(hArr.length/8);
         
         var idHexLum = JSON.parse(JSON.stringify(dbItemHex));
@@ -127,11 +124,9 @@ class Home extends React.Component {
             })
           }
         }
-        console.log(this.colorGroup);
       }
       
     render() {
-      console.log(this.state.data);
         return (
             <HomeContainer>
               {this.state.isLoaded ?

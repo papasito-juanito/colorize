@@ -169,19 +169,13 @@ class Rating extends Component {
         !this.state.imageAddress ? this.picture() : 
              axios.post(`${url}/api/review/post/message`, form, { headers: { 'token': token } })
                 .then((response) => {
-                console.log('review response@@@@@', response);
                 })
                 .then(res => (
                     this.input.value = '', this.review()
                 ))
-                .then(res => window.location.reload())
                 .catch(err => console.log(err))
-                // window.location.reload()
     }
 
-    // _alertReview() {
-    //      this.props.loginState === true && this.state.imageAddress ? this.review() : null;
-    // }
 
     uploadImage() {
         Modal.error({
@@ -190,7 +184,7 @@ class Rating extends Component {
     }
 
     review() {
-        Modal.error({
+        Modal.success({
             title: '후기가 등록되었습니다.',
                onOk: ()=> {
           window.location.reload()
@@ -212,8 +206,6 @@ class Rating extends Component {
 getOrientation(file, callback) {
     var reader = new FileReader();
     reader.onload = function(e) {
-      console.log('file', file);
-      console.log('callback', callback);
         var view = new DataView(e.target.result);
         if (view.getUint16(0, false) != 0xFFD8)
         {

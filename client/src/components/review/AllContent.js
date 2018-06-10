@@ -328,9 +328,7 @@ class AllContent extends Component {
                     </Top>
                     <ReviewContent >
                         <Bubble>
-                            <Message readOnly>
-                                {data[i].message}
-                            </Message> 
+                            <Message value = {data[i].message} readOnly/>
                         </Bubble>
                        <BottomContainer>
                             <LikeCount>

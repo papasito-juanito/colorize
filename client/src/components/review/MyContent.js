@@ -284,9 +284,7 @@ class MyContent extends Component {
                 </Top>
                 <ReviewContent>
                     <Bubble> 
-                        <Message readOnly>
-                            {this.props.user.message}
-                        </Message>
+                        <Message value= {this.props.user.message} readOnly/>
                     </Bubble>
                     <BottomContainer >
                 

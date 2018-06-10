@@ -652,9 +652,9 @@ class MyReviews extends Component {
                 </Top>
                 <ReviewContent>
                   <Bubble>
-                    {!this.state.isReply ?  <Message readOnly>{item.message}</Message> 
-                    : this.state.isReply && this.state.clickedComment === item.review_id ? <Message innerRef={ref => { this.modifyReview = ref; }}>{item.message}</Message>
-                    : <Message readOnly> {item.message} </Message>}
+                    {!this.state.isReply ?  <Message value = {item.message} readOnly/>
+                    : this.state.isReply && this.state.clickedComment === item.review_id ? <Message value = {item.message} innerRef={ref => { this.modifyReview = ref; }}/>
+                    : <Message value = {item.message} readOnly/>}
                   </Bubble>
                   <BottomContainer >
                     {!this.state.isReply ? <Modify id={i} onClick={this._changeReply}>수정</Modify> 

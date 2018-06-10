@@ -232,7 +232,6 @@ class TopContent extends Component {
         this.state = {
             popupIsOpen: false,
             imagepreviewUrl: '',
-            // data : this.props.data
             data: ''
         }
 
@@ -246,12 +245,14 @@ class TopContent extends Component {
         const data = [];
         const token = localStorage.getItem('token')
         const reviewId = e.target.id
+        console.log(e.target.id)
         const form = {
             review_id: reviewId
         }
         !this.props.isLogined ? this.login() :
         axios.post(`${url}/api/review/update/like`,form, { headers: { 'token': token } })
             .then((res) => {               
+
                 return axios.get(`${url}/api/review/get/rank?color_id=${this.props.id}`, { headers: { 'token': token} })
                         .then(response => {
                             for(var i = 0; i< response.data.rows.length; i++){
@@ -260,7 +261,6 @@ class TopContent extends Component {
                                 }
                             }
                             this.setState({ data })
-                            // window.location.reload();
                         })
                         .catch(err => console.log(err))
             })
@@ -293,7 +293,6 @@ class TopContent extends Component {
 
     render() {
         let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
-        console.log('statedata@@@@@@@@@@@@@ : ',this.state.data)
         return (
             <Div>
                 {this.state.data ? this.state.data.map((item, i) => {
@@ -321,14 +320,12 @@ class TopContent extends Component {
                             </Top>
                             <ReviewContent>
                                 <Bubble>
-                                    <Message readOnly>
-                                        {item.message}
-                                    </Message> 
+                                    <Message value = {item.message} readOnly/>
                                 </Bubble>
                                 <BottomContainer >
                                     <LikeCount>
                                         <Like id={item.review_id} onClick={this._reviewLike} src={item.toggle === 'true' ? like : hate} />
-                                        <Span> {item.likes} </Span>
+                                        <Span > {item.likes} </Span>
                                     </LikeCount>
                                 </BottomContainer>
                             </ReviewContent>

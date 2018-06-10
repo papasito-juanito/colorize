@@ -24,18 +24,21 @@ const Container = styled.div`
   margin: 0px auto;
   @media (max-width: 768px) {
     width: 90%;
+    padding-top: 70px;
   }
   `
 const Header = styled.h1`
-  font-weight: bold;
   color: black;
   letter-spacing: -1px;
-  text-align: center;
-`
+  text-align: left;
+  font-family: Roboto;
+  font-size: 3rem;
+  font-weight: 100
+  `
 
 const Table = styled.table`
   width: 100%;
-  border-top: 2px solid black;
+  border-top: 1px solid black;
   border-collapse: collapse;
   vertical-align: center;
 `

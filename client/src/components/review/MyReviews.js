@@ -588,6 +588,11 @@ class MyReviews extends Component {
   }
 
   render(){
+    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@',this.state.imageAddress);
+    console.log('propsprops', this.props);
+    console.log(this.props.data);
+    
+    
     console.log(this.state.data)    
     let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
     

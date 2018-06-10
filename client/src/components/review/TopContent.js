@@ -258,8 +258,9 @@ class TopContent extends Component {
                                     data.push(response.data.rows[i])
                                 }
                             }
+                            console.log('data@@@@@@ :', data)
                             this.setState({ data: data })
-                            window.location.reload();
+                            // window.location.reload();
                         })
                         .catch(err => console.log(err))
             })
@@ -288,7 +289,7 @@ class TopContent extends Component {
 
     render() {
         let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
-
+        console.log('statedata@@@@@@@@@@@@@ : ',this.state.data)
         return (
             <Div>
                 {this.state.data ? this.state.data.map((item, i) => {

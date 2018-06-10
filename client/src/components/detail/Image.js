@@ -49,7 +49,8 @@ const Heart = styled.img`
 var DetailLeft = (props) => {
     return (
         <Div>
-            <Image src={props.data ? props.data[0].item_photo : null} alt={'lip'} />
+            {/* <Image src={props.data ? props.data[0].item_photo : null} alt={'lip'} /> */}
+            <Image alt={'lip'} />
             <Wishlist>
                 <Heart onClick={props.changeWish} src={!props.data ? null : props.data[0].wish === 'true'  ? Wish : noWish} alt={'wishlist'} />  
             </Wishlist>

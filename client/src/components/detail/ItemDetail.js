@@ -87,15 +87,25 @@ const VolPrice = styled.div`
     justify-content: center;
   }
 `;
-const More = styled.button`
+
+const Detail = styled.button `
   display: none;
   @media (max-width: 768px) {
     display: inline-block
     width: 100%;
     postion: absolute;
     bottom : 0;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border: 0;
+    outline:0;
+    background-color: black;
+    &:hover {
+      text-shadow: 0 0 5px #EB509F, 0 0 10px #EB509F, 0 0 20px #EB509F, 0 0 30px #EB509F, 0 0 40px #EB509F;
+    }
   }
-`;
+`
 
 const ChartDiv = styled.div`
   width: 60%;
@@ -173,7 +183,7 @@ class DetailRight extends Component {
                 <div>{this.props.data ? this.props.data[0].volume : null} /&nbsp; </div> 
                 <NumberFormat value={this.props.data ? this.props.data[0].price : 0} displayType="text" thousandSeparator suffix="원" />
               </VolPrice>
-              <More onClick={this._openPopup}>상세정보</More>
+              <Detail onClick={this._openPopup}>상세정보</Detail>
           </DetailDiv>
           <ChartDiv>
             <Chart data={this.state.data} />

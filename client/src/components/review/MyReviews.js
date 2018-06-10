@@ -601,7 +601,8 @@ class MyReviews extends Component {
               <Container key={i}>
                 <Top>           
                   <ItemLink><Link to={`/items/detail/${item.color_id}`} style={{ textDecoration: 'none' }}>
-                    <ReviewImage src={item.item_photo} /></Link>
+                    <ReviewImage /></Link>
+                    {/* <ReviewImage src={item.item_photo} /></Link> */}
                   </ItemLink>
                   <Info>
                     <strong>

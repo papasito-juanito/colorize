@@ -174,14 +174,9 @@ class Rating extends Component {
                 .then(res => (
                     this.input.value = '', this.review()
                 ))
-                .then(res => window.location.reload())
                 .catch(err => console.log(err))
-                // window.location.reload()
     }
 
-    // _alertReview() {
-    //      this.props.loginState === true && this.state.imageAddress ? this.review() : null;
-    // }
 
     uploadImage() {
         Modal.error({
@@ -190,7 +185,7 @@ class Rating extends Component {
     }
 
     review() {
-        Modal.error({
+        Modal.success({
             title: '후기가 등록되었습니다.',
                onOk: ()=> {
           window.location.reload()

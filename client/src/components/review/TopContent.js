@@ -232,7 +232,8 @@ class TopContent extends Component {
         this.state = {
             popupIsOpen: false,
             imagepreviewUrl: '',
-            data : this.props.data
+            // data : this.props.data
+            data: ''
         }
 
         this._openPopup = this._openPopup.bind(this);
@@ -250,18 +251,15 @@ class TopContent extends Component {
         }
         !this.props.isLogined ? this.login() :
         axios.post(`${url}/api/review/update/like`,form, { headers: { 'token': token } })
-            .then((res) => {     
-                console.log(res)           
-                return axios.get(`${url}/api/review/get/rank?color_id=${this.props.id}`, { headers: { 'token': token } })
+            .then((res) => {               
+                return axios.get(`${url}/api/review/get/rank?color_id=${this.props.id}`, { headers: { 'token': token} })
                         .then(response => {
                             for(var i = 0; i< response.data.rows.length; i++){
                                 if(response.data.rows[i].likes>0){
                                     data.push(response.data.rows[i])
                                 }
                             }
-                            console.log('data@@@@@@ :', data)
                             this.setState({ data })
-                            console.log(this.state.data)
                             // window.location.reload();
                         })
                         .catch(err => console.log(err))
@@ -287,6 +285,10 @@ class TopContent extends Component {
 
     _closePopup() {
         this.setState({ popupIsOpen: false });
+    }
+
+    componentDidMount(){
+        this.setState({data : this.props.data})
     }
 
     render() {

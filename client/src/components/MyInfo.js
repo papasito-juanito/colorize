@@ -30,15 +30,17 @@ const Container = styled.div`
   }
   `
 const Header = styled.h1`
-  font-weight: bold;
   color: black;
   letter-spacing: -1px;
-  text-align: center;
-`
+  text-align: left;
+  font-family: Roboto;
+  font-size: 3rem;
+  font-weight: 100
+  `
 
 const Table = styled.table`
   width: 100%;
-  border-top: 2px solid black;
+  border-top: 1px solid black;
   border-collapse: collapse;
   vertical-align: center;
 `
@@ -384,7 +386,7 @@ class MyInfo extends Component {
         return (
           this.state.data ?
           <Container>
-            <Header>내 정보 수정</Header>
+            <Header>My Info</Header>
             <Table>
               <Row>
                 <Column>사진</Column>

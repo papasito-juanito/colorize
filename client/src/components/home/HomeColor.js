@@ -68,7 +68,7 @@ class HomeColor extends Component {
     if(link.length === 0){
       this.error()
     } else {
-      window.location.href = `/items/${link}?sort=rating`;
+      window.location.assign(`/items/${link}?sort=rating`);
     }
     // return <Link to ={`/items/${link}?sort=rating`}/>
   }

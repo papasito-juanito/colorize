@@ -306,7 +306,7 @@ class WishList extends Component {
                     <Link to={`/items/detail/${item.color_id}`} style={{ textDecoration: 'none' }}>
                     <ItemBottom>
                         <ItemDetails>
-                            <ItemName>{item.name}</ItemName>
+                            <ItemName>{item.item_name}</ItemName>
                             <Detail><Brand>{item.brand}</Brand> {item.volume} / {item.price}원</Detail>
                             <Rating>
                                     <Stars><StarRatingComponent

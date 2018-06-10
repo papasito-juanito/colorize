@@ -573,6 +573,8 @@ class MyReviews extends Component {
   render(){
     console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@',this.state.imageAddress);
     console.log('propsprops', this.props);
+    console.log(this.props.data);
+    
     
     let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
     
@@ -621,9 +623,9 @@ class MyReviews extends Component {
                         <div style={{color: 'black' ,fontWeight: 'bold'}}> 이미지 변경 클릭 </div>
                         <div style= {{width: '100%', height:'90%'}}>
                           {this.state.file ? 
-                          <img id='imgloading' style = {{ verticalAlign:'middle', width:'90%', height:'90%', borderRadius:'50%'}} 
+                          <img id='imgloading' style = {{ verticalAlign:'middle', width:'90%', height:'90%'}} 
                           src= {this.state.imageAddress ? this.state.imageAddress : 'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'} />
-                          :<img  src={this.state.imageAddress} style={{width:'90%', height:'90%'}}/>}
+                          :<img  src={item.review_photo} style={{width:'90%', height:'90%'}}/>}
                         </div>
                       </div>      
                     </Dropzone>

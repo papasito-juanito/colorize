@@ -94,24 +94,19 @@ class App extends Component {
         this.setState({
             isLogined: false
         })
-        console.log(history)
         history.push(history.location)
     }
 
-    componentDidMount(){
-        console.log(this.props);
-        
+    componentDidMount(){        
         const token = localStorage.getItem('token')
             axios.get(`${url}/api/user/get/check`, {headers: {'token': token}})
             .then(res => {
-                console.log('app', res);
                 if(res.data.success === true){
                     this.setState({
                         isLoading: false,
                         isLogined: true
                     })
                 } else{
-                    console.log('appfailfailresresres', res);
                     this.setState({
                         isLoading: false,
                         isLogined: false
@@ -120,10 +115,7 @@ class App extends Component {
             })
     }
         
-    render() {
-        console.log('app login', this.state);
-        console.log('loginstate', this.state.isLogined);
-        
+    render() {        
         const {isLoading, isLogined} = this.state
         return (
             <Router>

@@ -245,22 +245,16 @@ class WishList extends Component {
             const token = localStorage.getItem('token') 
             axios.post(`${url}/api/wishlist/delete`, form, {headers: {'token': token}})
                 .then((response) => {
-                    console.log('delete', response);
-                    console.log(token);
                     axios.get(`${url}/api/wishlist/get/list`, {headers: {'token': token}})
                     .then((response) => {
-                        console.log('rerererere', response);
                         this.setState({
                             items: response.data.rows,
                             isLoading: false
                         })
                       })
                   })
-            console.log('ok');
-            
           },
           onCancel() {
-            console.log('Cancel');
           },
         });
       }
@@ -271,14 +265,11 @@ class WishList extends Component {
         axios.get(`${url}/api/wishlist/get/list`, {headers: {'token': token}})
         .then((response) => {
             if(response.data.success===true){
-                console.log('wishSUCCESS', response.data);      
                 this.setState({
                     items: response.data.rows,
                     isLoading: false
                 })
             }else {
-                console.log('wishFAil', response);
-                console.log('thisprops', this.props);
                 //Link로 타고들어오면 이게 없으면 nav로그인 상태는 유지되어있다.
                 this.props.handleLogout()
                 this.props.history.push('/login', {from: this.props.location})
@@ -287,7 +278,6 @@ class WishList extends Component {
     }
 
     render(){
-        console.log('wishpropswishpropswishprops',this.props);
         return (
             <Wrapper>
                 {this.state.items.length ? <Title>Wishlist</Title> : null}

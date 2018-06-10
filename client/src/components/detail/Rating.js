@@ -169,7 +169,6 @@ class Rating extends Component {
         !this.state.imageAddress ? this.picture() : 
              axios.post(`${url}/api/review/post/message`, form, { headers: { 'token': token } })
                 .then((response) => {
-                console.log('review response@@@@@', response);
                 })
                 .then(res => (
                     this.input.value = '', this.review()
@@ -207,8 +206,6 @@ class Rating extends Component {
 getOrientation(file, callback) {
     var reader = new FileReader();
     reader.onload = function(e) {
-      console.log('file', file);
-      console.log('callback', callback);
         var view = new DataView(e.target.result);
         if (view.getUint16(0, false) != 0xFFD8)
         {

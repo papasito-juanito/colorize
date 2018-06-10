@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import Dropdown from 'react-dropdown';
-// import 'react-dropdown/style.css';
-import { Modal, Button } from 'antd';
+import { Modal } from 'antd';
 import 'antd/dist/antd.css';
 import './Signup.css';
-
 import axios from 'axios';
 import { url } from '../../config';
-
 import validator from 'validator';
-import history from '../../utils/history'
 
 const Container = styled.div`
     padding: 5% 0 5% 0
@@ -80,14 +75,6 @@ const SignupBottom = styled.div`
     width: 70%
     margin:20px auto;
 `
-
-const BdayInput = styled.input`
-    margin: 5px 0 20px 0;
-    border: 0.5px solid black;
-    width: 100%;
-    padding: 10px;
-    font-size: 0.8rem
-`
 const Input = styled.input`
     margin: 5px 0 15px 0;
     border: 0.5px solid #ccc;
@@ -96,58 +83,6 @@ const Input = styled.input`
     font-size: 0.8rem
     @media (max-width: 414px) {
         margin: 5px 0 10px 0;
-    }
-`
-const InvalidId = styled.div`
-    color:red
-    font-size: 0.8rem
-    @media (max-width: 414px) {
-        font-size: 0.7rem
-    }
-`
-const PasswordImage = styled.img`
-    width: auto; 
-    height: auto;
-    max-width: 100%;
-`
-const InvalidPassword = styled.div`
-    color:red
-    font-size: 0.8rem;
-    @media (max-width: 414px) {
-        font-size: 0.7rem
-    }
-`
-
-const NicknameImageDiv = styled.div`
-    border: 2px solid #ddd;
-    width: 10%
-    height: 50%;
-`
-
-const NicknameImage = styled.img`
-    width: auto; 
-    height: auto;
-    max-width: 100%;
-`
-const InvalidNickname = styled.div`
-    color:red
-    font-size: 0.8rem;
-    @media (max-width: 414px) {
-        font-size: 0.7rem
-    }
-`
-
-const BirthdateImageDiv = styled.div`
-    border: 2px solid #ddd;
-    width: 10%
-    height: 50%;
-`
-const InvalidBirthdate = styled.div`
-    color:red
-    font-size: 0.8rem;
-    margin-bottom: 10px
-    @media (max-width: 414px) {
-        font-size: 0.7rem
     }
 `
 const Span = styled.span`
@@ -185,20 +120,6 @@ const Signupbtn = styled.div`
       
 `
 
-const Confirm = styled.span`
-    margin-left: 15px;
-    color: white;
-    font-weight: bold;
-    float: right;
-    font-size: 22px;
-    line-height: 20px;
-    cursor: pointer;
-    transition: 0.3s;
-    &:hover {
-        color: black;
-    }
-`
-
 class Signup extends Component {
     constructor(){
         super()
@@ -231,10 +152,7 @@ class Signup extends Component {
             gender: this.state.genderSelected,
             toneName: this.state.colorSelected
         }
-        const {userMail, userPassword, userName, birthDate, gender, toneName} = form
-        const {isValidEmail, isValidPassword, isValidNickname, birthdateSelected, genderSelected, colorSelected} = this.state
-        console.log('birthdate', birthDate.slice(0,4));
-        
+        const {userMail, userPassword, userName, birthDate, gender, toneName} = form        
         if(!(userMail && userPassword && userName && birthDate && gender && toneName)){
             this.error()
         } else {
@@ -270,7 +188,6 @@ class Signup extends Component {
             } else {
                 axios.post(`${url}/api/user/post/signup`, form)
                 .then(res => {
-                    console.log(res);
                     if(res.data.success===true){
                         this.setState({
                             signupSuccess: true

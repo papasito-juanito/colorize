@@ -293,7 +293,6 @@ class TopContent extends Component {
 
     render() {
         let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
-        console.log('statedata@@@@@@@@@@@@@ : ',this.state.data)
         return (
             <Div>
                 {this.state.data ? this.state.data.map((item, i) => {

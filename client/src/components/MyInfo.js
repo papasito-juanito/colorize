@@ -249,8 +249,6 @@ class MyInfo extends Component {
 getOrientation(file, callback) {
     var reader = new FileReader();
     reader.onload = function(e) {
-      console.log('file', file);
-      console.log('callback', callback);
         var view = new DataView(e.target.result);
         if (view.getUint16(0, false) != 0xFFD8)
         {

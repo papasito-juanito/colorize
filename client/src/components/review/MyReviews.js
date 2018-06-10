@@ -329,6 +329,14 @@ const customStyles = {
   }
 };
 
+const ModalDiv = styled.div `
+    width: 70vh;
+    @media (max-width: 768px) {
+        width: 60vw;
+        height: 60vw;
+        object-fit : contain;
+  `
+
 const confirm = Modal.confirm;
 
 RModal.setAppElement('#root');
@@ -431,7 +439,7 @@ class MyReviews extends Component {
         
         if(response.data.success){
           isReply: !this.state.isReply
-          window.location.reload()
+          this.postReview();
         }
       })
       .catch(err => console.log(err));
@@ -457,6 +465,15 @@ class MyReviews extends Component {
       },
       onCancel() {
       },
+    });
+  }
+
+  postReview() {
+    Modal.success({
+      title: '후기가 등록되었습니다.',
+      onOk: () => {
+        window.location.reload();
+      }
     });
   }
 
@@ -525,7 +542,7 @@ class MyReviews extends Component {
     img.src = file.preview
     img.onload = (e)=> {
       this.getOrientation(file, (orientation) => {
-        formData.append('filename', file, orientation);
+        formData.append('img', file, orientation);
         const mimeType = file.type.split('/')[1];
         mimeType === 'jpg' || mimeType === 'JPG' || mimeType === 'jpeg' || mimeType === 'JPEG' || mimeType === 'png' || mimeType === 'PNG' ?
           (this.setState({file}),
@@ -576,6 +593,7 @@ class MyReviews extends Component {
     console.log(this.props.data);
     
     
+    console.log(this.state.data)    
     let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
     
     return (
@@ -614,7 +632,7 @@ class MyReviews extends Component {
                         }
                     </strong>
                   </Info>
-                  <MyImageDiv>
+                <MyImageDiv>
                     {!this.state.isReply ?
                     <MyImage onClick={this._openPopup} src ={item.review_photo}  />
                     : this.state.isReply && this.state.clickedComment === item.review_id  ?
@@ -667,7 +685,7 @@ class MyReviews extends Component {
           contentLabel="Image popup"
         >
           <h2 ref={subtitle => this.subtitle = subtitle}>Review Image</h2>
-          <div style={{ width: '50vh' }}>{popupImage}</div>
+          <ModalDiv>{popupImage}</ModalDiv>
           <button id='closebtn' style={{ marginTop: '10px', fontWeight:'100', fontFamily:'Roboto', cursor: 'pointer', border:'0', outline:'0', backgroundColor:'black', color: 'white'  }} onClick={this._closePopup}>close</button>
         </RModal>
       </Wrapper>

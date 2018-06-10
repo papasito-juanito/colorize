@@ -4,11 +4,12 @@ import styled from 'styled-components';
 import like from '../../assets/Heart.png';
 import hate from '../../assets/emptyHeart.png';
 import StarRatingComponent from 'react-star-rating-component';
-import Modal from 'react-modal';
+import RModal from 'react-modal';
 import male from '../../assets/male.png';
 import female from '../../assets/female.png';
 import axios from 'axios';
 import { url } from '../../config';
+import { Modal } from 'antd';
 
 const customStyles = {
     content: {
@@ -25,7 +26,7 @@ const customStyles = {
     }
 };
 
-Modal.setAppElement('#root');
+RModal.setAppElement('#root');
 
 const Div = styled.div`
     width: 100%;
@@ -247,6 +248,7 @@ class TopContent extends Component {
         const form = {
             review_id: reviewId
         }
+        !this.props.isLogined ? this.login() :
         axios.post(`${url}/api/review/update/like`,form, { headers: { 'token': token } })
             .then((res) => {                
                 return axios.get(`${url}/api/review/get/rank?color_id=${this.props.id}`, { headers: { 'token': token } })
@@ -264,6 +266,11 @@ class TopContent extends Component {
             .catch(err => console.log(err))            
     }
 
+    login() {
+    Modal.error({
+        title: '로그인 후 이용해 주세요'
+    });
+   }
     _openPopup(e) {
         this.setState({
             popupIsOpen: true,
@@ -324,7 +331,7 @@ class TopContent extends Component {
                     )
                 }) : null}
 
-                <Modal
+                <RModal
                     isOpen={this.state.popupIsOpen}
                     onAfterOpen={this._afterOpenPopup}
                     onRequestClose={this._closePopup}
@@ -334,7 +341,7 @@ class TopContent extends Component {
                     <h2 ref={subtitle => this.subtitle = subtitle}>Review Image</h2>
                     <ModalDiv>{popupImage}</ModalDiv>
                     <PointButton onClick={this._closePopup}>close</PointButton>
-                </Modal>
+                </RModal>
             </Div>
         );
     }

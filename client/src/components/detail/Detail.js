@@ -149,7 +149,7 @@ class Detail extends Component {
                     <Comment isLogined={this.props.isLogined} handleLogout={this.props.handleLogout} id={this.props.match.params.id}/>
                 </Write>
                 <ReviewDiv>
-                    <TopReview id={this.props.match.params.id} />
+                    <TopReview id={this.props.match.params.id} isLogined={this.props.isLogined} />
                 </ReviewDiv>
                 <ReviewDiv>
                     {this.props.isLogined ? <AllReview handleLogout={handleLogout} id={this.props.match.params.id}/> : <div><h2>전체 리뷰를 보시려면 로그인 해주세요 </h2></div>}

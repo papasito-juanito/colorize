@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import tinycolor from "tinycolor2";
 import { url } from '../../config';
 
+
 const HomeContainer = styled.div`
   background-color: white;
   width:100%;
@@ -52,6 +53,7 @@ class Home extends React.Component {
     }
     
     componentDidMount(){
+      
       fetch(`${url}/api/color/get`)
       .then(response => response.json())
       .then(data =>{

@@ -1,3 +1,2 @@
 module.exports = `
-UPDATE itemColors
-SET`;
+UPDATE itemColors SET itemPhoto=? WHERE id=?`;

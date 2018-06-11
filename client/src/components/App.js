@@ -99,8 +99,10 @@ class App extends Component {
 
     componentDidMount(){        
         const token = localStorage.getItem('token')
+        console.log('tokentokentokentokentoken', token);
             axios.get(`${url}/api/user/get/check`, {headers: {'token': token}})
             .then(res => {
+                console.log('resresresresresres',res);
                 if(res.data.success === true){
                     this.setState({
                         isLoading: false,

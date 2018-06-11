@@ -10,7 +10,7 @@ import { Modal } from 'antd';
 import { Link } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import Dropzone from 'react-dropzone';
-import ImageCompressor from 'image-compressor.js';
+// import ImageCompressor from 'image-compressor.js';
 
 
 const Wrapper = styled.div`

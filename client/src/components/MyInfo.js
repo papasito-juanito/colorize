@@ -8,7 +8,7 @@ import { url } from '../config';
 import { Link } from 'react-router-dom';
 import Dropzone from 'react-dropzone';
 import avatar from '../assets/profile.png';
-import ImageCompressor from 'image-compressor.js';
+// import ImageCompressor from 'image-compressor.js';
 import { Modal, Button } from 'antd';
 import 'antd/dist/antd.css';
 import './Myinfo.css'

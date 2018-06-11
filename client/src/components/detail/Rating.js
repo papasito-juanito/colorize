@@ -6,10 +6,8 @@ import axios from 'axios';
 import { url } from '../../config';
 import FileUpload from './FileUpload';
 import Dropzone from 'react-dropzone';
-import ImageCompressor from 'image-compressor.js';
 import { Modal, Button } from 'antd';
 import 'antd/dist/antd.css';
-import AvatarEditor from 'react-avatar-editor'
 
 const Wrapper = styled.div`
     width: 100%;
@@ -57,6 +55,7 @@ const ImageDiv = styled.div `
     width: 16vw;
     height: 100%;
     margin-right: 1vw;
+    position : relative;
     border: 1px solid black;
     @media (max-width: 768px) {
     width: 47vw;
@@ -266,7 +265,6 @@ getOrientation(file, callback) {
           axios.post(`${url}/api/review/post/upload`, formData, { headers: { 'token': token,'orientation' : orientation} } )
             .then(response => {
               this.setState({imageAddress : response.data.message})
-              // document.getElementById('imgloading').style.display = 'inline-block'
             })
             .catch(err => console.log(err)))
           : this.uploadImage();
@@ -276,6 +274,7 @@ getOrientation(file, callback) {
 
     render() {
         const { rating } = this.state;
+        console.log(this.props.loginState)
         return (
             <Wrapper>
                 <TopWrite>
@@ -290,19 +289,20 @@ getOrientation(file, callback) {
                         </CenterDiv>
                     </RatingDiv>
                     <ImageDiv>
-                        <Dropzone style={{width:'100%', height:'100%'}} onDropAccepted={ this._onDrop } onDropRejected={this.uploadImage} accept = "image/*">
+                        {!this.props.loginState ? <CenterDiv> 로그인 후 사진 업로드 해주세요 </CenterDiv> :
+                        <Dropzone style={{cursor : 'pointer',width:'100%', height:'100%'}} onDropAccepted={ this._onDrop } onDropRejected={this.uploadImage} accept = "image/*">
                             <ImgDiv>
                                 <ImgDiv>
                                     <div style={{color: 'black' ,fontWeight: 'bold'}}> 
                                         사진을 등록해 주세요 
                                     </div>
                                         {this.state.file ?
-                                        <ChangePic src= {this.state.imageAddress ? this.state.imageAddress : 'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'}  />
+                                        <ChangePic src= {this.state.imageAddress ? this.state.imageAddress : 'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'} />
                                         :null}
                                 </ImgDiv>
                            </ImgDiv>
-                           {/* <AvatarEditor width={250} height={250} scale={1.2} image={this.state.imageAddress} /> */}
-                        </Dropzone>
+                        </Dropzone>  }
+
                     </ImageDiv>                   
                 </TopWrite>
                 <ReviewDiv>

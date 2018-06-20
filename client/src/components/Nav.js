@@ -1,3 +1,4 @@
+/* eslint-disable */
 // Global import
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
@@ -192,7 +193,7 @@ class Nav extends Component {
                 <SideAnchor style={{textDecoration: 'none'}}ref='Anchor' to={{pathname: "/login", state: {from: {pathname: '/myinfo'}}}} onClick={()=>{this.closeNav();}}>My Info</SideAnchor>
                 <SideAnchor style={{textDecoration: 'none'}}ref='Anchor' to={{pathname: "/login", state: {from: {pathname: '/wishlist'}}}} onClick={()=>{this.closeNav();}}>Wish List</SideAnchor>
                 <SideAnchor style={{textDecoration: 'none'}}ref='Anchor' to={{pathname: "/login", state: {from: {pathname: '/review'}}}} onClick={()=>{this.closeNav();}}>My Review</SideAnchor>
-                <SideAnchor style={{textDecoration: 'none'}}ref='Anchor' replace={true} to={{pathname: "/login", state: {from: this.props.location}} } onClick={()=>{this.closeNav();}}>Login</SideAnchor>
+                <SideAnchor style={{textDecoration: 'none'}}ref='Anchor' replace={false} to={{pathname: "/login", state: {from: this.props.location}} } onClick={()=>{this.closeNav();}}>Login</SideAnchor>
               </SideNav>
               }     
         </NavRightContainer>

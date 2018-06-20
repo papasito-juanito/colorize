@@ -247,7 +247,6 @@ const Span = styled.span `
     }
 `
 
-const token = localStorage.getItem('token')
 
 class AllContent extends Component {    
     constructor(props) {
@@ -269,6 +268,7 @@ class AllContent extends Component {
     }
 
     _reviewLike(e) {
+        const token = localStorage.getItem('token')
         const reviewId = this.props.data[e.target.id].review_id
         const form = {
             review_id: reviewId
@@ -366,6 +366,7 @@ class AllContent extends Component {
     }
 
     render() {
+
         let popupImage = (<img src={this.state.imagepreviewUrl} style={{ width: '100%', height: '100%' }} alt='yours' />)
 
         return (

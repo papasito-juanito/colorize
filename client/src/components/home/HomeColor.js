@@ -6,6 +6,8 @@ import { Modal } from 'antd';
 import 'antd/dist/antd.css';
 import './HomeColor.css';
 
+import { withRouter } from 'react-router-dom';
+
 const Buttons = styled.button`
   padding: 1% 2%;
   font-size: 1em;
@@ -68,7 +70,8 @@ class HomeColor extends Component {
     if(link.length === 0){
       this.error()
     } else {
-      window.location.assign(`/items/${link}?sort=rating`);
+      // window.location.assign(`/items/${link}?sort=rating`);
+      this.props.history.push(`/items/${link}?sort=rating`)
     }
     // return <Link to ={`/items/${link}?sort=rating`}/>
   }
@@ -182,4 +185,4 @@ class HomeColor extends Component {
   }
 }
 
-export default HomeColor;
+export default withRouter(HomeColor);

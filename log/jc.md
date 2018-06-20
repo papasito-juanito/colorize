@@ -258,3 +258,15 @@ server {
         if ($http_x_forwarded_proto = 'http') {
                 return 301 https://$server_name$request_uri;
         }
+
+#2018-06-15
+***
+AWS: 키 페어 지움 ㅋㅋ
+    chmod 400 colorize2.pem
+    ssh -i "colorize2.pem" ubuntu@ec2-13-125-210-245.ap-northeast-2.compute.amazonaws.com
+
+    curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+    sudo apt-get install -y nodejs
+
+    sudo apt-get install -y build-essential
+    node -v

@@ -11,7 +11,16 @@ const router = require('./../2_routes');
 
 const app = express();
 
-app.use(cors());
+const whitelist = ['https://colorize.io', 'https://www.colorize.io'];
+const corsOptions = {
+  origin(origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+};
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use('/api', router);
